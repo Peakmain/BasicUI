@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--返回键按钮的颜色-->
+    <style name="toolbar_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <!--dialog样式-->
+    <style name="dialog" parent="android:style/Theme.Dialog">
+        <!--没有边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否悬浮在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--没有标题-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--背景透明-->
+        <item name="android:background">@android:color/transparent</item>
+        <!--模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--没有标题-->
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
+    <!--进入时的动画-->
+    <style name="dialog_from_bottom_anim">
+        <item name="android:windowEnterAnimation">@anim/dialog_from_bottom_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_from_bottom_anim_out</item>
+    </style>
+    <!--默认缩放动画-->
+    <style name="dialog_scale_anim">
+        <item name="android:windowEnterAnimation">@anim/dialog_scale_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_scale_anim_out</item>
+    </style>
+</resources>

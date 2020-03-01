@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定以CircleImageView属性-->
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_circle_background_color" format="color" />
+    </declare-styleable>
+
+    <!--自定义ShapeTextView 属性-->
+    <declare-styleable name="ShapeTextView">
+        <attr name="shapeTvStrokeWidth" format="dimension|reference"/>
+        <attr name="shapeTvStrokeColor" format="color|reference"/>
+        <attr name="shapeTvRadius" format="dimension|reference"/>
+        <attr name="shapeTvBackgroundColor" format="color|reference"/>
+    </declare-styleable>
+
+    <!--自定义带有删除按钮的Edittext-->
+    <declare-styleable name="AutoDeleteEditText">
+        <!--字体大小-->
+        <attr name="adet_text_size" format="dimension"/>
+        <!--字体颜色-->
+        <attr name="adet_text_color" format="color|reference"/>
+        <!--未输入文字是字体颜色-->
+        <attr name="adet_hint_color" format="color|reference"/>
+        <!--是否内容居上-->
+        <attr name="adet_isTop" format="boolean|reference"/>
+        <!--内容内边距离顶部的距离-->
+        <attr name="adet_padding_top" format="dimension|reference"/>
+        <!--hint的资源-->
+        <attr name="adet_hint" format="string|reference"/>
+        <!--是否单行-->
+        <attr name="adet_isSingle" format="boolean|reference"/>
+        <!--输入类型-->
+        <attr name="android:inputType"/>
+        <!--输入长度-->
+        <attr name="adet_max_length" format="integer|reference"/>
+        <!--删除的图片的颜色-->
+        <attr name="adet_tint_color" format="color"/>
+        <!--删除图片的资源-->
+        <attr name="adet_delete_src" format="reference|color"/>
+    </declare-styleable>
+</resources>
