@@ -15,7 +15,18 @@
         <attr name="shapeTvRadius" format="dimension|reference"/>
         <attr name="shapeTvBackgroundColor" format="color|reference"/>
     </declare-styleable>
+    <!--自定义LinearLayout-->
+    <declare-styleable name="ShapeLinearLayout">
 
+        <attr name="shapeLlStrokeWidth" format="dimension|reference"/>
+        <attr name="shapeLlStrokeColor" format="color|reference"/>
+        <!--background color-->
+        <attr name="shapeLlBackgroundColor" format="color|reference"/>
+        <!--background radius-->
+        <attr name="shapeLlRadius" format="dimension|reference"/>
+        <attr name="shapeLlStartColor" format="color|reference"/>
+        <attr name="shapeLlEndColor" format="color|reference"/>
+    </declare-styleable>
     <!--自定义带有删除按钮的Edittext-->
     <declare-styleable name="AutoDeleteEditText">
         <!--字体大小-->
