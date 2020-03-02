@@ -148,6 +148,7 @@ The use is also particularly simple
                   .setToolbarBackgroundColor(0)
                   .create();
 ```
+[NavigationBar](https://github.com/Peakmain/BasicUI/blob/master/img-preview/navigation.png)
 #### Use Custom AlertDialog
 ```
         AlertDialog dialog = new AlertDialog.Builder(ImagePreviewActivity.this)
@@ -167,7 +168,7 @@ The use is also particularly simple
                 .setFullWidth()
                 .show();
 ```
-
+[alertDialog](https://github.com/Peakmain/BasicUI/blob/master/img-preview/alertDialog.png)
 #### Use Cutom PopupWindow
 ```
        new CustomPopupWindow.PopupWindowBuilder(this)
@@ -192,6 +193,7 @@ The use is also particularly simple
         app:shapeTvRadius="@dimen/space_6"
         app:shapeTvBackgroundColor="#333333" />
 ```
+[shapeTextView](https://github.com/Peakmain/BasicUI/blob/master/img-preview/shapeTextView.png)
 
 #### Use Auto Delete EditText
 ```
