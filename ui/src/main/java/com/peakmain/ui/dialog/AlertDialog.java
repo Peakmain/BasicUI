@@ -2,6 +2,7 @@ package com.peakmain.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -18,9 +19,14 @@ import com.peakmain.ui.R;
 public class AlertDialog extends Dialog {
     private AlertController mAlert;
 
+    public AlertDialog(@NonNull Context context) {
+        super(context);
+        mAlert = new AlertController(this, getWindow());
+    }
+
     public AlertDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
-        mAlert=new AlertController(this,getWindow());
+        mAlert = new AlertController(this, getWindow());
     }
 
     /**
@@ -30,6 +36,7 @@ public class AlertDialog extends Dialog {
 
         return mAlert.getView(viewId);
     }
+
     public void setText(int viewId, CharSequence text) {
         mAlert.setText(viewId, text);
     }
@@ -37,6 +44,7 @@ public class AlertDialog extends Dialog {
     public void setOnClickListener(int viewId, View.OnClickListener listener) {
         mAlert.setOnClickListener(viewId, listener);
     }
+
     public static class Builder {
         private final AlertController.AlertParams P;
 
@@ -114,11 +122,13 @@ public class AlertDialog extends Dialog {
             P.mGravity = Gravity.BOTTOM;
             return this;
         }
-        public AlertDialog.Builder setFullWidth(){
+
+        public AlertDialog.Builder setFullWidth() {
             P.mWidth = ViewGroup.LayoutParams.MATCH_PARENT;
             P.mHeigth = ViewGroup.LayoutParams.WRAP_CONTENT;
             return this;
         }
+
         /**
          * set defalut animation
          */
@@ -136,6 +146,28 @@ public class AlertDialog extends Dialog {
             return this;
         }
 
+        /**
+         * set cancelListener
+         */
+        public AlertDialog.Builder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+            P.mOnCancelListener = onCancelListener;
+            return this;
+        }
+
+        /**
+         * set dismissListener
+         */
+        public AlertDialog.Builder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+            P.mOnDismissListener = onDismissListener;
+            return this;
+        }
+        /**
+         * set cancelable
+         */
+        public AlertDialog.Builder setCancelable(boolean flag){
+            P.mCancelable=flag;
+            return this;
+        }
         /**
          * show dialog
          */
