@@ -10,46 +10,69 @@
 
     <!--自定义ShapeTextView 属性-->
     <declare-styleable name="ShapeTextView">
-        <attr name="shapeTvStrokeWidth" format="dimension|reference"/>
-        <attr name="shapeTvStrokeColor" format="color|reference"/>
-        <attr name="shapeTvRadius" format="dimension|reference"/>
-        <attr name="shapeTvBackgroundColor" format="color|reference"/>
+        <attr name="shapeTvStrokeWidth" format="dimension|reference" />
+        <attr name="shapeTvStrokeColor" format="color|reference" />
+        <attr name="shapeTvRadius" format="dimension|reference" />
+        <attr name="shapeTvBackgroundColor" format="color|reference" />
     </declare-styleable>
+
+
     <!--自定义LinearLayout-->
     <declare-styleable name="ShapeLinearLayout">
 
-        <attr name="shapeLlStrokeWidth" format="dimension|reference"/>
-        <attr name="shapeLlStrokeColor" format="color|reference"/>
+        <attr name="shapeLlStrokeWidth" format="dimension|reference" />
+        <attr name="shapeLlStrokeColor" format="color|reference" />
         <!--background color-->
-        <attr name="shapeLlBackgroundColor" format="color|reference"/>
+        <attr name="shapeLlBackgroundColor" format="color|reference" />
         <!--background radius-->
-        <attr name="shapeLlRadius" format="dimension|reference"/>
-        <attr name="shapeLlStartColor" format="color|reference"/>
-        <attr name="shapeLlEndColor" format="color|reference"/>
+        <attr name="shapeLlRadius" format="dimension|reference" />
+        <attr name="shapeLlStartColor" format="color|reference" />
+        <attr name="shapeLlEndColor" format="color|reference" />
     </declare-styleable>
+
+
     <!--自定义带有删除按钮的Edittext-->
     <declare-styleable name="AutoDeleteEditText">
         <!--字体大小-->
-        <attr name="adet_text_size" format="dimension"/>
+        <attr name="adet_text_size" format="dimension" />
         <!--字体颜色-->
-        <attr name="adet_text_color" format="color|reference"/>
+        <attr name="adet_text_color" format="color|reference" />
         <!--未输入文字是字体颜色-->
-        <attr name="adet_hint_color" format="color|reference"/>
+        <attr name="adet_hint_color" format="color|reference" />
         <!--是否内容居上-->
-        <attr name="adet_isTop" format="boolean|reference"/>
+        <attr name="adet_isTop" format="boolean|reference" />
         <!--内容内边距离顶部的距离-->
-        <attr name="adet_padding_top" format="dimension|reference"/>
+        <attr name="adet_padding_top" format="dimension|reference" />
         <!--hint的资源-->
-        <attr name="adet_hint" format="string|reference"/>
+        <attr name="adet_hint" format="string|reference" />
         <!--是否单行-->
-        <attr name="adet_isSingle" format="boolean|reference"/>
+        <attr name="adet_isSingle" format="boolean|reference" />
         <!--输入类型-->
-        <attr name="android:inputType"/>
+        <attr name="android:inputType" />
         <!--输入长度-->
-        <attr name="adet_max_length" format="integer|reference"/>
+        <attr name="adet_max_length" format="integer|reference" />
         <!--删除的图片的颜色-->
-        <attr name="adet_tint_color" format="color"/>
+        <attr name="adet_tint_color" format="color" />
         <!--删除图片的资源-->
-        <attr name="adet_delete_src" format="reference|color"/>
+        <attr name="adet_delete_src" format="reference|color" />
+    </declare-styleable>
+
+
+    <!--仿今日头条两种文字颜色-->
+    <declare-styleable name="ColorTrackTextView">
+        <!--文字未选中默认的颜色-->
+        <attr name="originTextColor" format="color" />
+        <!--文字选中的时候颜色-->
+        <attr name="changeTextColor" format="color" />
+        <!--是否显示下划线-->
+        <attr name="isShowTextUnderLine" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BaseTabLayout">
+        <!--文字未选中默认的颜色-->
+        <attr name="originColor" format="color" />
+        <!--文字选中的时候颜色-->
+        <attr name="changeColor" format="color" />
+        <!--是否显示下划线-->
+        <attr name="isShowUnderLine" format="boolean" />
     </declare-styleable>
 </resources>
