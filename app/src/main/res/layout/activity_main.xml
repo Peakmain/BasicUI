@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +9,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="列表 内容"
+        android:layout_centerInParent="true" />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="test"
+        android:onClick="click"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content" />
+
+    <com.peakmain.ui.widget.menu.ListMenuView
+        android:id="@+id/list_data_screen_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</RelativeLayout>
