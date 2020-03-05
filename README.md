@@ -1,7 +1,6 @@
 # BasicUI
 
-### BasicUI is A collection of common UI components.These include recycle clerview encapsulation, basic navigation bar, universal dialog, basic textView, basic LinearLayout, rounded corner image (see GitHub famous CircleImageView), PopupWindow encapsulation, EditText encapsulation, streaming layout
-
+- 目前[BasicUI](https://github.com/Peakmain/BasicUI)包括了：1、Recycleview的封装，支持单布局和多布局，支持添加头部和底部，还包括了悬浮列表的基本封装。2、dialog的封装。支持从底部弹出，并可设置动画，是否宽度全屏等样式。3、NavigationBar的封装，可以在activity中动态设置添加头部。4、PopupWindow的封装 5、editText的封装，自带清除按钮，并设置按钮的颜色和按钮的资源 6、TextView的封装、支持设置背景颜色和背景的圆角大小，以及支持设置文字上下左右的图标居中 7、流式布局的封装（支持刷新数据）、8、仿今日头条的TableLayout、9、花束加载loading效果、10、仿58同城多条目菜单删选封装
 ### How to
 #### Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
@@ -17,35 +16,30 @@ Add it in your root build.gradle at the end of repositories:
 #### Step 2. Add the dependency
 ```
 	dependencies {
-	        implementation 'com.github.Peakmain:BasicUI:0.0.2'
+	        implementation 'com.github.Peakmain:BasicUI:0.0.3'
 	}
 ```
-### Use
-#### Use of RecyclerView
-- Single Layout Adapter 
-extends CommonRecyclerAdapter<T>.implementation method
+#### 关于Recyclerview的使用
+- 单布局继承于 CommonRecyclerAdapter<T>,其中需要的方法是
 ```
 public CommonRecyclerAdapter(Context context, List<T> data, int layoutId) {}
 ```
-
-1、for setup text,you can 
+1、关于设置文本，第一种我们可以直接holder.setText方法
 ```
 holder.setText(int viewId,CharSequence text)
 ```
-you can also:
+第二种就是首先getView然后设置文字
 ```
 TextView tv=holder.getView(view viewId)
 tv.setText("")
 ```
-2、In addition to setting text, you can also set textColor、setVisibility、setOnClickListener、setOnLongClickListener
+2、除了设置文本之外，里面还提供了设置文字的颜色，文字的大小，view的点击事件和长按事件，view是否可见，某一条的点击事件
 
-3、For setting the picture url,you can 
+3、关于设置图片，我提供了一个默认Glide加载图片
 ```
   holder.setImageByUrl(R.id.iv_meizhi, new GlideImageLoader(item.getUrl()));
 ```
-GlideImageLoaders is a class that I use Glide to load pictures myself. You can also use other libraries. 
-All you need to do is replace GlideImageLoader with a class that you inherit from ViewHolder.HolderImageLoader.
-
+如果大家不想使用Glide或者想用自己的Glide，大家可以新建一个类去继承ViewHolder.HolderImageLoade即可
 
 for example:
 ```
@@ -63,12 +57,11 @@ public class PagePoupAdapter extends CommonRecyclerAdapter<String>{
     }
 }
 ```
-- Use of multiple layouts
-extends CommonRecyclerAdapter<T>.implementation method
+- 关于多布局
+也是继承extends CommonRecyclerAdapter<T>.但是实现的方法是  
 ```
  public CommonRecyclerAdapter(Context context, List<T> data, MultiTypeSupport<T> multiTypeSupport) {}
 ```
-
 for example:
 ```
     public SearchCityAdapter(Context context, List<SearchCityBean> data) {
@@ -88,9 +81,8 @@ for example:
     }
 ```
 
-- The use of the Recyclerview basic suspension list.You can directly inherit BaseSuspenisonItemDecoration.Just implement getTopText method.
-If you want to set the background color, the height of the text, the size of the text, the color of the text, and so on, you need to inherit baseitemdeclaration.builder <B extends Builder, T >
-
+- 我们有时候会使用到recycleview的悬浮列表，这里我也提供了一个基本的悬浮列表BaseSuspenisonItemDecoration，使用很简单，大家只需要继承BaseSuspenisonItemDecoration即可
+因为有时候我们需要自定背景颜色和文字颜色，文字的大小，悬浮之间的距离等。这里我提供了Builder方法，大家继承即可
 
 for example:
 ```
@@ -115,7 +107,7 @@ public class SectionItemDecoration extends BaseItemDecoration<SearchCityBean> {
     }
 }
 ```
-The use is also particularly simple
+使用非常简单
 ```
    SectionItemDecoration decoration = new SectionItemDecoration.Builder(this, mAllCities)
                 .setBgColor(ContextCompat.getColor(this,R.color.colorAccent))
@@ -124,7 +116,8 @@ The use is also particularly simple
                 .create();
 ```
 
-#### Use Custom NavigationBar
+#### 关于NavigationBar的使用
+我们每次在项目添加头部的时候，一般做法都是说定义一个公用的布局，但是这其实并不友好，而且都需要findVIewById,我这里用了Builder设计模式，可以动态添加头部
 ```
     mDefaultNavigationBar = new DefaultNavigationBar
                   .Builder(this, (ViewGroup) findViewById(android.R.id.content))
@@ -148,8 +141,11 @@ The use is also particularly simple
                   .setToolbarBackgroundColor(0)
                   .create();
 ```
+
+
 ![navigation.png](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/navigation.png)
-#### Use Custom AlertDialog
+####关于AlertDialog
+支持从底部弹出，支持宽度全屏，支持设置动画
 ```
         AlertDialog dialog = new AlertDialog.Builder(ImagePreviewActivity.this)
                 .setContentView(R.layout.dialog_show_image_deal)
@@ -168,8 +164,9 @@ The use is also particularly simple
                 .setFullWidth()
                 .show();
 ```
-![alertDialog.png](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/alertDialog.png)
-#### Use Cutom PopupWindow
+![image.png](https://upload-images.jianshu.io/upload_images/9387746-9e25d3985276ff93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 关于PopupWindow的封装
 ```
        new CustomPopupWindow.PopupWindowBuilder(this)
                 .setView(R.layout.popup_window_view)
@@ -178,8 +175,11 @@ The use is also particularly simple
                 .setBgDarkAlpha(0.7f)
                 .create();
 ```
+![alertDialog.png](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/alertDialog.png)
 
-#### Use Custom TextView
+
+#### TextView的封装
+这个支持设置背景颜色，背景的圆角，线条的颜色，线条的宽度，支持文字上下左右图片资源两者居中，减少布局嵌套,使用方法还是android:drawableLeft=""
 ```
     <com.peakmain.ui.widget.ShapeTextView
         android:id="@+id/shape_text_view"
@@ -193,9 +193,12 @@ The use is also particularly simple
         app:shapeTvRadius="@dimen/space_6"
         app:shapeTvBackgroundColor="#333333" />
 ```
+>说明：一共有四个属性:shapeTvStrokeWidth线的宽度、shapeTvStrokeColor线的颜色、shapeTvRadius圆角的半径、shapeTvBackgroundColor背景颜色
+
 ![shapeTextView](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/shapeTextView.png)
 
-#### Use Auto Delete EditText
+#### EditText的封装
+自带清除按钮的图标，并且可对删除按钮进行填色，或者对删除按钮图标进行替换
 ```
     <com.peakmain.ui.widget.AutoDeleteEditText
                     android:id="@+id/edt_address"
@@ -210,6 +213,118 @@ The use is also particularly simple
                     app:ad_paddingTop="@dimen/spacing_15"
                     app:ad_top="true" />
 ```
+>说明：一共有11个属性:字体大小adet_text_size、字体颜色adet_text_color、未输入文字时字体颜色adet_hint_color、内容是否居上adet_isTop、内容内边距离顶部的距离adet_padding_top、hint的资源adet_hint、是否单行adet_isSingle、输入类型android:inputType、输入长度adet_max_length、删除的图片的颜色adet_tint_color、删除图片的资源adet_delete_src
 
-#### conclusion
-If you want to know more use, welcome to see this practical project [wanandorid](https://github.com/Peakmain/WanAndroid)
+#### 关于流式布局的使用
+大家直接在布局中引用即可
+```
+<com.peakmain.ui.widget.FlowLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+```
+在activity中直接设置adapter即可
+```
+BaseFlowAdapter adapter=new BaseFlowAdapter() {
+                @Override
+                public int getCount() {
+                    return mCount;//自己数据的实体类的大小
+                }
+
+                @Override
+                public View getView(final int position, ViewGroup parent) {
+                    return view;//自己的view
+                }
+            }
+    mFlowLayout.setAdapter(adapter);
+```
+如果想刷新数据只需要调用自己封装的adapter的notifyDataChange方法即可
+```
+adapter.notifyDataChange();
+```
+#### 仿今日头条的TableLayout的使用
+- 效果
+![效果图.gif](https://upload-images.jianshu.io/upload_images/9387746-22c419533fdcba60.gif?imageMogr2/auto-orient/strip)
+
+- 使用：
+第一步：自定义自己的TableLayout继承BaseTabLayout<T>将泛型换成自己的实体类就可以了
+```
+public class TabLayout extends BaseTabLayout<ProjectTreeBean> {//换成自己的实体类
+
+
+    public TabLayout(Context context) {
+        super(context);
+    }
+
+    public TabLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public TabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    public String setTableTitle(List<ProjectTreeBean> bean, int position) {
+        return bean.get(position).getName();//标题的名字，换成自己的
+    }
+}
+```
+第二步：在自己的布局中使用自己定义的布局就可以了
+>说明：一共有三个属性大家可以设置。1、未选中文字的颜色originColor，2、选中时候的文字颜色changeColor，3、是否显示下划线isShowUnderLine（下划线的颜色和选中的时候的文字颜色一致）
+
+
+#### 花束加载loading效果
+两种方式：1、大家在布局中使用
+```
+<com.peakmain.ui.loading.CircleLoadingView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+```
+2、直接在activity中使用show的方式显示和hide的方法隐藏
+```
+        CircleLoadingView loadingView=new CircleLoadingView(this);
+        loadingView.show();
+        loadingView.hide();
+```
+未设置自定义属性，后期会加入
+#### 仿58同城多条目菜单删选封装
+- 效果
+![效果](https://upload-images.jianshu.io/upload_images/9387746-c41a0b9aa7400d0e.gif)
+
+- 使用
+1、第一步：继承BaseListMenuAdapater,需要设置三个参数,第一个设置标题的布局，第二个设置菜单view的布局，第三个设置菜单的内容
+```
+public class ListMenuAdapter extends BaseListMenuAdapater {
+  @Override
+    public int getTitleLayoutId() {
+        return R.layout.ui_list_data_screen_tab;//自己标题的布局
+    }
+
+    @Override
+    protected void setMenuContent(View menuView, final int position) {
+           //不同菜单的布局参数设置
+    }
+
+    @Override
+    protected int getMenuLayoutId() {
+        return R.layout.ui_list_data_screen_menu;//自己菜单的布局
+    }
+}
+```
+第二步：布局中引入ListMenuView
+```
+   <com.peakmain.ui.widget.menu.ListMenuView
+        android:id="@+id/list_data_screen_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+```
+第三步：设置adapter即可,需要将标题集合传进去
+```
+        mMenuView = findViewById(R.id.list_data_screen_view);
+        mMenuView.setAdapter(adapter);//自己的适配器
+```
+
+#### 结语
+如果大家感兴趣想知道更多的使用，大家可以看我实战项目[wanandorid](https://github.com/Peakmain/WanAndroid)
+
+我的项目BasicUI的Github地址:https://github.com/Peakmain/BasicUI
