@@ -6,7 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.peakmain.ui.adapter.BaseFlowAdapter;
+import com.peakmain.ui.adapter.flow.BaseFlowAdapter;
+import com.peakmain.ui.adapter.flow.FlowObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class FlowLayout extends ViewGroup {
 
         Log.e("TAG", "width -> " + width + " height-> " + height);
         // 2.1.2 根据子View计算和指定自己的宽高
-        setMeasuredDimension(width, height);
+        setMeasuredDimension(getMeasuredWidth(), height);
     }
 
     @Override
@@ -106,12 +107,12 @@ public class FlowLayout extends ViewGroup {
         return new MarginLayoutParams(getContext(), attrs);
     }
 
+
     /**
      * 摆放子View
      */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int childCount = getChildCount();
         int left, top = getPaddingTop(), right, bottom;
 
         for (List<View> childViews : mChildViews) {
@@ -145,26 +146,41 @@ public class FlowLayout extends ViewGroup {
             top += maxHeight;
         }
     }
+    private class AdapterDataSetObserver extends FlowObserver {
 
+        @Override
+        public void notifyDataChange( ) {
+            FlowLayout.this.notiftyDataChange();
+        }
+    }
+    private AdapterDataSetObserver mObserver;
+
+    public void notiftyDataChange( ) {
+        Log.e("TAG","进来了");
+        setAdapter(mAdapter);
+        requestLayout();
+    }
     /**
      * 设置Adapter
      * @param adapter
      */
     public void setAdapter(BaseFlowAdapter adapter){
-        if(adapter == null){
-            // 抛空指针异常
+        if (adapter == null) {
+            return;
         }
-
+        if (mAdapter != null && mObserver != null) {
+            adapter.unregisterDataSetObserver(mObserver);
+        }
         // 清空所有子View
         removeAllViews();
-
         mAdapter = adapter;
-
+        mObserver = new AdapterDataSetObserver();
+        mAdapter.registerDataSetObserver(mObserver);
         // 获取数量
         int childCount = mAdapter.getCount();
-        for (int i=0;i<childCount;i++){
+        for (int i = 0; i < childCount; i++) {
             // 通过位置获取View
-            View childView = mAdapter.getView(i,this);
+            View childView = mAdapter.getView(i, this);
             addView(childView);
         }
     }
