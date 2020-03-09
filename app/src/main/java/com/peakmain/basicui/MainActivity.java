@@ -1,27 +1,98 @@
 package com.peakmain.basicui;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 
-import com.peakmain.ui.widget.menu.ListMenuView;
+import com.peakmain.basicui.base.BaseActivity;
+import com.peakmain.basicui.fragment.HomeFragment;
+import com.peakmain.basicui.fragment.MineFragment;
 
-import java.util.Arrays;
+
+public class MainActivity extends BaseActivity {
+    //View
+    BottomNavigationView mBottomNavigation;
+
+    //底部切换的tab常量
+    private static final int FRAGMENT_HOME = 0;
+    private static final int FRAGMENT_ME = 1;
+
+    //fragments
+    private HomeFragment mHomeFragment;
+    private MineFragment mMineFragment;
 
 
-public class MainActivity extends AppCompatActivity {
-    private ListMenuView mMenuView;
-    private String arr[]={"类型","品牌","价格","更多"};
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mMenuView = findViewById(R.id.list_data_screen_view);
-        mMenuView.setAdapter(new ListMenuAdapter(this, Arrays.asList(arr)));
-
+    protected int getLayoutId() {
+        return R.layout.basic_recycler_view;
     }
 
-    public void click(View view) {
-
+    @Override
+    protected void initView() {
+        mBottomNavigation = findViewById(R.id.bottom_navigation);
     }
+    @Override
+    protected void initData() {
+        showFragment(FRAGMENT_HOME);
+        mBottomNavigation.setOnNavigationItemSelectedListener(this::onOptionsItemSelected);
+        mBottomNavigation.setSelectedItemId(R.id.menu_home);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.menu_home:
+                showFragment(FRAGMENT_HOME);
+                return true;
+            case R.id.menu_me:
+                showFragment(FRAGMENT_ME);
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showFragment(int index) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        hintFragment(ft);
+        switch (index) {
+            case FRAGMENT_HOME:
+                /**
+                 * 如果Fragment为空，就新建一个实例
+                 * 如果不为空，就将它从栈中显示出来
+                 */
+                if (mHomeFragment == null) {
+                    mHomeFragment = new HomeFragment();
+                    ft.add(R.id.container, mHomeFragment, HomeFragment.class.getName());
+                } else {
+                    ft.show(mHomeFragment);
+                }
+                break;
+            case FRAGMENT_ME:
+                if (mMineFragment == null) {
+                    mMineFragment = new MineFragment();
+                    ft.add(R.id.container, mMineFragment, MineFragment.class.getName());
+                } else {
+                    ft.show(mMineFragment);
+                }
+                break;
+            default:
+                break;
+        }
+        ft.commit();
+    }
+
+    /**
+     * 隐藏fragment
+     */
+    private void hintFragment(FragmentTransaction ft) {
+        // 如果不为空，就先隐藏起来
+        if (mHomeFragment != null) {
+            ft.hide(mHomeFragment);
+        }
+        if (mMineFragment != null) {
+            ft.hide(mMineFragment);
+        }
+    }
+
 }
