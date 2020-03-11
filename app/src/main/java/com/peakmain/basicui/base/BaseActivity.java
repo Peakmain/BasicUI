@@ -22,13 +22,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initData();
         ImmersionBar.with(this)
-                .statusBarColor(R.color.white)
+                .statusBarColor(R.color.colorStatus)
                 .fitsSystemWindows(true)
                 .statusBarAlpha(0.3f)  //状态栏透明度，不写默认0.0f
                 .navigationBarAlpha(0.4f)  //导航栏透明度，不写默认0.0F
                 .barAlpha(0.3f)  //状态栏和导航栏透明度，不写默认0.0f
-                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
-                .navigationBarDarkIcon(true) //导航栏图标是深色，不写默认为亮色
+                .statusBarDarkFont(false)   //状态栏字体是深色，不写默认为亮色
+                .navigationBarDarkIcon(false) //导航栏图标是深色，不写默认为亮色
                 .init();
     }
 
