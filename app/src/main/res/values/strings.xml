@@ -16,4 +16,15 @@
     <string name="forward">转发</string>
     <string name="save_image">保存图片</string>
     <string name="cancel">取消</string>
+
+    <!--naviagtion-->
+    <string name="show_right_arrow">显示右边箭头(默认显示的)</string>
+    <string name="set_left_text">设置左边文字为"\"返回\""并设置颜色为white</string>
+    <string name="hide_left_text">隐藏左边文字(默认显示)</string>
+    <string name="hide_title">隐藏标题</string>
+    <string name="hide_right_image">隐藏右边图片</string>
+    <string name="alert_background_color">修改背景颜色(自己可以随意设置)</string>
+    <string name="show_back_button">显示返回按钮</string>
+    <string name="show_toolbar_title">显示toolbar中默认自带的title</string>
+    <string name="alert_right_image">修改右边图片资源</string>
 </resources>

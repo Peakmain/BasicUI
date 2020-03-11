@@ -297,7 +297,7 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
 
 
         /**
-         * 隐藏左边文字
+         * 隐藏标题文字
          */
         public Builder hideTitleText() {
             mTitleVisible = View.GONE;
