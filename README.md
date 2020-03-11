@@ -143,7 +143,7 @@ public class SectionItemDecoration extends BaseItemDecoration<SearchCityBean> {
 ```
 
 
-![navigation.png](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/navigation.png)
+![navigation.png](img-preview/navigation.png)
 ####关于AlertDialog
 支持从底部弹出，支持宽度全屏，支持设置动画
 ```
@@ -164,7 +164,7 @@ public class SectionItemDecoration extends BaseItemDecoration<SearchCityBean> {
                 .setFullWidth()
                 .show();
 ```
-![image.png](https://upload-images.jianshu.io/upload_images/9387746-9e25d3985276ff93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](img-preview/alertDialog.png)
 
 #### 关于PopupWindow的封装
 ```
@@ -175,7 +175,6 @@ public class SectionItemDecoration extends BaseItemDecoration<SearchCityBean> {
                 .setBgDarkAlpha(0.7f)
                 .create();
 ```
-![alertDialog.png](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/alertDialog.png)
 
 
 #### TextView的封装
@@ -195,7 +194,7 @@ public class SectionItemDecoration extends BaseItemDecoration<SearchCityBean> {
 ```
 >说明：一共有四个属性:shapeTvStrokeWidth线的宽度、shapeTvStrokeColor线的颜色、shapeTvRadius圆角的半径、shapeTvBackgroundColor背景颜色
 
-![shapeTextView](https://raw.githubusercontent.com/Peakmain/BasicUI/master/img-preview/shapeTextView.png)
+![shapeTextView](img-preview/shapeTextView.png)
 
 #### EditText的封装
 自带清除按钮的图标，并且可对删除按钮进行填色，或者对删除按钮图标进行替换
@@ -328,3 +327,9 @@ public class ListMenuAdapter extends BaseListMenuAdapater {
 如果大家感兴趣想知道更多的使用，大家可以看我实战项目[wanandorid](https://github.com/Peakmain/WanAndroid)
 
 我的项目BasicUI的Github地址:https://github.com/Peakmain/BasicUI
+
+大家可以下载apk进行查看效果
+
+APK下载链接:https://www.pgyer.com/Wq0o
+
+![下载链接二维码](img-preview/下载链接.png)
