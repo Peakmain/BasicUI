@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.peakmain.basicui.R;
+import com.peakmain.ui.navigationbar.DefaultNavigationBar;
 
 /**
  * author ：Peakmain
@@ -14,11 +15,20 @@ import com.peakmain.basicui.R;
  * describe：
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
+    public DefaultNavigationBar.Builder mNavigationBuilder;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int layoutId = getLayoutId();
         setContentView(layoutId);
+        mNavigationBuilder = new DefaultNavigationBar.Builder(this, findViewById(R.id.view_root))
+                .hideLeftText()
+                .setDisplayHomeAsUpEnabled(true)
+                .setNavigationOnClickListener(v -> finish())
+                .hideRightView()
+                .setToolbarBackgroundColor(R.color.colorAccent);
         initView();
         initData();
         ImmersionBar.with(this)
@@ -30,6 +40,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .statusBarDarkFont(false)   //状态栏字体是深色，不写默认为亮色
                 .navigationBarDarkIcon(false) //导航栏图标是深色，不写默认为亮色
                 .init();
+
+
     }
 
 
