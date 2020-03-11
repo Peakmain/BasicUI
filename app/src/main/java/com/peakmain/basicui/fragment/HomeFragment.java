@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.peakmain.basicui.R;
+import com.peakmain.basicui.activity.home.DialogActivity;
 import com.peakmain.basicui.adapter.HomeDataAdapter;
 import com.peakmain.basicui.base.BaseFragmnet;
+import com.peakmain.basicui.utils.ActivityUtil;
 import com.peakmain.ui.recyclerview.itemdecoration.DividerGridItemDecoration;
 
 import java.util.ArrayList;
@@ -49,5 +51,15 @@ public class HomeFragment extends BaseFragmnet {
         mAdapter = new HomeDataAdapter(getContext(), mHomeDataBean);
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(position -> {
+            switch (position){
+                case 0:
+                    //dialog
+                    ActivityUtil.gotoActivity(getContext(), DialogActivity.class);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 }

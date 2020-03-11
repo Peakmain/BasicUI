@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">BasicUI</string>
     <string name="bottom_naivgation_home">首页</string>
+    <!--我的-->
     <string name="bottom_naivgation_me">我的</string>
     <string name="peakmain">Peakmain</string>
     <string name="github">Github:https://github.com/Peakmain/BasicUI</string>
     <string name="jianshu">简书:https://www.jianshu.com/u/3ff32f5aea98</string>
+
+    <!--dialog-->
+    <string name="is_set_width_full">设置宽度全屏</string>
+    <string name="is_set_default_animation">添加默认动画</string>
+    <string name="is_from_bottom">从底部弹出</string>
+    <string name="is_cancelable">点击外部可以取消</string>
+    <string name="sure">确定</string>
+    <string name="forward">转发</string>
+    <string name="save_image">保存图片</string>
+    <string name="cancel">取消</string>
 </resources>

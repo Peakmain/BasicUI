@@ -19,12 +19,12 @@ import com.peakmain.ui.R;
 public class AlertDialog extends Dialog {
     private AlertController mAlert;
 
-    public AlertDialog(@NonNull Context context) {
+    private AlertDialog(@NonNull Context context) {
         super(context);
         mAlert = new AlertController(this, getWindow());
     }
 
-    public AlertDialog(@NonNull Context context, int themeResId) {
+    private AlertDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         mAlert = new AlertController(this, getWindow());
     }
