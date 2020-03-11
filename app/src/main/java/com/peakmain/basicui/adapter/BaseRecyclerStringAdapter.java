@@ -14,8 +14,8 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class HomeDataAdapter extends CommonRecyclerAdapter<String> {
-    public HomeDataAdapter(Context context, List<String> data) {
+public class BaseRecyclerStringAdapter extends CommonRecyclerAdapter<String> {
+    public BaseRecyclerStringAdapter(Context context, List<String> data) {
         super(context, data, R.layout.item_recyclerview_home);
     }
 

@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.home.DialogActivity" />
+        <activity android:name=".activity.home.NaviagtionBarActivity" />
     </application>
 
 </manifest>

@@ -5,7 +5,8 @@ import android.view.View;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.DialogActivity;
-import com.peakmain.basicui.adapter.HomeDataAdapter;
+import com.peakmain.basicui.activity.home.NaviagtionBarActivity;
+import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseFragmnet;
 import com.peakmain.basicui.utils.ActivityUtil;
 import com.peakmain.ui.recyclerview.itemdecoration.DividerGridItemDecoration;
@@ -23,7 +24,7 @@ public class HomeFragment extends BaseFragmnet {
     private RecyclerView mRecyclerView;
 
     private List<String> mHomeDataBean;
-    private HomeDataAdapter mAdapter;
+    private BaseRecyclerStringAdapter mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -48,7 +49,7 @@ public class HomeFragment extends BaseFragmnet {
         mHomeDataBean.add("花束加载loading");
         mHomeDataBean.add("仿58同城多条目菜单删选");
 
-        mAdapter = new HomeDataAdapter(getContext(), mHomeDataBean);
+        mAdapter = new BaseRecyclerStringAdapter(getContext(), mHomeDataBean);
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(position -> {
@@ -56,6 +57,10 @@ public class HomeFragment extends BaseFragmnet {
                 case 0:
                     //dialog
                     ActivityUtil.gotoActivity(getContext(), DialogActivity.class);
+                    break;
+                case 1:
+                    //navigationBar
+                    ActivityUtil.gotoActivity(getContext(), NaviagtionBarActivity.class);
                     break;
                 default:
                     break;
