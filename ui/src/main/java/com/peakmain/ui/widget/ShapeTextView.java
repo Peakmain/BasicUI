@@ -101,15 +101,15 @@ public class ShapeTextView extends AppCompatTextView {
             canvas.translate((getWidth() - paddingWidth) / 2, 0);
         }
         // 图片在文字底部居中
-        Drawable drawableBottom= drawables[3];
+        Drawable drawableBottom = drawables[3];
         if (drawableBottom != null) {
             float textHeight = getPaint().measureText(getText().toString());
             int drawablePadding = getCompoundDrawablePadding();
             int drawableHeight;
             drawableHeight = drawableBottom.getIntrinsicHeight();
             float paddingHeight = textHeight + drawableHeight + drawablePadding;
-            setPadding(getPaddingLeft(),0,getPaddingRight(), (int)(getHeight() - paddingHeight));
-            canvas.translate(0,(getHeight() - paddingHeight) / 2);
+            setPadding(getPaddingLeft(), 0, getPaddingRight(), (int) (getHeight() - paddingHeight));
+            canvas.translate(0, (getHeight() - paddingHeight) / 2);
         }
         super.onDraw(canvas);
     }
@@ -119,9 +119,9 @@ public class ShapeTextView extends AppCompatTextView {
      */
     private void setStroke() {
         //线条
-        mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalBackgroundColor);
-        mGradientDrawable.setCornerRadius(mRadius);
+        mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor);
         mGradientDrawable.setColor(mNormalBackgroundColor);
+        mGradientDrawable.setCornerRadius(mRadius);
     }
 
     /**

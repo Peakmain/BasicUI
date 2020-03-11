@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/view_root"
-    >
+    android:orientation="vertical">
 
     <com.peakmain.basicui.view.RadioCancelButton
         android:id="@+id/radio_set_width_full"
@@ -22,9 +21,9 @@
         android:id="@+id/radio_set_default_animation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/is_set_default_animation"
-        android:layout_margin="@dimen/space_10"
         android:textColor="@color/color_4A4A4A"
         tools:targetApi="lollipop" />
 
@@ -32,9 +31,9 @@
         android:id="@+id/radio_set_from_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/is_from_bottom"
-        android:layout_margin="@dimen/space_10"
         android:textColor="@color/color_4A4A4A"
         tools:targetApi="lollipop" />
 
@@ -42,9 +41,9 @@
         android:id="@+id/radio_set_can_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/is_cancelable"
-        android:layout_margin="@dimen/space_10"
         android:textColor="@color/color_4A4A4A"
         tools:targetApi="lollipop" />
 
@@ -52,9 +51,9 @@
         android:id="@+id/stv_sure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_20"
         android:layout_marginTop="@dimen/space_10"
         android:padding="@dimen/space_10"
-        android:layout_margin="@dimen/space_20"
         android:text="@string/sure"
         android:textColor="@color/white"
         app:shapeTvBackgroundColor="@color/colorAccent"

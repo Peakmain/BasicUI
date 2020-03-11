@@ -6,10 +6,9 @@ import android.view.View;
 import com.peakmain.basicui.BuildConfig;
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.base.BaseActivity;
-import com.peakmain.basicui.view.RadioCancelButton;
 import com.peakmain.basicui.utils.ToastUtils;
+import com.peakmain.basicui.view.RadioCancelButton;
 import com.peakmain.ui.dialog.AlertDialog;
-import com.peakmain.ui.navigationbar.DefaultNavigationBar;
 import com.peakmain.ui.widget.ShapeTextView;
 
 /**
@@ -55,12 +54,7 @@ public class DialogActivity extends BaseActivity implements View.OnClickListener
         mStvSure = findViewById(R.id.stv_sure);
         mStvSure.setOnClickListener(this);
         //添加NavigationBar
-        new DefaultNavigationBar.Builder(this, findViewById(R.id.view_root))
-                .setDisplayHomeAsUpEnabled(true)
-                .setToolbarBackgroundColor(R.color.colorAccent)
-                .setTitleText("dialog的使用")
-                .setNavigationOnClickListener(v -> finish())
-                .hideRightView()
+        mNavigationBuilder.setTitleText("dialog的使用")
                 .create();
     }
 
