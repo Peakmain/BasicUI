@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ui</string>
+    <!--键盘-->
+    <string name="pay_password_0">0</string>
+    <string name="pay_password_1">1</string>
+    <string name="pay_password_2">2</string>
+    <string name="pay_password_3">3</string>
+    <string name="pay_password_4">4</string>
+    <string name="pay_password_5">5</string>
+    <string name="pay_password_6">6</string>
+    <string name="pay_password_7">7</string>
+    <string name="pay_password_8">8</string>
+    <string name="pay_password_9">9</string>
+
 </resources>

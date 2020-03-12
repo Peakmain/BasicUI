@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.AutoEditTextActivity;
+import com.peakmain.basicui.activity.home.CustomPasswordKeyboardActivity;
 import com.peakmain.basicui.activity.home.DialogActivity;
 import com.peakmain.basicui.activity.home.MultiMenuActivity;
 import com.peakmain.basicui.activity.home.NaviagtionBarActivity;
@@ -54,6 +55,7 @@ public class HomeFragment extends BaseFragmnet {
         mHomeDataBean.add("仿今日头条的TableLayout");
         mHomeDataBean.add("花束加载loading");
         mHomeDataBean.add("仿58同城多条目菜单删选");
+        mHomeDataBean.add("自定义支付密码键盘");
 
         mAdapter = new BaseRecyclerStringAdapter(getContext(), mHomeDataBean);
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
@@ -87,6 +89,9 @@ public class HomeFragment extends BaseFragmnet {
                     break;
                 case 7:
                     ActivityUtil.gotoActivity(getContext(), MultiMenuActivity.class);
+                    break;
+                case 8:
+                    ActivityUtil.gotoActivity(getContext(), CustomPasswordKeyboardActivity.class);
                     break;
                 default:
                     break;
