@@ -25,6 +25,8 @@ public class CustomPasswordKeyboardActivity extends BaseActivity {
     protected void initView() {
         mCustomerKeyboard = findViewById(R.id.custom_key_board);
         mEditText = findViewById(R.id.password_edit_text);
+        mNavigationBuilder.setTitleText("自定义支付键盘").create();
+
     }
 
     @Override

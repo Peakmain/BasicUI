@@ -1,13 +1,19 @@
 package com.peakmain.ui.navigationbar;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.peakmain.ui.R;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -35,6 +41,42 @@ public class AbsNavigationBar<B extends AbsNavigationBar.Builder> implements INa
     public void createNavigationBar() {
         mNavigationBarView = LayoutInflater.from(mBuilder.mContext)
                 .inflate(mBuilder.mLayoutId, mBuilder.mParent, false);
+        ViewGroup parent = mBuilder.mParent;
+        //RelativeLayout
+        if (parent instanceof RelativeLayout) {
+            View childView = parent.getChildAt(0);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) childView.getLayoutParams();
+            params.addRule(RelativeLayout.BELOW, R.id.navigation_header_container);
+        }
+        if (parent instanceof FrameLayout) {
+            View childView = parent.getChildAt(0);
+            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) childView.getLayoutParams();
+            mNavigationBarView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    params.topMargin = mNavigationBarView.getHeight();
+                }
+            });
+        }
+        if (parent instanceof LinearLayout) {
+            final LinearLayout linearLayout = (LinearLayout) parent;
+            int direction = linearLayout.getOrientation();
+
+            if (direction == LinearLayout.HORIZONTAL) {
+                //强制转成垂直布局
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+            }
+        }
+        if(parent instanceof ConstraintLayout){
+            View childView = parent.getChildAt(0);
+            final ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) childView.getLayoutParams();
+            mNavigationBarView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    params.topMargin = mNavigationBarView.getHeight();
+                }
+            });
+        }
         mViews = new SparseArray<>();
         //添加
         attachParent(mNavigationBarView, mBuilder.mParent);

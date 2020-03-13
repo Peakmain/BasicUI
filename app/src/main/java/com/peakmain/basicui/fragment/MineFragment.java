@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.base.BaseFragmnet;
+import com.peakmain.ui.navigationbar.DefaultNavigationBar;
 
 /**
  * author ：Peakmain
@@ -19,7 +20,12 @@ public class MineFragment extends BaseFragmnet {
 
     @Override
     protected void initView(View view) {
-
+        new DefaultNavigationBar.Builder(getContext(),view.findViewById(R.id.view_root))
+                .hideLeftText()
+                .hideRightView()
+                .setTitleText("我的")
+                .setToolbarBackgroundColor(R.color.colorAccent)
+                .create();
     }
 
     @Override
