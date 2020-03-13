@@ -18,10 +18,12 @@ import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseFragmnet;
 import com.peakmain.basicui.utils.ActivityUtil;
 import com.peakmain.ui.loading.CircleLoadingView;
+import com.peakmain.ui.navigationbar.DefaultNavigationBar;
 import com.peakmain.ui.recyclerview.itemdecoration.DividerGridItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * author ：Peakmain
  * createTime：2020/3/9
@@ -30,10 +32,11 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragmnet {
     private RecyclerView mRecyclerView;
- private Handler mHandler=new Handler(Looper.getMainLooper());
+    private Handler mHandler = new Handler(Looper.getMainLooper());
     private List<String> mHomeDataBean;
     private BaseRecyclerStringAdapter mAdapter;
- private CircleLoadingView mLoadingView;
+    private CircleLoadingView mLoadingView;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home;
@@ -42,6 +45,12 @@ public class HomeFragment extends BaseFragmnet {
     @Override
     protected void initView(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_view);
+        new DefaultNavigationBar.Builder(getContext(), view.findViewById(R.id.view_root))
+                .hideLeftText()
+                .hideRightView()
+                .setTitleText("首页")
+                .setToolbarBackgroundColor(R.color.colorAccent)
+                .create();
     }
 
     @Override
@@ -83,9 +92,9 @@ public class HomeFragment extends BaseFragmnet {
                     ActivityUtil.gotoActivity(getContext(), TableLayoutActivity.class);
                     break;
                 case 6:
-                    mLoadingView=new CircleLoadingView(getContext());
+                    mLoadingView = new CircleLoadingView(getContext());
                     mLoadingView.show();
-                    mHandler.postDelayed(() -> mLoadingView.hide(),2000);
+                    mHandler.postDelayed(() -> mLoadingView.hide(), 2000);
                     break;
                 case 7:
                     ActivityUtil.gotoActivity(getContext(), MultiMenuActivity.class);

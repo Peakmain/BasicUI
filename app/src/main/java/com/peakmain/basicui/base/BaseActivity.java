@@ -23,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         int layoutId = getLayoutId();
         setContentView(layoutId);
-        mNavigationBuilder = new DefaultNavigationBar.Builder(this, findViewById(R.id.view_root))
+        mNavigationBuilder = new DefaultNavigationBar.Builder(this, findViewById(android.R.id.content))
                 .hideLeftText()
                 .setDisplayHomeAsUpEnabled(true)
                 .setNavigationOnClickListener(v -> finish())
