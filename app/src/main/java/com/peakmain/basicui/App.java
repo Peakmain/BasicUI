@@ -3,6 +3,10 @@ package com.peakmain.basicui;
 import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
+
+import com.peakmain.basicui.utils.ToastUtils;
 
 /**
  * author ：Peakmain
@@ -18,7 +22,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         sApplication=this;
-
+        ToastUtils.setBgColor(ContextCompat.getColor(this,android.R.color.transparent));
+        ToastUtils.setGravity(Gravity.CENTER,0,0);
+        ToastUtils.setMsgColor(ContextCompat.getColor(this,R.color.colorAccent));
     }
     public static void runOnUiThread(final Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper()) {

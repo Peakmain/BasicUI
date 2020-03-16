@@ -25,6 +25,7 @@
         <activity android:name=".activity.home.TableLayoutActivity" />
         <activity android:name=".activity.home.MultiMenuActivity" />
         <activity android:name=".activity.home.CustomPasswordKeyboardActivity" />
+        <activity android:name=".activity.home.LockScreenActivity" />
     </application>
 
 </manifest>

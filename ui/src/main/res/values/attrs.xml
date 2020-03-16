@@ -95,4 +95,19 @@
         <!-- 背景边框的圆角大小 -->
         <attr name="bgCorner" format="dimension"/>
     </declare-styleable>
+    <!--九宫格解锁-->
+    <declare-styleable name="LockScreenView">
+        <!--外圈正常的颜色-->
+        <attr name="lpNormalOutColor" format="color"/>
+        <!--外圈按下的颜色-->
+        <attr name="lpPressOutColor" format="color"/>
+        <!--外圈错误的颜色-->
+        <attr name="lpErrorOutColor" format="color"/>
+        <!--内圈正常的颜色-->
+        <attr name="lpNormalInnerColor" format="color"/>
+        <!--内圈按下的颜色-->
+        <attr name="lpPressInnerColor" format="color"/>
+        <!--内圈错误的颜色-->
+        <attr name="lpErrorInnerColor" format="color"/>
+    </declare-styleable>
 </resources>
