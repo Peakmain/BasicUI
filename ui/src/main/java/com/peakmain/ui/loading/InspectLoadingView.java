@@ -43,6 +43,7 @@ public class InspectLoadingView extends View {
     private float mHoleRadius = 0F;
     // 屏幕对角线的一半
     private float mDiagonalDist;
+    private boolean isShow;
 
     public InspectLoadingView(Context context) {
         this(context, null);
@@ -61,15 +62,21 @@ public class InspectLoadingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (!mInitParams) {
-            initParams();
+        if(isShow){
+            if (!mInitParams) {
+                initParams();
+            }
+            if (mLoadingState == null) {
+                mLoadingState = new RotationState();
+            }
+            mLoadingState.drawable(canvas);
         }
-        if (mLoadingState == null) {
-            mLoadingState = new RotationState();
-        }
-        mLoadingState.drawable(canvas);
     }
 
+    public void show() {
+        this.isShow=true;
+        invalidate();
+    }
 
     //初始化参数
     private void initParams() {
@@ -88,7 +95,7 @@ public class InspectLoadingView extends View {
     /**
      * 消失:给外部调用
      */
-    public void disappear() {
+    public void hide() {
         //开始聚合动画
         //关闭动画
         if (mLoadingState instanceof RotationState) {
@@ -123,7 +130,7 @@ public class InspectLoadingView extends View {
             mAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (animation != null) {
+                    if(animation!=null){
                         animation.cancel();
                     }
                 }
@@ -149,29 +156,30 @@ public class InspectLoadingView extends View {
         ValueAnimator mAnimator;
 
         public MergeState() {
-            if (mAnimator == null) {
-                //从外圆的半径到中心位置
-                mAnimator = ObjectAnimator.ofFloat(mRotationRadius, 0);
-                mAnimator.setDuration(ROTATION_ANIMATION_TIME / 2);
-                mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        mCurrentRotationRadius = (float) animation.getAnimatedValue();
-                        invalidate();
+            //从外圆的半径到中心位置
+            mAnimator = ObjectAnimator.ofFloat(mRotationRadius, 0);
+            mAnimator.setDuration(ROTATION_ANIMATION_TIME / 2);
+            mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    mCurrentRotationRadius = (float) animation.getAnimatedValue();
+                    invalidate();
+                }
+            });
+            // 开始的时候向后然后向前甩
+            mAnimator.setInterpolator(new AnticipateInterpolator(5f));
+            mAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if(animation!=null){
+                        animation.cancel();
                     }
-                });
-                // 开始的时候向后然后向前甩
-                mAnimator.setInterpolator(new AnticipateInterpolator(5f));
-                mAnimator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mLoadingState = new ExpendState();
-                    }
-                });
-                //不断重复使用
-                //mAnimator.setRepeatCount(-1);
-                mAnimator.start();
-            }
+                    mLoadingState = new ExpendState();
+                }
+            });
+            //不断重复使用
+            //mAnimator.setRepeatCount(-1);
+            mAnimator.start();
         }
 
         @Override
@@ -199,22 +207,20 @@ public class InspectLoadingView extends View {
         ValueAnimator mAnimator;
 
         public RotationState() {
-            if (mAnimator == null) {
-                //0-360度
-                mAnimator = ObjectAnimator.ofFloat(0, 2 * (float) Math.PI);
-                mAnimator.setDuration(ROTATION_ANIMATION_TIME);
-                mAnimator.setInterpolator(new LinearInterpolator());
-                mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        mCurrentRotationAngle = (float) animation.getAnimatedValue();
-                        invalidate();
-                    }
-                });
-                //不断重复使用
-                mAnimator.setRepeatCount(-1);
-                mAnimator.start();
-            }
+            //0-360度
+            mAnimator = ObjectAnimator.ofFloat(0, 2 * (float) Math.PI);
+            mAnimator.setDuration(ROTATION_ANIMATION_TIME);
+            mAnimator.setInterpolator(new LinearInterpolator());
+            mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    mCurrentRotationAngle = (float) animation.getAnimatedValue();
+                    invalidate();
+                }
+            });
+            //不断重复使用
+            mAnimator.setRepeatCount(-1);
+            mAnimator.start();
         }
 
         @Override
@@ -237,5 +243,9 @@ public class InspectLoadingView extends View {
         public void cancel() {
             mAnimator.cancel();
         }
+    }
+
+    public void setCircleColors(int[] circleColors) {
+        mCircleColors = circleColors;
     }
 }
