@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_4A4A4A">#4A4A4A</color>
+    <color name="address_select_start_color">#7A0909</color>
+    <color name="address_select_middle_color">#C92A2A</color>
+    <color name="address_select_end_color">#DB4A4A</color>
 </resources>
