@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.peakmain.ui.loading.ShapeView
+        android:id="@+id/shape_view"
+        android:layout_width="@dimen/shape_view_size"
+        android:layout_height="@dimen/shape_view_size"
+        android:layout_marginBottom="82dp" />
+
+    <View
+        android:id="@+id/shadow_view"
+        android:layout_width="@dimen/shape_view_size"
+        android:layout_height="@dimen/shape_loading_shadow_view_height"
+        android:background="@drawable/shape_loading_shadow_bg" />
+
+    <TextView
+        android:id="@+id/tv_shape_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/shape_laoding_tv_margin_top"
+        android:text="@string/shape_loading_text_view" />
+
+</LinearLayout>

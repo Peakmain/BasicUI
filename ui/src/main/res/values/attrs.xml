@@ -134,4 +134,11 @@
         <item>@color/basic_defalut_inspect_color3</item>
         <item>@color/basic_defalut_inspect_color6</item>
     </array>
+
+    <!--58同城加载的loading-->
+    <declare-styleable name="ShapeView">
+        <attr name="svCircleColor" format="color"/>
+        <attr name="svRectColor" format="color"/>
+        <attr name="svTriangleColor" format="color"/>
+    </declare-styleable>
 </resources>
