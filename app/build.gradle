@@ -32,5 +32,7 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta05'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation project(path: ':ui')
 }
