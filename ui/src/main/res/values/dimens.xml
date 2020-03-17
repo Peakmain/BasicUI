@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="shape_loading_shadow_view_height">3dp</dimen>
+    <dimen name="shape_laoding_tv_margin_top">5dp</dimen>
+</resources>

@@ -11,5 +11,6 @@
     <string name="pay_password_7">7</string>
     <string name="pay_password_8">8</string>
     <string name="pay_password_9">9</string>
+    <string name="shape_loading_text_view">玩命加载中...</string>
 
 </resources>
