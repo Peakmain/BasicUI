@@ -79,7 +79,7 @@
     <!--支付密码的自定义属性-->
     <declare-styleable name="PasswordEditText">
         <!-- 密码的个数 -->
-        <attr name="passwordNumber" format="integer"/>
+        <attr name="passwordNumber" format="integer" />
         <!-- 密码圆点的半径 -->
         <attr name="passwordRadius" format="dimension" />
         <!-- 密码圆点的颜色 -->
@@ -93,21 +93,39 @@
         <!-- 背景边框的大小 -->
         <attr name="bgSize" format="dimension" />
         <!-- 背景边框的圆角大小 -->
-        <attr name="bgCorner" format="dimension"/>
+        <attr name="bgCorner" format="dimension" />
     </declare-styleable>
     <!--九宫格解锁-->
     <declare-styleable name="LockScreenView">
         <!--外圈正常的颜色-->
-        <attr name="lpNormalOutColor" format="color"/>
+        <attr name="lpNormalOutColor" format="color" />
         <!--外圈按下的颜色-->
-        <attr name="lpPressOutColor" format="color"/>
+        <attr name="lpPressOutColor" format="color" />
         <!--外圈错误的颜色-->
-        <attr name="lpErrorOutColor" format="color"/>
+        <attr name="lpErrorOutColor" format="color" />
         <!--内圈正常的颜色-->
-        <attr name="lpNormalInnerColor" format="color"/>
+        <attr name="lpNormalInnerColor" format="color" />
         <!--内圈按下的颜色-->
-        <attr name="lpPressInnerColor" format="color"/>
+        <attr name="lpPressInnerColor" format="color" />
         <!--内圈错误的颜色-->
-        <attr name="lpErrorInnerColor" format="color"/>
+        <attr name="lpErrorInnerColor" format="color" />
     </declare-styleable>
+
+
+
+    <!--六个圆的默认颜色-->
+    <color name="basic_defalut_inspect_color1">#FF9600</color>
+    <color name="basic_defalut_inspect_color2">#02D1AC</color>
+    <color name="basic_defalut_inspect_color3">#FFD200</color>
+    <color name="basic_defalut_inspect_color4">#00C6FF</color>
+    <color name="basic_defalut_inspect_color5">#00E099</color>
+    <color name="basic_defalut_inspect_color6">#FF3891</color>
+    <array name="inspect_circle_color" >
+        <item>@color/basic_defalut_inspect_color1</item>
+        <item>@color/basic_defalut_inspect_color2</item>
+        <item>@color/basic_defalut_inspect_color3</item>
+        <item>@color/basic_defalut_inspect_color4</item>
+        <item>@color/basic_defalut_inspect_color5</item>
+        <item>@color/basic_defalut_inspect_color6</item>
+    </array>
 </resources>
