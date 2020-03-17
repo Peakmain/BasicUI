@@ -10,6 +10,7 @@ import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.utils.ActivityUtil;
 import com.peakmain.ui.loading.CircleLoadingView;
+import com.peakmain.ui.loading.RotatingLoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class LoadingActivity extends BaseActivity {
         mLoadingBean = new ArrayList<>();
         mLoadingBean.add("花束加载loading");
         mLoadingBean.add("视察动画的loading");
+        mLoadingBean.add("仿钉钉的loading");
         mAdapter = new BaseRecyclerStringAdapter(this, mLoadingBean);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -58,6 +60,9 @@ public class LoadingActivity extends BaseActivity {
                     ActivityUtil.gotoActivity(this,InspectLoadingActvivity.class);
                     break;
                 case 2:
+                    RotatingLoadingView rotatingLoadingView=new RotatingLoadingView(this);
+                    rotatingLoadingView.show();
+                    mHandler.postDelayed(() -> rotatingLoadingView.hide(),2000);
                     break;
                 default:
                     break;

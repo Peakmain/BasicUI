@@ -25,6 +25,7 @@ public class InspectLoadingActvivity extends BaseActivity {
     protected void initView() {
         mInspectLoadingView = findViewById(R.id.inspect_loading_view);
         mNavigationBuilder.setTitleText("视察动画的loading").create();
+        mInspectLoadingView.show();
     }
 
     @Override
@@ -32,7 +33,7 @@ public class InspectLoadingActvivity extends BaseActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                mInspectLoadingView.disappear();
+                mInspectLoadingView.hide();
             }
         },2000);
     }

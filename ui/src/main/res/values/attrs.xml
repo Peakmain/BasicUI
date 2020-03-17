@@ -128,4 +128,10 @@
         <item>@color/basic_defalut_inspect_color5</item>
         <item>@color/basic_defalut_inspect_color6</item>
     </array>
+    <array name="rotation_loading_view" >
+        <item>@color/basic_defalut_inspect_color1</item>
+        <item>@color/basic_defalut_inspect_color2</item>
+        <item>@color/basic_defalut_inspect_color3</item>
+        <item>@color/basic_defalut_inspect_color6</item>
+    </array>
 </resources>
