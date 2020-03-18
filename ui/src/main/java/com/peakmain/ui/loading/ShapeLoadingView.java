@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.peakmain.ui.R;
 import com.peakmain.ui.dialog.AlertDialog;
@@ -36,6 +37,7 @@ public class ShapeLoadingView extends LinearLayout {
     private boolean mIsStopAnimator = false;
     private AlertDialog mDialog;
     private AlertDialog.Builder mBuilder;
+    private TextView mTvShapeName;
 
     public ShapeLoadingView(Context context) {
         this(context, null);
@@ -66,7 +68,7 @@ public class ShapeLoadingView extends LinearLayout {
 
         mShapeView = findViewById(R.id.shape_view);
         mShadowView = findViewById(R.id.shadow_view);
-
+        mTvShapeName=findViewById(R.id.tv_shape_name);
         post(new Runnable() {
             @Override
             public void run() {
@@ -189,9 +191,9 @@ public class ShapeLoadingView extends LinearLayout {
      */
     public void hide() {
         if (mDialog != null) {
-            setVisibility(INVISIBLE);
             mDialog.dismiss();
         }
+        setVisibility(INVISIBLE);
     }
 
     @Override
@@ -207,5 +209,9 @@ public class ShapeLoadingView extends LinearLayout {
             removeAllViews();// 移除自己所有的View
         }
         mIsStopAnimator = true;
+    }
+    public void setLoadingName(CharSequence name){
+        mTvShapeName.setText(name);
+        invalidate();
     }
 }

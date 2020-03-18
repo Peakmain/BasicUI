@@ -38,7 +38,6 @@ public class RotatingLoadingView extends View {
     //画笔
     private Paint mPaint;
     private int cententX, cententY;
-    private boolean isShow;
     private AlertDialog mDialog;
     private AlertDialog.Builder mBuilder;
 
@@ -59,15 +58,13 @@ public class RotatingLoadingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (isShow) {
-            if (!mInitParams) {
-                initParams();
-            }
-            if (mLoadingState == null) {
-                mLoadingState = new RotationState();
-            }
-            mLoadingState.drawable(canvas);
+        if (!mInitParams) {
+            initParams();
         }
+        if (mLoadingState == null) {
+            mLoadingState = new RotationState();
+        }
+        mLoadingState.drawable(canvas);
     }
 
     public void show() {
@@ -81,10 +78,9 @@ public class RotatingLoadingView extends View {
                         }
                     })
                     .setCancelable(false)
-                    .setWidthAndHeight(SizeUtils.getScreenWidth(getContext())*2/3, SizeUtils.getScreenHeight(getContext())/3);
+                    .setWidthAndHeight(SizeUtils.getScreenWidth(getContext()) * 2 / 3, SizeUtils.getScreenHeight(getContext()) / 3);
         }
         mDialog = mBuilder.show();
-        this.isShow = true;
         invalidate();
     }
 
@@ -111,6 +107,7 @@ public class RotatingLoadingView extends View {
             mLoadingState.cancel();
             mDialog.dismiss();
         }
+        setVisibility(INVISIBLE);
     }
 
 

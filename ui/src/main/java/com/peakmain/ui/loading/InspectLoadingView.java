@@ -247,5 +247,6 @@ public class InspectLoadingView extends View {
 
     public void setCircleColors(int[] circleColors) {
         mCircleColors = circleColors;
+        invalidate();
     }
 }

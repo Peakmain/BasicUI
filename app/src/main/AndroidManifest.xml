@@ -28,6 +28,8 @@
         <activity android:name=".activity.home.LockScreenActivity" />
         <activity android:name=".activity.home.loading.LoadingActivity" />
         <activity android:name=".activity.home.loading.InspectLoadingActvivity" />
+        <activity android:name=".activity.home.loading.ShapeLoadingActivity" />
+        <activity android:name=".activity.home.loading.RotatingLoadingActivity" />
     </application>
 
 </manifest>
