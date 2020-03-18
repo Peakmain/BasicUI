@@ -176,9 +176,9 @@ public class CircleLoadingView extends RelativeLayout {
      */
     public void hide() {
         if (mDialog != null) {
-            setVisibility(INVISIBLE);
             mDialog.dismiss();
         }
+        setVisibility(INVISIBLE);
     }
 
     /**

@@ -10,8 +10,6 @@ import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.utils.ActivityUtil;
 import com.peakmain.ui.loading.CircleLoadingView;
-import com.peakmain.ui.loading.RotatingLoadingView;
-import com.peakmain.ui.loading.ShapeLoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +60,10 @@ public class LoadingActivity extends BaseActivity {
                     ActivityUtil.gotoActivity(this,InspectLoadingActvivity.class);
                     break;
                 case 2:
-                    RotatingLoadingView rotatingLoadingView=new RotatingLoadingView(this);
-                    rotatingLoadingView.show();
-                    mHandler.postDelayed(() -> rotatingLoadingView.hide(),2000);
+                    ActivityUtil.gotoActivity(this, RotatingLoadingActivity.class);
                     break;
                 case 3:
-                    ShapeLoadingView shapeLoadingView=new ShapeLoadingView(this);
-                    shapeLoadingView.show();
-                    mHandler.postDelayed(() -> shapeLoadingView.hide(),2000);
+                    ActivityUtil.gotoActivity(this,ShapeLoadingActivity.class);
                     break;
                 default:
                     break;
