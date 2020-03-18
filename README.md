@@ -322,6 +322,113 @@ public class ListMenuAdapter extends BaseListMenuAdapater {
         mMenuView = findViewById(R.id.list_data_screen_view);
         mMenuView.setAdapter(adapter);//自己的适配器
 ```
+loading效果
+![loading的效果.gif](img-preview/loading.gif)
+
+#### 视察动画的loading,布局中直接使用
+```
+    <com.peakmain.ui.loading.InspectLoadingView
+        android:id="@+id/inspect_loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+```
+activity中需要调用show方法来显示
+```
+  mInspectLoadingView.show();
+```
+隐藏只需要调用hide方法
+```
+mInspectLoadingView.hide();
+```
+
+#### 仿钉钉的loading
+```
+    <com.peakmain.ui.loading.RotatingLoadingView
+        android:id="@+id/rotating_loading_view"
+        android:onClick="click"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+```
+默认设置的是全屏展示，如果想以loading的方式显示，可以调用show方法
+```
+        RotatingLoadingView rotatingLoadingView = new RotatingLoadingView(this);
+        rotatingLoadingView.show();
+```
+隐藏还是hide方法
+```
+mLoadingView.hide();
+```
+
+#### 仿58同城加载loading
+ ```
+ <com.peakmain.ui.loading.ShapeLoadingView
+        android:id="@+id/shape_loading_view"
+        android:onClick="click"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+```
+默认也是全屏，如果想以loading显示，可以使用show方法
+```
+    ShapeLoadingView shapeLoadingView = new ShapeLoadingView(this);
+    shapeLoadingView.show();
+```
+#### 自定义支付密码键盘
+  ```
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/view_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.peakmain.ui.widget.password.PasswordEditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginLeft="@dimen/space_50"
+        android:layout_marginRight="@dimen/space_50"
+        android:layout_height="30dp" />
+
+    <com.peakmain.ui.widget.password.CustomerKeyboard
+        android:id="@+id/custom_key_board"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+```
+- PasswordEditText的相关方法:
+setPasswordCompleteListener表示设置完成
+addPasswordNumber表示添加号码
+deletePassWord表示删除号码
+- CustomerKeyboard
+CustomerKeyboardClickListener设置监听事件
+```
+   mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
+            @Override
+            public void click(String number) {
+                mEditText.addPasswordNumber(number);
+            }
+
+            @Override
+            public void delete() {
+                 mEditText.deletePassWord();
+            }
+        });
+        mEditText.setPasswordCompleteListener(ToastUtils::showShort);
+```
+![自定义支付密码键盘.gif](img-preview/自定义支付密码键盘.gif)
+
+##### 九宫格解锁
+```
+    <com.peakmain.ui.widget.lock.LockScreenView
+        android:id="@+id/lock_pattern"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+```
+LockScreenView中有个setOnLockSuccessListener方法其中有两个方法,getLockResult表示返回你想判断的结果的字符串,onLockSuccess表示密码正确后的回掉
+![九宫格解锁.gif](img-preview/九宫格解锁.png)
+
 
 #### 结语
 如果大家感兴趣想知道更多的使用，大家可以看我实战项目[wanandorid](https://github.com/Peakmain/WanAndroid)
