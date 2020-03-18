@@ -40,6 +40,7 @@ public class LockScreenView extends View {
     private boolean isTouchPoint = false;
     // 选中的所有点
     private List<Point> mSelectPoints = new ArrayList<>();
+    private boolean mIsHideArrow=false;
 
     public LockScreenView(Context context) {
         this(context, null);
@@ -120,7 +121,9 @@ public class LockScreenView extends View {
             for (int i = 0; i < mSelectPoints.size(); i++) {
                 drawLine(lastPoint, mSelectPoints.get(i), canvas, mLinePaint);
                 //两个点之间绘制箭头
-                drawArrow(canvas, mArrowPaint, lastPoint, mSelectPoints.get(i), (float) mDotRadius / 5, 38);
+                if(!mIsHideArrow){
+                    drawArrow(canvas, mArrowPaint, lastPoint, mSelectPoints.get(i), (float) mDotRadius / 5, 38);
+                }
                 lastPoint = mSelectPoints.get(i);
             }
             // 绘制最后一个点到手指当前位置的连线
@@ -194,10 +197,6 @@ public class LockScreenView extends View {
         }
 
         return true;
-    }
-
-    public String setLockResult() {
-        return null;
     }
 
     /**
@@ -357,6 +356,10 @@ public class LockScreenView extends View {
         private void setStatus(int status) {
             this.status = status;
         }
+    }
+    public void hideArrow(){
+        this.mIsHideArrow=true;
+        invalidate();
     }
 
 }

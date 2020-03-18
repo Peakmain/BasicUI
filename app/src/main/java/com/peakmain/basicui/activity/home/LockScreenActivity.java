@@ -23,6 +23,7 @@ public class LockScreenActivity extends BaseActivity {
     protected void initView() {
         mLockScreenView = findViewById(R.id.lock_pattern);
         mNavigationBuilder.setTitleText("九宫格解锁").create();
+        //mLockScreenView.hideArrow();
     }
 
     @Override
