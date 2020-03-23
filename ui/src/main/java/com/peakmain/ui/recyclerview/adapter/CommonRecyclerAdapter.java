@@ -107,4 +107,11 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     public void setOnLongClickListener(OnLongClickListener longClickListener) {
         this.mLongClickListener = longClickListener;
     }
+    public T getItem(int position){
+        if (position >= 0 && position < mData.size()) {
+            return mData.get(position);
+        } else {
+            return null;
+        }
+    }
 }
