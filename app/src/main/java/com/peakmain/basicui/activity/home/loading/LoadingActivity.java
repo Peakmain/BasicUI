@@ -30,7 +30,7 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.basic_recycler_view;
+        return R.layout.basic_linear_recycler_view;
     }
 
     @Override

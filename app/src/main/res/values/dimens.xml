@@ -8,4 +8,7 @@
     <dimen name="space_1">1dp</dimen>
     <dimen name="space_2">2dp</dimen>
     <dimen name="space_6">6dp</dimen>
+    <dimen name="space_5">5dp</dimen>
+    <dimen name="space_88">88dp</dimen>
+    <dimen name="font_14">14sp</dimen>
 </resources>

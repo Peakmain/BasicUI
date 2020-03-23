@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:background="@color/colorStatus"
+    android:layout_marginTop="@dimen/space_5">
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="@dimen/space_88"
+        android:layout_height="@dimen/space_88"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/space_88"
+        android:scaleType="fitXY"
+        tools:src="#F8E6EC" />
+
+
+</RelativeLayout>

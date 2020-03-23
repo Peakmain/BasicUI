@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.peakmain.basicui">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -30,6 +31,9 @@
         <activity android:name=".activity.home.loading.InspectLoadingActvivity" />
         <activity android:name=".activity.home.loading.ShapeLoadingActivity" />
         <activity android:name=".activity.home.loading.RotatingLoadingActivity" />
+        <activity android:name=".activity.home.recylcer.RecyclerActivity" />
+        <activity android:name=".activity.home.recylcer.GridGroupingActivity" />
+        <activity android:name=".activity.home.recylcer.LinearGroupingActivity" />
     </application>
 
 </manifest>
