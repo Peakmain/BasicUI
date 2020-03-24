@@ -3,9 +3,9 @@ package com.peakmain.basicui.activity.home.recylcer.activity;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.peakmain.basicui.R;
-import com.peakmain.basicui.activity.home.recylcer.itemDecoration.SuspenisonItemDecoration2;
+import com.peakmain.basicui.activity.home.recylcer.itemDecoration.SuspenisonItemDecoration;
 import com.peakmain.basicui.adapter.GroupGridAdapter;
-import com.peakmain.ui.recyclerview.itemdecoration.BaseSuspenisonItemDecoration2;
+import com.peakmain.ui.recyclerview.itemdecoration.BaseSuspenisonItemDecoration;
 
 /**
  * author ：Peakmain
@@ -24,7 +24,7 @@ public class SuspenisonGridActivity extends BaseRecyclerAcitvity {
 
     @Override
     protected void initData() {
-        BaseSuspenisonItemDecoration2 itemDecoration = new SuspenisonItemDecoration2.Builder(this, mGroupBeans).create();
+        BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration.Builder(this, mGroupBeans).create();
         mRecyclerView.addItemDecoration(itemDecoration);
         mGroupAdapter=new GroupGridAdapter(this,mGroupBeans);
         mRecyclerView.setAdapter(mGroupAdapter);
