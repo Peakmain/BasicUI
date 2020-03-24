@@ -17,8 +17,8 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class GroupAdapter extends GroupRecyclerAdapter<GroupBean> {
-    public GroupAdapter(Context context, List<GroupBean> data) {
+public class GroupLinearAdapter extends GroupRecyclerAdapter<GroupBean> {
+    public GroupLinearAdapter(Context context, List<GroupBean> data) {
         super(context, data, R.layout.item_recycler_group, R.layout.item_group_head);
     }
 

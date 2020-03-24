@@ -32,8 +32,10 @@
         <activity android:name=".activity.home.loading.ShapeLoadingActivity" />
         <activity android:name=".activity.home.loading.RotatingLoadingActivity" />
         <activity android:name=".activity.home.recylcer.RecyclerActivity" />
-        <activity android:name=".activity.home.recylcer.GridGroupingActivity" />
-        <activity android:name=".activity.home.recylcer.LinearGroupingActivity" />
+        <activity android:name=".activity.home.recylcer.activity.GridGroupingActivity" />
+        <activity android:name=".activity.home.recylcer.activity.LinearGroupingActivity" />
+        <activity android:name=".activity.home.recylcer.activity.SuspenisonLinearActivity" />
+        <activity android:name=".activity.home.recylcer.activity.SuspenisonGridActivity" />
     </application>
 
 </manifest>
