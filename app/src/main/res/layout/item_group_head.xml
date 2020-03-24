@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_F5F5F5"
-    android:paddingLeft="@dimen/space_10"
     android:paddingTop="@dimen/space_5"
     android:paddingBottom="@dimen/space_5"
-    android:text="测试"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="测试"
     android:textColor="@color/color_7D7D7D"
     android:textSize="@dimen/font_14"/>

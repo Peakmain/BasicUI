@@ -2,9 +2,12 @@ package com.peakmain.basicui.activity.home.recylcer;
 
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
 
 import com.peakmain.basicui.R;
+import com.peakmain.basicui.activity.home.recylcer.activity.GridGroupingActivity;
+import com.peakmain.basicui.activity.home.recylcer.activity.LinearGroupingActivity;
+import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonGridActivity;
+import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonLinearActivity;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.utils.ActivityUtil;
@@ -38,6 +41,8 @@ public class RecyclerActivity extends BaseActivity {
         mData = new ArrayList<>();
         mData.add("GridLayout分组");
         mData.add("LinearLayout分组");
+        mData.add("LinearLayout的悬浮");
+        mData.add("GridLayout分组的悬浮");
         mAdapter = new BaseRecyclerStringAdapter(this, mData);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -48,6 +53,12 @@ public class RecyclerActivity extends BaseActivity {
                     break;
                 case 1:
                     ActivityUtil.gotoActivity(this, LinearGroupingActivity.class);
+                    break;
+                case 2:
+                    ActivityUtil.gotoActivity(this, SuspenisonLinearActivity.class);
+                    break;
+                case 3:
+                    ActivityUtil.gotoActivity(this, SuspenisonGridActivity.class);
                     break;
                 default:
                     break;

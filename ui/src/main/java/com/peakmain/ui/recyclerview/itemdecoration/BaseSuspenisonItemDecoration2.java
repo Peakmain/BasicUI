@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.peakmain.ui.R;
+import com.peakmain.ui.recyclerview.group.GroupRecyclerBean;
 import com.peakmain.ui.utils.SizeUtils;
 
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：基本悬浮列表
  */
-public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemDecoration {
+public abstract class BaseSuspenisonItemDecoration2<T extends GroupRecyclerBean> extends RecyclerView.ItemDecoration {
     private List<T> mData;
     private Paint mBgPaint;
     private TextPaint mTextPaint;
@@ -35,8 +37,9 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
     private int mTextSize;
     //两个置顶模块之间的距离，默认是10
     private int topHeight;
+    private int mPaddingLeft;
 
-    public BaseSuspenisonItemDecoration(Builder builder) {
+    public BaseSuspenisonItemDecoration2(BaseSuspenisonItemDecoration2.Builder builder) {
         this.mData = builder.mData;
 
         mBgColor = builder.mBgColor != 0 ? builder.mBgColor : ContextCompat.getColor(builder.mContext, android.R.color.white);
@@ -44,6 +47,7 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
         topHeight = builder.topHeight != 0 ? builder.topHeight : SizeUtils.dp2px(builder.mContext, 10);
         mTextSize = builder.mTextSize != 0 ? builder.mTextSize : SizeUtils.dp2px(builder.mContext, 10);
         mTextColor = builder.mTextColor != 0 ? builder.mTextColor : ContextCompat.getColor(builder.mContext, R.color.color_4A4A4A);
+        mPaddingLeft = builder.mPaddingLeft != 0 ? builder.mPaddingLeft : SizeUtils.dp2px(builder.mContext, 10);
         initPaint();
 
         mBounds = new Rect();
@@ -75,13 +79,9 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
                     .getLayoutParams();
             int position = params.getViewLayoutPosition();
             if (mData != null && !mData.isEmpty() && position <= mData.size() - 1 && position > -1) {
-                if (position == 0) {
+                if (null != getTopText(mData, position)
+                        && !getTopText(mData, position).equals(getTopText(mData, position - 1))) {
                     drawSection(c, left, right, child, params, position);
-                } else {
-                    if (null != getTopText(mData, position)
-                            && !getTopText(mData, position).equals(getTopText(mData, position - 1))) {
-                        drawSection(c, left, right, child, params, position);
-                    }
                 }
             }
         }
@@ -92,18 +92,20 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
                              RecyclerView.LayoutParams params, int position) {
         String topText = getTopText(mData, position);
         if (!TextUtils.isEmpty(topText)) {
-            c.drawRect(left,
-                    child.getTop() - params.topMargin - mSectionHeight,
-                    right,
-                    child.getTop() - params.topMargin, mBgPaint);
-            mTextPaint.getTextBounds(topText,
-                    0,
-                    getTopText(mData, position).length(),
-                    mBounds);
-            c.drawText(topText,
-                    child.getPaddingLeft(),
-                    child.getTop() - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2,
-                    mTextPaint);
+            if (position != 1) {
+                c.drawRect(left,
+                        child.getTop() - params.topMargin - mSectionHeight,
+                        right,
+                        child.getTop() - params.topMargin, mBgPaint);
+                mTextPaint.getTextBounds(topText,
+                        0,
+                        topText.length(),
+                        mBounds);
+                c.drawText(topText,
+                        child.getPaddingLeft() + mPaddingLeft,
+                        child.getTop() - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2,
+                        mTextPaint);
+            }
         }
 
     }
@@ -135,12 +137,23 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
                 parent.getPaddingTop(),
                 parent.getRight() - parent.getPaddingRight(),
                 parent.getPaddingTop() + mSectionHeight, mBgPaint);
+
         if (!TextUtils.isEmpty(section)) {
+
             mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
             c.drawText(section,
-                    child.getPaddingLeft(),
+                    child.getPaddingLeft() + mPaddingLeft,
                     parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2),
                     mTextPaint);
+        } else if (pos == 0||mData.get(pos).isHeader) {
+            section = getTopText(mData, pos + 1);
+            if (!TextUtils.isEmpty(section)) {
+                mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
+                c.drawText(section,
+                        child.getPaddingLeft() + mPaddingLeft,
+                        parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2),
+                        mTextPaint);
+            }
         }
 
         if (flag) {
@@ -153,13 +166,12 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
         super.getItemOffsets(outRect, view, parent, state);
         int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
         if (mData != null && !mData.isEmpty() && position <= mData.size() - 1 && position > -1) {
-            if (position == 0) {
-                outRect.set(0, mSectionHeight
+            if (position / (getSpanCount(parent) + 1) == 0) {
+                outRect.set(0, topHeight
                         , 0, 0);
             } else {
-                if (null != getTopText(mData, position)
-                        && !getTopText(mData, position).equals(getTopText(mData, position - 1))) {
-                    outRect.set(0, mSectionHeight + topHeight, 0, 0);
+                if (mData.get(position).isHeader) {
+                    outRect.set(0, mSectionHeight + topHeight / 2, 0, 0);
                 }
             }
         }
@@ -170,14 +182,15 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
      */
     public abstract String getTopText(List<T> data, int position);
 
-    public abstract static class Builder<B extends Builder, T> {
+    public abstract static class Builder<B extends BaseSuspenisonItemDecoration2.Builder, T> {
         protected Context mContext;
-        protected List<T> mData;
+        private List<T> mData;
         private int mBgColor;
         private int mSectionHeight;
         private int topHeight;
         private int mTextSize;
         private int mTextColor;
+        private int mPaddingLeft;
 
         public Builder(Context context, List<T> data) {
             mContext = context;
@@ -229,7 +242,22 @@ public abstract class BaseSuspenisonItemDecoration<T> extends RecyclerView.ItemD
             return (B) this;
         }
 
-        protected abstract BaseSuspenisonItemDecoration create();
+        public B setPaddingLeft(int paddingLeft) {
+            mPaddingLeft = paddingLeft;
+            return (B) this;
+        }
+
+        protected abstract BaseSuspenisonItemDecoration2 create();
+    }
+
+    public int getSpanCount(RecyclerView parent) {
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            int spanCount = gridLayoutManager.getSpanCount();
+            return spanCount;
+        }
+        return 1;
     }
 
 }
