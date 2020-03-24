@@ -20,6 +20,7 @@ public class GridGroupingActivity extends BaseRecyclerAcitvity {
 
     @Override
     protected void initData() {
+        mNavigationBuilder.setTitleText("GridLayoutManager实现分组").create();
         GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

@@ -14,7 +14,13 @@ import java.util.List;
  * describe：
  */
 public class SuspenisonItemDecoration extends BaseSuspenisonItemDecoration<GroupBean> {
-    public SuspenisonItemDecoration(Builder builder) {
+
+
+    public SuspenisonItemDecoration(Context context, List<GroupBean> data) {
+        super(context, data);
+    }
+
+    public SuspenisonItemDecoration(BaseSuspenisonItemDecoration.Builder builder) {
         super(builder);
     }
 

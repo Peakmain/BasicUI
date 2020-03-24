@@ -34,6 +34,8 @@ public class RecyclerActivity extends BaseActivity {
     @Override
     protected void initView() {
         mRecyclerView = findViewById(R.id.recycler_view);
+        mNavigationBuilder.setTitleText("Recycleview的使用").create();
+
     }
 
     @Override

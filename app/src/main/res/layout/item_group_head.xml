@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/color_F5F5F5"
     android:paddingTop="@dimen/space_5"
+    android:paddingLeft="15dp"
     android:paddingBottom="@dimen/space_5"
     xmlns:tools="http://schemas.android.com/tools"
     tools:text="测试"

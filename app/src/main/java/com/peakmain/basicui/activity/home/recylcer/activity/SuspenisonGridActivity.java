@@ -24,6 +24,7 @@ public class SuspenisonGridActivity extends BaseRecyclerAcitvity {
 
     @Override
     protected void initData() {
+        mNavigationBuilder.setTitleText("GridLayoutManager实现悬浮").create();
         BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration.Builder(this, mGroupBeans).create();
         mRecyclerView.addItemDecoration(itemDecoration);
         mGroupAdapter=new GroupGridAdapter(this,mGroupBeans);
