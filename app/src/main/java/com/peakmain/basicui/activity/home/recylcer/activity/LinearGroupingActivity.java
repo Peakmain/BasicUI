@@ -18,6 +18,7 @@ public class LinearGroupingActivity extends BaseRecyclerAcitvity {
 
     @Override
     protected void initData() {
+        mNavigationBuilder.setTitleText("LinearLayoutManager实现分组").create();
         mRecyclerView.setAdapter(mGroupAdapter);
     }
 

@@ -7,7 +7,7 @@ import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean;
 import com.peakmain.ui.imageLoader.ImageLoader;
 import com.peakmain.ui.recyclerview.adapter.ViewHolder;
-import com.peakmain.ui.recyclerview.group.GroupRecyclerAdapter;
+import com.peakmain.ui.recyclerview.group.BaseGroupRecyclerAdapter;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class GroupLinearAdapter extends GroupRecyclerAdapter<GroupBean> {
+public class GroupLinearAdapter extends BaseGroupRecyclerAdapter<GroupBean> {
     public GroupLinearAdapter(Context context, List<GroupBean> data) {
         super(context, data, R.layout.item_recycler_group, R.layout.item_group_head);
     }

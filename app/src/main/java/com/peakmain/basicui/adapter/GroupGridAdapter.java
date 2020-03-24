@@ -1,14 +1,13 @@
 package com.peakmain.basicui.adapter;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean;
 import com.peakmain.ui.imageLoader.ImageLoader;
 import com.peakmain.ui.recyclerview.adapter.ViewHolder;
-import com.peakmain.ui.recyclerview.group.GroupRecyclerAdapter;
+import com.peakmain.ui.recyclerview.group.BaseGridGroupRecyclerAdapter;
 
 import java.util.List;
 
@@ -18,16 +17,9 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class GroupGridAdapter extends GroupRecyclerAdapter<GroupBean> {
+public class GroupGridAdapter extends BaseGridGroupRecyclerAdapter<GroupBean> {
     public GroupGridAdapter(Context context, List<GroupBean> data) {
-        super(context, data, R.layout.item_recycler_group, R.layout.item_group_head);
-    }
-
-    @Override
-    protected void convertHead(ViewHolder holder, GroupBean item) {
-        //holder.setText(R.id.tv_index, item.header);
-        ViewGroup.LayoutParams layoutParams = holder.getView(R.id.tv_index).getLayoutParams();
-        layoutParams.height=0;
+        super(context, data, R.layout.item_recycler_group);
     }
 
     @Override

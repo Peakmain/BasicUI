@@ -34,8 +34,11 @@ public class SuspenisonLinearActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        mNavigationBuilder.setTitleText("LinearLayoutManager实现悬浮").create();
         mGroupBeans= PesudoImageData.getInstance().getData();
-        BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration.Builder(this, mGroupBeans).create();
+        BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration
+                .Builder(this, mGroupBeans).create();
+        SuspenisonItemDecoration suspenisonItemDecoration = new SuspenisonItemDecoration(this, mGroupBeans);
         mRecyclerView.addItemDecoration(itemDecoration);
         mGroupAdapter=new GroupLinearAdapter(this,mGroupBeans);
         mRecyclerView.setAdapter(mGroupAdapter);
