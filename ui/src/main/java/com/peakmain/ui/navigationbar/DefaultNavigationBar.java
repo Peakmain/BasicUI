@@ -311,6 +311,10 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
             mRightViewVisible = View.GONE;
             return this;
         }
+        public Builder showRightView() {
+            mRightViewVisible = View.VISIBLE;
+            return this;
+        }
 
         /**
          * 设置右边图片的点击事件
