@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.activity.GridGroupingActivity;
+import com.peakmain.basicui.activity.home.recylcer.activity.ItemTouchActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.LinearGroupingActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonGridActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonLinearActivity;
@@ -45,6 +46,7 @@ public class RecyclerActivity extends BaseActivity {
         mData.add("LinearLayout分组");
         mData.add("LinearLayout的悬浮");
         mData.add("GridLayout分组的悬浮");
+        mData.add("itemTouchHelp方法实现删除和拖拽");
         mAdapter = new BaseRecyclerStringAdapter(this, mData);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -61,6 +63,9 @@ public class RecyclerActivity extends BaseActivity {
                     break;
                 case 3:
                     ActivityUtil.gotoActivity(this, SuspenisonGridActivity.class);
+                    break;
+                case 4:
+                    ActivityUtil.gotoActivity(this, ItemTouchActivity.class);
                     break;
                 default:
                     break;
