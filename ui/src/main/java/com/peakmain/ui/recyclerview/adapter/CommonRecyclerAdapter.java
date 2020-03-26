@@ -1,6 +1,7 @@
 package com.peakmain.ui.recyclerview.adapter;
 
 import android.content.Context;
+import android.support.annotation.IntRange;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener;
 import com.peakmain.ui.recyclerview.listener.OnLongClickListener;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -41,6 +43,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
         this(context, data, -1);
         this.mMultiTypeSupport = multiTypeSupport;
     }
+
     /**
      * 根据当前位置获取不同的viewType
      */
@@ -56,17 +59,17 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //多布局支持
-        if(mMultiTypeSupport!=null){
-            mLayoutId=viewType;
+        if (mMultiTypeSupport != null) {
+            mLayoutId = viewType;
         }
-        itemView = mInflater.inflate(mLayoutId,parent,false);
+        itemView = mInflater.inflate(mLayoutId, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // 设置点击和长按事件
-        if(mItemClickListener!=null){
+        if (mItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,16 +87,19 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
         }
         convert(holder, mData.get(position));
     }
+
     /**
      * 利用抽象方法回传出去，每个不一样的Adapter去设置
      *
      * @param item 当前的数据
      */
     public abstract void convert(ViewHolder holder, T item);
+
     @Override
     public int getItemCount() {
         return mData.size();
     }
+
     /**
      * 给条目设置点击和长按事件
      */
@@ -107,11 +113,56 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     public void setOnLongClickListener(OnLongClickListener longClickListener) {
         this.mLongClickListener = longClickListener;
     }
-    public T getItem(int position){
+
+    public T getItem(int position) {
         if (position >= 0 && position < mData.size()) {
             return mData.get(position);
         } else {
             return null;
         }
+    }
+
+    /**
+     * 添加数据
+     */
+    public void addData(T data) {
+        mData.add(data);
+        notifyItemInserted(mData.size());
+    }
+
+    public void addData(@IntRange(from = 0) int position, T data) {
+        mData.add(position, data);
+        notifyItemInserted(position);
+    }
+
+    public void addData(Collection<? extends T> datas) {
+        mData.addAll(datas);
+        notifyItemRangeInserted(mData.size() - datas.size(), datas.size());
+    }
+
+    /**
+     * 替换数据
+     */
+    public void replaceData(Collection<? extends T> newData) {
+        if (mData != newData) {
+            mData.clear();
+            mData.addAll(newData);
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 移除数据
+     */
+    public void removeData(@IntRange(from = 0) int position) {
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    /**
+     * 返回数据
+     */
+    public List<T> getData() {
+        return mData;
     }
 }

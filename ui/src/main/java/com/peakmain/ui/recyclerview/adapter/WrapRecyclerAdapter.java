@@ -19,8 +19,6 @@ import com.peakmain.ui.recyclerview.listener.OnLongClickListener;
  */
 public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private final static String TAG = "WrapRecyclerAdapter";
-    // 用来存放底部和头部View的集合  比Map要高效一些
-    // 可以点击进入看一下官方的解释
     /**
      * SparseArrays map integers to Objects.  Unlike a normal array of Objects,
      * there can be gaps in the indices.  It is intended to be more memory efficient
@@ -184,8 +182,6 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     /**
      * 解决GridLayoutManager添加头部和底部不占用一行的问题
      *
-     * @param recyclerView
-     * @version 1.0
      */
     public void adjustSpanSize(RecyclerView recyclerView){
         if(recyclerView.getLayoutManager() instanceof GridLayoutManager){
