@@ -1,6 +1,5 @@
 package com.peakmain.basicui.activity.home.recylcer.activity;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 
@@ -29,21 +28,11 @@ public class ItemTouchActivity extends BaseRecyclerAcitvity {
         GridItemTouchHelper itemTouchHelper = new GridItemTouchHelper(mGroupAdapter, mGroupBeans);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                int itemViewType = mGroupAdapter.getItemViewType(position);
-                if (itemViewType == mGroupAdapter.GROUP_HEADER_VIEW)
-                    return gridLayoutManager.getSpanCount();
-                else
-                    return 1;
-            }
-        });
+        mGroupAdapter.adjustSpanSize(mRecyclerView);
         //获取更新后的数据
         itemTouchHelper.setOnDataUpdatedListener(datas -> {
             for (GroupBean data : datas) {
-                Log.e(BuildConfig.TAG,data.isHeader?"head":data.getUrl());
+                Log.e(BuildConfig.TAG, data.isHeader ? "head" : data.getUrl());
             }
         }).setGridDragFlags(ItemTouchHelper.UP);
 

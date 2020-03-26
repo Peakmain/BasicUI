@@ -1,6 +1,8 @@
 package com.peakmain.ui.recyclerview.group;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter;
 import com.peakmain.ui.recyclerview.adapter.ViewHolder;
@@ -28,6 +30,20 @@ public abstract class BaseGroupRecyclerAdapter<T extends GroupRecyclerBean> exte
         } else {
             super.onBindViewHolder(holder, holder.getAdapterPosition());
         }
+    }
+
+    /**
+     * 解决GridLayoutManager添加不占用一行的问题
+     */
+    public void adjustSpanSize(RecyclerView recyclerView) {
+        final GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                int itemViewType = getItemViewType(position);
+                return itemViewType == GROUP_HEADER_VIEW ? layoutManager.getSpanCount() : 1;
+            }
+        });
     }
 
     protected abstract void convertHead(ViewHolder holder, T item);

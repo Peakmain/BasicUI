@@ -1,7 +1,5 @@
 package com.peakmain.basicui.activity.home.recylcer.activity;
 
-import android.support.v7.widget.GridLayoutManager;
-
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.itemDecoration.SuspenisonItemDecoration;
 import com.peakmain.basicui.adapter.GroupGridAdapter;
@@ -29,16 +27,6 @@ public class SuspenisonGridActivity extends BaseRecyclerAcitvity {
         mRecyclerView.addItemDecoration(itemDecoration);
         mGroupAdapter=new GroupGridAdapter(this,mGroupBeans);
         mRecyclerView.setAdapter(mGroupAdapter);
-        GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                int itemViewType = mGroupAdapter.getItemViewType(position);
-                if (itemViewType == mGroupAdapter.GROUP_HEADER_VIEW)
-                    return 4;
-                else
-                    return 1;
-            }
-        });
+       mGroupAdapter.adjustSpanSize(mRecyclerView);
     }
 }

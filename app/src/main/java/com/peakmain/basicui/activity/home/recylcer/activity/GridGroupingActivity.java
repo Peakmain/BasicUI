@@ -1,7 +1,5 @@
 package com.peakmain.basicui.activity.home.recylcer.activity;
 
-import android.support.v7.widget.GridLayoutManager;
-
 import com.peakmain.basicui.R;
 
 /**
@@ -21,18 +19,7 @@ public class GridGroupingActivity extends BaseRecyclerAcitvity {
     @Override
     protected void initData() {
         mNavigationBuilder.setTitleText("GridLayoutManager实现分组").create();
-        GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                int itemViewType = mGroupAdapter.getItemViewType(position);
-                if (itemViewType == mGroupAdapter.GROUP_HEADER_VIEW)
-                    return 4;
-                else
-                    return 1;
-            }
-        });
-
+        mGroupAdapter.adjustSpanSize(mRecyclerView);
         mRecyclerView.setAdapter(mGroupAdapter);
     }
 
