@@ -17,7 +17,7 @@ public class AutoEditTextActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mNavigationBuilder.setTitleText("popwindow和flowlayout的使用")
+        mNavigationBuilder.setTitleText("AutoEditText的使用")
                 .create();
     }
 
