@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_4A4A4A">#4A4A4A</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_6A6A6A">#6A6A6A</color>
+    <color name="color_434343">#434343</color>
+    <color name="color_191919">#191919</color>
+    <color name="color_08B906">#08B906</color>
 </resources>
