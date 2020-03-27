@@ -30,4 +30,5 @@
     <string name="test">测试</string>
     <string name="shapetextview1">测试shapeTextView1</string>
     <string name="dialog_loading">以dialog的方式显示loading!</string>
+    <string name="compress">压缩</string>
 </resources>
