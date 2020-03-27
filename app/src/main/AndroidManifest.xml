@@ -3,6 +3,8 @@
     package="com.peakmain.basicui">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -37,6 +39,7 @@
         <activity android:name=".activity.home.recylcer.activity.SuspenisonLinearActivity" />
         <activity android:name=".activity.home.recylcer.activity.SuspenisonGridActivity" />
         <activity android:name=".activity.home.recylcer.activity.ItemTouchActivity" />
+        <activity android:name=".activity.home.ImageCompressActivity" />
     </application>
 
 </manifest>
