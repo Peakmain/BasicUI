@@ -39,7 +39,6 @@ public class FileUtils {
     }
 
 
-
     public static boolean copyDir(final File srcDir,
                                   final File destDir) {
         return copyOrMoveDir(srcDir, destDir, false);
@@ -131,7 +130,7 @@ public class FileUtils {
         }
     }
 
-    private static boolean writeFileFromIS(final File file,
+    public static boolean writeFileFromIS(final File file,
                                            final InputStream is) {
         OutputStream os = null;
         try {

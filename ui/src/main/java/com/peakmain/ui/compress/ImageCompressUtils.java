@@ -8,11 +8,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.peakmain.ui.BuildConfig;
+import com.peakmain.ui.utils.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,45 +46,16 @@ public class ImageCompressUtils implements Handler.Callback {
         this.mOutFileDir = builder.mOutFileDir;
         this.mCompressListener = builder.mCompressListener;
         mQuality = builder.mQuality;
-        mHandler = new Handler(Looper.getMainLooper(),this);
+        mHandler = new Handler(Looper.getMainLooper(), this);
     }
 
     public static Builder with(Context context) {
         return new Builder(context);
     }
 
-    private File getImageCacheDir(Context context) {
-        return getImageCacheDir(context, DEFAULT_DISK_CACHE_DIR);
-    }
-
-    private File getImageCacheDir(Context context, String cacheName) {
-        File cacheDir = context.getExternalCacheDir();
-        if (cacheDir != null) {
-            File result = new File(cacheDir, cacheName);
-            if (!result.mkdirs() && (!result.exists() || !result.isDirectory())) {
-                return null;
-            }
-            return result;
-        }
-        Log.e(BuildConfig.TAG, "default disk cache dir is null");
-        return null;
-    }
-
-    private File getImageCacheFile(Context context, String suffix) {
-        if (TextUtils.isEmpty(mOutFileDir)) {
-            mOutFileDir = getImageCacheDir(context).getAbsolutePath();
-        }
-
-        String cacheBuilder = mOutFileDir + "/" +
-                System.currentTimeMillis() +
-                (int) (Math.random() * 1000) +
-                (TextUtils.isEmpty(suffix) ? ".jpg" : suffix);
-
-        return new File(cacheBuilder);
-    }
 
     @UiThread
-    private void startCompress(final Context context) {
+    private void startCompress() {
         if (mPaths == null || mPaths.size() == 0 && mCompressListener != null) {
             mCompressListener.onError(new NullPointerException("image file cannot be null"));
         }
@@ -92,8 +64,31 @@ public class ImageCompressUtils implements Handler.Callback {
         //原始图片的集合
         List<String> originalPath = new ArrayList<>(mPaths);
         mHandler.sendMessage(mHandler.obtainMessage(COMPRESS_START));
+        if (TextUtils.isEmpty(mOutFileDir)) {
+            compressFile(result, originalPath);
+        }else{
+            List<String> compressFiles=new ArrayList<>();
+            for (String path : mPaths) {
+                File file = FileUtils.getFileByPath(path);
+                File destFile=new File(mOutFileDir+File.separator+file.getName());
+                if(file.isFile()){
+                    //拷贝到指定的目录
+                    try {
+                        FileUtils.writeFileFromIS(destFile,new FileInputStream(file));
+                        compressFiles.add(destFile.getAbsolutePath());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            //进行的是拷贝之后路径的图片压缩
+            compressFile(result,compressFiles);
+        }
+    }
 
-        for (final String path : originalPath) {
+
+    private void compressFile(final List<String> result, List<String> paths) {
+        for (final String path : paths) {
             if (Checker.isImage(path)) {
                 //如果是图片
                 //保证 同一时间只有一个Task在后台运行
@@ -101,7 +96,6 @@ public class ImageCompressUtils implements Handler.Callback {
                     @Override
                     public void run() {
                         boolean isNeedCompress = Checker.isNeedCompress(mLeastCompressSize, path);
-                        File file;
                         if (isNeedCompress) {
                             CompressUtils compressUtils = new CompressUtils();
                             Bitmap bitmap = compressUtils.decodeFile(path);
@@ -109,8 +103,6 @@ public class ImageCompressUtils implements Handler.Callback {
                             compressUtils
                                     .compressImage(bitmap, mQuality, path);
 
-                        } else {
-                            file = new File(path);
                         }
                         if (!result.contains(path)) {
                             //添加到已经缓存的集合中
@@ -142,7 +134,6 @@ public class ImageCompressUtils implements Handler.Callback {
                 mCompressListener.onError((Throwable) msg.obj);
                 break;
             case COMPRESS_SUCCESS:
-                Log.e(BuildConfig.TAG, "成功了");
                 mCompressListener.onSuccess((List<String>) msg.obj);
                 break;
             default:
@@ -202,7 +193,7 @@ public class ImageCompressUtils implements Handler.Callback {
         }
 
         public void startCompress() {
-            build().startCompress(mContext);
+            build().startCompress();
         }
 
     }
