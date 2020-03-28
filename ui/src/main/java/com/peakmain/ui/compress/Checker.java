@@ -1,11 +1,15 @@
-package com.peakmain.ui.utils;
+package com.peakmain.ui.compress;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * author ：Peakmain
@@ -13,7 +17,32 @@ import java.util.Arrays;
  * mail:2726449200@qq.com
  * describe：
  */
-public class Checker {
+class Checker {
+    private static List<String> format = new ArrayList<>();
+    private static final String JPG = "jpg";
+    private static final String JPEG = "jpeg";
+    private static final String PNG = "png";
+    private static final String WEBP = "webp";
+    private static final String GIF = "gif";
+    private static final String BMP = "bmp";
+
+    static {
+        format.add(JPG);
+        format.add(JPEG);
+        format.add(PNG);
+        format.add(WEBP);
+        format.add(GIF);
+        format.add(BMP);
+    }
+
+    static boolean isImage(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return false;
+        }
+
+        String suffix = path.substring(path.lastIndexOf(".") + 1, path.length());
+        return format.contains(suffix.toLowerCase());
+    }
     private String TAG=Checker.class.getSimpleName();
     private final byte[] JPEG_SIGNATURE = new byte[]{(byte) 0xFF, (byte) 0xD8, (byte) 0xFF};
     private Checker(){
@@ -22,10 +51,19 @@ public class Checker {
     private static class Holder{
         private static  Checker instance=new Checker();
     }
-    public static Checker getInstance(){
+     static Checker getInstance(){
         return Holder.instance;
     }
-  public boolean isJPG(InputStream is) {
+     boolean isJPG(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return false;
+        }
+
+        String suffix = path.substring(path.lastIndexOf("."), path.length()).toLowerCase();
+        return suffix.contains(JPG) || suffix.contains(JPEG);
+    }
+
+    boolean isJPG(InputStream is) {
         return isJPG(toByteArray(is));
     }
     private boolean isJPG(byte[] data) {
@@ -35,7 +73,7 @@ public class Checker {
         byte[] signatureB = new byte[]{data[0], data[1], data[2]};
         return Arrays.equals(JPEG_SIGNATURE, signatureB);
     }
-    public int getOrientation(InputStream is) {
+     int getOrientation(InputStream is) {
         return getOrientation(toByteArray(is));
     }
      int getOrientation(byte[] jpeg) {
@@ -171,5 +209,26 @@ public class Checker {
         }
 
         return buffer.toByteArray();
+    }
+
+    static boolean isNeedCompress(int leastCompressSize, String path) {
+        if (leastCompressSize > 0) {
+            File source = new File(path);
+            if (!source.exists()) {
+                return false;
+            }
+            //如果长度小于设定值则不压缩
+            if (source.length() <= (leastCompressSize << 10)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    static String checkSuffix(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return ".jpg";
+        }
+
+        return path.substring(path.lastIndexOf("."), path.length());
     }
 }

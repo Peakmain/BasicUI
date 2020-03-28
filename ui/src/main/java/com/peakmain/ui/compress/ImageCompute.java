@@ -1,4 +1,4 @@
-package com.peakmain.ui.utils;
+package com.peakmain.ui.compress;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -7,7 +7,7 @@ import android.graphics.Matrix;
  * author ：Peakmain
  * createTime：2020/3/27
  * mail:2726449200@qq.com
- * describe：图片等比例压缩 默认luban
+ * describe：图片等比例压缩  参考luban
  */
 public class ImageCompute {
    protected static int computeSize(int srcWidth,int srcHeight){
@@ -37,7 +37,9 @@ public class ImageCompute {
         Matrix matrix = new Matrix();
 
         matrix.postRotate(angle);
-
+         if(bitmap==null){
+             return bitmap;
+         }
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 

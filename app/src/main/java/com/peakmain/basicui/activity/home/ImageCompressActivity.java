@@ -5,13 +5,20 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.peakmain.basicui.BuildConfig;
 import com.peakmain.basicui.R;
-import com.peakmain.ui.utils.ImageCompressUtils;
+import com.peakmain.ui.compress.ImageCompressUtils;
+import com.peakmain.ui.compress.OnCompressListener;
+import com.peakmain.ui.utils.FileUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * author ：Peakmain
@@ -28,6 +35,7 @@ public class ImageCompressActivity extends AppCompatActivity implements View.OnC
     private TextView mTvResult;
     private Bitmap mBitmap;
     private String mPath;
+    private List<String> mImageLists;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,20 +53,48 @@ public class ImageCompressActivity extends AppCompatActivity implements View.OnC
     }
 
     protected void initData() {
-        mPath = Environment.getExternalStorageDirectory() + "/截屏/test.jpg";
-        mBitmap = ImageCompressUtils.getInstance().decodeFile(mPath);
-        mIvImage.setImageBitmap(mBitmap);
-        int byteCount = mBitmap.getByteCount();
-        mTvResult.setText(byteCount+"");
+        mImageLists = new ArrayList<>();
+        String directory = Environment.getExternalStorageDirectory()+"/截屏";
+        String targetDirector = Environment.getExternalStorageDirectory()+"/peakmain";
+        String path1 = directory + "/1.jpg";
+        String path2 = directory + "/2.jpg";
+        String path3 = directory + "/3.jpg";
+        mImageLists.add(path1);
+        mImageLists.add(path2);
+        mImageLists.add(path3);
+        //所有文件拷贝到另一个文件夹里面
+        String temp = directory + "/temp";
+        FileUtils.createOrExistsDir(temp);
+        FileUtils.copyDir(directory,targetDirector);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_compress:
-                ImageCompressUtils.getInstance().compressImage(mBitmap, 60, mPath);
-                /*mIvImage.setImageBitmap(mBitmap);
-                mTvResult.setText(mBitmap.getByteCount()+"");*/
+                //设置输出文件目录
+                String directory = Environment.getExternalStorageDirectory() + "/peakmain";
+                ImageCompressUtils.with(this)
+                        .load(mImageLists)
+                        .ignoreCompress(100)
+                        .setQuality(90)
+                        .setOutFileDir(directory)
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                Log.e(BuildConfig.TAG,"开始压缩");
+                            }
+
+                            @Override
+                            public void onSuccess(List<String> list) {
+                                Log.e(BuildConfig.TAG,"压缩完成");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e(BuildConfig.TAG,"压缩错误"+e.getMessage());
+                            }
+                        }).startCompress();
                 break;
             default:
                 break;

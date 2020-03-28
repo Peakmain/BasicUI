@@ -1,4 +1,4 @@
-package com.peakmain.ui.utils;
+package com.peakmain.ui.compress;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,30 +15,17 @@ import java.io.IOException;
  * mail:2726449200@qq.com
  * describe：ndk实现图片压缩
  */
-public class ImageCompressUtils {
-    private static final String TAG="ImageCompressUtils";
+public class CompressUtils {
+    private static final String TAG="CompressUtils";
     static {
         System.loadLibrary("compress-lib");
-    }
-
-    //单例
-    private ImageCompressUtils() {
-
-    }
-
-    private static class Holder {
-        private static ImageCompressUtils instance = new ImageCompressUtils();
-    }
-
-    public static ImageCompressUtils getInstance() {
-        return Holder.instance;
     }
 
     private int srcWidth;
     private int srcHeight;
 
-    public void compressImage(Bitmap bitmap, int quality, String fileName) {
-        compressBitmap(bitmap, quality, fileName);
+    public int compressImage(Bitmap bitmap, int quality, String fileName) {
+       return compressBitmap(bitmap, quality, fileName);
     }
 
     private native static int compressBitmap(Bitmap bitmap, int quality, String fileName);
@@ -63,7 +50,7 @@ public class ImageCompressUtils {
             if (Checker.getInstance().isJPG(new FileInputStream(path))) {
                 tagBitmap = ImageCompute.rotatingImage(tagBitmap, Checker.getInstance().getOrientation(new FileInputStream(path)));
             }
-            tagBitmap.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+            tagBitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }finally {
@@ -73,6 +60,7 @@ public class ImageCompressUtils {
                 e.printStackTrace();
             }
         }
+
         return tagBitmap;
     }
 }
