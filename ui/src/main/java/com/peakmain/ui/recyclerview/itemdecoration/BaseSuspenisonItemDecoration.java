@@ -298,7 +298,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         }
 
         /**
-         * 设置文字到左边的距离
+         * 设置文字到底部的距离
          *
          * @param paddingBottom paddingBottom
          */
