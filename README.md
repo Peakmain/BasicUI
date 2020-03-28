@@ -19,7 +19,56 @@ Add it in your root build.gradle at the end of repositories:
 	        implementation 'com.github.Peakmain:BasicUI:0.0.4'
 	}
 ```
-#### 关于Recyclerview的使用
+#### 关于NDK实现图片压缩
+因为我现在只编译了arm64-v8a、armeabi-v7a、x86三个的libjpeg的so，所以大家需要在app项目中添加
+```
+  ndk{
+            abiFilters "armeabi-v7a","arm64-v8a","x86"
+        }
+```
+使用方式有两种
+一、用CompressUtils
+```
+CompressUtils compressUtils = new CompressUtils();
+Bitmap bitmap=compressUtils .decodeFile(path);
+compressUtils .compressImage(bitmap, mQuality, path);
+```
+>第二个参数是指你要压缩图片的质量，path是你要压缩图片的路径，目前是你原图的路径
+
+第一个方式比较粗暴，适合改变原图和单张图片的情况
+二、第二种方式用ImageCompressUtils的方式去压缩多个图片,单个图片也支持
+```
+  //设置输出文件目录
+                String directory = Environment.getExternalStorageDirectory() + "/peakmain";
+                ImageCompressUtils.with(this)
+                        .load(mImageLists)//设置加载图片集合
+                        .ignoreCompress(100)//设置忽略的图片大小单位是kb
+                        .setQuality(90)//设置压缩质量
+                        .setOutFileDir(directory)//设置输出文件目录
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                Log.e(BuildConfig.TAG,"开始压缩");
+                            }
+
+                            @Override
+                            public void onSuccess(List<String> list) {
+                                Log.e(BuildConfig.TAG,"压缩完成");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e(BuildConfig.TAG,"压缩错误"+e.getMessage());
+                            }
+                        }).startCompress();
+```
+>这里需要注意几点：1、ignoreCompress默认是100kb，2、setQuality默认不传的情况下是100，3、setOutFileDir设置的是你要保存的图片路径，这里指的是目录，4、我现在的demo上面是没有添加6.0以上权限认证，大家测试apk记得开启下权限
+
+我自己项目做的一个demo压缩前后大小
+![压缩前图片的大小.jpg](img-preview/压缩前图片的大小.jpg)
+![压缩后图片的大小.jpg](mg-preview/压缩后图片的大小.jpg)
+
+### 关于Recyclerview的使用
 - 单布局继承于 CommonRecyclerAdapter<T>,其中需要的方法是
 ```
 public CommonRecyclerAdapter(Context context, List<T> data, int layoutId) {}
@@ -81,41 +130,153 @@ for example:
     }
 ```
 
-- 我们有时候会使用到recycleview的悬浮列表，这里我也提供了一个基本的悬浮列表BaseSuspenisonItemDecoration，使用很简单，大家只需要继承BaseSuspenisonItemDecoration即可
-因为有时候我们需要自定背景颜色和文字颜色，文字的大小，悬浮之间的距离等。这里我提供了Builder方法，大家继承即可
+- recylcerview的悬浮和分组
 
-for example:
+LinearLayout分组：大家只需要适配器去继承BaseGroupRecyclerAdapter就可以了
+一共有三个方法：构造方法，converHead，convert
+构造方法:主要设置头部布局和内容布局
+converHead：主要设置分组标题数据
+conver:设置内容数据
+
+for example
 ```
-public class SectionItemDecoration extends BaseItemDecoration<SearchCityBean> {
+public class GroupLinearAdapter extends BaseGroupRecyclerAdapter<GroupBean> {
+    public GroupLinearAdapter(Context context, List<GroupBean> data) {
+        super(context, data, R.layout.item_recycler_group, R.layout.item_group_head);
+    }
 
-    public SectionItemDecoration(Builder builder) {
+    @Override
+    protected void convertHead(ViewHolder holder, GroupBean item) {
+        holder.setText(R.id.tv_index, item.header);
+    }
+
+    @Override
+    public void convert(ViewHolder holder, GroupBean item) {
+        ImageView imageView = holder.getView(R.id.iv_image);
+        ImageLoader.getInstance().displayImage(mContext, item.getUrl(), imageView, 0);
+    }
+}
+
+```
+![LinearLayoutManager实现分组.gif](img-preview/LinearLayoutManager实现分组.gif)
+
+GridLayoutManager实现分组：大家只需要继承BaseGridGroupRecyclerAdapter就可以了
+只有两个方法：构造方法和convert，主要作用就不阐述了
+example:
+```
+public class GroupGridAdapter extends BaseGridGroupRecyclerAdapter<GroupBean> {
+    public GroupGridAdapter(Context context, List<GroupBean> data) {
+        super(context, data, R.layout.item_recycler_group);
+    }
+
+    @Override
+    public void convert(ViewHolder holder, GroupBean item) {
+        ImageView imageView = holder.getView(R.id.iv_image);
+        ImageLoader.getInstance().displayImage(mContext, item.getUrl(), imageView, 0);
+    }
+}
+
+```
+
+![GridLayoutManage实现分组.gif](img-preview/GridLayoutManage实现分组.gif)
+
+- LinearLayoutManager实现悬浮效果，大家只需要继承BaseSuspenisonItemDecoration,实现其中的getTopText，如果大家需要设置样式还需要在其中设置Builder去继承BaseSuspenisonItemDecoration.Builder，使用还是很简单的
+注意适配器需要调用这个方法:保证标题单独占一行
+```
+ mGroupAdapter.adjustSpanSize(mRecyclerView);
+```
+example:
+```
+public class SuspenisonItemDecoration extends BaseSuspenisonItemDecoration<GroupBean> {
+
+
+    public SuspenisonItemDecoration(Context context, List<GroupBean> data) {
+        super(context, data);
+    }
+
+    public SuspenisonItemDecoration(BaseSuspenisonItemDecoration.Builder builder) {
         super(builder);
     }
-    @Override
-    public String getTopText(List<SearchCityBean> data, int position) {
-        return data.get(position).getSection();
-    }
-    public static class Builder extends BaseItemDecoration.Builder<SectionItemDecoration.Builder,SearchCityBean>{
 
-        public Builder(Context context, List<SearchCityBean> data) {
+    @Override
+    public String getTopText(List<GroupBean> data, int position) {
+        return data.get(position).getTime();
+    }
+    public static class Builder extends BaseSuspenisonItemDecoration.Builder<Builder,GroupBean> {
+        public Builder(Context context, List<GroupBean> data) {
             super(context, data);
         }
+
         @Override
-        public SectionItemDecoration create() {
-            return new SectionItemDecoration(this);
+        public BaseSuspenisonItemDecoration create() {
+            return new SuspenisonItemDecoration(this);
         }
     }
 }
-```
-使用非常简单
-```
-   SectionItemDecoration decoration = new SectionItemDecoration.Builder(this, mAllCities)
-                .setBgColor(ContextCompat.getColor(this,R.color.colorAccent))
-                .setTextColor(ContextCompat.getColor(this,R.color.color_black))
-                .setSectionHeight(SizeUtils.dp2px(this,30))
-                .create();
-```
 
+```
+随后在activity中recycleview添加分割线即可，两种方式
+```
+   //第一种方式：调用build方法去设置一些参数
+       BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration
+                .Builder(this, mGroupBeans)
+                .setTextCenter(true).create();
+//第二种方式：直接new
+        SuspenisonItemDecoration suspenisonItemDecoration = new SuspenisonItemDecoration(this, mGroupBeans);
+        mRecyclerView.addItemDecoration(itemDecoration);
+```
+![LinearLayoutmanager实现悬浮.gif](img-preview/LinearLayoutmanager实现悬浮.gif)
+
+>目前设置的参数有：
+1、设置背景颜色 
+2、设置文字到左边的距离 
+3、设置文字到底部的距离 
+>4、设置文字到顶边的距离 
+5、置顶距离文字的高度 默认是30 
+6、两个置顶模块之间的距离，默认是10 
+7、设置文字的大小
+8、设置文字的颜色
+9、设置文字是否居中
+
+GridLayoutManage实现悬浮
+首先大家需要进行分组，分组方法使用刚才我介绍的GridlayoutManager中的分组,随后大家和刚才LinearLayoutManger悬浮使用方式一样即可,勿忘调用adjustSpanSize方法
+![GridLayoutManage实现悬浮.gif](img-preview/GridLayoutManage实现悬浮.gif)
+
+ItemTouchHelper实现拖拽和删除
+大家只需要继承BaseItemTouchHelper就可以了，只需要就参数传进去就好
+ for example
+```
+public class GridItemTouchHelper extends BaseItemTouchHelper<GroupBean> {
+
+
+    public GridItemTouchHelper(RecyclerView.Adapter adapter, List<GroupBean> data) {
+        super(adapter, data);
+    }
+}
+
+```
+使用很简单
+```
+        GridItemTouchHelper itemTouchHelper = new GridItemTouchHelper(mGroupAdapter, mGroupBeans);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
+        mGroupAdapter.adjustSpanSize(mRecyclerView);
+        //获取更新后的数据
+        itemTouchHelper.setOnDataUpdatedListener(datas -> {
+            for (GroupBean data : datas) {
+                Log.e(BuildConfig.TAG, data.isHeader ? "head" : data.getUrl());
+            }
+        }).setGridDragFlags(ItemTouchHelper.UP);
+```
+一共有以下几个方法可以调用
+>1、attachToRecyclerView需要将itemTouchHelper和recycleview进行绑定
+2、setOnDataUpdatedListener可以获取到拖拽和删除后的数据 
+3、setGridDragFlags：设置GridLayoutManager 的拖拽flags，默认是 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN
+4、setLinearDragFlags：设置LinearLayoutManager 的拖拽flags，默认是 ItemTouchHelper.LEFT  | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+5、setSwipeFlags：设置滑动删除的flags：默认是 ItemTouchHelper.LEFT  | ItemTouchHelper.RIGHT;
+6、设置数据：setDatas
+
+![ItemTouchHelper实现删除和拖拽.gif.gif](img-preview/ItemTouchHelper实现删除和拖拽.gif)
 #### 关于NavigationBar的使用
 我们每次在项目添加头部的时候，一般做法都是说定义一个公用的布局，但是这其实并不友好，而且都需要findVIewById,我这里用了Builder设计模式，可以动态添加头部
 ```
