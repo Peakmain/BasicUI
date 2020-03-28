@@ -15,7 +15,6 @@ import com.peakmain.basicui.BuildConfig;
 import com.peakmain.basicui.R;
 import com.peakmain.ui.compress.ImageCompressUtils;
 import com.peakmain.ui.compress.OnCompressListener;
-import com.peakmain.ui.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,18 +54,14 @@ public class ImageCompressActivity extends AppCompatActivity implements View.OnC
     protected void initData() {
         mImageLists = new ArrayList<>();
         String directory = Environment.getExternalStorageDirectory()+"/截屏";
-        String targetDirector = Environment.getExternalStorageDirectory()+"/peakmain";
         String path1 = directory + "/1.jpg";
         String path2 = directory + "/2.jpg";
         String path3 = directory + "/3.jpg";
         mImageLists.add(path1);
         mImageLists.add(path2);
         mImageLists.add(path3);
-        //所有文件拷贝到另一个文件夹里面
-        String temp = directory + "/temp";
-        FileUtils.createOrExistsDir(temp);
-        FileUtils.copyDir(directory,targetDirector);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -75,10 +70,10 @@ public class ImageCompressActivity extends AppCompatActivity implements View.OnC
                 //设置输出文件目录
                 String directory = Environment.getExternalStorageDirectory() + "/peakmain";
                 ImageCompressUtils.with(this)
-                        .load(mImageLists)
-                        .ignoreCompress(100)
-                        .setQuality(90)
-                        .setOutFileDir(directory)
+                        .load(mImageLists)//设置加载图片集合
+                        .ignoreCompress(100)//设置忽略的图片大小单位是kb
+                        .setQuality(90)//设置压缩质量
+                        .setOutFileDir(directory)//设置输出文件目录
                         .setCompressListener(new OnCompressListener() {
                             @Override
                             public void onStart() {
