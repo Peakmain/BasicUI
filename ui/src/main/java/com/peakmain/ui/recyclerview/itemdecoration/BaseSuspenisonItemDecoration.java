@@ -43,7 +43,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
     private int mPaddingRight;
     private int mPaddingTop;
     private int mPaddingBottom;
-
+   private boolean isCenter;
     public BaseSuspenisonItemDecoration(Context context, List<T> data) {
         this.mData = data;
         mBgColor = ContextCompat.getColor(context, android.R.color.white);
@@ -70,6 +70,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         mPaddingBottom = builder.mPaddingBottom != 0 ? builder.mPaddingBottom : SizeUtils.dp2px(builder.mContext, 5);
         mPaddingRight = builder.mPaddingRight != 0 ? builder.mPaddingRight : SizeUtils.dp2px(builder.mContext, 10);
         mPaddingTop = builder.mPaddingTop != 0 ? builder.mPaddingTop : SizeUtils.dp2px(builder.mContext, 5);
+        isCenter=builder.mIsCeneter;
         initPaint();
         mBounds = new Rect();
     }
@@ -117,18 +118,29 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
                              RecyclerView.LayoutParams params, int position) {
         String topText = getTopText(mData, position);
         if (!TextUtils.isEmpty(topText)) {
-            c.drawRect(left,
+            Rect rect = new Rect(left,
                     child.getTop() - params.topMargin - mSectionHeight,
                     right,
-                    child.getTop() - params.topMargin, mBgPaint);
+                    child.getTop() - params.topMargin);
+            c.drawRect(rect, mBgPaint);
             mTextPaint.getTextBounds(topText,
                     0,
                     getTopText(mData, position).length(),
                     mBounds);
-            c.drawText(topText,
-                    child.getPaddingLeft() + mPaddingLeft,
-                    child.getTop() - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2,
-                    mTextPaint);
+            if(isCenter){
+                mTextPaint.setTextAlign(Paint.Align.CENTER);
+                c.drawText(topText,
+                        rect.centerX(),
+                        child.getTop() - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2,
+                        mTextPaint);
+            }else{
+
+                c.drawText(topText,
+                        child.getPaddingLeft() + mPaddingLeft,
+                        child.getTop() - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2,
+                        mTextPaint);
+            }
+
         }
 
     }
@@ -156,24 +168,41 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
                 }
             }
         }
-        c.drawRect(parent.getPaddingLeft(),
+        Rect rect = new Rect(parent.getPaddingLeft(),
                 parent.getPaddingTop(),
                 parent.getRight() - parent.getPaddingRight(),
-                parent.getPaddingTop() + mSectionHeight + mPaddingBottom / 2 + mPaddingTop / 2, mBgPaint);
+                parent.getPaddingTop() + mSectionHeight + mPaddingBottom / 2 + mPaddingTop / 2);
+        c.drawRect(rect, mBgPaint);
         if (!TextUtils.isEmpty(section)) {
             mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
-            c.drawText(section,
-                    child.getPaddingLeft() + mPaddingLeft,
-                    parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
-                    mTextPaint);
+           if(isCenter){
+               mTextPaint.setTextAlign(Paint.Align.CENTER);
+               c.drawText(section,
+                       rect.centerX(),
+                       parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
+                       mTextPaint);
+           }else{
+               c.drawText(section,
+                       child.getPaddingLeft() + mPaddingLeft,
+                       parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
+                       mTextPaint);
+           }
         } else if (pos == 0 || mData.get(pos).isHeader) {
             section = getTopText(mData, pos + 1);
             if (!TextUtils.isEmpty(section)) {
                 mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
-                c.drawText(section,
-                        child.getPaddingLeft() + mPaddingLeft,
-                        parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
-                        mTextPaint);
+                if(isCenter){
+                    c.drawText(section,
+                            rect.centerX(),
+                            parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
+                            mTextPaint);
+                }else{
+                    c.drawText(section,
+                            child.getPaddingLeft() + mPaddingLeft,
+                            parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
+                            mTextPaint);
+                }
+
             }
         }
 
@@ -240,6 +269,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         private int mPaddingRight;
         private int mPaddingTop;
         private int mPaddingBottom;
+        private boolean mIsCeneter;
 
         public Builder(Context context, List<T> data) {
             mContext = context;
@@ -335,7 +365,10 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
 
             return (B) this;
         }
-
+        public B setTextCenter(boolean isCenter){
+            this.mIsCeneter=isCenter;
+            return (B) this;
+        }
         protected abstract BaseSuspenisonItemDecoration create();
     }
 
