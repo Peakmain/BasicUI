@@ -66,7 +66,7 @@ compressUtils .compressImage(bitmap, mQuality, path);
 
 我自己项目做的一个demo压缩前后大小
 ![压缩前图片的大小.jpg](img-preview/压缩前图片的大小.jpg)
-![压缩后图片的大小.jpg](mg-preview/压缩后图片的大小.jpg)
+![压缩后图片的大小.jpg](img-preview/压缩后图片的大小.jpg)
 
 ### 关于Recyclerview的使用
 - 单布局继承于 CommonRecyclerAdapter<T>,其中需要的方法是
