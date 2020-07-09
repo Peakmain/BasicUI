@@ -43,7 +43,8 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
     private int mPaddingRight;
     private int mPaddingTop;
     private int mPaddingBottom;
-   private boolean isCenter;
+    private boolean isCenter;
+
     public BaseSuspenisonItemDecoration(Context context, List<T> data) {
         this.mData = data;
         mBgColor = ContextCompat.getColor(context, android.R.color.white);
@@ -59,7 +60,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         mBounds = new Rect();
     }
 
-    public BaseSuspenisonItemDecoration(Builder builder) {
+    public BaseSuspenisonItemDecoration(Builder<T> builder) {
         this.mData = builder.mData;
         mBgColor = builder.mBgColor != 0 ? builder.mBgColor : ContextCompat.getColor(builder.mContext, android.R.color.white);
         mSectionHeight = builder.mSectionHeight != 0 ? builder.mSectionHeight : SizeUtils.dp2px(builder.mContext, 30);
@@ -70,7 +71,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         mPaddingBottom = builder.mPaddingBottom != 0 ? builder.mPaddingBottom : SizeUtils.dp2px(builder.mContext, 5);
         mPaddingRight = builder.mPaddingRight != 0 ? builder.mPaddingRight : SizeUtils.dp2px(builder.mContext, 10);
         mPaddingTop = builder.mPaddingTop != 0 ? builder.mPaddingTop : SizeUtils.dp2px(builder.mContext, 5);
-        isCenter=builder.mIsCeneter;
+        isCenter = builder.mIsCeneter;
         initPaint();
         mBounds = new Rect();
     }
@@ -127,13 +128,13 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
                     0,
                     getTopText(mData, position).length(),
                     mBounds);
-            if(isCenter){
+            if (isCenter) {
                 mTextPaint.setTextAlign(Paint.Align.CENTER);
                 c.drawText(topText,
                         rect.centerX(),
                         child.getTop() - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2,
                         mTextPaint);
-            }else{
+            } else {
 
                 c.drawText(topText,
                         child.getPaddingLeft() + mPaddingLeft,
@@ -175,28 +176,28 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         c.drawRect(rect, mBgPaint);
         if (!TextUtils.isEmpty(section)) {
             mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
-           if(isCenter){
-               mTextPaint.setTextAlign(Paint.Align.CENTER);
-               c.drawText(section,
-                       rect.centerX(),
-                       parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
-                       mTextPaint);
-           }else{
-               c.drawText(section,
-                       child.getPaddingLeft() + mPaddingLeft,
-                       parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
-                       mTextPaint);
-           }
+            if (isCenter) {
+                mTextPaint.setTextAlign(Paint.Align.CENTER);
+                c.drawText(section,
+                        rect.centerX(),
+                        parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
+                        mTextPaint);
+            } else {
+                c.drawText(section,
+                        child.getPaddingLeft() + mPaddingLeft,
+                        parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
+                        mTextPaint);
+            }
         } else if (pos == 0 || mData.get(pos).isHeader) {
             section = getTopText(mData, pos + 1);
             if (!TextUtils.isEmpty(section)) {
                 mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
-                if(isCenter){
+                if (isCenter) {
                     c.drawText(section,
                             rect.centerX(),
                             parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
                             mTextPaint);
-                }else{
+                } else {
                     c.drawText(section,
                             child.getPaddingLeft() + mPaddingLeft,
                             parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + mPaddingTop / 4,
@@ -257,7 +258,7 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
         return 1;
     }
 
-    public abstract static class Builder<B extends Builder, T> {
+    public abstract static class Builder<T extends GroupRecyclerBean> {
         protected Context mContext;
         private List<T> mData;
         private int mBgColor;
@@ -281,10 +282,10 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param bgColor 背景颜色
          */
-        public B setBgColor(@ColorInt int bgColor) {
+        public Builder setBgColor(@ColorInt int bgColor) {
             this.mBgColor = bgColor;
 
-            return (B) this;
+            return this;
         }
 
         /**
@@ -292,9 +293,9 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param paddingLeft paddingLeft
          */
-        public B setPaddingLeft(int paddingLeft) {
+        public Builder setPaddingLeft(int paddingLeft) {
             mPaddingLeft = paddingLeft;
-            return (B) this;
+            return  this;
         }
 
         /**
@@ -302,9 +303,9 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param paddingBottom paddingBottom
          */
-        public B setPaddingBottom(int paddingBottom) {
+        public Builder setPaddingBottom(int paddingBottom) {
             mPaddingBottom = paddingBottom;
-            return (B) this;
+            return this;
         }
 
         /**
@@ -312,9 +313,9 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param paddingRight paddingRight
          */
-        public B setPaddingRight(int paddingRight) {
+        public Builder setPaddingRight(int paddingRight) {
             mPaddingRight = paddingRight;
-            return (B) this;
+            return  this;
         }
 
         /**
@@ -322,17 +323,17 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param paddingTop paddingTop
          */
-        public B setPaddingTop(int paddingTop) {
+        public Builder setPaddingTop(int paddingTop) {
             mPaddingTop = paddingTop;
-            return (B) this;
+            return  this;
         }
 
         /**
          * 置顶距离文字的高度 默认是30
          */
-        public B setSectionHeight(int sectionHeight) {
+        public Builder setSectionHeight(int sectionHeight) {
             this.mSectionHeight = sectionHeight;
-            return (B) this;
+            return  this;
         }
 
         /**
@@ -340,9 +341,9 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param topHeight topHeight
          */
-        public B setTopHeight(int topHeight) {
+        public Builder setTopHeight(int topHeight) {
             this.topHeight = topHeight;
-            return (B) this;
+            return  this;
         }
 
         /**
@@ -350,9 +351,9 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param textSize 文字大小
          */
-        public B setTextSize(int textSize) {
+        public Builder setTextSize(int textSize) {
             this.mTextSize = textSize;
-            return (B) this;
+            return  this;
         }
 
         /**
@@ -360,16 +361,18 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
          *
          * @param textColor 文字的颜色
          */
-        public B setTextColor(int textColor) {
+        public Builder setTextColor(int textColor) {
             mTextColor = textColor;
 
-            return (B) this;
+            return this;
         }
-        public B setTextCenter(boolean isCenter){
-            this.mIsCeneter=isCenter;
-            return (B) this;
+
+        public Builder setTextCenter(boolean isCenter) {
+            this.mIsCeneter = isCenter;
+            return   this;
         }
-        protected abstract BaseSuspenisonItemDecoration create();
+
+        public abstract BaseSuspenisonItemDecoration create();
     }
 
 }
