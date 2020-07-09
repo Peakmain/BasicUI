@@ -15,20 +15,18 @@ import java.util.List;
  */
 public class SuspenisonItemDecoration extends BaseSuspenisonItemDecoration<GroupBean> {
 
-
-    public SuspenisonItemDecoration(Context context, List<GroupBean> data) {
-        super(context, data);
-    }
-
     public SuspenisonItemDecoration(BaseSuspenisonItemDecoration.Builder builder) {
         super(builder);
+    }
+    public SuspenisonItemDecoration(Context context, List<GroupBean> data) {
+        super(context, data);
     }
 
     @Override
     public String getTopText(List<GroupBean> data, int position) {
         return data.get(position).getTime();
     }
-    public static class Builder extends BaseSuspenisonItemDecoration.Builder<Builder,GroupBean> {
+    public static class Builder extends BaseSuspenisonItemDecoration.Builder<GroupBean> {
         public Builder(Context context, List<GroupBean> data) {
             super(context, data);
         }
