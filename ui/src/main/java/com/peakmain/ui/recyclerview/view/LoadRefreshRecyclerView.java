@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -92,14 +93,24 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
         int finalBottomMargin = 0;
         if (mCurrentLoadStatus == LOAD_STATUS_LOOSEN_LOADING) {
             mCurrentLoadStatus = LOAD_STATUS_LOADING;
+
             if (mLoadCreator != null) {
-                mLoadCreator.onLoading();
+                if (mListener != null && mListener.isLoadMore()) {
+                    mLoadCreator.onLoading();
+                } else {
+                    mLoadCreator.onFinishLoadData();
+                }
             }
             if (mListener != null) {
-                mListener.onLoad();
+                if (mListener.isLoadMore()) {
+                    mListener.onLoad();
+                }
             }
         }
-
+        Log.e("TAG", "是否加载更多:" + mListener.isLoadMore());
+        if (mListener != null && mLoadCreator != null && !mListener.isLoadMore()) {
+            mLoadCreator.onFinishLoadData();
+        }
         if (mCurrentDrag) {
             int distance = currentBottomMargin - finalBottomMargin;
 
@@ -117,6 +128,13 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
         }
     }
 
+    /**
+     * 重置加载的view
+     */
+    @Override
+    public void restLoadView() {
+       updateLoadStatus(1);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
@@ -124,7 +142,7 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
             case MotionEvent.ACTION_MOVE:
                 // 如果是在最底部才处理，否则不需要处理
                 if (canScrollDown() || mCurrentLoadStatus == LOAD_STATUS_LOADING
-                        || mLoadCreator == null || mLoadView == null) {
+                        || mLoadCreator == null || mLoadView == null || !mListener.isLoadMore()) {
                     // 如果没有到达最顶端，也就是说还可以向上滚动就什么都不处理
                     return super.onTouchEvent(e);
                 }
@@ -211,10 +229,10 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
      */
     public void onStopLoad() {
         mCurrentLoadStatus = LOAD_STATUS_NORMAL;
-        restoreLoadView();
         if (mLoadCreator != null) {
             mLoadCreator.onStopLoad();
         }
+        restoreLoadView();
     }
 
     // 处理加载更多回调监听
@@ -226,5 +244,7 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
 
     public interface OnLoadMoreListener {
         void onLoad();
+
+        boolean isLoadMore();
     }
 }

@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -109,6 +108,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
             }
             if (mListener != null) {
                 mListener.onRefresh();
+                restLoadView();
             }
         }
         if (mCurrentDrag) {
@@ -162,6 +162,13 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         }
 
         return super.onTouchEvent(e);
+    }
+
+    /**
+     * 重置加载更多的view
+     */
+    public void restLoadView() {
+
     }
 
     /**

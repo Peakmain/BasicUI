@@ -1,6 +1,7 @@
 package com.peakmain.basicui.activity.home.recylcer.activity;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
@@ -22,7 +23,7 @@ import java.util.List;
 public class PullDownActivity extends BaseActivity implements LoadRefreshRecyclerView.OnLoadMoreListener, RefreshRecyclerView.OnRefreshListener {
     LoadRefreshRecyclerView mRecyclerView;
     List<String> list;
-    private int index = 11;
+    private int index = 20;
     private int lastIndex = index + 10;
     private BaseRecyclerStringAdapter mAdapter;
 
@@ -49,7 +50,7 @@ public class PullDownActivity extends BaseActivity implements LoadRefreshRecycle
 
     private List<String> getData() {
         list = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 20; i++) {
             list.add("数据:" + i);
         }
         return list;
@@ -61,8 +62,14 @@ public class PullDownActivity extends BaseActivity implements LoadRefreshRecycle
             List<String> moreData = getMoreData();
             mAdapter.addData(moreData);
             mRecyclerView.onStopLoad();
-        },2000);
+        }, 2000);
 
+    }
+
+    @Override
+    public boolean isLoadMore() {
+        Log.e("TAG", "数据的大小:" + mAdapter.getData().size());
+        return mAdapter.getDataSize() < 25;
     }
 
     private List<String> getMoreData() {
@@ -76,10 +83,10 @@ public class PullDownActivity extends BaseActivity implements LoadRefreshRecycle
 
     @Override
     public void onRefresh() {
-      new Handler().postDelayed(() -> {
-          List<String> data = getData();
-          mAdapter.setData(data);
-          mRecyclerView.onStopRefresh();
-      }, 2000);
+        new Handler().postDelayed(() -> {
+            List<String> data = getData();
+            mAdapter.setData(data);
+            mRecyclerView.onStopRefresh();
+        }, 2000);
     }
 }

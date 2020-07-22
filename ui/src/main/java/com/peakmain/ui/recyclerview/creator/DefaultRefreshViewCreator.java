@@ -72,6 +72,6 @@ public class DefaultRefreshViewCreator extends RefreshViewCreator {
 
     @Override
     public void onStopRefresh() {
-
+       mIvArrow.clearAnimation();
     }
 }

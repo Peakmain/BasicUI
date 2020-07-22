@@ -140,6 +140,11 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
         notifyItemRangeInserted(mData.size() - datas.size(), datas.size());
     }
 
+
+    public int getDataSize() {
+        return mData.size();
+    }
+
     /**
      * 替换数据
      */
