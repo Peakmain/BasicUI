@@ -127,7 +127,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
      */
     public void addData(T data) {
         mData.add(data);
-        notifyItemInserted(mData.size());
+        notifyItemInserted(mData.size() - 1);
     }
 
     public void addData(@IntRange(from = 0) int position, T data) {
@@ -164,5 +164,10 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
      */
     public List<T> getData() {
         return mData;
+    }
+
+    public void setData(List<T> data) {
+        mData = data;
+        notifyDataSetChanged();
     }
 }
