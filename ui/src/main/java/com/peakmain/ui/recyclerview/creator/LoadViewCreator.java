@@ -23,7 +23,7 @@ public abstract class LoadViewCreator {
     /**
      * 正在上拉
      *
-     * @param currentDragHeight    当前拖动的高度
+     * @param currentDragHeight 当前拖动的高度
      * @param loadViewHeight    总的加载高度
      * @param currentLoadStatus 当前状态
      */
@@ -38,4 +38,10 @@ public abstract class LoadViewCreator {
      * 停止加载
      */
     public abstract void onStopLoad();
+
+
+    /**
+     * 数据已经全部加载完成
+     */
+    public abstract void onFinishLoadData();
 }

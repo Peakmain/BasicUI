@@ -17,7 +17,6 @@ import com.peakmain.ui.recyclerview.creator.LoadViewCreator;
  * Created by Darren on 2017/1/3.
  * Email: 240336124@qq.com
  * Description: 默认样式的加载底部辅助类
- * 如淘宝、京东、不同的样式可以自己去实现
  */
 
 public class LoadMoreCreator extends LoadViewCreator {
@@ -65,4 +64,11 @@ public class LoadMoreCreator extends LoadViewCreator {
         mLoadTv.setVisibility(View.VISIBLE);
         mRefreshIv.setVisibility(View.INVISIBLE);
     }
+
+
+    @Override
+    public void onFinishLoadData() {
+
+    }
+
 }

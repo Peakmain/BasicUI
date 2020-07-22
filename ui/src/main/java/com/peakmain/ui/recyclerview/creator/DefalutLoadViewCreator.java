@@ -30,12 +30,16 @@ public class DefalutLoadViewCreator extends LoadViewCreator {
         mTvRefreshTime = refreshView.findViewById(R.id.tv_refresh_time);
         mIvArrow = refreshView.findViewById(R.id.iv_arrow_downward);
         mTvStatus.setText("上拉加载更多");
+        mTvRefreshTime.setVisibility(View.GONE);
         return refreshView;
     }
+
     @Override
     public void onPull(int currentDragHeight, int loadViewHeight, int currentLoadStatus) {
-        mTvRefreshTime.setVisibility(View.GONE);
         if (currentLoadStatus == LoadRefreshRecyclerView.LOAD_STATUS_PULL_DOWN_REFRESH) {
+            if(mIvArrow.getVisibility()==View.GONE){
+                mIvArrow.setVisibility(View.VISIBLE);
+            }
             mTvStatus.setText("上拉加载更多");
             mIvArrow.setImageResource(R.drawable.ic_arrow_downward);
             mIvArrow.setRotation(360);
@@ -45,7 +49,6 @@ public class DefalutLoadViewCreator extends LoadViewCreator {
             mIvArrow.setRotation(180);
         }
     }
-
     @Override
     public void onLoading() {
         mTvStatus.setText("正在加载更多....");
@@ -64,4 +67,10 @@ public class DefalutLoadViewCreator extends LoadViewCreator {
         mIvArrow.setRotation(0);
         mTvStatus.setText("上拉加载更多");
     }
+    @Override
+    public void onFinishLoadData() {
+        mTvStatus.setText("没有更多了");
+        mIvArrow.setVisibility(View.GONE);
+    }
+
 }
