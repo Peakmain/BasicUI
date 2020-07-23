@@ -130,7 +130,7 @@ for example:
     }
 ```
 - recyclerview实现下拉刷新和加载更多
-
+https://www.jianshu.com/p/59a167deb2a5
 - recylcerview的悬浮和分组
 
 LinearLayout分组：大家只需要适配器去继承BaseGroupRecyclerAdapter就可以了
