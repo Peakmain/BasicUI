@@ -20,7 +20,7 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：Recycleriew封装的下拉刷新和加载更多
  */
-public class PullDownActivity extends BaseActivity implements LoadRefreshRecyclerView.OnLoadMoreListener, RefreshRecyclerView.OnRefreshListener {
+public class PullDownActivity1 extends BaseActivity implements LoadRefreshRecyclerView.OnLoadMoreListener, RefreshRecyclerView.OnRefreshListener {
     LoadRefreshRecyclerView mRecyclerView;
     List<String> list;
     private int index = 20;
@@ -46,6 +46,7 @@ public class PullDownActivity extends BaseActivity implements LoadRefreshRecycle
         mRecyclerView.setOnLoadMoreListener(this);
         mRecyclerView.addRefreshViewCreator(new DefaultRefreshViewCreator());
         mRecyclerView.setOnRefreshListener(this);
+
     }
 
     private List<String> getData() {

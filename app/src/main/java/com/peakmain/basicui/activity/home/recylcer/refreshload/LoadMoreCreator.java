@@ -68,7 +68,7 @@ public class LoadMoreCreator extends LoadViewCreator {
 
     @Override
     public void onFinishLoadData() {
-
+       mLoadTv.setText("无更多数据");
     }
 
 }
