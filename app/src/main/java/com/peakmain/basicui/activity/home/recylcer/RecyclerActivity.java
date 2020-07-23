@@ -7,6 +7,7 @@ import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.activity.GridGroupingActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.ItemTouchActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.LinearGroupingActivity;
+import com.peakmain.basicui.activity.home.recylcer.activity.MultiStateLayoutActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.PullDownActivity1;
 import com.peakmain.basicui.activity.home.recylcer.activity.PullDownActivity2;
 import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonGridActivity;
@@ -51,6 +52,7 @@ public class RecyclerActivity extends BaseActivity {
         mData.add("itemTouchHelp方法实现删除和拖拽");
         mData.add("Recycleriew封装的下拉刷新和加载更多1");
         mData.add("Recycleriew封装的下拉刷新和加载更多2");
+        mData.add("多状态布局");
         mAdapter = new BaseRecyclerStringAdapter(this, mData);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -76,6 +78,9 @@ public class RecyclerActivity extends BaseActivity {
                     break;
                 case 6:
                     ActivityUtil.gotoActivity(this, PullDownActivity2.class);
+                    break;
+                case 7:
+                    ActivityUtil.gotoActivity(this, MultiStateLayoutActivity.class);
                     break;
                 default:
                     break;

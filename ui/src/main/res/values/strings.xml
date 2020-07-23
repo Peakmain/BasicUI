@@ -11,6 +11,10 @@
     <string name="pay_password_7">7</string>
     <string name="pay_password_8">8</string>
     <string name="pay_password_9">9</string>
-    <string name="shape_loading_text_view">玩命加载中...</string>
-
+    <string name="shape_loading_text_view">玩命加载中&#8230;</string>
+    <!--多状态布局-->
+    <string name="empty_view_hint">暂时木有内容呀~~</string>
+    <string name="data_error">数据获取失败(ㄒoㄒ)~~</string>
+    <string name="loading_text">加载中&#8230;</string>
+    <string name="no_network">请检查网络后点击重新加载</string>
 </resources>
