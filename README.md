@@ -16,7 +16,7 @@ Add it in your root build.gradle at the end of repositories:
 #### Step 2. Add the dependency
 ```
 	dependencies {
-	        implementation 'com.github.Peakmain:BasicUI:0.1.0'
+	        implementation 'com.github.Peakmain:BasicUI:0.1.1'
 	}
 ```
 #### 关于NDK实现图片压缩
@@ -129,6 +129,7 @@ for example:
         }
     }
 ```
+- recyclerview实现下拉刷新和加载更多
 
 - recylcerview的悬浮和分组
 
@@ -158,6 +159,7 @@ public class GroupLinearAdapter extends BaseGroupRecyclerAdapter<GroupBean> {
 }
 
 ```
+
 ![LinearLayoutManager实现分组.gif](img-preview/LinearLayoutManager实现分组.gif)
 
 GridLayoutManager实现分组：大家只需要继承BaseGridGroupRecyclerAdapter就可以了
