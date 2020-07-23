@@ -40,7 +40,8 @@
         <activity android:name=".activity.home.recylcer.activity.SuspenisonGridActivity" />
         <activity android:name=".activity.home.recylcer.activity.ItemTouchActivity" />
         <activity android:name=".activity.home.ImageCompressActivity" />
-        <activity android:name=".activity.home.recylcer.activity.PullDownActivity" />
+        <activity android:name=".activity.home.recylcer.activity.PullDownActivity1" />
+        <activity android:name=".activity.home.recylcer.activity.PullDownActivity2" />
     </application>
 
 </manifest>

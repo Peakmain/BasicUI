@@ -7,7 +7,8 @@ import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.activity.GridGroupingActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.ItemTouchActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.LinearGroupingActivity;
-import com.peakmain.basicui.activity.home.recylcer.activity.PullDownActivity;
+import com.peakmain.basicui.activity.home.recylcer.activity.PullDownActivity1;
+import com.peakmain.basicui.activity.home.recylcer.activity.PullDownActivity2;
 import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonGridActivity;
 import com.peakmain.basicui.activity.home.recylcer.activity.SuspenisonLinearActivity;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
@@ -48,7 +49,8 @@ public class RecyclerActivity extends BaseActivity {
         mData.add("LinearLayout的悬浮");
         mData.add("GridLayout分组的悬浮");
         mData.add("itemTouchHelp方法实现删除和拖拽");
-        mData.add("Recycleriew封装的下拉刷新和加载更多");
+        mData.add("Recycleriew封装的下拉刷新和加载更多1");
+        mData.add("Recycleriew封装的下拉刷新和加载更多2");
         mAdapter = new BaseRecyclerStringAdapter(this, mData);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -68,8 +70,12 @@ public class RecyclerActivity extends BaseActivity {
                     break;
                 case 4:
                     ActivityUtil.gotoActivity(this, ItemTouchActivity.class);
-                    break;     case 5:
-                    ActivityUtil.gotoActivity(this, PullDownActivity.class);
+                    break;
+                case 5:
+                    ActivityUtil.gotoActivity(this, PullDownActivity1.class);
+                    break;
+                case 6:
+                    ActivityUtil.gotoActivity(this, PullDownActivity2.class);
                     break;
                 default:
                     break;

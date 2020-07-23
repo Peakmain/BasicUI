@@ -44,7 +44,6 @@ public class BestMissRefreshCreator extends RefreshViewCreator {
         mRefreshIv.setImageResource(R.drawable.load_more_anim);
         ((AnimationDrawable) mRefreshIv.getBackground()).start();
     }
-
     @Override
     public void onStopRefresh() {
         // 停止加载的时候清除动画
