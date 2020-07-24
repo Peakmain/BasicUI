@@ -26,13 +26,6 @@ public class WrapRecyclerView extends RecyclerView {
     private WrapRecyclerAdapter mWrapRecyclerAdapter;
     // 这个是列表数据的Adapter
     private Adapter mAdapter;
-    public static final int NULL_RESOURCE_ID = -1;
-    //五种状态
-    public static final int STATUS_CONTENT = 0x00;
-    public static final int STATUS_LOADING = 0x01;
-    public static final int STATUS_EMPTY = 0x02;
-    public static final int STATUS_ERROR = 0x03;
-    public static final int STATUS_NO_NETWORK = 0x04;
     // 增加一些通用功能
     // 空列表数据应该显示的空View
     // 正在加载数据页面，也就是正在获取后台接口页面
@@ -41,7 +34,6 @@ public class WrapRecyclerView extends RecyclerView {
     private View mErrorView;
     private View mLoadingView;
     private View mNoNetworkView;
-    private View mContentView;
     //布局的id
     private int mEmptyViewResId;
     private int mErrorViewResId;
@@ -51,10 +43,7 @@ public class WrapRecyclerView extends RecyclerView {
 
     private final ArrayList<Integer> mOtherIds = new ArrayList<>();
     private final ArrayList<View> mStatusView = new ArrayList<>();
-    /**
-     * 当前view的状态
-     */
-    private int mViewStatus;
+
     /**
      * 默认设置是全屏
      */
@@ -143,24 +132,9 @@ public class WrapRecyclerView extends RecyclerView {
             }
         } else {
             if (mEmptyView != null) {
-                mEmptyView.setVisibility(GONE);
+                mEmptyView.setVisibility(INVISIBLE);
             }
         }
-       /* switch (mViewStatus) {
-            case STATUS_CONTENT:
-                break;
-            case STATUS_ERROR:
-                mErrorView.setVisibility(VISIBLE);
-                break;
-            case STATUS_NO_NETWORK:
-                mNoNetworkView.setVisibility(VISIBLE);
-                break;
-            case STATUS_LOADING:
-                mLoadingView.setVisibility(VISIBLE);
-                break;
-            default:
-                break;
-        }*/
     }
 
     public WrapRecyclerView(Context context) {
@@ -207,7 +181,7 @@ public class WrapRecyclerView extends RecyclerView {
 
         //加载数据页面
         if (mLoadingView != null && mLoadingView.getVisibility() == View.VISIBLE) {
-            mLoadingView.setVisibility(View.GONE);
+            mLoadingView.setVisibility(View.INVISIBLE);
         }
 
         if (mItemClickListener != null) {
@@ -273,7 +247,7 @@ public class WrapRecyclerView extends RecyclerView {
      * @param layoutId     自定义布局文件
      * @param layoutParams 布局参数
      */
-    private void showEmpty(int layoutId, RecyclerView.LayoutParams layoutParams) {
+    public void showEmpty(int layoutId, RecyclerView.LayoutParams layoutParams) {
         showEmpty(inflateView(layoutId), layoutParams);
     }
 
@@ -284,7 +258,6 @@ public class WrapRecyclerView extends RecyclerView {
      * @param layoutParams 布局参数
      */
     private void showEmpty(View view, LayoutParams layoutParams) {
-        mViewStatus = STATUS_EMPTY;
         if (mEmptyView == null) {
             mEmptyView = view;
             View emptyRetryView = mEmptyView.findViewById(R.id.empty_retry_view);
@@ -328,7 +301,6 @@ public class WrapRecyclerView extends RecyclerView {
      * @param layoutParams 布局参数
      */
     public final void showError(View view, ViewGroup.LayoutParams layoutParams) {
-        mViewStatus = STATUS_ERROR;
         if (null == mErrorView) {
             mErrorView = view;
             View errorRetryView = mErrorView.findViewById(R.id.error_retry_view);
@@ -373,7 +345,6 @@ public class WrapRecyclerView extends RecyclerView {
      * @param layoutParams 布局参数
      */
     public final void showLoading(View view, ViewGroup.LayoutParams layoutParams) {
-        mViewStatus = STATUS_LOADING;
         if (null == mLoadingView) {
             mLoadingView = view;
             mOtherIds.add(mLoadingView.getId());
@@ -382,6 +353,14 @@ public class WrapRecyclerView extends RecyclerView {
         }
         mStatusView.add(mLoadingView);
         showViewById(mLoadingView.getId());
+    }
+
+    /**
+     * 隐藏loadingView
+     */
+    public void hideLoading() {
+        if (mLoadingView != null && mLoadingView.getVisibility() == View.VISIBLE)
+            showContentView();
     }
 
     /**
@@ -412,7 +391,6 @@ public class WrapRecyclerView extends RecyclerView {
      * @param layoutParams 布局参数
      */
     public final void showNoNetwork(View view, ViewGroup.LayoutParams layoutParams) {
-        mViewStatus = STATUS_NO_NETWORK;
         if (null == mNoNetworkView) {
             mNoNetworkView = view;
             View noNetworkRetryView = mNoNetworkView.findViewById(R.id.no_network_retry_view);
@@ -426,13 +404,28 @@ public class WrapRecyclerView extends RecyclerView {
         mStatusView.add(mNoNetworkView);
         showViewById(mNoNetworkView.getId());
     }
+
+    /**
+     * 显示内容布局
+     */
+    public void showContentView() {
+        ViewGroup parent = (ViewGroup) getParent();
+        int childCount = parent.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = parent.getChildAt(i);
+            view.setVisibility(mOtherIds.contains(view.getId()) ? View.INVISIBLE : View.VISIBLE);
+        }
+        dataChanged();
+    }
+
+
     private void showViewById(int viewId) {
-        setVisibility(GONE);
+        setVisibility(INVISIBLE);
         for (View view : mStatusView) {
-            if(view.getId() == viewId){
+            if (view.getId() == viewId) {
                 view.setVisibility(VISIBLE);
-            }else{
-                view.setVisibility(GONE);
+            } else {
+                view.setVisibility(INVISIBLE);
             }
         }
     }
@@ -548,5 +541,6 @@ public class WrapRecyclerView extends RecyclerView {
             mWrapRecyclerAdapter.setOnLongClickListener(mLongClickListener);
         }
     }
+
 
 }
