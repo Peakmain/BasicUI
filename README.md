@@ -16,7 +16,7 @@ Add it in your root build.gradle at the end of repositories:
 #### Step 2. Add the dependency
 ```
 	dependencies {
-	        implementation 'com.github.Peakmain:BasicUI:0.1.1'
+	        implementation 'com.github.Peakmain:BasicUI:1.0.0'
 	}
 ```
 #### 关于NDK实现图片压缩
@@ -129,7 +129,7 @@ for example:
         }
     }
 ```
-- recyclerview实现下拉刷新和加载更多
+- recyclerview实现下拉刷新、加载更多和多状态布局
 https://www.jianshu.com/p/59a167deb2a5
 - recylcerview的悬浮和分组
 
