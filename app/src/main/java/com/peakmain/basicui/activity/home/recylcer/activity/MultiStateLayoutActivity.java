@@ -3,6 +3,7 @@ package com.peakmain.basicui.activity.home.recylcer.activity;
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
+import com.peakmain.basicui.utils.ToastUtils;
 import com.peakmain.ui.recyclerview.view.LoadRefreshRecyclerView;
 
 import java.util.ArrayList;
@@ -50,6 +51,13 @@ public class MultiStateLayoutActivity extends BaseActivity {
         findViewById(R.id.button4).setOnClickListener(v -> {
             mRecyclerView.showError();
         });
+        findViewById(R.id.button5).setOnClickListener(v -> {
+            mRecyclerView.showContentView();
+        });
+        findViewById(R.id.button6).setOnClickListener(v -> {
+            mRecyclerView.hideLoading();
+        });
+        mRecyclerView.setOnRetryClickListener(v -> ToastUtils.showShort("正在重新请求接口..."));
     }
 
     private List<String> getData() {

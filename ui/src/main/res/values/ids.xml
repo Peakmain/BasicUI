@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="tv_menu_tab_title" type="id" />
+    <!--多状态布局点击重试的id-->
+    <item name="empty_retry_view" type="id" />
+    <item name="error_retry_view" type="id" />
+    <item name="no_network_retry_view" type="id" />
 </resources>
