@@ -6,6 +6,7 @@ import android.view.View;
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.AutoEditTextActivity;
 import com.peakmain.basicui.activity.home.CustomPasswordKeyboardActivity;
+import com.peakmain.basicui.activity.home.DataBaseActivity;
 import com.peakmain.basicui.activity.home.DialogActivity;
 import com.peakmain.basicui.activity.home.ImageCompressActivity;
 import com.peakmain.basicui.activity.home.LockScreenActivity;
@@ -69,6 +70,7 @@ public class HomeFragment extends BaseFragmnet {
         mHomeDataBean.add("九宫格解锁");
         mHomeDataBean.add("RecyclerView的使用");
         mHomeDataBean.add("图片压缩");
+        mHomeDataBean.add("数据库");
 
         mAdapter = new BaseRecyclerStringAdapter(getContext(), mHomeDataBean);
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(getContext()));
@@ -112,6 +114,9 @@ public class HomeFragment extends BaseFragmnet {
                     break;
                 case 11:
                     ActivityUtil.gotoActivity(getContext(), ImageCompressActivity.class);
+                    break;
+                case 12:
+                    ActivityUtil.gotoActivity(getContext(), DataBaseActivity.class);
                     break;
                 default:
                     break;
