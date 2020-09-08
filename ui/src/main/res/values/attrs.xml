@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--自定以CircleImageView属性-->
+    <declare-styleable name="ShapeTextView">
+        <!--设置线条的宽度-->
+        <attr name="shapeTvStrokeWidth" format="dimension|reference" />
+        <!--设置线条的颜色-->
+        <attr name="shapeTvStrokeColor" format="color|reference" />
+        <!--设置弧度-->
+        <attr name="shapeTvRadius" format="dimension|reference" />
+        <!--设置背景颜色-->
+        <attr name="shapeTvBackgroundColor" format="color|reference" />
+        <!--设置渐变开始颜色-->
+        <attr name="shapeTvStartColor" format="color|reference" />
+        <!--设置渐变结束颜色-->
+        <attr name="shapeTvEndColor" format="color|reference" />
+        <!--设置渐变方向-->
+        <attr name="shapeTvOriention" format="integer">
+            <enum name="LEFT_RIGHT" value="0" />
+            <enum name="TOP_BOTTOM" value="1" />
+        </attr>
+        <!--RECTANGLE=0, OVAL=1, LINE=2, RING=3 默认是0-->
+        <attr name="shapeTvShape" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="line" value="2" />
+            <enum name="ring" value="3" />
+        </attr>
+        <!--是否开启点击后动画效果 默认false-->
+        <attr name="shapeTvActiveMotion" format="boolean" />
+        <!--按下去后文字颜色-->
+        <attr name="shapeTvPressedColor" format="color|reference" />
+    </declare-styleable>
+
+    <!--自定义CircleImageView 属性-->
     <declare-styleable name="CircleImageView">
         <attr name="civ_border_width" format="dimension" />
         <attr name="civ_border_color" format="color" />
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_circle_background_color" format="color" />
-    </declare-styleable>
-
-    <!--自定义ShapeTextView 属性-->
-    <declare-styleable name="ShapeTextView">
-        <attr name="shapeTvStrokeWidth" format="dimension|reference" />
-        <attr name="shapeTvStrokeColor" format="color|reference" />
-        <attr name="shapeTvRadius" format="dimension|reference" />
-        <attr name="shapeTvBackgroundColor" format="color|reference" />
     </declare-styleable>
 
 

@@ -33,4 +33,77 @@
         app:shapeTvStrokeColor="@color/colorPrimary"
         app:shapeTvStrokeWidth="2dp" />
 
+    <com.peakmain.ui.widget.ShapeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_20"
+        android:drawableLeft="@drawable/ic_et_close"
+        android:paddingTop="@dimen/space_6"
+        android:paddingBottom="@dimen/space_6"
+        android:text="@string/shapetextview1"
+        android:textColor="@color/color_4A4A4A"
+        app:shapeTvRadius="@dimen/space_20"
+        app:shapeTvStrokeColor="@color/colorPrimary"
+        app:shapeTvStrokeWidth="2dp" />
+
+    <com.peakmain.ui.widget.ShapeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_20"
+        android:drawableRight="@drawable/ic_et_close"
+        android:paddingTop="@dimen/space_6"
+        android:paddingBottom="@dimen/space_6"
+        android:text="@string/shapetextview1"
+        android:textColor="@color/color_4A4A4A"
+        app:shapeTvRadius="@dimen/space_20"
+        app:shapeTvStrokeColor="@color/colorPrimary"
+        app:shapeTvStrokeWidth="2dp" />
+
+    <com.peakmain.ui.widget.ShapeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_20"
+        android:drawableTop="@drawable/ic_et_close"
+        android:paddingTop="@dimen/space_6"
+        android:paddingBottom="@dimen/space_6"
+        android:text="@string/shapetextview1"
+        android:textColor="@color/color_4A4A4A"
+        app:shapeTvRadius="@dimen/space_20"
+        app:shapeTvStrokeColor="@color/colorPrimary"
+        app:shapeTvStrokeWidth="2dp" />
+
+    <com.peakmain.ui.widget.ShapeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_20"
+        android:drawableBottom="@drawable/ic_et_close"
+        android:paddingTop="@dimen/space_6"
+        android:paddingBottom="@dimen/space_6"
+        android:text="@string/shapetextview1"
+        android:textColor="@color/color_4A4A4A"
+        app:shapeTvRadius="@dimen/space_20"
+        app:shapeTvStrokeColor="@color/colorPrimary"
+        app:shapeTvStrokeWidth="2dp" />
+
+    <com.peakmain.ui.widget.ShapeTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_20"
+        android:paddingTop="@dimen/space_6"
+        android:paddingBottom="@dimen/space_6"
+        app:shapeTvBackgroundColor="@color/basic_defalut_inspect_color1"
+        android:text="@string/shapetextview1"
+        android:textColor="@color/color_F5F5F5"
+        app:shapeTvActiveMotion="true"
+        app:shapeTvStrokeWidth="2dp" />
 </LinearLayout>
