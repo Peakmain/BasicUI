@@ -64,6 +64,19 @@ public class ImageLoader {
     }
 
     /**
+     * 加载URL图片，设置是否跳过缓存
+     *
+     * @param context     上下文
+     * @param url         url
+     * @param view        显示图片的view
+     * @param desId       默认的图片
+     * @param isSkipCache 是否跳过缓存， 默认是false
+     */
+    public void displayImage(Context context, String url, ImageView view, int desId, boolean isSkipCache) {
+        getLoader().displayImage(context, url, view, desId, isSkipCache);
+    }
+
+    /**
      * 加载网路图片 圆角
      *
      * @param context 上下文
