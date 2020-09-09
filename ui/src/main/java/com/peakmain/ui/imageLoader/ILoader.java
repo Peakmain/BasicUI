@@ -36,12 +36,25 @@ public interface ILoader {
 
     /**
      * 加载Uri的图片
+     *
      * @param context 上下文
-     * @param url Uri
-     * @param view 显示图片的view
-     * @param desId 默认的图片
+     * @param url     Uri
+     * @param view    显示图片的view
+     * @param desId   默认的图片
      */
     void displayImage(Context context, Uri url, ImageView view, int desId);
+
+    /**
+     * 加载URL图片，设置是否跳过缓存
+     *
+     * @param context     上下文
+     * @param url         url
+     * @param view        显示图片的view
+     * @param desId       默认的图片
+     * @param isSkipCache 是否跳过缓存， 默认是false
+     */
+    void displayImage(Context context, String url, ImageView view, int desId, boolean isSkipCache);
+
     /**
      * 指定图片大小加载
      *
@@ -97,6 +110,7 @@ public interface ILoader {
 
     /**
      * 程序在内存清理的时候执行
+     *
      * @param context
      * @param level
      */
@@ -104,18 +118,21 @@ public interface ILoader {
 
     /**
      * 低内存的时候执行
+     *
      * @param context
      */
     void clearAllMemoryCaches(Context context);
 
     /**
      * 恢复请求
+     *
      * @param context
      */
     void resumeRequest(Context context);
 
     /**
      * 停止请求
+     *
      * @param context
      */
     void pauseRequest(Context context);
