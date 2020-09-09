@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
@@ -112,9 +113,9 @@ public class ShapeTextView extends AppCompatTextView {
         Drawable[] drawables = getCompoundDrawables();
         //图片在文字左侧居中
         Drawable drawableLeft = drawables[0];
+        int drawablePadding = getCompoundDrawablePadding();
         if (drawableLeft != null) {
             float textWidth = getPaint().measureText(getText().toString());
-            int drawablePadding = getCompoundDrawablePadding();
             int drawableWidth;
             drawableWidth = drawableLeft.getIntrinsicWidth();
             float paddingWidth = textWidth + drawableWidth + drawablePadding;
@@ -126,7 +127,6 @@ public class ShapeTextView extends AppCompatTextView {
         Drawable drawableRight = drawables[2];
         if (drawableRight != null) {
             float textWidth = getPaint().measureText(getText().toString());
-            int drawablePadding = getCompoundDrawablePadding();
             int drawableWidth;
             drawableWidth = drawableRight.getIntrinsicWidth();
             float paddingWidth = textWidth + drawableWidth + drawablePadding;
@@ -165,13 +165,11 @@ public class ShapeTextView extends AppCompatTextView {
         }
         // 是否开启点击动效
         if (isActiveMotion) {
-            // 5.0以上水波纹效果
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //水波纹 5.0以上
                 setBackground(new RippleDrawable(ColorStateList.valueOf(mPressedColor), mGradientDrawable, null));
-            }
-            // 5.0以下变色效果
-            else {
-                // 初始化pressed状态
+            } else {
                 mPressedGradientDrawable.setColor(mPressedColor);
                 if (mShape == 0) {
                     mPressedGradientDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -184,11 +182,7 @@ public class ShapeTextView extends AppCompatTextView {
                 }
                 mPressedGradientDrawable.setCornerRadius(mRadius);
                 mPressedGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor);
-
-                // 注意此处的add顺序，normal必须在最后一个，否则其他状态无效
-                // 设置pressed状态
                 mStateListDrawable.addState(new int[]{android.R.attr.state_pressed}, mPressedGradientDrawable);
-                // 设置normal状态
                 mStateListDrawable.addState(new int[]{}, mGradientDrawable);
                 setBackground(mStateListDrawable);
             }
