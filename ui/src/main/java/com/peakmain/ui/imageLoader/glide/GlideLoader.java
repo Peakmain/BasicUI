@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -29,9 +30,18 @@ public class GlideLoader implements ILoader {
     /**
      * 返回一个请求的配置
      */
-    @SuppressLint("CheckResult")
     private RequestOptions getRequestOptions(int resId) {
+
+        return getRequestOptions(resId, false);
+    }
+
+    @SuppressLint("CheckResult")
+    private RequestOptions getRequestOptions(int resId, boolean isSkipCache) {
         RequestOptions options = new RequestOptions();
+        if (isSkipCache) {
+            options.skipMemoryCache(true);
+            options.diskCacheStrategy(DiskCacheStrategy.NONE);
+        }
         //设置一张占位图
         options.placeholder(resId);
         return options;
@@ -44,6 +54,11 @@ public class GlideLoader implements ILoader {
         loadImage(context, url, view, options);
     }
 
+    @Override
+    public void displayImage(Context context, String url, ImageView view, int desId, boolean isSkipCache) {
+        RequestOptions options = getRequestOptions(desId, isSkipCache);
+        loadImage(context, url, view, options);
+    }
 
     @Override
     public void displayImageRound(Context context, String url, ImageView view, int corner, int desId) {
@@ -154,7 +169,7 @@ public class GlideLoader implements ILoader {
                 }
             }
         } catch (Exception e) {
-            LogUtils.d("加载图片出错："+e.getMessage());
+            LogUtils.d("加载图片出错：" + e.getMessage());
         }
     }
 
