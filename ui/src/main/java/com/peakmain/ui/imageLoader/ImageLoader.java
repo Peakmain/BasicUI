@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.peakmain.ui.imageLoader.glide.GlideLoader;
 
 /**
  * author ：Peakmain
@@ -14,10 +15,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
  */
 public class ImageLoader {
     private static volatile ImageLoader mInstance;
-    private IFactory mIFactory;
+    private ILoader mLoader;
 
     private ImageLoader() {
-        mIFactory = new LoadFactor();
+        mLoader = new GlideLoader();
     }
 
     public static ImageLoader getInstance() {
@@ -37,7 +38,17 @@ public class ImageLoader {
      * @return Gilde的加载工厂
      */
     private ILoader getLoader() {
-        return mIFactory.createGlideLoader();
+        return mLoader;
+    }
+
+    /**
+     * 切换图片的ImageLoader
+     *
+     * @param loader 默认是glideLoader
+     */
+    public ImageLoader exchangeImageLoader(ILoader loader) {
+        this.mLoader = loader;
+        return this;
     }
 
     /**
@@ -75,6 +86,7 @@ public class ImageLoader {
     public void displayImage(Context context, Uri url, ImageView view, int desId) {
         getLoader().displayImage(context, url, view, desId);
     }
+
     /**
      * 指定图片大小加载
      *
@@ -91,11 +103,11 @@ public class ImageLoader {
 
     /**
      * 按照指定大小的缩略图形式加载
-     *
      */
     public void displayImage(Context context, String url, ImageView view, int height, int width, float sizeMultiplier, int desId) {
         getLoader().displayImage(context, url, view, height, width, sizeMultiplier, desId);
     }
+
     /**
      * 加载本地图片
      *
@@ -107,6 +119,7 @@ public class ImageLoader {
     public void displayLocalImage(Context context, String url, ImageView view, int desId) {
         getLoader().displayLocalImage(context, url, view, desId);
     }
+
     /**
      * 加载图片
      *

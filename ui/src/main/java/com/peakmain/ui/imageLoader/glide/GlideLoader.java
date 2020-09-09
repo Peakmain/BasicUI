@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.peakmain.ui.imageLoader.ILoader;
+import com.peakmain.ui.utils.LogUtils;
 
 import java.io.File;
 
@@ -24,7 +25,6 @@ import java.io.File;
  * describe：Glide的
  */
 public class GlideLoader implements ILoader {
-    private String TAG = GlideLoader.class.getSimpleName();
 
     /**
      * 返回一个请求的配置
@@ -100,7 +100,7 @@ public class GlideLoader implements ILoader {
                 }
             }
         } catch (Exception e) {
-            Log.d(TAG, "加载图片出错:" + e.getMessage());
+            LogUtils.d("加载图片出错:" + e.getMessage());
         }
     }
 
@@ -154,7 +154,7 @@ public class GlideLoader implements ILoader {
                 }
             }
         } catch (Exception e) {
-            Log.d("GlideLoader", "加载图片出错:" + e.getMessage());
+            LogUtils.d("加载图片出错："+e.getMessage());
         }
     }
 
