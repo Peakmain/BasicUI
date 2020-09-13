@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.fragment.HomeFragment;
 import com.peakmain.basicui.fragment.MineFragment;
+import com.peakmain.basicui.fragment.UtilsFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -16,9 +17,10 @@ public class MainActivity extends BaseActivity {
     //底部切换的tab常量
     private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_ME = 1;
-
+    private static final int FRAGMENT_UTILS = 2;
     //fragments
     private HomeFragment mHomeFragment;
+    private UtilsFragment mUtilsFragment;
     private MineFragment mMineFragment;
 
 
@@ -31,18 +33,23 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         mBottomNavigation = findViewById(R.id.bottom_navigation);
     }
+
     @Override
     protected void initData() {
         showFragment(FRAGMENT_HOME);
         mBottomNavigation.setOnNavigationItemSelectedListener(this::onOptionsItemSelected);
         mBottomNavigation.setSelectedItemId(R.id.menu_home);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.menu_home:
                 showFragment(FRAGMENT_HOME);
+                return true;
+            case R.id.menu_utils:
+                showFragment(FRAGMENT_UTILS);
                 return true;
             case R.id.menu_me:
                 showFragment(FRAGMENT_ME);
@@ -52,6 +59,7 @@ public class MainActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void showFragment(int index) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         hintFragment(ft);
@@ -76,6 +84,14 @@ public class MainActivity extends BaseActivity {
                     ft.show(mMineFragment);
                 }
                 break;
+            case FRAGMENT_UTILS:
+                if (mUtilsFragment == null) {
+                    mUtilsFragment = new UtilsFragment();
+                    ft.add(R.id.container, mUtilsFragment, UtilsFragment.class.getName());
+                } else {
+                    ft.show(mUtilsFragment);
+                }
+                break;
             default:
                 break;
         }
@@ -92,6 +108,9 @@ public class MainActivity extends BaseActivity {
         }
         if (mMineFragment != null) {
             ft.hide(mMineFragment);
+        }
+        if(mUtilsFragment!=null){
+            ft.hide(mUtilsFragment);
         }
     }
 
