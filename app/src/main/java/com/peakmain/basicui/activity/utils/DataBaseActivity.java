@@ -1,4 +1,4 @@
-package com.peakmain.basicui.activity.home;
+package com.peakmain.basicui.activity.utils;
 
 import android.Manifest;
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.bean.Person;
 import com.peakmain.basicui.utils.ToastUtils;
+import com.peakmain.ui.navigationbar.DefaultNavigationBar;
 import com.peakmain.ui.utils.database.DaoSupportFactory;
 import com.peakmain.ui.utils.database.IDaoSupport;
 
@@ -28,6 +29,12 @@ public class DataBaseActivity extends BaseActivity {
     @Override
     protected void initView() {
         mRecyclerView = findViewById(R.id.recycler_view);
+        new DefaultNavigationBar.Builder(this, findViewById(R.id.view_root))
+                .hideLeftText()
+                .hideRightView()
+                .setTitleText("数据库")
+                .setToolbarBackgroundColor(R.color.colorAccent)
+                .create();
     }
 
     @Override
