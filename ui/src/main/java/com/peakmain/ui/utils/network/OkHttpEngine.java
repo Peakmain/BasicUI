@@ -1,8 +1,8 @@
 package com.peakmain.ui.utils.network;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.peakmain.ui.utils.HandlerUtils;
 import com.peakmain.ui.utils.LogUtils;
 import com.peakmain.ui.utils.OkHttpManager;
 import com.peakmain.ui.utils.network.body.ExMultipartBody;
@@ -42,15 +42,17 @@ public class OkHttpEngine implements IHttpEngine {
     public void setOkHttpClient(OkHttpClient okHttpClient) {
         mOkHttpClient = okHttpClient;
     }
-    public OkHttpEngine(){
-        if(mOkHttpClient==null){
-            mOkHttpClient= OkHttpManager.getOkHttpClient();
+
+    public OkHttpEngine() {
+        if (mOkHttpClient == null) {
+            mOkHttpClient = OkHttpManager.getOkHttpClient();
         }
     }
+
     @Override
     public void get(Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
         url = HttpUtils.jointParams(url, params);
-        Log.e("Get请求路径：", url);
+        LogUtils.e("Get请求路径：" + url);
         Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
         //可以省略，默认是GET请求
         Request request = requestBuilder.build();
@@ -58,15 +60,26 @@ public class OkHttpEngine implements IHttpEngine {
 
 
             @Override
-            public void onFailure(Call call, IOException e) {
-                callBack.onError(e);
+            public void onFailure(Call call, final IOException e) {
+                e.printStackTrace();
+                HandlerUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String resultJson = response.body().string();
-                callBack.onSuccess(resultJson);
-                Log.e("Get返回结果：", resultJson);
+                final String resultJson = response.body().string();
+                LogUtils.e("Get返回结果：" + resultJson);
+                HandlerUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(resultJson);
+                    }
+                });
             }
         });
     }
@@ -74,7 +87,7 @@ public class OkHttpEngine implements IHttpEngine {
     @Override
     public void post(Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
         final String jointUrl = HttpUtils.jointParams(url, params);  //打印
-        Log.e("Post请求路径：", jointUrl);
+        LogUtils.e("Post请求路径："+ jointUrl);
         RequestBody requestBody = appendBody(params);
         Request request = new Request.Builder()
                 .url(url)
@@ -85,16 +98,27 @@ public class OkHttpEngine implements IHttpEngine {
         mOkHttpClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
-                    public void onFailure(okhttp3.Call call, IOException e) {
-                        callBack.onError(e);
+                    public void onFailure(okhttp3.Call call, final IOException e) {
+                        e.printStackTrace();
+                       HandlerUtils.runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               callBack.onError(e);
+                           }
+                       });
                     }
 
                     @Override
                     public void onResponse(okhttp3.Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
-                        String result = response.body().string();
-                        Log.e("Post返回结果：", result);
-                        callBack.onSuccess(result);
+                        final String result = response.body().string();
+                        LogUtils.e("Post返回结果："+result);
+                        HandlerUtils.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onSuccess(result);
+                            }
+                        });
                     }
                 }
         );
@@ -102,47 +126,64 @@ public class OkHttpEngine implements IHttpEngine {
 
     /**
      * 上传文件
+     *
      * @param context  上下文
-     * @param url 方法的url
-     * @param file 上传的文件
+     * @param url      方法的url
+     * @param file     上传的文件
      * @param callBack 回掉
      */
     @Override
     public void uploadFile(Context context, String url, File file, final ProgressEngineCallBack callBack) {
-       LogUtils.d("Upload请求的路径:"+url);
+        LogUtils.e("Upload请求的路径:" + url);
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("platform", "android");
         builder.addFormDataPart("file", file.getName(), RequestBody
                 .create(MediaType.parse(guessMimeType(file.getAbsolutePath())), file));
         ExMultipartBody body = new ExMultipartBody(builder.build(), new UploadProgressListener() {
             @Override
-            public void onProgress(long total, long current) {
-                callBack.onProgress(total, current);
+            public void onProgress(final long total, final long current) {
+               HandlerUtils.runOnUiThread(new Runnable() {
+                   @Override
+                   public void run() {
+                       callBack.onProgress(total, current);
+                   }
+               });
             }
         });
         Request request = new Request.Builder().url(url).post(body).build();
         Call call = mOkHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call call, final IOException e) {
                 e.printStackTrace();
-                callBack.onError(e);
+                HandlerUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-                Log.e("Upload返回结果：", result);
-                callBack.onSuccess(result);
+                final String result = response.body().string();
+                LogUtils.e("Upload返回结果："+result);
+                HandlerUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(result);
+                    }
+                });
             }
         });
     }
 
     /**
      * 单线程下载
+     *
      * @param context  上下文
-     * @param url 下载的URL
-     * @param outFile 保存文件的目录
+     * @param url      下载的URL
+     * @param outFile  保存文件的目录
      * @param callback 下载的回掉
      */
     @Override
@@ -151,8 +192,13 @@ public class OkHttpEngine implements IHttpEngine {
         Call call = mOkHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                callback.onFailure(e);
+            public void onFailure(Call call, final IOException e) {
+                HandlerUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onFailure(e);
+                    }
+                });
             }
 
             @Override
@@ -164,20 +210,37 @@ public class OkHttpEngine implements IHttpEngine {
                 FileOutputStream outputStream = new FileOutputStream(outFile);
                 int len = 0;
                 byte[] buffer = new byte[1024 * 1024];
+                final long contentLength = response.body().contentLength();
+                int currentSize = 0;
                 while ((len = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, len);
+                    currentSize += len;
+                    final int finalCurrentSize = currentSize;
+                    HandlerUtils.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onProgress((int) (finalCurrentSize * 1.0f / contentLength * 100));
+                        }
+                    });
+
                 }
                 inputStream.close();
                 outputStream.close();
-                callback.onSucceed(outFile);
+                HandlerUtils.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onSucceed(outFile);
+                    }
+                });
             }
         });
     }
 
     @Override
     public void downloadMultiManager(Context context, String url, File outFile, DownloadCallback callback) {
-        DownloadDispatcher.getInstance().startDownload(url,outFile, callback);
+        DownloadDispatcher.getInstance().startDownload(url, outFile, callback);
     }
+
     /**
      * 组装post请求参数body
      */
