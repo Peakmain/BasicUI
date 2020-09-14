@@ -5,13 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.peakmain.basicui.R;
+import com.peakmain.basicui.activity.utils.DataBaseActivity;
+import com.peakmain.basicui.activity.utils.GlideActivity;
 import com.peakmain.basicui.activity.utils.OkHttpActivity;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseFragmnet;
 import com.peakmain.basicui.utils.ActivityUtil;
 import com.peakmain.ui.navigationbar.DefaultNavigationBar;
-import com.peakmain.ui.recyclerview.listener.OnItemClickListener;
-import com.peakmain.ui.utils.network.OkHttpEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,8 @@ public class UtilsFragment extends BaseFragmnet {
     protected void initData() {
         mUtilsBean = new ArrayList<>();
         mUtilsBean.add("okhttp网络引擎切换工具类封装");
+        mUtilsBean.add("数据库封装");
+        mUtilsBean.add("Glide图片选择切换封装");
         mAdapter = new BaseRecyclerStringAdapter(getContext(), mUtilsBean);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -54,6 +56,14 @@ public class UtilsFragment extends BaseFragmnet {
             switch (position) {
                 case 0:
                     ActivityUtil.gotoActivity(getContext(), OkHttpActivity.class);
+                    break;
+                case 1:
+                    ActivityUtil.gotoActivity(getContext(), DataBaseActivity.class);
+                    break;
+                case 2:
+                    ActivityUtil.gotoActivity(getContext(), GlideActivity.class);
+                    break;
+                default:
                     break;
             }
         });

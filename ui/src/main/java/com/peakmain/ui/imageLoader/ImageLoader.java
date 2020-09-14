@@ -50,9 +50,18 @@ public class ImageLoader {
         this.mLoader = loader;
         return this;
     }
-
     /**
-     * 加载网路图片
+     * 加载网络图片
+     *
+     * @param context 上下文
+     * @param url     图片地址
+     * @param view    显示图片的View
+     */
+    public void displayImage(Context context, String url, ImageView view) {
+        getLoader().displayImage(context, url, view, 0);
+    }
+    /**
+     * 加载网络图片
      *
      * @param context 上下文
      * @param url     图片地址
@@ -77,7 +86,7 @@ public class ImageLoader {
     }
 
     /**
-     * 加载网路图片 圆角
+     * 加载网络图片 圆角
      *
      * @param context 上下文
      * @param url     图片地址
