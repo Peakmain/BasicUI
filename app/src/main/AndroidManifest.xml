@@ -43,8 +43,9 @@
         <activity android:name=".activity.home.recylcer.activity.PullDownActivity1" />
         <activity android:name=".activity.home.recylcer.activity.PullDownActivity2" />
         <activity android:name=".activity.home.recylcer.activity.MultiStateLayoutActivity" />
-        <activity android:name=".activity.home.DataBaseActivity" />
+        <activity android:name=".activity.utils.DataBaseActivity" />
         <activity android:name=".activity.utils.OkHttpActivity" />
+        <activity android:name=".activity.utils.GlideActivity" />
     </application>
 
 </manifest>

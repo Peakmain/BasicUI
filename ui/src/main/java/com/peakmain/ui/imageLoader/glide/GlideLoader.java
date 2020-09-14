@@ -169,7 +169,7 @@ public class GlideLoader implements ILoader {
                 }
             }
         } catch (Exception e) {
-            LogUtils.d("加载图片出错：" + e.getMessage());
+            LogUtils.e("加载图片出错：" + e.getMessage());
         }
     }
 
