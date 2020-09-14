@@ -96,8 +96,13 @@ class DownloadTask {
                 }
 
                 @Override
-                public void onProgress(int progress) {
-                    mCallback.onProgress(progress);
+                public void onProgress(final int progress) {
+                   HandlerUtils.runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           mCallback.onProgress(progress);
+                       }
+                   });
                 }
 
             });

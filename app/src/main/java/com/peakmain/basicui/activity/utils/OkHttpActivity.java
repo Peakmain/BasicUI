@@ -1,20 +1,18 @@
 package com.peakmain.basicui.activity.utils;
 
-import android.content.Context;
 import android.os.Environment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.peakmain.basicui.MainActivity;
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.utils.ToastUtils;
 import com.peakmain.ui.navigationbar.DefaultNavigationBar;
-import com.peakmain.ui.recyclerview.listener.OnItemClickListener;
 import com.peakmain.ui.utils.LogUtils;
 import com.peakmain.ui.utils.network.HttpUtils;
 import com.peakmain.ui.utils.network.callback.DownloadCallback;
@@ -23,7 +21,6 @@ import com.peakmain.ui.utils.network.callback.EngineCallBack;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * author ：Peakmain
@@ -35,6 +32,8 @@ public class OkHttpActivity extends BaseActivity {
     private List<String> mBean;
     private BaseRecyclerStringAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private ProgressBar mProgressBar;
+    private TextView mTvResult;
 
     @Override
     protected int getLayoutId() {
@@ -44,12 +43,16 @@ public class OkHttpActivity extends BaseActivity {
     @Override
     protected void initView() {
         mRecyclerView = findViewById(R.id.recycler_view);
-        new DefaultNavigationBar.Builder(this, findViewById(R.id.view_root))
+        new DefaultNavigationBar.Builder(this, findViewById(android.R.id.content))
                 .hideLeftText()
                 .hideRightView()
                 .setTitleText("okhttp网络引擎切换工具类")
                 .setToolbarBackgroundColor(R.color.colorAccent)
                 .create();
+        mProgressBar = findViewById(R.id.progressbar);
+        mTvResult = findViewById(R.id.tv_result);
+        mTvResult.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -77,7 +80,7 @@ public class OkHttpActivity extends BaseActivity {
 
                                 @Override
                                 public void onSuccess(String result) {
-                                    ToastUtils.showShort(result);
+                                    mTvResult.setText(result);
                                 }
 
                             });
@@ -96,7 +99,7 @@ public class OkHttpActivity extends BaseActivity {
 
                                 @Override
                                 public void onSuccess(String result) {
-                                    ToastUtils.showShort(result);
+                                    mTvResult.setText(result);
                                 }
                             });
                     break;
@@ -119,11 +122,15 @@ public class OkHttpActivity extends BaseActivity {
                                 public void onSucceed(File file) {
                                     ToastUtils.showShort("file下载完成");
                                     LogUtils.e("文件保存的位置:" + file.getAbsolutePath());
+                                    mProgressBar.setVisibility(View.GONE);
+                                    mProgressBar.setProgress(0);
                                 }
 
                                 @Override
                                 public void onProgress(int progress) {
                                     LogUtils.e("单线程下载apk的进度:" + progress);
+                                    mProgressBar.setProgress(progress);
+                                    mProgressBar.setVisibility(View.VISIBLE);
                                 }
                             });
                     break;
@@ -146,11 +153,15 @@ public class OkHttpActivity extends BaseActivity {
                                 public void onSucceed(File file) {
                                     LogUtils.e(file.getAbsolutePath() + "," + file.getName());
                                     Toast.makeText(OkHttpActivity.this, "下载完成", Toast.LENGTH_LONG).show();
+                                    mProgressBar.setVisibility(View.GONE);
+                                    mProgressBar.setProgress(0);
                                 }
 
                                 @Override
                                 public void onProgress(int progress) {
-                                   LogUtils.e(progress + "%");
+                                    LogUtils.e(progress + "%");
+                                    mProgressBar.setVisibility(View.VISIBLE);
+                                    mProgressBar.setProgress(progress);
                                 }
                             });
                     break;
