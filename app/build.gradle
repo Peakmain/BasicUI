@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.peakmain.basicui"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -39,4 +39,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation project(path: ':ui')
+    implementation 'pub.devrel:easypermissions:2.0.0'
 }

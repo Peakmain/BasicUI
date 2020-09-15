@@ -39,6 +39,12 @@ public class MainActivity extends BaseActivity {
         showFragment(FRAGMENT_HOME);
         mBottomNavigation.setOnNavigationItemSelectedListener(this::onOptionsItemSelected);
         mBottomNavigation.setSelectedItemId(R.id.menu_home);
+        if(!haveNetWorkPerm()){
+            requestNetWorkPerm();
+        }
+        if(!haveReadAndWritePerm()){
+            requestReadAndWritePerm();
+        }
     }
 
     @Override
