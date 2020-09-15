@@ -18,7 +18,8 @@ public class ImageLoader {
     private ILoader mLoader;
 
     private ImageLoader() {
-        mLoader = new GlideLoader();
+        if (mLoader == null)
+            mLoader = new GlideLoader();
     }
 
     public static ImageLoader getInstance() {
@@ -50,6 +51,7 @@ public class ImageLoader {
         this.mLoader = loader;
         return this;
     }
+
     /**
      * 加载网络图片
      *
@@ -60,6 +62,7 @@ public class ImageLoader {
     public void displayImage(Context context, String url, ImageView view) {
         getLoader().displayImage(context, url, view, 0);
     }
+
     /**
      * 加载网络图片
      *
