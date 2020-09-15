@@ -16,9 +16,12 @@ Add it in your root build.gradle at the end of repositories:
 #### Step 2. Add the dependency
 ```
 	dependencies {
-	        implementation 'com.github.Peakmain:BasicUI:1.0.0'
+	        implementation 'com.github.Peakmain:BasicUI:1.0.1'
 	}
 ```
+#### 工具类封装
+文档:[basicUI(六)——工具类的封装](https://www.jianshu.com/p/c6d792007af1)
+
 #### 关于NDK实现图片压缩
 因为我现在只编译了arm64-v8a、armeabi-v7a、x86三个的libjpeg的so，所以大家需要在app项目中添加
 ```
