@@ -42,7 +42,7 @@ public class PopWindowAndFlowActivity extends BaseActivity {
     @Override
     protected void initData() {
         mList = new ArrayList<>();
-        for (int i = 8; i < 26; i++) {
+        for (int i = 8; i < 50; i++) {
             mList.add("自定" + i + "标签");
         }
         showButton();
