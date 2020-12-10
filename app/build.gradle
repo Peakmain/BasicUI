@@ -1,13 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/zhouchengdong/peakmain/androidStudio/github/BasicUI/basicuUI.keystore')
+            storePassword '123456'
+            keyAlias 'peakmain'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.peakmain.basicui"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk{
             abiFilters "armeabi-v7a","arm64-v8a","x86"
@@ -18,7 +26,8 @@ android {
             buildConfigField("String","TAG","\"TAG\"")
         }
         release {
-            minifyEnabled false
+            buildConfigField("String","TAG","\"TAG\"")
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
