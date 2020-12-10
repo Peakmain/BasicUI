@@ -23,11 +23,11 @@ android {
 
     buildTypes {
         debug{
-            buildConfigField("String","TAG","\"TAG\"")
+            buildConfigField("String","TAG","\"BasicUI\"")
         }
         release {
             minifyEnabled false
-            buildConfigField("String","TAG","\"TAG\"")
+            buildConfigField("String","TAG","\"BasicUI\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

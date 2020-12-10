@@ -49,4 +49,14 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation project(path: ':ui')
     implementation 'pub.devrel:easypermissions:2.0.0'
+
+    //3D地图so及jar
+    implementation 'com.amap.api:3dmap:latest.integration'
+    //定位功能
+    implementation 'com.amap.api:location:latest.integration'
+    //搜索功能
+    implementation 'com.amap.api:search:latest.integration'
+
+
+    implementation 'com.taobao.android:weex_sdk:0.18.0'
 }
