@@ -10,8 +10,12 @@ import com.peakmain.basicui.launcher.AMapTask;
 import com.peakmain.basicui.launcher.DeviceIdTask;
 import com.peakmain.basicui.launcher.JPushTask;
 import com.peakmain.basicui.launcher.UtilsTask;
+import com.peakmain.basicui.launcher.WeexTask;
 import com.peakmain.basicui.utils.ToastUtils;
+import com.peakmain.ui.utils.launcher.dispatcher.DelayInitDispatcher;
 import com.peakmain.ui.utils.launcher.dispatcher.TaskDispatcher;
+
+import okhttp3.Dispatcher;
 
 /**
  * author ：Peakmain
@@ -34,7 +38,9 @@ public class App extends Application {
                 .addTask(new UtilsTask())
                 .addTask(new JPushTask())
                 .addTask(new DeviceIdTask())
+                .addTask(new WeexTask())
                 .start();
+
     }
 
     public static void runOnUiThread(final Runnable runnable) {

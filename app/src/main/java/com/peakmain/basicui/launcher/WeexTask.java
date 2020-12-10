@@ -2,6 +2,7 @@ package com.peakmain.basicui.launcher;
 
 import android.app.Application;
 
+import com.peakmain.ui.utils.launcher.task.MainTask;
 import com.peakmain.ui.utils.launcher.task.Task;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
@@ -12,7 +13,7 @@ import com.taobao.weex.WXSDKEngine;
  * mail:2726449200@qq.com
  * describe：
  */
-public class WeexTask extends Task {
+public class WeexTask extends MainTask {
     @Override
     public void run() {
         InitConfig config = new InitConfig.Builder().build();
