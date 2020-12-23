@@ -3,6 +3,7 @@ package com.peakmain.basicui.activity.home;
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.utils.ToastUtils;
+import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener;
 import com.peakmain.ui.widget.password.CustomerKeyboard;
 import com.peakmain.ui.widget.password.PasswordEditText;
 
@@ -31,7 +32,7 @@ public class CustomPasswordKeyboardActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
+        mCustomerKeyboard.setOnCustomerKeyboardClickListener(new SimpleCustomKeyboardListener() {
             @Override
             public void click(String number) {
                 mEditText.addPasswordNumber(number);
