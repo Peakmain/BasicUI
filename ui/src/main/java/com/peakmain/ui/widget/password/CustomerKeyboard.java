@@ -11,12 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.peakmain.ui.R;
+import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener;
 
 /**
  * author ：Peakmain
  * createTime：2020/3/12
  * mail:2726449200@qq.com
- * describe：
+ * describe：普通键盘和身份证键盘
  */
 public class CustomerKeyboard extends LinearLayout implements View.OnClickListener {
     //是否显示身份证信息
@@ -35,7 +36,8 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.ui_pay_password_keyboard, this);
         setItemClickListener(this);
-        findViewById(R.id.textView4).setVisibility(isExtraKey ? VISIBLE : INVISIBLE);
+        findViewById(R.id.tv_custom_keyboard_x).setVisibility(isExtraKey ? VISIBLE : GONE);
+        findViewById(R.id.iv_keyboard_hide).setVisibility(isExtraKey ? GONE : VISIBLE);
     }
 
     /**
@@ -60,34 +62,29 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
     public void onClick(View v) {
         if (v instanceof TextView) {
             String number = ((TextView) v).getText().toString().trim();
-            if (!isExtraKey && v.getId() == R.id.textView4) {
+            if (!isExtraKey && v.getId() == R.id.tv_custom_keyboard_x) {
                 return;
             }
             if (mListener != null) {
                 mListener.click(number);
             }
-        }
-        if (v instanceof ImageView) {
-            if (mListener != null) {
-                mListener.delete();
+        } else if (v instanceof ImageView) {
+            if (v.getId() == R.id.iv_keyboard_delete) {
+                if (mListener != null) {
+                    mListener.delete();
+                }
+            } else if (v.getId() == R.id.iv_keyboard_hide) {
+                if (mListener != null)
+                    mListener.dissmiss();
             }
         }
     }
 
     // 设置点击回掉监听
-    private CustomerKeyboardClickListener mListener;
+    private SimpleCustomKeyboardListener mListener;
 
-    public void setOnCustomerKeyboardClickListener(CustomerKeyboardClickListener listener) {
+    public void setOnCustomerKeyboardClickListener(SimpleCustomKeyboardListener listener) {
         this.mListener = listener;
-    }
-
-    /**
-     * 点击键盘的回调监听
-     */
-    public interface CustomerKeyboardClickListener {
-        public void click(String number);
-
-        public void delete();
     }
 
     public boolean isExtraKey() {
