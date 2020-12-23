@@ -58,5 +58,5 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
 
 
-    implementation 'com.taobao.android:weex_sdk:0.18.0'
+   // implementation 'com.taobao.android:weex_sdk:0.18.0'
 }

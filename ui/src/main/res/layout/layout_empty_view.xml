@@ -7,14 +7,14 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/dimen_100"
+        android:layout_height="@dimen/dimen_100"
         android:src="@drawable/ic_no_data" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10"
         android:text="@string/empty_view_hint"
         android:textColor="@color/color_4A4A4A" />
 </LinearLayout>

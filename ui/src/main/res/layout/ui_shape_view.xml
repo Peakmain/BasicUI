@@ -9,21 +9,21 @@
 
     <com.peakmain.ui.loading.ShapeView
         android:id="@+id/shape_view"
-        android:layout_width="@dimen/shape_view_size"
-        android:layout_height="@dimen/shape_view_size"
+        android:layout_width="@dimen/dimen_25"
+        android:layout_height="@dimen/dimen_25"
         android:layout_marginBottom="82dp" />
 
     <View
         android:id="@+id/shadow_view"
-        android:layout_width="@dimen/shape_view_size"
-        android:layout_height="@dimen/shape_loading_shadow_view_height"
+        android:layout_width="@dimen/dimen_25"
+        android:layout_height="@dimen/dimen_3"
         android:background="@drawable/shape_loading_shadow_bg" />
 
     <TextView
         android:id="@+id/tv_shape_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/shape_laoding_tv_margin_top"
+        android:layout_marginTop="@dimen/dimen_5"
         android:text="@string/shape_loading_text_view" />
 
 </LinearLayout>
