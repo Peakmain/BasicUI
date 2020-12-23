@@ -6,15 +6,15 @@
     android:gravity="center"
     android:orientation="vertical">
 
-   <ProgressBar
-       android:layout_width="30dp"
-       android:layout_height="30dp" />
+    <ProgressBar
+        android:layout_width="@dimen/dimen_30"
+        android:layout_height="@dimen/dimen_30" />
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="10dp"
-       android:textColor="@color/color_4A4A4A"
-       android:text="@string/loading_text" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="@string/loading_text"
+        android:textColor="@color/color_4A4A4A" />
 
 </LinearLayout>

@@ -31,4 +31,16 @@
         <item name="android:windowEnterAnimation">@anim/dialog_scale_anim_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_scale_anim_out</item>
     </style>
+
+    <!--自定义键盘文本样式-->
+    <style name="custom_keyboard_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
 </resources>

@@ -1,11 +1,6 @@
 package com.peakmain.basicui.launcher;
 
-import android.app.Application;
-
 import com.peakmain.ui.utils.launcher.task.MainTask;
-import com.peakmain.ui.utils.launcher.task.Task;
-import com.taobao.weex.InitConfig;
-import com.taobao.weex.WXSDKEngine;
 
 /**
  * author ：Peakmain
@@ -16,7 +11,7 @@ import com.taobao.weex.WXSDKEngine;
 public class WeexTask extends MainTask {
     @Override
     public void run() {
-        InitConfig config = new InitConfig.Builder().build();
-        WXSDKEngine.initialize((Application) mContext, config);
+       /* InitConfig config = new InitConfig.Builder().build();
+        WXSDKEngine.initialize((Application) mContext, config);*/
     }
 }
