@@ -19,9 +19,13 @@ import com.peakmain.ui.R;
  * describe：
  */
 public class CustomerKeyboard extends LinearLayout implements View.OnClickListener {
+    //是否显示身份证信息
+    public boolean isExtraKey = true;
+
     public CustomerKeyboard(Context context) {
         this(context, null);
     }
+
 
     public CustomerKeyboard(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
@@ -31,6 +35,7 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.ui_pay_password_keyboard, this);
         setItemClickListener(this);
+        findViewById(R.id.textView4).setVisibility(isExtraKey ? VISIBLE : INVISIBLE);
     }
 
     /**
@@ -55,19 +60,20 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
     public void onClick(View v) {
         if (v instanceof TextView) {
             String number = ((TextView) v).getText().toString().trim();
-            if(v.getId()==R.id.textView4){
+            if (!isExtraKey && v.getId() == R.id.textView4) {
                 return;
             }
             if (mListener != null) {
                 mListener.click(number);
             }
         }
-        if(v instanceof ImageView){
-            if(mListener!=null){
+        if (v instanceof ImageView) {
+            if (mListener != null) {
                 mListener.delete();
             }
         }
     }
+
     // 设置点击回掉监听
     private CustomerKeyboardClickListener mListener;
 
@@ -82,5 +88,9 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
         public void click(String number);
 
         public void delete();
+    }
+
+    public boolean isExtraKey() {
+        return isExtraKey;
     }
 }
