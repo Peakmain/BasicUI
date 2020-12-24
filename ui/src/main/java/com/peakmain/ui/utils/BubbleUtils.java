@@ -17,7 +17,7 @@ public class BubbleUtils {
             //根据资源ID获取响应的尺寸值
             return context.getResources().getDimensionPixelSize(resourceId);
         }
-        return SizeUtils.dp2px( context,25);
+        return SizeUtils.dp2px(25);
     }
 
     /**

@@ -49,7 +49,7 @@ public class ShapeLoadingView extends LinearLayout {
 
     public ShapeLoadingView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mTranslationDistance = SizeUtils.dp2px(getContext(), 80);
+        mTranslationDistance = SizeUtils.dp2px(80);
         initLayout();
     }
 
@@ -181,7 +181,7 @@ public class ShapeLoadingView extends LinearLayout {
                         }
                     })
                     .setCancelable(false)
-                    .setWidthAndHeight(SizeUtils.getScreenWidth(getContext()) * 2 / 3, SizeUtils.getScreenHeight(getContext()) / 3);
+                    .setWidthAndHeight(SizeUtils.getScreenWidth() * 2 / 3, SizeUtils.getScreenHeight() / 3);
         }
         mDialog = mBuilder.show();
     }

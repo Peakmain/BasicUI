@@ -48,14 +48,14 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
     public BaseSuspenisonItemDecoration(Context context, List<T> data) {
         this.mData = data;
         mBgColor = ContextCompat.getColor(context, android.R.color.white);
-        mSectionHeight = SizeUtils.dp2px(context, 30);
-        topHeight = SizeUtils.dp2px(context, 10);
-        mTextSize = SizeUtils.dp2px(context, 10);
+        mSectionHeight = SizeUtils.dp2px( 30);
+        topHeight = SizeUtils.dp2px(10);
+        mTextSize = SizeUtils.dp2px(10);
         mTextColor = ContextCompat.getColor(context, R.color.color_4A4A4A);
-        mPaddingLeft = SizeUtils.dp2px(context, 10);
-        mPaddingBottom = SizeUtils.dp2px(context, 5);
-        mPaddingRight = SizeUtils.dp2px(context, 10);
-        mPaddingTop = SizeUtils.dp2px(context, 5);
+        mPaddingLeft = SizeUtils.dp2px( 10);
+        mPaddingBottom = SizeUtils.dp2px( 5);
+        mPaddingRight = SizeUtils.dp2px(10);
+        mPaddingTop = SizeUtils.dp2px(5);
         initPaint();
         mBounds = new Rect();
     }
@@ -63,14 +63,14 @@ public abstract class BaseSuspenisonItemDecoration<T extends GroupRecyclerBean> 
     public BaseSuspenisonItemDecoration(Builder<T> builder) {
         this.mData = builder.mData;
         mBgColor = builder.mBgColor != 0 ? builder.mBgColor : ContextCompat.getColor(builder.mContext, android.R.color.white);
-        mSectionHeight = builder.mSectionHeight != 0 ? builder.mSectionHeight : SizeUtils.dp2px(builder.mContext, 30);
-        topHeight = builder.topHeight != 0 ? builder.topHeight : SizeUtils.dp2px(builder.mContext, 10);
-        mTextSize = builder.mTextSize != 0 ? builder.mTextSize : SizeUtils.dp2px(builder.mContext, 10);
+        mSectionHeight = builder.mSectionHeight != 0 ? builder.mSectionHeight : SizeUtils.dp2px(30);
+        topHeight = builder.topHeight != 0 ? builder.topHeight : SizeUtils.dp2px( 10);
+        mTextSize = builder.mTextSize != 0 ? builder.mTextSize : SizeUtils.dp2px( 10);
         mTextColor = builder.mTextColor != 0 ? builder.mTextColor : ContextCompat.getColor(builder.mContext, R.color.color_4A4A4A);
-        mPaddingLeft = builder.mPaddingLeft != 0 ? builder.mPaddingLeft : SizeUtils.dp2px(builder.mContext, 10);
-        mPaddingBottom = builder.mPaddingBottom != 0 ? builder.mPaddingBottom : SizeUtils.dp2px(builder.mContext, 5);
-        mPaddingRight = builder.mPaddingRight != 0 ? builder.mPaddingRight : SizeUtils.dp2px(builder.mContext, 10);
-        mPaddingTop = builder.mPaddingTop != 0 ? builder.mPaddingTop : SizeUtils.dp2px(builder.mContext, 5);
+        mPaddingLeft = builder.mPaddingLeft != 0 ? builder.mPaddingLeft : SizeUtils.dp2px(10);
+        mPaddingBottom = builder.mPaddingBottom != 0 ? builder.mPaddingBottom : SizeUtils.dp2px(5);
+        mPaddingRight = builder.mPaddingRight != 0 ? builder.mPaddingRight : SizeUtils.dp2px( 10);
+        mPaddingTop = builder.mPaddingTop != 0 ? builder.mPaddingTop : SizeUtils.dp2px( 5);
         isCenter = builder.mIsCeneter;
         initPaint();
         mBounds = new Rect();

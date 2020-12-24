@@ -94,7 +94,7 @@ public abstract class BaseTabLayout<T> extends HorizontalScrollView {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //不可用具体的数字，目的主要是为了适配
-            params.leftMargin = SizeUtils.getScreenWidth(getContext()) / 25;
+            params.leftMargin = SizeUtils.getScreenWidth() / 25;
             final ColorTrackTextView colorTrackTextView = new ColorTrackTextView(getContext());
             //设置两种颜色
             colorTrackTextView.setOriginColor(mOriginColor);
@@ -206,7 +206,7 @@ public abstract class BaseTabLayout<T> extends HorizontalScrollView {
 
     private void scrollToChild(int position) {
         //获取屏幕的宽度
-        int screenWidth = SizeUtils.getScreenWidth(getContext());
+        int screenWidth = SizeUtils.getScreenWidth();
         //计算控件居正中时距离左侧屏幕的距离
         int middleLeftPosition = (screenWidth - mLinearLayout.getChildAt(position).getWidth()) / 2;
         //正中间位置需要向左偏移的距离
