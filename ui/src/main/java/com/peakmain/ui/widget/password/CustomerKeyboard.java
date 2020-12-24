@@ -1,6 +1,7 @@
 package com.peakmain.ui.widget.password;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener;
  */
 public class CustomerKeyboard extends LinearLayout implements View.OnClickListener {
     //是否显示身份证信息
-    public boolean isExtraKey = true;
+    public boolean isExtraKey = false;
 
     public CustomerKeyboard(Context context) {
         this(context, null);
@@ -34,10 +35,17 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
 
     public CustomerKeyboard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttrs(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.ui_pay_password_keyboard, this);
         setItemClickListener(this);
         findViewById(R.id.tv_custom_keyboard_x).setVisibility(isExtraKey ? VISIBLE : GONE);
         findViewById(R.id.iv_keyboard_hide).setVisibility(isExtraKey ? GONE : VISIBLE);
+    }
+
+    private void initAttrs(Context context, AttributeSet attrs) {
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.customKeyboardView);
+        isExtraKey = ta.getBoolean(R.styleable.customKeyboardView_ckExtraKey, isExtraKey);
+        ta.recycle();
     }
 
     /**

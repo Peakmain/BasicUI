@@ -171,4 +171,9 @@
         <attr name="emptyView" format="reference" />
         <attr name="noNetworkView" format="reference" />
     </declare-styleable>
+
+    <!--自定义键盘的属性-->
+    <declare-styleable name="customKeyboardView">
+        <attr name="ckExtraKey" format="boolean"/>
+    </declare-styleable>
 </resources>

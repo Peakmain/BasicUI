@@ -82,7 +82,11 @@ public class HandlerUtils {
      * @param runnable
      */
     public static void runOnUiThread(Runnable runnable) {
-        HANDLER.post(runnable);
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            runnable.run();
+        } else {
+            HANDLER.post(runnable);
+        }
     }
 
     /**

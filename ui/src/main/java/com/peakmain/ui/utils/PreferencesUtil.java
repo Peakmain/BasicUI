@@ -25,7 +25,7 @@ public class PreferencesUtil {
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor editor = null;
     private Object object;
-    public static PreferencesUtil preferencesUtil;
+    public static volatile PreferencesUtil preferencesUtil;
 
     public static PreferencesUtil getInstance(Context context) {
         if (preferencesUtil == null) {
