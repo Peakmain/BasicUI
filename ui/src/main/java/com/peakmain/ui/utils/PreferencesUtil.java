@@ -1,11 +1,12 @@
 package com.peakmain.ui.utils;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
+
+import com.peakmain.ui.constants.BasicUIUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,20 +28,20 @@ public class PreferencesUtil {
     private Object object;
     public static volatile PreferencesUtil preferencesUtil;
 
-    public static PreferencesUtil getInstance(Context context) {
+    public static PreferencesUtil getInstance() {
         if (preferencesUtil == null) {
             synchronized (PreferencesUtil.class) {
                 if (preferencesUtil == null) {
                     // 使用双重同步锁
-                    preferencesUtil = new PreferencesUtil(context);
+                    preferencesUtil = new PreferencesUtil();
                 }
             }
         }
         return preferencesUtil;
     }
 
-    private PreferencesUtil(Context context) {
-        preferences = PreferenceManager.getDefaultSharedPreferences(context
+    private PreferencesUtil() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(BasicUIUtils.getApplication()
                 .getApplicationContext());
     }
 
