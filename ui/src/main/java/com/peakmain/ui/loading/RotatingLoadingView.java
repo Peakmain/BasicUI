@@ -78,7 +78,7 @@ public class RotatingLoadingView extends View {
                         }
                     })
                     .setCancelable(false)
-                    .setWidthAndHeight(SizeUtils.getScreenWidth(getContext()) * 2 / 3, SizeUtils.getScreenHeight(getContext()) / 3);
+                    .setWidthAndHeight(SizeUtils.getScreenWidth() * 2 / 3, SizeUtils.getScreenHeight() / 3);
         }
         mDialog = mBuilder.show();
         invalidate();

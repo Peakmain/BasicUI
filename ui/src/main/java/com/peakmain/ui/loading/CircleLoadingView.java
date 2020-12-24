@@ -47,7 +47,7 @@ public class CircleLoadingView extends RelativeLayout {
     public CircleLoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //设置相隔距离
-        mTranslationDistance = SizeUtils.dp2px(context, mTranslationDistance);
+        mTranslationDistance = SizeUtils.dp2px(mTranslationDistance);
         //设置背景
         setBackgroundColor(Color.WHITE);
         //绘制左边的圆形
@@ -128,7 +128,7 @@ public class CircleLoadingView extends RelativeLayout {
 
     private CircleView getCircleView() {
         CircleView circleView = new CircleView(getContext());
-        LayoutParams params = new LayoutParams(SizeUtils.dp2px(getContext(), 10), SizeUtils.dp2px(getContext(), 10));
+        LayoutParams params = new LayoutParams(SizeUtils.dp2px( 10), SizeUtils.dp2px( 10));
         params.addRule(CENTER_IN_PARENT);
         circleView.setLayoutParams(params);
         return circleView;
@@ -156,19 +156,19 @@ public class CircleLoadingView extends RelativeLayout {
      * 显示loading
      */
     public void show() {
-       if(mBuilder==null){
-           mBuilder = new AlertDialog.Builder(getContext())
-                   .setContentView(this)
-                   .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                       @Override
-                       public void onCancel(DialogInterface dialog) {
-                           setVisibility(INVISIBLE);
-                       }
-                   })
-                   .setCancelable(false)
-                   .setWidthAndHeight(SizeUtils.getScreenWidth(getContext()) / 2, SizeUtils.getScreenHeight(getContext()) / 5);
-       }
-        mDialog= mBuilder.show();
+        if (mBuilder == null) {
+            mBuilder = new AlertDialog.Builder(getContext())
+                    .setContentView(this)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            setVisibility(INVISIBLE);
+                        }
+                    })
+                    .setCancelable(false)
+                    .setWidthAndHeight(SizeUtils.getScreenWidth() / 2, SizeUtils.getScreenHeight() / 5);
+        }
+        mDialog = mBuilder.show();
     }
 
     /**
@@ -184,30 +184,31 @@ public class CircleLoadingView extends RelativeLayout {
     /**
      * 设置是否可以取消
      */
-    public CircleLoadingView setCancelable(boolean flag){
-        if(mDialog!=null){
+    public CircleLoadingView setCancelable(boolean flag) {
+        if (mDialog != null) {
             mDialog.setCancelable(flag);
         }
         return this;
     }
+
     /**
      * 设置宽高
      */
-    public CircleLoadingView setWidthAndHeight(int width,int height){
-       if(mBuilder==null){
-           mBuilder = new AlertDialog.Builder(getContext())
-                   .setContentView(this)
-                   .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                       @Override
-                       public void onCancel(DialogInterface dialog) {
-                           setVisibility(INVISIBLE);
-                       }
-                   })
-                   .setCancelable(false)
-                   .setWidthAndHeight(width, height);
-       }else{
-           Log.e(BuildConfig.TAG,"Please call Method before show Method");
-       }
+    public CircleLoadingView setWidthAndHeight(int width, int height) {
+        if (mBuilder == null) {
+            mBuilder = new AlertDialog.Builder(getContext())
+                    .setContentView(this)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            setVisibility(INVISIBLE);
+                        }
+                    })
+                    .setCancelable(false)
+                    .setWidthAndHeight(width, height);
+        } else {
+            Log.e(BuildConfig.TAG, "Please call Method before show Method");
+        }
         return this;
     }
 }

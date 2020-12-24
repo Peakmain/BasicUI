@@ -1,10 +1,11 @@
 package com.peakmain.ui.utils;
 
-import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.peakmain.ui.constants.BasicUIUtils;
 
 /**
  * author ：Peakmain
@@ -23,8 +24,8 @@ public class SizeUtils {
      * @param dpValue dp值
      * @return px值
      */
-    public static int dp2px(Context context, final float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+    public static int dp2px( final float dpValue) {
+        final float scale = BasicUIUtils.getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -34,8 +35,8 @@ public class SizeUtils {
      * @param pxValue px值
      * @return dp值
      */
-    public static int px2dp(Context context, final float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+    public static int px2dp(final float pxValue) {
+        final float scale = BasicUIUtils.getApplication().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -45,8 +46,8 @@ public class SizeUtils {
      * @param spValue sp值
      * @return px值
      */
-    public static int sp2px(Context context, final float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+    public static int sp2px(final float spValue) {
+        final float fontScale = BasicUIUtils.getApplication().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -56,8 +57,8 @@ public class SizeUtils {
      * @param pxValue px值
      * @return sp值
      */
-    public static int px2sp(Context context, final float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+    public static int px2sp(final float pxValue) {
+        final float fontScale = BasicUIUtils.getApplication().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 
@@ -70,7 +71,7 @@ public class SizeUtils {
      * @param metrics DisplayMetrics
      * @return 转换结果
      */
-    public static float applyDimension(Context context, final int unit, final float value, final DisplayMetrics metrics) {
+    public static float applyDimension(final int unit, final float value, final DisplayMetrics metrics) {
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 return value;
@@ -172,15 +173,15 @@ public class SizeUtils {
     /**
      *  获取屏幕的宽度（单位：px）
      */
-    public static int getScreenWidth(Context context) {
-        return context.getResources().getDisplayMetrics().widthPixels;
+    public static int getScreenWidth() {
+        return BasicUIUtils.getApplication().getResources().getDisplayMetrics().widthPixels;
     }
     /**
      * 获取屏幕的高度（单位：px）
      *
      * @return 屏幕高
      */
-    public static int getScreenHeight(Context context) {
-        return context.getResources().getDisplayMetrics().heightPixels;
+    public static int getScreenHeight() {
+        return BasicUIUtils.getApplication().getResources().getDisplayMetrics().heightPixels;
     }
 }
