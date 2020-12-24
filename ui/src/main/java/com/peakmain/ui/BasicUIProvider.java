@@ -11,7 +11,7 @@ import com.peakmain.ui.constants.BasicUIUtils;
  * mail:2726449200@qq.com
  * describe：
  */
-public class BasicProvider extends FileProvider {
+public class BasicUIProvider extends FileProvider {
     @Override
     public boolean onCreate() {
         BasicUIUtils.init((Application) getContext().getApplicationContext());

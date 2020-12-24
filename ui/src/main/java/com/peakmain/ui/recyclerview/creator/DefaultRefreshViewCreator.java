@@ -51,7 +51,7 @@ public class DefaultRefreshViewCreator extends RefreshViewCreator {
     @Override
     public void onPull(int currentDragHeight, int refreshViewHeight, int currentRefreshStatus) {
         /*mTvRefreshTime.setText("刷新时间:2020年");*/
-        mTvRefreshTime.setText(PreferencesUtil.getInstance(mContext).getRefreshTime());
+        mTvRefreshTime.setText(PreferencesUtil.getInstance().getRefreshTime());
         if (currentRefreshStatus == LoadRefreshRecyclerView.LOAD_STATUS_PULL_DOWN_REFRESH) {
             mTvStatus.setText("下拉可以刷新");
             mIvArrow.setImageResource(R.drawable.ic_arrow_downward);
@@ -72,7 +72,7 @@ public class DefaultRefreshViewCreator extends RefreshViewCreator {
         animation.setRepeatCount(-1);
         animation.setDuration(1000);
         mIvArrow.startAnimation(animation);
-        PreferencesUtil.getInstance(mContext).saveRefreshTime();
+        PreferencesUtil.getInstance().saveRefreshTime();
     }
 
     @Override
