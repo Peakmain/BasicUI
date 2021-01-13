@@ -6,17 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.peakmain.ui.widget.password.PasswordEditText
+    <EditText
         android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/space_20"
         android:layout_marginLeft="@dimen/space_50"
         android:layout_marginRight="@dimen/space_50"
-        android:layout_height="30dp" />
+        android:hint="请输入"
+        android:layout_height="wrap_content" />
 
     <com.peakmain.ui.widget.password.CustomerKeyboard
         android:id="@+id/custom_key_board"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
+        app:ckExtraKey="."
+        app:ckDecimalPlaces="3"
         android:layout_height="wrap_content" />
 </RelativeLayout>

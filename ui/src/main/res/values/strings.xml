@@ -12,6 +12,7 @@
     <string name="custom_password_8">8</string>
     <string name="custom_password_9">9</string>
     <string name="custom_password_x">X</string>
+    <string name="custom_password_dot">.</string>
 
     <string name="shape_loading_text_view">玩命加载中&#8230;</string>
     <!--多状态布局-->

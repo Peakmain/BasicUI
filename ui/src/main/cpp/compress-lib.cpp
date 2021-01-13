@@ -107,8 +107,7 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
     return 1;
 }
 
-// 函数的实现  AS  1.5如果没代码提示 AS2.2   VS去写好 Unity3D
-// java 什么思想  C就是什么思想
+
 extern "C"
 jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
                                                                    jclass thiz, jobject bitmap,

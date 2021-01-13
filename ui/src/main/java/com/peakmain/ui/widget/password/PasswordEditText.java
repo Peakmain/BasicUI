@@ -59,14 +59,15 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
     private void initAttributeSet(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PasswordEditText);
         // 获取大小
-        mDivisionLineSize = (int) ta.getDimension(R.styleable.PasswordEditText_divisionLineSize, SizeUtils.dp2px( mDivisionLineSize));
-        mPasswordRadius = (int) ta.getDimension(R.styleable.PasswordEditText_passwordRadius, SizeUtils.dp2px( mPasswordRadius));
-        mBgSize = (int) ta.getDimension(R.styleable.PasswordEditText_bgSize, SizeUtils.dp2px( mBgSize));
+        mDivisionLineSize = (int) ta.getDimension(R.styleable.PasswordEditText_divisionLineSize, SizeUtils.dp2px(mDivisionLineSize));
+        mPasswordRadius = (int) ta.getDimension(R.styleable.PasswordEditText_passwordRadius, SizeUtils.dp2px(mPasswordRadius));
+        mBgSize = (int) ta.getDimension(R.styleable.PasswordEditText_bgSize, SizeUtils.dp2px(mBgSize));
         mBgCorner = (int) ta.getDimension(R.styleable.PasswordEditText_bgCorner, 0);
         // 获取颜色
         mBgColor = ta.getColor(R.styleable.PasswordEditText_bgColor, mBgColor);
         mDivisionLineColor = ta.getColor(R.styleable.PasswordEditText_divisionLineColor, mDivisionLineColor);
         mPasswordColor = ta.getColor(R.styleable.PasswordEditText_passwordColor, mDivisionLineColor);
+        mPasswordNumber = ta.getInt(R.styleable.PasswordEditText_passwordNumber, mPasswordNumber);
         ta.recycle();
     }
 
@@ -160,8 +161,8 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
     }
 
     /**
-     *   设置当前密码已完成
-      */
+     * 设置当前密码已完成
+     */
 
     private PasswordCompleteListener mListener;
 

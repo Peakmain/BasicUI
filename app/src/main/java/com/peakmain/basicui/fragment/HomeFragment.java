@@ -5,18 +5,17 @@ import android.view.View;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.AutoEditTextActivity;
-import com.peakmain.basicui.activity.home.CustomPasswordKeyboardActivity;
-import com.peakmain.basicui.activity.utils.DataBaseActivity;
 import com.peakmain.basicui.activity.home.DialogActivity;
 import com.peakmain.basicui.activity.home.ImageCompressActivity;
+import com.peakmain.basicui.activity.home.KeyboardActivity;
 import com.peakmain.basicui.activity.home.LockScreenActivity;
 import com.peakmain.basicui.activity.home.MultiMenuActivity;
 import com.peakmain.basicui.activity.home.NaviagtionBarActivity;
 import com.peakmain.basicui.activity.home.PopWindowAndFlowActivity;
-import com.peakmain.basicui.activity.home.recylcer.RecyclerActivity;
 import com.peakmain.basicui.activity.home.ShapeTextViewActivity;
 import com.peakmain.basicui.activity.home.TableLayoutActivity;
 import com.peakmain.basicui.activity.home.loading.LoadingActivity;
+import com.peakmain.basicui.activity.home.recylcer.RecyclerActivity;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseFragmnet;
 import com.peakmain.basicui.utils.ActivityUtil;
@@ -66,7 +65,7 @@ public class HomeFragment extends BaseFragmnet {
         mHomeDataBean.add("仿今日头条的TableLayout");
         mHomeDataBean.add("loading效果");
         mHomeDataBean.add("仿58同城多条目菜单删选");
-        mHomeDataBean.add("自定义支付密码键盘");
+        mHomeDataBean.add("自定义键盘");
         mHomeDataBean.add("九宫格解锁");
         mHomeDataBean.add("RecyclerView的使用");
         mHomeDataBean.add("图片压缩");
@@ -103,7 +102,7 @@ public class HomeFragment extends BaseFragmnet {
                     ActivityUtil.gotoActivity(getContext(), MultiMenuActivity.class);
                     break;
                 case 8:
-                    ActivityUtil.gotoActivity(getContext(), CustomPasswordKeyboardActivity.class);
+                    ActivityUtil.gotoActivity(getContext(), KeyboardActivity.class);
                     break;
                 case 9:
                     ActivityUtil.gotoActivity(getContext(), LockScreenActivity.class);
