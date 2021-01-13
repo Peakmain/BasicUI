@@ -3,6 +3,7 @@ package com.peakmain.ui.widget.password;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,13 @@ import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener;
  */
 public class CustomerKeyboard extends LinearLayout implements View.OnClickListener {
     //是否显示身份证信息
-    public boolean isExtraKey = false;
+    public String isExtraKey = "";
+    //小数点后多少位
+    private int decimalPlaces = 100;
+
+    //是否点击了小数点
+    private boolean isSelectDecimalPoint = false;
+    private int mDecimalPointCount;
 
     public CustomerKeyboard(Context context) {
         this(context, null);
@@ -36,15 +43,18 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
     public CustomerKeyboard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.ui_pay_password_keyboard, this);
+        LayoutInflater.from(context).inflate(R.layout.ui_custom_keyboard, this);
         setItemClickListener(this);
-        findViewById(R.id.tv_custom_keyboard_x).setVisibility(isExtraKey ? VISIBLE : GONE);
-        findViewById(R.id.iv_keyboard_hide).setVisibility(isExtraKey ? GONE : VISIBLE);
+        TextView tvCustomKeyboard = findViewById(R.id.tv_custom_keyboard_x);
+        tvCustomKeyboard.setVisibility(!TextUtils.isEmpty(isExtraKey) ? VISIBLE : GONE);
+        tvCustomKeyboard.setText(isExtraKey);
+        findViewById(R.id.iv_keyboard_hide).setVisibility(!TextUtils.isEmpty(isExtraKey) ? GONE : VISIBLE);
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.customKeyboardView);
-        isExtraKey = ta.getBoolean(R.styleable.customKeyboardView_ckExtraKey, isExtraKey);
+        isExtraKey = ta.getString(R.styleable.customKeyboardView_ckExtraKey);
+        decimalPlaces = ta.getInt(R.styleable.customKeyboardView_ckDecimalPlaces, decimalPlaces);
         ta.recycle();
     }
 
@@ -70,14 +80,41 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
     public void onClick(View v) {
         if (v instanceof TextView) {
             String number = ((TextView) v).getText().toString().trim();
-            if (!isExtraKey && v.getId() == R.id.tv_custom_keyboard_x) {
-                return;
+            if (".".equals(number)) {
+                if (!isSelectDecimalPoint) {
+                    if (mListener != null) {
+                        mListener.click(number);
+                    }
+                    isSelectDecimalPoint = true;
+                }
+            } else {
+                if (isSelectDecimalPoint) {
+                    if (mDecimalPointCount < decimalPlaces) {
+                        //点了小数点
+                        mDecimalPointCount++;
+                        if (mListener != null) {
+                            mListener.click(number);
+                        }
+                    } else {
+                        return;
+                    }
+                } else{
+                    if (mListener != null) {
+                        mListener.click(number);
+                    }
+                }
             }
-            if (mListener != null) {
-                mListener.click(number);
-            }
+
         } else if (v instanceof ImageView) {
             if (v.getId() == R.id.iv_keyboard_delete) {
+                if (isSelectDecimalPoint) {
+                    if (mDecimalPointCount > 0) {
+                        mDecimalPointCount--;
+                    } else {
+                        mDecimalPointCount = 0;
+                        isSelectDecimalPoint = false;
+                    }
+                }
                 if (mListener != null) {
                     mListener.delete();
                 }
@@ -95,7 +132,7 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
         this.mListener = listener;
     }
 
-    public boolean isExtraKey() {
+    public String isExtraKey() {
         return isExtraKey;
     }
 }

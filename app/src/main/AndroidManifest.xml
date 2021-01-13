@@ -29,7 +29,7 @@
         <activity android:name=".activity.home.ShapeTextViewActivity" />
         <activity android:name=".activity.home.TableLayoutActivity" />
         <activity android:name=".activity.home.MultiMenuActivity" />
-        <activity android:name=".activity.home.CustomPasswordKeyboardActivity" />
+        <activity android:name=".activity.home.keyboard.CustomPasswordKeyboardActivity" />
         <activity android:name=".activity.home.LockScreenActivity" />
         <activity android:name=".activity.home.loading.LoadingActivity" />
         <activity android:name=".activity.home.loading.InspectLoadingActvivity" />
@@ -48,6 +48,9 @@
         <activity android:name=".activity.utils.DataBaseActivity" />
         <activity android:name=".activity.utils.OkHttpActivity" />
         <activity android:name=".activity.utils.GlideActivity" />
+        <activity android:name=".activity.home.KeyboardActivity" />
+        <activity android:name=".activity.home.keyboard.CustomIdKeyboardActivity" />
+        <activity android:name=".activity.home.keyboard.CustomPointKeyboardActivity" />
     </application>
 
 </manifest>
