@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#EBEBEB"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -80,7 +81,6 @@
             android:visibility="gone"
             style="@style/custom_keyboard_text_style"
             android:text="@string/custom_password_x" />
-
         <TextView
             style="@style/custom_keyboard_text_style"
             android:text="@string/custom_password_0" />
