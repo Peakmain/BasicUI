@@ -15,11 +15,5 @@
         android:hint="请输入"
         android:layout_height="wrap_content" />
 
-    <com.peakmain.ui.widget.password.CustomerKeyboard
-        android:id="@+id/custom_key_board"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        app:ckExtraKey="."
-        app:ckDecimalPlaces="3"
-        android:layout_height="wrap_content" />
+
 </RelativeLayout>

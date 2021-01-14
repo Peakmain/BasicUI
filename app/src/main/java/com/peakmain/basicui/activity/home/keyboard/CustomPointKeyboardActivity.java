@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.base.BaseActivity;
+import com.peakmain.ui.dialog.AlertDialog;
 import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener;
 import com.peakmain.ui.widget.password.CustomerKeyboard;
 
@@ -34,11 +35,22 @@ public class CustomPointKeyboardActivity extends BaseActivity {
     @Override
     protected void initData() {
         mEditText.setInputType(InputType.TYPE_NULL);
+       mEditText.setOnClickListener((v) -> showDialog());
+
+    }
+
+    private void showDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .fromButtom(true)
+                .setContentView(R.layout.dialog_custom_keyboard_point)
+                .setFullWidth()
+                .show();
+        mCustomerKeyboard = dialog.findViewById(R.id.custom_key_board);
         mCustomerKeyboard.setOnCustomerKeyboardClickListener(new SimpleCustomKeyboardListener() {
             @Override
             public void click(String number) {
                 String text = mEditText.getText().toString();
-                mEditText.setText(text+number);
+                mEditText.setText(text + number);
             }
 
             @Override
