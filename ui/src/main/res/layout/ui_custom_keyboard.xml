@@ -94,6 +94,6 @@
             android:background="@android:color/white"
             android:gravity="center"
             android:padding="@dimen/dimen_18"
-            android:src="@drawable/ic_customer_password_keyboard_delete" />
+            android:src="@drawable/ic_customer_keyboard_delete" />
     </LinearLayout>
 </LinearLayout>
