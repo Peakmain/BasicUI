@@ -121,7 +121,7 @@ public class ListMenuView extends LinearLayout implements View.OnClickListener {
         }
         mObserver=new AdapterMenuObserver();
         mAdapter.registerDataSetObserver(mObserver);
-        int count = adapter.getCount();
+        int count = adapter.count;
         for (int i = 0; i < count; i++) {
             // 获取菜单的Tab
             View tabView = adapter.getView(i, mMenuTabView);

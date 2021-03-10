@@ -191,7 +191,7 @@ public class FlowLayout extends ViewGroup {
         mObserver = new AdapterDataSetObserver();
         mAdapter.registerDataSetObserver(mObserver);
         // 获取数量
-        int childCount = mAdapter.getCount();
+        int childCount = mAdapter.count;
         for (int i = 0; i < childCount; i++) {
             // 通过位置获取View
             View childView = mAdapter.getView(i, this);
