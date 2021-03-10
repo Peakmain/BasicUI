@@ -1,4 +1,4 @@
-package com.peakmain.ui.recyclerview.adapter;
+package com.peakmain.ui.recyclerview.adapter
 
 /**
  * author ：Peakmain
@@ -7,7 +7,7 @@ package com.peakmain.ui.recyclerview.adapter;
  * mail:2726449200@qq.com
  * describe：多布局支持
  */
-public interface MultiTypeSupport<T> {
+interface MultiTypeSupport<T> {
     // 根据当前位置或者条目数据返回布局
-    int getLayoutId(T item, int position);
+    fun getLayoutId(item: T, position: Int): Int
 }
