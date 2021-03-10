@@ -27,6 +27,10 @@ public class HandlerUtils {
         }
         return (processName != null && processName.equals(context.getPackageName()));
     }
+     //判断是否是主进程
+    public static boolean isOnMainThread() {
+        return Looper.myLooper() == Looper.getMainLooper();
+    }
 
     public static String getCurProcessName(Context context) {
         String procName = sCurProcessName;

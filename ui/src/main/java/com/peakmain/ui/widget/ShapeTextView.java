@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
@@ -229,5 +228,6 @@ public class ShapeTextView extends AppCompatTextView {
 
     public void setRadius(float radius) {
         mRadius = radius;
+        setStroke();
     }
 }
