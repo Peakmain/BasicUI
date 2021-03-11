@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     signingConfigs {
@@ -56,7 +57,11 @@ dependencies {
     implementation 'com.amap.api:location:latest.integration'
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
-   // implementation 'com.taobao.android:weex_sdk:0.18.0'
+    // implementation 'com.taobao.android:weex_sdk:0.18.0'
+}
+repositories {
+    mavenCentral()
 }
