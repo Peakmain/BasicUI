@@ -8,7 +8,6 @@ import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.bean.Person;
 import com.peakmain.ui.navigationbar.DefaultNavigationBar;
-import com.peakmain.ui.utils.LogUtils;
 import com.peakmain.ui.utils.database.DaoSupportFactory;
 import com.peakmain.ui.utils.database.IDaoSupport;
 
