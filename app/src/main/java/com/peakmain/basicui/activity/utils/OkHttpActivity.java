@@ -13,7 +13,6 @@ import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseActivity;
 import com.peakmain.basicui.utils.ToastUtils;
 import com.peakmain.ui.navigationbar.DefaultNavigationBar;
-import com.peakmain.ui.utils.LogUtils;
 import com.peakmain.ui.utils.network.HttpUtils;
 import com.peakmain.ui.utils.network.callback.DownloadCallback;
 import com.peakmain.ui.utils.network.callback.EngineCallBack;

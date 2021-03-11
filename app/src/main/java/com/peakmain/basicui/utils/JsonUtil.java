@@ -10,7 +10,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.peakmain.basicui.App;
-import com.peakmain.ui.utils.LogUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
