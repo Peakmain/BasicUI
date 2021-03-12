@@ -1,4 +1,4 @@
-package com.peakmain.ui.recyclerview.listener;
+package com.peakmain.ui.recyclerview.listener
 
 /**
  * author ：Peakmain
@@ -7,7 +7,6 @@ package com.peakmain.ui.recyclerview.listener;
  * mail:2726449200@qq.com
  * describe：Adapter条目的点击事件
  */
-
-public interface OnItemClickListener {
-    public void onItemClick(int position);
+interface OnItemClickListener {
+    fun onItemClick(position: Int)
 }

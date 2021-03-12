@@ -7,7 +7,6 @@ import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean;
 import com.peakmain.ui.imageLoader.ImageLoader;
 import com.peakmain.ui.recyclerview.adapter.ViewHolder;
-import com.peakmain.ui.recyclerview.group.BaseGroupRecyclerAdapter;
 
 import java.util.List;
 
