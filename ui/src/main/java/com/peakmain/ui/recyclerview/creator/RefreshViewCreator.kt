@@ -1,8 +1,8 @@
-package com.peakmain.ui.recyclerview.creator;
+package com.peakmain.ui.recyclerview.creator
 
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import android.view.View
+import android.view.ViewGroup
 
 /**
  * @author ：Peakmain
@@ -11,8 +11,7 @@ import android.view.ViewGroup;
  * mail : 2726449200@qq.com
  * describe ：下拉刷新的辅助类为了匹配所有效果
  */
-public abstract class RefreshViewCreator {
-
+abstract class RefreshViewCreator {
     /**
      * 获取下拉刷新的View
      *
@@ -20,7 +19,7 @@ public abstract class RefreshViewCreator {
      * @param parent  RecyclerView
      * @return 布局的View
      */
-    public abstract View getRefreshView(Context context, ViewGroup parent);
+    abstract fun getRefreshView(context: Context?, parent: ViewGroup?): View?
 
     /**
      * 正在下拉
@@ -29,15 +28,15 @@ public abstract class RefreshViewCreator {
      * @param refreshViewHeight    总的刷新高度
      * @param currentRefreshStatus 当前状态
      */
-    public abstract void onPull(int currentDragHeight, int refreshViewHeight, int currentRefreshStatus);
+    abstract fun onPull(currentDragHeight: Int, refreshViewHeight: Int, currentRefreshStatus: Int)
 
     /**
      * 正在刷新中
      */
-    public abstract void onRefreshing();
+    abstract fun onRefreshing()
 
     /**
      * 停止刷新
      */
-    public abstract void onStopRefresh();
+    abstract fun onStopRefresh()
 }
