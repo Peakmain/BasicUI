@@ -29,7 +29,7 @@ class SizeUtils private constructor() {
          */
         @JvmStatic
         fun dp2px(dpValue: Float): Int {
-            val scale = BasicUIUtils.application.resources.displayMetrics.density
+            val scale = BasicUIUtils.application?.resources?.displayMetrics!!.density
             return (dpValue * scale + 0.5f).toInt()
         }
 
@@ -40,7 +40,7 @@ class SizeUtils private constructor() {
          * @return dp值
          */
         fun px2dp(pxValue: Float): Int {
-            val scale = BasicUIUtils.application.resources.displayMetrics.density
+            val scale = BasicUIUtils.application?.resources?.displayMetrics!!.density
             return (pxValue / scale + 0.5f).toInt()
         }
 
@@ -51,7 +51,7 @@ class SizeUtils private constructor() {
          * @return px值
          */
         fun sp2px(spValue: Float): Int {
-            val fontScale = BasicUIUtils.application.resources.displayMetrics.scaledDensity
+            val fontScale = BasicUIUtils.application?.resources?.displayMetrics!!.scaledDensity
             return (spValue * fontScale + 0.5f).toInt()
         }
 
@@ -62,7 +62,7 @@ class SizeUtils private constructor() {
          * @return sp值
          */
         fun px2sp(pxValue: Float): Int {
-            val fontScale = BasicUIUtils.application.resources.displayMetrics.scaledDensity
+            val fontScale = BasicUIUtils.application?.resources!!.displayMetrics.scaledDensity
             return (pxValue / fontScale + 0.5f).toInt()
         }
 
@@ -163,7 +163,7 @@ class SizeUtils private constructor() {
          */
         @JvmStatic
         val screenWidth: Int
-            get() = BasicUIUtils.application.resources.displayMetrics.widthPixels
+            get() = BasicUIUtils.application?.resources?.displayMetrics!!.widthPixels
 
         /**
          * 获取屏幕的高度（单位：px）
@@ -172,7 +172,7 @@ class SizeUtils private constructor() {
          */
         @JvmStatic
         val screenHeight: Int
-            get() = BasicUIUtils.application.resources.displayMetrics.heightPixels
+            get() = BasicUIUtils.application?.resources?.displayMetrics!!.heightPixels
     }
 
     init {

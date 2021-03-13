@@ -31,17 +31,18 @@ class DefalutLoadViewCreator : LoadViewCreator() {
         return refreshView
     }
 
+
     override fun onPull(currentDragHeight: Int, loadViewHeight: Int, currentLoadStatus: Int) {
         if (currentLoadStatus == LoadRefreshRecyclerView.LOAD_STATUS_PULL_DOWN_REFRESH) {
             if (mIvArrow.visibility == View.GONE) {
                 mIvArrow.visibility = View.VISIBLE
             }
             mTvStatus.text = "上拉加载更多"
-            mIvArrow.setImageResource(R.drawable.ic_arrow_downward)
+            mIvArrow.setImageResource(R.drawable.ic_keyboard_arrow_down)
             mIvArrow.rotation = 360f
         } else if (currentLoadStatus == LoadRefreshRecyclerView.LOAD_STATUS_LOOSEN_LOADING) {
             mTvStatus.text = "释放立即加载"
-            mIvArrow.setImageResource(R.drawable.ic_arrow_downward)
+            mIvArrow.setImageResource(R.drawable.ic_keyboard_arrow_down)
             mIvArrow.rotation = 180f
         }
     }
@@ -58,7 +59,7 @@ class DefalutLoadViewCreator : LoadViewCreator() {
 
     override fun onStopLoad() {
         mIvArrow.clearAnimation()
-        mIvArrow.setImageResource(R.drawable.ic_arrow_downward)
+        mIvArrow.setImageResource(R.drawable.ic_keyboard_arrow_down)
         mIvArrow.rotation = 0f
         mTvStatus.text = "上拉加载更多"
     }

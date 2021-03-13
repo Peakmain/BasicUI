@@ -50,11 +50,11 @@ class DefaultRefreshViewCreator : RefreshViewCreator() {
         mTvRefreshTime!!.text = instance!!.refreshTime
         if (currentRefreshStatus == LoadRefreshRecyclerView.LOAD_STATUS_PULL_DOWN_REFRESH) {
             mTvStatus!!.text = "下拉可以刷新"
-            mIvArrow!!.setImageResource(R.drawable.ic_arrow_downward)
+            mIvArrow!!.setImageResource(R.drawable.ic_keyboard_arrow_down)
             mIvArrow!!.rotation = 360f
         } else if (currentRefreshStatus == LoadRefreshRecyclerView.LOAD_STATUS_LOOSEN_LOADING) {
             mTvStatus!!.text = "释放立即刷新"
-            mIvArrow!!.setImageResource(R.drawable.ic_arrow_downward)
+            mIvArrow!!.setImageResource(R.drawable.ic_keyboard_arrow_down)
             mIvArrow!!.rotation = 180f
         }
     }

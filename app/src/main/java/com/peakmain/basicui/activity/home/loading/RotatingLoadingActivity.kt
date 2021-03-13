@@ -22,7 +22,7 @@ class RotatingLoadingActivity : BaseActivity() {
 
     override fun initView() {
         mLoadingView = findViewById(R.id.rotating_loading_view)
-        mNavigationBuilder.setTitleText("仿钉钉的loading").create()
+        mNavigationBuilder!!.setTitleText("仿钉钉的loading").create()
     }
 
     override fun initData() {}

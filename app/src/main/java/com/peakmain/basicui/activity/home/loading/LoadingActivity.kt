@@ -30,7 +30,7 @@ class LoadingActivity : BaseActivity() {
 
     override fun initView() {
         mRecyclerView = findViewById(R.id.recycler_view)
-        mNavigationBuilder.setTitleText("加载loading").create()
+        mNavigationBuilder!!.setTitleText("加载loading").create()
     }
 
     override fun initData() {

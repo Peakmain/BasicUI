@@ -44,11 +44,11 @@ class DownloadTask(private val mUrl: String, file: File, private val mContentLen
                 end = mContentLength - 1
             }
             val runnable = DownloadRunnable(mUrl, mFile, mProgress, i, start, end, object : DownloadCallback {
-                override fun onFailure(e: Exception) {
+                override fun onFailure(e: Exception?) {
                     mCallback.onFailure(e)
                 }
 
-                override fun onSucceed(file: File) {
+                override fun onSucceed(file: File?) {
                     synchronized(DownloadTask::class.java) {
                         mSucceedNumber++
                         if (mSucceedNumber == THREAD_SIZE) {

@@ -20,7 +20,7 @@ interface IHttpEngine {
      * @param params 方法参数的集合
      * @param callBack 回掉
      */
-    operator fun get(context: Context?, url: String?, params: Map<String?, Any?>?, callBack: EngineCallBack?)
+    operator fun get(context: Context, url: String, params: Map<String, Any>, callBack: EngineCallBack)
 
     /**
      * post方法
@@ -29,7 +29,7 @@ interface IHttpEngine {
      * @param params 方法参数的集合
      * @param callBack 回掉
      */
-    fun post(context: Context?, url: String?, params: Map<String?, Any?>?, callBack: EngineCallBack?)
+    fun post(context: Context, url: String, params: Map<String, Any>, callBack: EngineCallBack)
 
     /**
      * 上传文件
@@ -38,7 +38,7 @@ interface IHttpEngine {
      * @param file 上传的文件
      * @param callBack 回掉
      */
-    fun uploadFile(context: Context?, url: String?, file: File?, callBack: ProgressEngineCallBack?)
+    fun uploadFile(context: Context, url: String, file: File, callBack: ProgressEngineCallBack)
 
     /**
      * 单线程下载
@@ -47,7 +47,7 @@ interface IHttpEngine {
      * @param outFile 保存文件的目录
      * @param callback 下载的回掉
      */
-    fun downloadSingleManager(context: Context?, url: String?, outFile: File?, callback: DownloadCallback?)
+    fun downloadSingleManager(context: Context, url: String, outFile: File, callback: DownloadCallback)
 
     /**
      * 多线程下载
@@ -56,5 +56,5 @@ interface IHttpEngine {
      * @param outFile 保存文件的目录
      * @param callback 下载的回掉
      */
-    fun downloadMultiManager(context: Context?, url: String?, outFile: File?, callback: DownloadCallback?)
+    fun downloadMultiManager(context: Context, url: String, outFile: File, callback: DownloadCallback)
 }
