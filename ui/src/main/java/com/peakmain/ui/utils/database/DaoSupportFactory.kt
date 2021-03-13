@@ -8,9 +8,9 @@ import java.io.File
 class DaoSupportFactory private constructor() {
     private var mFile: File? = null
     private val mSqliteDatabase: SQLiteDatabase
-    fun <T> getDao(clazz: Class<T?>?): IDaoSupport<T?> {
-        val daoSupport: IDaoSupport<T?> = DaoSupport()
-        daoSupport.init(mSqliteDatabase, clazz)
+    fun <T> getDao(clazz: Class<T>): IDaoSupport<T>? {
+        val daoSupport: IDaoSupport<T>? = DaoSupport()
+        daoSupport!!.init(mSqliteDatabase, clazz)
         return daoSupport
     }
 

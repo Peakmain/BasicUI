@@ -25,7 +25,7 @@ class CustomPointKeyboardActivity : BaseActivity() {
     override fun initView() {
         mCustomerKeyboard = findViewById(R.id.custom_key_board)
         mEditText = findViewById(R.id.password_edit_text)
-        mNavigationBuilder.setTitleText("自定义小数点键盘").create()
+        mNavigationBuilder!!.setTitleText("自定义小数点键盘").create()
     }
 
     override fun initData() {

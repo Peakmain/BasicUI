@@ -18,7 +18,7 @@ abstract class LoadViewCreator {
      * @param context 上下文
      * @param parent  RecyclerView
      */
-    abstract fun getLoadView(context: Context?, parent: ViewGroup?): View?
+    abstract fun getLoadView(context: Context, parent: ViewGroup): View?
 
     /**
      * 正在上拉

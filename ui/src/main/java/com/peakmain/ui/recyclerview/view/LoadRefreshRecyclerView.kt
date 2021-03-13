@@ -41,9 +41,9 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
     // 正在加载更多状态
     var LOAD_STATUS_LOADING = 0x0044
 
-    constructor(context: Context?) : super(context) {}
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
-    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {}
+    constructor(context: Context) : super(context) {}
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {}
 
     // 辅助类——加载列表的不同风格样式
     fun addLoadViewCreator(loadCreator: LoadViewCreator?) {
@@ -51,7 +51,7 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
         addRefreshView()
     }
 
-    override fun setAdapter(adapter: Adapter<*>?) {
+    override fun setAdapter(adapter: Adapter<ViewHolder>?) {
         super.setAdapter(adapter)
         addRefreshView()
     }
@@ -215,6 +215,7 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
     fun setOnLoadMoreListener(listener: OnLoadMoreListener?) {
         this.mListener = listener
     }
+
 
     interface OnLoadMoreListener {
         fun onLoad()

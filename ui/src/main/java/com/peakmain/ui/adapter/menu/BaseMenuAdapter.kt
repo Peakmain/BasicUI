@@ -24,7 +24,7 @@ abstract class BaseMenuAdapter : BaseAdapter() {
     /**
      * 解注册
      */
-    fun unregisterDataSetObserver(observer: MenuObserver?) {
+    fun unregisterDataSetObserver(observer: MenuObserver) {
         mObserver = null
     }
 
@@ -37,15 +37,15 @@ abstract class BaseMenuAdapter : BaseAdapter() {
     /**
      * 获取Menu的view
      */
-    abstract fun getMenuView(position: Int, parent: ViewGroup?): View?
+    abstract fun getMenuView(position: Int, parent: ViewGroup): View
 
     /**
      * 打开菜单
      */
-    abstract fun openMenu(tabView: View?)
+    abstract fun openMenu(tabView: View)
 
     /**
      * 关闭菜单
      */
-    abstract fun closeMenu(tabView: View?)
+    abstract fun closeMenu(tabView: View)
 }

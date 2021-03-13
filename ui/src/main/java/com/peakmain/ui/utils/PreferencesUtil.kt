@@ -164,6 +164,6 @@ class PreferencesUtil private constructor() {
 
     init {
         preferences = PreferenceManager.getDefaultSharedPreferences(BasicUIUtils.application
-                .applicationContext)
+                !!.applicationContext)
     }
 }

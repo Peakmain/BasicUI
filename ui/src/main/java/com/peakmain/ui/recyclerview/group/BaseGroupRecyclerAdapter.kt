@@ -35,6 +35,6 @@ abstract class BaseGroupRecyclerAdapter<T : GroupRecyclerBean<T>?>(context: Cont
         }
     }
 
-    protected abstract fun convertHead(holder: ViewHolder?, item: T?)
+    protected abstract fun convertHead(holder: ViewHolder, item: T?)
 
 }

@@ -17,7 +17,7 @@ import com.peakmain.ui.recyclerview.listener.OnLongClickListener
  * describe：
  */
 abstract class CommonRecyclerAdapter<T>(//上下文
-        protected var mContext: Context?, data: MutableList<T>, layoutId: Int) : RecyclerView.Adapter<ViewHolder>() {
+        open var mContext: Context?, data: List<T>, layoutId: Int) : RecyclerView.Adapter<ViewHolder>() {
     protected var mInflater: LayoutInflater
     protected var mData //数据
             : MutableList<T>
@@ -30,16 +30,18 @@ abstract class CommonRecyclerAdapter<T>(//上下文
     /**
      * 多布局支持
      */
-    constructor(context: Context?, data: MutableList<T>, multiTypeSupport: MultiTypeSupport<T>?) : this(context, data, -1) {
+    constructor(context: Context?, data: MutableList<T>, multiTypeSupport: MultiTypeSupport<T>) : this(context, data, -1) {
         mMultiTypeSupport = multiTypeSupport
     }
+
+
 
     /**
      * 根据当前位置获取不同的viewType
      */
     override fun getItemViewType(position: Int): Int {
         return if (mMultiTypeSupport != null) {
-            mMultiTypeSupport!!.getLayoutId(mData[position],position)
+            mMultiTypeSupport!!.getLayoutId(mData[position], position)
         } else position
     }
 
@@ -68,7 +70,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
      *
      * @param item 当前的数据
      */
-    abstract fun convert(holder: ViewHolder?, item: T)
+    abstract fun convert(holder: ViewHolder, item: T)
     override fun getItemCount(): Int {
         return mData.size
     }
@@ -147,7 +149,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
 
     init {
         mInflater = LayoutInflater.from(mContext)
-        mData = data
+        mData = data as MutableList<T>
         mLayoutId = layoutId
     }
 }

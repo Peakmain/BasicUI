@@ -23,7 +23,7 @@ class CustomPasswordKeyboardActivity : BaseActivity() {
     override fun initView() {
         mCustomerKeyboard = findViewById(R.id.custom_key_board)
         mEditText = findViewById(R.id.password_edit_text)
-        mNavigationBuilder.setTitleText("自定义键盘").create()
+        mNavigationBuilder!!.setTitleText("自定义键盘").create()
     }
 
     override fun initData() {
@@ -36,6 +36,6 @@ class CustomPasswordKeyboardActivity : BaseActivity() {
                 mEditText!!.deletePassWord()
             }
         })
-        mEditText!!.setPasswordCompleteListener { text: String? -> ToastUtils.showShort(text) }
+        mEditText!!.setPasswordCompleteListener { text: String -> ToastUtils.showShort(text) }
     }
 }

@@ -20,7 +20,7 @@ class InspectLoadingActvivity : BaseActivity() {
 
     override fun initView() {
         mInspectLoadingView = findViewById(R.id.inspect_loading_view)
-        mNavigationBuilder.setTitleText("视察动画的loading").create()
+        mNavigationBuilder!!.setTitleText("视察动画的loading").create()
         mInspectLoadingView?.show()
     }
 

@@ -19,7 +19,7 @@ abstract class RefreshViewCreator {
      * @param parent  RecyclerView
      * @return 布局的View
      */
-    abstract fun getRefreshView(context: Context?, parent: ViewGroup?): View?
+    abstract fun getRefreshView(context: Context, parent: ViewGroup): View?
 
     /**
      * 正在下拉
