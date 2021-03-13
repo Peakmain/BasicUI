@@ -22,7 +22,7 @@ class ShapeLoadingActivity : BaseActivity() {
 
     override fun initView() {
         mShapeLoadingView = findViewById(R.id.shape_loading_view)
-        mNavigationBuilder.setTitleText("仿老版58同城加载loading").create()
+        mNavigationBuilder!!.setTitleText("仿老版58同城加载loading").create()
     }
 
     override fun initData() {

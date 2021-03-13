@@ -61,7 +61,7 @@ open class RefreshRecyclerView : WrapRecyclerView {
         addRefreshView()
     }
 
-    override fun setAdapter(adapter: Adapter<*>?) {
+    override fun setAdapter(adapter: Adapter<ViewHolder>?) {
         super.setAdapter(adapter)
         addRefreshView()
     }

@@ -91,7 +91,11 @@ class OkHttpEngine : IHttpEngine {
         builder.addFormDataPart("platform", "android")
         builder.addFormDataPart("file", file.name, RequestBody
                 .create(MediaType.parse(guessMimeType(file.absolutePath)), file))
-        val body = ExMultipartBody(builder.build(), UploadProgressListener { total, current -> runOnUiThread(Runnable { callBack.onProgress(total, current) }) })
+        val body = ExMultipartBody(builder.build(), object : UploadProgressListener {
+            override fun onProgress(total: Long, current: Long) {
+                runOnUiThread(Runnable { callBack.onProgress(total, current) })
+            }
+        })
         val request = Request.Builder().url(url).post(body).build()
         val call = mOkHttpClient!!.newCall(request)
         call.enqueue(object : Callback {
@@ -213,4 +217,8 @@ class OkHttpEngine : IHttpEngine {
             mOkHttpClient = okHttpClient
         }
     }
+
+
+
+
 }

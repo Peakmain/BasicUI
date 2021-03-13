@@ -3,6 +3,7 @@ package com.peakmain.ui.widget.menu
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
@@ -98,7 +99,7 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
     private var mObserver: AdapterMenuObserver? = null
     fun setAdapter(adapter: BaseMenuAdapter?) {
         if (mAdapter != null && mObserver != null) {
-            mAdapter!!.unregisterDataSetObserver(mObserver)
+            mAdapter!!.unregisterDataSetObserver(mObserver!!)
         }
         mAdapter = adapter
         if (adapter == null) {
@@ -117,7 +118,7 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
             //设置点击事件
             setTabClick(tabView, i)
             //获取菜单内容
-            val menuView = mAdapter!!.getMenuView(i, mMenuContainerView)
+            val menuView = mAdapter!!.getMenuView(i, mMenuContainerView!!)
             menuView.visibility = View.GONE
             mMenuContainerView!!.addView(menuView)
         }
@@ -179,6 +180,7 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
     /**
      * 打开菜单
      */
+    @SuppressLint("ObjectAnimatorBinding")
     private fun openMenu(tabView: View?, postition: Int) {
         if (mAnimatorExecute) {
             return
@@ -206,7 +208,7 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
             override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 mAnimatorExecute = true
-                mAdapter!!.openMenu(tabView)
+                mAdapter!!.openMenu(tabView!!)
             }
         })
         rotationAniamtion.start()

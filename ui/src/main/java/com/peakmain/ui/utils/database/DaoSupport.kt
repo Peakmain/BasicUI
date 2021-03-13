@@ -7,10 +7,10 @@ import com.peakmain.ui.utils.LogUtils
 import java.lang.reflect.Method
 
 class DaoSupport<T> : IDaoSupport<T> {
-    private var mDatabase: SQLiteDatabase? = null
-    private var mClazz: Class<T>? = null
+    private lateinit var mDatabase: SQLiteDatabase
+    private lateinit var mClazz: Class<T>
     private val TAG = DaoSupport::class.java.simpleName
-    private lateinit var mQuerySupport: QuerySupport<T>
+    private  var mQuerySupport: QuerySupport<T>?=null
     override fun init(sqLiteDatabase: SQLiteDatabase, clazz: Class<T>) {
         mDatabase = sqLiteDatabase
         mClazz = clazz
@@ -79,23 +79,23 @@ class DaoSupport<T> : IDaoSupport<T> {
         return values
     }
 
-    override fun insert(datas: List<T>) {
-        mDatabase!!.beginTransaction()
+    override fun insert(datas: MutableList<T>) {
+        mDatabase.beginTransaction()
         for (data in datas) {
             insert(data)
         }
-        mDatabase!!.setTransactionSuccessful()
-        mDatabase!!.endTransaction()
+        mDatabase.setTransactionSuccessful()
+        mDatabase.endTransaction()
     }
 
     override fun querySupport(): QuerySupport<T> {
         if (mQuerySupport == null) {
             mQuerySupport = QuerySupport(mDatabase, mClazz)
         }
-        return mQuerySupport
+        return mQuerySupport!!
     }
 
-    override fun delete(whereClause: String, vararg whereArgs: String): Int {
+    override fun delete(whereClause: String?, vararg whereArgs: String?): Int {
         return mDatabase!!.delete(DaoUtil.getTableName(mClazz), whereClause, whereArgs)
     }
 
@@ -106,6 +106,9 @@ class DaoSupport<T> : IDaoSupport<T> {
 
     companion object {
         private val mPutMethodArgs = arrayOfNulls<Any>(2)
-        private val mPutMethods: MutableMap<String, Method?> = ArrayMap()
+        private val mPutMethods: MutableMap<String, Method?> = HashMap()
     }
+
+
+
 }

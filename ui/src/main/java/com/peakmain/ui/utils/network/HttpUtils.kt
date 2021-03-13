@@ -17,13 +17,13 @@ import java.util.*
  */
 class HttpUtils {
     //url
-    private var mUrl: String? = null
+    private lateinit var mUrl: String
 
     //请求方式
     private var mType = GET_TYPE
-    private var mContext: Context? = null
-    private var mParams: MutableMap<String?, Any?>? = null
-    private var mFile: File? = null
+    private lateinit var mContext: Context
+    private lateinit var mParams: MutableMap<String, Any>
+    private var mFile: File?=null
 
     //不允许外部去调用
     private constructor(context: Context) {
@@ -32,7 +32,7 @@ class HttpUtils {
     }
 
     //url
-    fun url(url: String?): HttpUtils {
+    fun url(url: String): HttpUtils {
         mUrl = url
         return this
     }
@@ -81,7 +81,7 @@ class HttpUtils {
      * @param key   key
      * @param value string类型
      */
-    fun addParams(key: String?, value: String?): HttpUtils {
+    fun addParams(key: String, value: String): HttpUtils {
         mParams!![key] = value
         return this
     }
@@ -92,7 +92,7 @@ class HttpUtils {
      * @param key  key
      * @param file 文件类型
      */
-    fun addParams(key: String?, file: File?): HttpUtils {
+    fun addParams(key: String, file: File): HttpUtils {
         mParams!![key] = file
         return this
     }
@@ -102,12 +102,12 @@ class HttpUtils {
      *
      * @param params 参数集合
      */
-    fun addParams(params: Map<String?, Any?>?): HttpUtils {
+    fun addParams(params: Map<String, Any>): HttpUtils {
         mParams!!.putAll(params!!)
         return this
     }
 
-    fun file(file: File?): HttpUtils {
+    fun file(file: File): HttpUtils {
         mFile = file
         return this
     }
@@ -117,7 +117,7 @@ class HttpUtils {
      *
      * @param okHttpClient okHttpClient
      */
-    fun okHttpClient(okHttpClient: OkHttpClient?): HttpUtils {
+    fun okHttpClient(okHttpClient: OkHttpClient): HttpUtils {
         if (mHttpEngine is OkHttpEngine) {
             val okHttpEngine = mHttpEngine as OkHttpEngine
             okHttpEngine.setOkHttpClient(okHttpClient)
@@ -131,7 +131,7 @@ class HttpUtils {
      * @param callBack 回掉
      */
     @JvmOverloads
-    fun execture(callBack: EngineCallBack? = null) {
+    fun execture(callBack: EngineCallBack?) {
         var callBack = callBack
         if (callBack == null) {
             callBack = EngineCallBack.DEFAULT_CALL_BACK
@@ -141,7 +141,7 @@ class HttpUtils {
         } else if (mType == POST_TYPE) {
             post(mUrl, mParams, callBack)
         } else if (mType == UPLOAD_TYPE) {
-            uploadFile(mUrl, mFile, callBack)
+            uploadFile(mUrl, mFile!!, callBack)
         }
     }
 
@@ -150,9 +150,9 @@ class HttpUtils {
      */
     fun exectureDownload(callback: DownloadCallback) {
         if (mType == DOWNLOAD_SINGLE_TYPE) {
-            downloadSingleManager(mUrl, mFile, callback)
+            downloadSingleManager(mUrl, mFile!!, callback)
         } else if (mType == DOWNLOAD_MULTI_TYPE) {
-            downloadMultiManager(mUrl, mFile, callback)
+            downloadMultiManager(mUrl, mFile!!, callback)
         }
     }
 
@@ -166,25 +166,25 @@ class HttpUtils {
         return this
     }
 
-    private operator fun get(url: String?, params: Map<String?, Any?>?, callBack: EngineCallBack?) {
+    private operator fun get(url: String, params: Map<String, Any>, callBack: EngineCallBack) {
         mHttpEngine[mContext, url, params, callBack]
     }
 
-    private fun post(url: String?, params: Map<String?, Any?>?, callBack: EngineCallBack?) {
+    private fun post(url: String, params: Map<String, Any>, callBack: EngineCallBack) {
         mHttpEngine.post(mContext, url, params, callBack)
     }
 
-    private fun uploadFile(url: String?, file: File?, callBack: EngineCallBack?) {
+    private fun uploadFile(url: String, file: File, callBack: EngineCallBack) {
         if (callBack is ProgressEngineCallBack) {
-            mHttpEngine.uploadFile(mContext, url, file, callBack as ProgressEngineCallBack?)
+            mHttpEngine.uploadFile(mContext, url, file, callBack as ProgressEngineCallBack)
         }
     }
 
-    private fun downloadSingleManager(url: String?, file: File?, callback: DownloadCallback) {
+    private fun downloadSingleManager(url: String, file: File, callback: DownloadCallback) {
         mHttpEngine.downloadSingleManager(mContext, url, file, callback)
     }
 
-    private fun downloadMultiManager(url: String?, file: File?, callback: DownloadCallback) {
+    private fun downloadMultiManager(url: String, file: File, callback: DownloadCallback) {
         mHttpEngine.downloadMultiManager(mContext, url, file, callback)
     }
 
@@ -210,15 +210,15 @@ class HttpUtils {
         /**
          * 拼接参数
          */
-        fun jointParams(url: String, params: Map<String, Any>?): String {
+        fun jointParams(url: String, params: Map<String, Any>): String {
             if (params == null || params.size <= 0) {
                 return url
             }
             val stringBuffer = StringBuffer(url)
-            if (!url.contains("?")) {
-                stringBuffer.append("?")
+            if (!url.contains("")) {
+                stringBuffer.append("")
             } else {
-                if (!url.endsWith("?")) {
+                if (!url.endsWith("")) {
                     stringBuffer.append("&")
                 }
             }
