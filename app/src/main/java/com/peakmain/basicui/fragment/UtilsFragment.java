@@ -7,6 +7,7 @@ import android.view.View;
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.utils.DataBaseActivity;
 import com.peakmain.basicui.activity.utils.GlideActivity;
+import com.peakmain.basicui.activity.utils.LogActivity;
 import com.peakmain.basicui.activity.utils.OkHttpActivity;
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter;
 import com.peakmain.basicui.base.BaseFragmnet;
@@ -49,6 +50,7 @@ public class UtilsFragment extends BaseFragmnet {
         mUtilsBean.add("okhttp网络引擎切换工具类封装");
         mUtilsBean.add("数据库封装");
         mUtilsBean.add("Glide图片选择切换封装");
+        mUtilsBean.add("日志打印库");
         mAdapter = new BaseRecyclerStringAdapter(getContext(), mUtilsBean);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
         mRecyclerView.setAdapter(mAdapter);
@@ -62,6 +64,9 @@ public class UtilsFragment extends BaseFragmnet {
                     break;
                 case 2:
                     ActivityUtil.gotoActivity(getContext(), GlideActivity.class);
+                    break;
+                case 3:
+                    ActivityUtil.gotoActivity(getContext(), LogActivity.class);
                     break;
                 default:
                     break;

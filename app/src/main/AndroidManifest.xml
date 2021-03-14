@@ -51,6 +51,7 @@
         <activity android:name=".activity.home.KeyboardActivity" />
         <activity android:name=".activity.home.keyboard.CustomIdKeyboardActivity" />
         <activity android:name=".activity.home.keyboard.CustomPointKeyboardActivity" />
+        <activity android:name=".activity.utils.LogActivity" />
     </application>
 
 </manifest>
