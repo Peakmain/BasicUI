@@ -12,5 +12,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/basic_ui_provider_paths" />
         </provider>
+        <service
+            android:name="com.xuantian.common.ui.read.X5IntentService"
+            android:enabled="true" />
     </application>
 </manifest>
