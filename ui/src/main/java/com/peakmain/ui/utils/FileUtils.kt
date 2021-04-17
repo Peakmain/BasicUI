@@ -523,6 +523,21 @@ object FileUtils {
     private fun getAllFileList(path: File?, callback: LoadFileTask.FileCallback?) {
         LoadFileTask().getAllFileList(path, callback)
     }
+    /***
+     * 获取文件类型
+     */
+    fun getFileType(paramString: String): String? {
+        var str: String? = ""
+        if (TextUtils.isEmpty(paramString)) {
+            return str
+        }
+        val i = paramString.lastIndexOf('.')
+        if (i <= -1) {
+            return str
+        }
+        str = paramString.substring(i + 1)
+        return str
+    }
 
 }
 class LoadFileTask :
