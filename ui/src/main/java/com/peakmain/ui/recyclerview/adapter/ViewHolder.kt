@@ -87,7 +87,24 @@ class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     fun setOnItemLongClickListener(listener: View.OnLongClickListener?) {
         itemView.setOnLongClickListener(listener)
     }
+    /**
+     * 设置view的Visibilty
+     */
+    fun setVisibility(
+            visibility: Int,
+            viewId: Int
+    ): ViewHolder {
+        getView<View>(viewId)!!.visibility = visibility
+        return this
+    }
 
+    fun setVisibility(
+            visible: Int,
+            vararg viewIds: Int
+    ): ViewHolder {
+        for (viewId in viewIds) getView<View>(viewId)?.visibility = visible
+        return this
+    }
     /**
      * 设置条目某个view的长按事件
      */
