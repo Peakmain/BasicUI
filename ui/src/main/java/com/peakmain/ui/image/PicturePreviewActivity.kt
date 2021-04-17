@@ -111,7 +111,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                                     }
 
                                     override fun onProgress(progress: Int) {
-                                        LogUtils.e("单线程下载apk的进度:$progress")
+                                        LogUtils.e("单线程下载file的进度:$progress")
                                     }
                                 })
                     }
