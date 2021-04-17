@@ -1,9 +1,17 @@
 package com.peakmain.ui.utils
 
+import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.media.ExifInterface
+import android.os.AsyncTask
+import android.os.Environment
+import android.text.TextUtils
+import com.peakmain.ui.image.entry.FileInfo
+import com.peakmain.ui.utils.FileTypeUtil.getFileInfosFromFileArray
 import java.io.*
 import java.text.DecimalFormat
+import java.util.*
 
 /**
  * author ：Peakmain
@@ -12,6 +20,26 @@ import java.text.DecimalFormat
  * describe：文件操作
  */
 object FileUtils {
+    private const val JPEG_FILE_PREFIX = "IMG_"
+    private const val JPEG_FILE_SUFFIX = ".jpg"
+    private const val EXTERNAL_STORAGE_PERMISSION =
+            "android.permission.WRITE_EXTERNAL_STORAGE"
+    private const val UI_CACHE_FOLDER_NAME = "UICache"
+    const val VIDEO_PATH = "/video/"
+
+    private fun getESD() =
+            Environment.getExternalStorageDirectory().absolutePath + File.separator + UI_CACHE_FOLDER_NAME
+
+
+    fun getVideoBasePath(): String = getESD() + VIDEO_PATH
+
+    private val mDownloadFolderPath: String =
+            getESD() + File.separator + "download" + File.separator
+
+     fun getDownloadFolderPath(): String {
+         return mDownloadFolderPath
+     }
+
     fun copyDir(srcDirPath: String?,
                 destDirPath: String?): Boolean {
         return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath))
@@ -394,4 +422,199 @@ object FileUtils {
     interface OnReplaceListener {
         fun onReplace(): Boolean
     }
+
+    @Throws(IOException::class)
+    @JvmStatic
+    fun createTmpFile(context: Context): File {
+        var dir: File? = null
+        if (TextUtils.equals(
+                        Environment.getExternalStorageState(),
+                        Environment.MEDIA_MOUNTED
+                )
+        ) {
+            // 获取手机的图片路径
+            dir =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+            // 如果不存在
+            if (!dir.exists()) {
+                dir.createNewFile()
+            }
+            if (dir.exists()) {
+                dir =
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
+                if (!dir.exists()) {
+                    dir.createNewFile()
+                }
+            }
+            if (!dir.exists()) {
+                dir = getCacheDirectory(context)
+            }
+        } else {
+            dir = getCacheDirectory(context)
+        }
+        return File(
+                dir,
+                JPEG_FILE_PREFIX + System.currentTimeMillis() + JPEG_FILE_SUFFIX
+        )
+    }
+
+    fun getCacheDirectory(context: Context): File {
+        return getCacheDirectory(context, true)
+    }
+
+    private fun getExternalCacheDir(context: Context): File? {
+        val dataDir = File(
+                File(
+                        Environment.getExternalStorageDirectory(),
+                        "Android"
+                ), "data"
+        )
+        val appCacheDir =
+                File(File(dataDir, context.packageName), "cache")
+        if (!appCacheDir.exists()) {
+            if (!appCacheDir.mkdirs()) {
+                return null
+            }
+            try {
+                File(appCacheDir, ".nomedia").createNewFile()
+            } catch (e: IOException) {
+            }
+        }
+        return appCacheDir
+    }
+
+    private fun hasExternalStoragePermission(context: Context): Boolean {
+        val perm =
+                context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION)
+        return perm == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun getCacheDirectory(
+            context: Context,
+            preferExternal: Boolean
+    ): File {
+        var appCacheDir: File? = null
+        val externalStorageState: String = try {
+            Environment.getExternalStorageState()
+        } catch (e: NullPointerException) { // (sh)it happens (Issue #660)
+            ""
+        } catch (e: IncompatibleClassChangeError) { // (sh)it happens too (Issue #989)
+            ""
+        }
+        if (preferExternal && Environment.MEDIA_MOUNTED == externalStorageState && hasExternalStoragePermission(
+                        context
+                )
+        ) {
+            appCacheDir = getExternalCacheDir(context)
+        }
+        if (appCacheDir == null) {
+            appCacheDir = context.cacheDir
+        }
+        if (appCacheDir == null) {
+            val cacheDirPath = "/data/data/" + context.packageName + "/cache/"
+            appCacheDir = File(cacheDirPath)
+        }
+        return appCacheDir
+    }
+    fun loadFileList(path: String, callback: LoadFileTask.FileCallback?) {
+        getAllFileList(getFileByPath(path), callback)
+    }
+
+    private fun getAllFileList(path: File?, callback: LoadFileTask.FileCallback?) {
+        LoadFileTask().getAllFileList(path, callback)
+    }
+
+}
+class LoadFileTask :
+        AsyncTask<File?, Void?, List<FileInfo>> {
+    private var mLoadFileTask: LoadFileTask? = null
+    private var mCallback: FileCallback? = null
+
+    /**
+     * 根据文件路径查找所有文件
+     */
+    fun getAllFileList(
+            path: File?,
+            callback: FileCallback?
+    ) {
+        mLoadFileTask = LoadFileTask(callback)
+        mLoadFileTask!!.executeOnExecutor(THREAD_POOL_EXECUTOR, path)
+    }
+
+    override fun onPreExecute() {
+        if (mCallback != null) {
+            mCallback!!.showLoading("")
+        }
+        super.onPreExecute()
+    }
+
+    /**
+     * 执行文件列表查找
+     * @param files
+     * @return
+     */
+    protected override fun doInBackground(vararg files: File?): List<FileInfo> {
+        return try {
+            val fileInfoList: List<FileInfo>
+            val mFiles =
+                    files[0]?.listFiles(FileTypeUtil.ALL_FOLDER_AND_FILES_FILTER)
+            fileInfoList = getFileInfosFromFileArray(mFiles)
+            if (fileInfoList == null) {
+                ArrayList()
+            } else if (isCancelled) {
+                ArrayList()
+            } else {
+                Collections.sort(fileInfoList, FileTypeUtil.FileNameComparator())
+                if (mCallback != null) {
+                    mCallback!!.hideLoading()
+                }
+                fileInfoList
+            }
+        } catch (e: Exception) {
+            if (mCallback != null) {
+                mCallback!!.hideLoading()
+            }
+            ArrayList()
+        }
+    }
+
+    /**
+     * 查找完毕
+     * @param fileInfos
+     */
+    override fun onPostExecute(fileInfos: List<FileInfo>) {
+        super.onPostExecute(fileInfos)
+        mLoadFileTask = null
+        if (mCallback != null) {
+            mCallback!!.onGetFileList(fileInfos)
+        }
+    }
+
+    override fun onCancelled() {
+        mLoadFileTask = null
+        if (mCallback != null) {
+            mCallback!!.hideLoading()
+        }
+        super.onCancelled()
+    }
+
+    interface FileCallback {
+        fun onGetFileList(mFileInfoList: List<FileInfo>?)
+
+        /**
+         * 显示loading
+         */
+        fun showLoading(message: String?)
+
+        /**
+         * 隐藏loading
+         */
+        fun hideLoading()
+    }
+
+    constructor(callback: FileCallback?) {
+        mCallback = callback
+    }
+
+    constructor()
 }
