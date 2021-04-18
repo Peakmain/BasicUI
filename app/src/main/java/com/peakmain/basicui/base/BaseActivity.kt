@@ -249,7 +249,7 @@ abstract class BaseActivity : AppCompatActivity(), PermissionCallbacks {
     /**
      * 8、获取是否有相机权限
      */
-    private fun haveCameraPerm(): Boolean {
+    fun haveCameraPerm(): Boolean {
         val perms = arrayOf(
                 Manifest.permission.CAMERA
         )

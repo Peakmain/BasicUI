@@ -12,8 +12,17 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/basic_ui_provider_paths" />
         </provider>
+        <activity
+            android:name=".image.PictureSelectorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden" />
+        <activity
+            android:name=".image.PicturePreviewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden" />
+        <activity android:name=".read.FileReadActivity" />
         <service
-            android:name="com.xuantian.common.ui.read.X5IntentService"
+            android:name=".read.X5IntentService"
             android:enabled="true" />
     </application>
 </manifest>

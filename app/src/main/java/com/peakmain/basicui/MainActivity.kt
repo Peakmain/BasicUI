@@ -34,6 +34,10 @@ class MainActivity : BaseActivity() {
         if (!haveReadAndWritePerm()) {
             requestReadAndWritePerm()
         }
+        if(!haveCameraPerm()){
+            requestCameraPerm()
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
