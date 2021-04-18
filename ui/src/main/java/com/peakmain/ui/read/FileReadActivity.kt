@@ -1,4 +1,4 @@
-package com.xuantian.common.ui.read
+package com.peakmain.ui.read
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.TextView
 import com.peakmain.ui.R
-import com.peakmain.ui.read.FileReadView
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.ToastUtils

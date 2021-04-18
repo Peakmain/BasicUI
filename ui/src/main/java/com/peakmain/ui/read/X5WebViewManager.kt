@@ -1,7 +1,7 @@
-package com.xuantian.common.ui.read
+package com.peakmain.ui.read
 
 import android.content.Context
-import android.util.Log
+import com.peakmain.ui.utils.LogUtils
 import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.QbSdk.PreInitCallback
 
@@ -22,11 +22,11 @@ internal class X5WebViewManager private constructor() {
         QbSdk.setDownloadWithoutWifi(true)
         QbSdk.initX5Environment(context.applicationContext, object : PreInitCallback {
             override fun onViewInitFinished(arg0: Boolean) {
-                Log.d("X5WebViewManager", "X5内核初始化:$arg0")
+                LogUtils.d("X5内核初始化:$arg0")
             }
 
             override fun onCoreInitFinished() {
-                Log.d("X5WebViewManager", "X5内核开始初始化完成")
+                LogUtils.d("X5内核开始初始化完成")
             }
         })
     }

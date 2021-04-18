@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -51,6 +52,7 @@
         <activity android:name=".activity.home.KeyboardActivity" />
         <activity android:name=".activity.home.keyboard.CustomIdKeyboardActivity" />
         <activity android:name=".activity.home.keyboard.CustomPointKeyboardActivity" />
+        <activity android:name=".activity.home.ImageSelectActivity" />
     </application>
 
 </manifest>
