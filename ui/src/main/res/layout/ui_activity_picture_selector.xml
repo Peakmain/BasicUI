@@ -44,7 +44,7 @@
             android:layout_marginRight="16dp"
             android:textSize="@dimen/font_size_14"
             app:shapeTvBackgroundColor="@color/color_2F73F6"
-            app:shapeTvRadius="@dimen/ui_complete_button_radius" />
+            app:shapeTvRadius="@dimen/dimen_3" />
     </LinearLayout>
 
     <FrameLayout

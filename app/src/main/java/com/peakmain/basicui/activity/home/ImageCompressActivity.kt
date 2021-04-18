@@ -63,7 +63,7 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
                 //设置输出文件目录
                 val directory = Environment.getExternalStorageDirectory().toString() + "/peakmain"
                 with(this)
-                        .load(mImageLists!!) //设置加载图片集合
+                        .load(mImageLists) //设置加载图片集合
                         .ignoreCompress(100) //设置忽略的图片大小单位是kb
                         .setQuality(90) //设置压缩质量
                         .setOutFileDir(directory) //设置输出文件目录
