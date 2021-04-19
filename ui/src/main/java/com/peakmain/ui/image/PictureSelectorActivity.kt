@@ -16,7 +16,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.peakmain.ui.R
-import com.xuantian.common.ui.helper.FragmentManagerHelper
 import com.peakmain.ui.image.adapter.ImageSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
@@ -24,8 +23,11 @@ import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.utils.FileUtils.createTmpFile
+import com.peakmain.ui.utils.PermissionConstants
+import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
+import com.xuantian.common.ui.helper.FragmentManagerHelper
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -187,9 +189,16 @@ internal class PictureSelectorActivity : AppCompatActivity() {
 
     private fun openCameraClick() {
         try {
-            val tmpFile =
-                    createTmpFile(this)
-            openCamera(tmpFile)
+            PermissionUtils.request(this, PermissionConstants.CAMERA) { allGranted, deniedList ->
+                if (allGranted) {
+                    val tmpFile =
+                            createTmpFile(this)
+                    openCamera(tmpFile)
+                } else {
+                   ToastUtils.showLong("请打开相机权限..")
+                }
+            }
+
         } catch (e: IOException) {
             e.printStackTrace()
             ToastUtils.showLong("相机打开失败")
