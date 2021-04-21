@@ -1,6 +1,5 @@
 package com.peakmain.ui.image.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.support.constraint.Group
@@ -35,7 +34,7 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
     private var mFileListAdapter: FileListAdapter? = null
     private var mFileInfoList: List<FileInfo>? = null
     private lateinit var mResultList: ArrayList<SelectImageFileEntity>
-    private lateinit var mGroupEmppty: Group
+    private lateinit var mGroupEmpty: Group
     private lateinit var mConfig: PictureSelectionConfig
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -55,7 +54,7 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
     private fun initView(view: View) {
         mRvFileList = view.findViewById(R.id.rv_list_file)
         mResultList = ArrayList()
-        mGroupEmppty = view.findViewById(R.id.group_empty)
+        mGroupEmpty = view.findViewById(R.id.group_empty)
         mConfig = PictureSelectionConfig.newInstance
     }
 
@@ -63,9 +62,9 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
         this.mFileInfoList = mFileInfoList
         mFileListAdapter = FileListAdapter(activity, mResultList, mConfig.maxSelectNumber, mFileInfoList!!)
         if (mFileInfoList.isEmpty()) {
-            mGroupEmppty.visibility = View.VISIBLE
+            mGroupEmpty.visibility = View.VISIBLE
         } else {
-            mGroupEmppty.visibility = View.INVISIBLE
+            mGroupEmpty.visibility = View.INVISIBLE
         }
         mRvFileList.adapter = mFileListAdapter
         mRvFileList.layoutManager = LinearLayoutManager(activity)

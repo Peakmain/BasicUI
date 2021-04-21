@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.peakmain.ui.R
 import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
@@ -12,6 +13,7 @@ import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.imageLoader.ImageLoader
 import com.peakmain.ui.utils.FileUtils.createTmpFile
 import com.peakmain.ui.utils.ToastUtils
@@ -25,12 +27,12 @@ import kotlin.collections.ArrayList
  * describe：
  */
 class ImageSelectorListAdapter(
-        mContext: Context,
+        var context: Context,
         private var mSelectImages: ArrayList<SelectImageFileEntity>,
         private val mMaxCount: Int,
         private val mMode: Int
 ) : CommonRecyclerAdapter<ImageEntity?>(
-        mContext,
+        context,
         ArrayList<ImageEntity>(),
         R.layout.ui_media_chooser_item
 ) {
@@ -61,7 +63,7 @@ class ImageSelectorListAdapter(
             // 显示图片
             val imageView =
                     holder.getView<ImageView>(R.id.image)
-            ImageLoader.instance!!.displayImage(mContext!!, item.path, imageView)
+            ImageLoader.instance?.displayImage(mContext!!,item.path,imageView)
             val selectedIndicatorIv =
                     holder.getView<ImageView>(R.id.media_selected_indicator)
             for (mSelectImage in mSelectImages) {
@@ -83,32 +85,37 @@ class ImageSelectorListAdapter(
             else
                 holder.setVisibility(View.INVISIBLE, R.id.mask)
             holder.setOnItemClickListener(R.id.media_selected_indicator, View.OnClickListener {
-                if (mSelectImages.contains(selectImageFileEntity)) {
-                    mSelectImages.remove(selectImageFileEntity)
-                    item.isSelect = false
-                } else {
-                    // 判断是否到达最大
-                    if (mMaxCount == mSelectImages.size) {
-                        Toast.makeText(
-                                BasicUIUtils.application,
-                                String.format(
-                                        mContext!!.getString(R.string.ui_picture_message_max_num)!!,
-                                        mMaxCount
-                                ),
-                                Toast.LENGTH_SHORT
-                        ).show()
-                        return@OnClickListener
+                if(item.fileSize> PictureSelectFragment.MAX_FILESIZE*1024*1024){
+                    ToastUtils.showLong("无法选择大于20M的文件")
+                }else{
+                    if (mSelectImages.contains(selectImageFileEntity)) {
+                        mSelectImages.remove(selectImageFileEntity)
+                        item.isSelect = false
+                    } else {
+                        // 判断是否到达最大
+                        if (mMaxCount == mSelectImages.size) {
+                            Toast.makeText(
+                                    BasicUIUtils.application,
+                                    String.format(
+                                            mContext?.getString(R.string.ui_picture_message_max_num)!!,
+                                            mMaxCount
+                                    ),
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                            return@OnClickListener
+                        }
+                        item.isSelect = true
+                        mSelectImages.add(
+                                SelectImageFileEntity(
+                                        PictureConfig.IMAGE,
+                                        item.path
+                                )
+                        )
                     }
-                    item.isSelect = true
-                    mSelectImages.add(
-                            SelectImageFileEntity(
-                                    PictureConfig.IMAGE,
-                                    item.path
-                            )
-                    )
+                    mListener?.selector()
+                    notifyDataSetChanged()
                 }
-                mListener?.selector()
-                notifyDataSetChanged()
+
             })
             holder.setOnItemClickListener(R.id.image, View.OnClickListener {
                 mOnPicturePreview?.onPicturePreviewClick(holder.adapterPosition, mSelectImages)
