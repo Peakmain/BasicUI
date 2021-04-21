@@ -18,6 +18,7 @@ import com.peakmain.ui.image.config.PicturePreviewConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.ImageEntity
 import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.ToastUtils
@@ -167,38 +168,44 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
     }
 
     private fun selectImageClick() {
+        val currentImageEntity = mAllImageList!![currentPosition]
         if (currentPosition > -1) {
-            val currentImageEntity = mAllImageList!![currentPosition]
-            if (currentImageEntity.isSelect) {
-                //被选中则移除
-                currentImageEntity.isSelect = false
-                mSelectImageList!!.remove(
-                        SelectImageFileEntity(
-                                PictureConfig.IMAGE,
-                                currentImageEntity.path
-                        )
-                )
-                updateSelectText()
-                mIvSelect.isSelected = false
-            } else {
-                //没有被选中就添加
-                if (mSelectImageList?.size == mConfig.maxSelectNumber) {
-                    ToastUtils.showShort(
-                            getString(R.string.ui_picture_message_max_num),
-                            mConfig.maxSelectNumber
+            if (currentImageEntity.fileSize > FileListFragment.MAX_FILESIZE * 1024 * 1024) {
+                ToastUtils.showLong("无法选择大于20M的文件")
+            }else{
+
+                if (currentImageEntity.isSelect) {
+                    //被选中则移除
+                    currentImageEntity.isSelect = false
+                    mSelectImageList!!.remove(
+                            SelectImageFileEntity(
+                                    PictureConfig.IMAGE,
+                                    currentImageEntity.path
+                            )
                     )
-                    return
-                }
-                currentImageEntity.isSelect = true
-                mSelectImageList!!.add(
-                        SelectImageFileEntity(
-                                PictureConfig.IMAGE,
-                                currentImageEntity.path
+                    updateSelectText()
+                    mIvSelect.isSelected = false
+                } else {
+                    //没有被选中就添加
+                    if (mSelectImageList?.size == mConfig.maxSelectNumber) {
+                        ToastUtils.showShort(
+                                getString(R.string.ui_picture_message_max_num),
+                                mConfig.maxSelectNumber
                         )
-                )
-                updateSelectText()
-                mIvSelect.isSelected = true
+                        return
+                    }
+                    currentImageEntity.isSelect = true
+                    mSelectImageList!!.add(
+                            SelectImageFileEntity(
+                                    PictureConfig.IMAGE,
+                                    currentImageEntity.path
+                            )
+                    )
+                    updateSelectText()
+                    mIvSelect.isSelected = true
+                }
             }
+
         }
     }
 
