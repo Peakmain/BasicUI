@@ -18,12 +18,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.peakmain.ui.R
-import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.image.PicturePreview
 import com.peakmain.ui.image.PictureSelectorActivity
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
-import com.peakmain.ui.image.adapter.ImageSelectorListAdapter
+import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.SelectImageFileEntity
@@ -44,7 +43,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     private var mTempFile: File? = null
 
     // 图片显示的Adapter
-    private var mImageAdapter: ImageSelectorListAdapter? = null
+    private var mImageAdapter: PictureSelectorListAdapter? = null
 
     private var mResultList: ArrayList<SelectImageFileEntity>? = null
 
@@ -100,7 +99,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                         file!!
                 )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        startActivityForResult(intent, ImageSelectorListAdapter.REQUEST_CAMERA)
+        startActivityForResult(intent, PictureSelectorListAdapter.REQUEST_CAMERA)
     }
 
     /**
@@ -131,7 +130,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
             data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ImageSelectorListAdapter.REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PictureSelectorListAdapter.REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
             // notify system the image has change
             context!!.sendBroadcast(
                     Intent(
@@ -155,7 +154,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     private fun showListData(images: ArrayList<ImageEntity?>) {
         if (mImageAdapter == null) {
             mImageAdapter =
-                    ImageSelectorListAdapter(
+                    PictureSelectorListAdapter(
                             context!!,
                             mResultList!!,
                             mConfig.maxSelectNumber,
@@ -166,7 +165,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
         mRvImageList.adapter = mImageAdapter
         mImageAdapter!!.setOnUpdateSelectListener(this)
         mImageAdapter?.setOnPicturePreviewClick(object :
-                ImageSelectorListAdapter.PicturePreviewClick {
+                PictureSelectorListAdapter.PicturePreviewClick {
             override fun onPicturePreviewClick(
                     position: Int,
                     selectImages: ArrayList<SelectImageFileEntity>

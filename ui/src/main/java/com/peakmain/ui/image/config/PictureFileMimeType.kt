@@ -16,7 +16,7 @@ import java.io.File
  * mail:2726449200@qq.com
  * describe：文件格式类型
  */
-object PictureMimeType {
+object PictureFileMimeType {
     fun ofAll(): Int {
         return PictureConfig.TYPE_ALL
     }
@@ -76,9 +76,20 @@ object PictureMimeType {
      */
     fun isPdf(fileName: String): Boolean {
         return FileTypeUtil.checkSuffix(
-            fileName,
-            BasicUIUtils.application!!.resources
-                .getStringArray(R.array.ui_pdf_file_suffix)
+                fileName,
+                BasicUIUtils.application!!.resources
+                        .getStringArray(R.array.ui_pdf_file_suffix)
+        )
+    }
+
+    /**
+     * 是否是apk
+     */
+    fun isApk(fileName: String): Boolean {
+        return FileTypeUtil.checkSuffix(
+                fileName,
+                BasicUIUtils.application!!.resources
+                        .getStringArray(R.array.ui_apk_file_suffix)
         )
     }
 
@@ -95,21 +106,6 @@ object PictureMimeType {
                     || pictureType.startsWith(".PNG")
                     || pictureType.startsWith(".jpeg")
                     || pictureType.startsWith(".JPEG")
-                    || pictureType.startsWith(".gif")
-                    || pictureType.startsWith(".GIF"))
-        }
-        return false
-    }
-/*    fun isImage(path: String): Boolean {
-        if (!TextUtils.isEmpty(path)) {
-            val lastIndex = path.lastIndexOf(".")
-            if (lastIndex <= 0) return false
-            val pictureType = path.substring(lastIndex, path.length)
-            return (pictureType.startsWith(".jpg")
-                    || pictureType.startsWith(".png")
-                    || pictureType.startsWith(".PNG")
-                    || pictureType.startsWith(".jpeg")
-                    || pictureType.startsWith(".JPEG")
                     || pictureType.startsWith(".webp")
                     || pictureType.startsWith(".WEBP")
                     || pictureType.startsWith(".gif")
@@ -117,7 +113,7 @@ object PictureMimeType {
                     || pictureType.startsWith(".GIF"))
         }
         return false
-    }*/
+    }
 
     /**
      * 是否是视频
@@ -141,7 +137,7 @@ object PictureMimeType {
     fun isHttp(path: String): Boolean {
         if (!TextUtils.isEmpty(path)) {
             if (path.startsWith("http")
-                || path.startsWith("https")
+                    || path.startsWith("https")
             ) {
                 return true
             }
@@ -159,18 +155,18 @@ object PictureMimeType {
         if (file != null) {
             val name = file.name
             if (name.endsWith(".mp4") || name.endsWith(".avi")
-                || name.endsWith(".3gpp") || name.endsWith(".3gp") || name.startsWith(".mov")
+                    || name.endsWith(".3gpp") || name.endsWith(".3gp") || name.startsWith(".mov")
             ) {
                 return "video/mp4"
             } else if (name.endsWith(".PNG") || name.endsWith(".png") || name.endsWith(".jpeg")
-                || name.endsWith(".gif") || name.endsWith(".GIF") || name.endsWith(".jpg")
-                || name.endsWith(".webp") || name.endsWith(".WEBP") || name.endsWith(".JPEG")
-                || name.endsWith(".bmp")
+                    || name.endsWith(".gif") || name.endsWith(".GIF") || name.endsWith(".jpg")
+                    || name.endsWith(".webp") || name.endsWith(".WEBP") || name.endsWith(".JPEG")
+                    || name.endsWith(".bmp")
             ) {
                 return "image/jpeg"
             } else if (name.endsWith(".mp3") || name.endsWith(".amr")
-                || name.endsWith(".aac") || name.endsWith(".war")
-                || name.endsWith(".flac") || name.endsWith(".lamr")
+                    || name.endsWith(".aac") || name.endsWith(".war")
+                    || name.endsWith(".flac") || name.endsWith(".lamr")
             ) {
                 return "audio/mpeg"
             }
