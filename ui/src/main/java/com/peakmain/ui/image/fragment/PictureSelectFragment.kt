@@ -51,15 +51,14 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     private lateinit var mConfig: PictureSelectionConfig
 
     companion object {
-        // 是否显示相机的EXTRA_KEY
-        const val EXTRA_SHOW_CAMERA = "EXTRA_SHOW_CAMERA"
+        const val MAX_FILESIZE = 20 //文件最大体积
     }
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.ui_fragment_image_select, container, false)
         initView(view)
@@ -71,13 +70,13 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
 
     private fun initView(view: View) {
         mRvImageList =
-            view.findViewById<View>(R.id.rv_image_list) as RecyclerView
+                view.findViewById<View>(R.id.rv_image_list) as RecyclerView
 
 
         val bundle = arguments
         if (bundle != null) {
             mResultList =
-                bundle.getSerializable(PictureSelectorActivity.SELECT_RESULT_KEY) as ArrayList<SelectImageFileEntity>
+                    bundle.getSerializable(PictureSelectorActivity.SELECT_RESULT_KEY) as ArrayList<SelectImageFileEntity>
         }
         if (mResultList == null) {
             mResultList = ArrayList()
@@ -88,18 +87,18 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
 
     override fun selector() {
         //告诉ImageSelectorActivity有选择新数据的变化
-        (activity as PictureSelectorActivity).updateSelectDataResult(mResultList!!)
+        (context as PictureSelectorActivity).updateSelectDataResult(mResultList!!)
     }
 
     override fun openCamera(file: File?) {
         mTempFile = file
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val uri =
-            FileProvider.getUriForFile(
-                activity!!,
-                    BasicUIUtils.application!!.packageName + ".fileProvider",
-                file!!
-            )
+                FileProvider.getUriForFile(
+                        context!!,
+                        context!!.applicationContext.packageName + ".fileProvider",
+                        file!!
+                )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         startActivityForResult(intent, ImageSelectorListAdapter.REQUEST_CAMERA)
     }
@@ -108,11 +107,11 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
      * 初始化本地图片数据
      */
     private fun initImageList() {
-        mRvImageList.layoutManager = GridLayoutManager(activity, 4)
+        mRvImageList.layoutManager = GridLayoutManager(context, 4)
         activity!!.loaderManager.initLoader(
-            PictureSelectorActivity.LOADER_TYPE,
-            Bundle(),
-            mLoaderCallback
+                PictureSelectorActivity.LOADER_TYPE,
+                Bundle(),
+                mLoaderCallback
         )
     }
 
@@ -122,29 +121,29 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     private fun setResult() {
         val data = Intent()
         data.putExtra(PictureSelectorActivity.SELECT_RESULT_KEY, mResultList)
-        activity?.setResult(Activity.RESULT_OK, data)
-        activity?.finish()
+        (context as Activity).setResult(Activity.RESULT_OK, data)
+        (context as Activity).finish()
     }
 
     override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
+            requestCode: Int,
+            resultCode: Int,
+            data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ImageSelectorListAdapter.REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
             // notify system the image has change
-            activity!!.sendBroadcast(
-                Intent(
-                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                    Uri.fromFile(mTempFile)
-                )
+            context!!.sendBroadcast(
+                    Intent(
+                            Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                            Uri.fromFile(mTempFile)
+                    )
             )
             mResultList!!.add(
-                SelectImageFileEntity(
-                    PictureConfig.IMAGE,
-                    mTempFile!!.absolutePath
-                )
+                    SelectImageFileEntity(
+                            PictureConfig.IMAGE,
+                            mTempFile!!.absolutePath
+                    )
             )
             setResult()
         }
@@ -156,21 +155,21 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     private fun showListData(images: ArrayList<ImageEntity?>) {
         if (mImageAdapter == null) {
             mImageAdapter =
-                ImageSelectorListAdapter(
-                    activity!!,
-                    mResultList!!,
-                    mConfig.maxSelectNumber,
-                    mConfig.selectionMode
-                )
+                    ImageSelectorListAdapter(
+                            context!!,
+                            mResultList!!,
+                            mConfig.maxSelectNumber,
+                            mConfig.selectionMode
+                    )
         }
         mImageAdapter!!.setData(images, mConfig.showCamera)
         mRvImageList.adapter = mImageAdapter
         mImageAdapter!!.setOnUpdateSelectListener(this)
         mImageAdapter?.setOnPicturePreviewClick(object :
-            ImageSelectorListAdapter.PicturePreviewClick {
+                ImageSelectorListAdapter.PicturePreviewClick {
             override fun onPicturePreviewClick(
-                position: Int,
-                selectImages: ArrayList<SelectImageFileEntity>
+                    position: Int,
+                    selectImages: ArrayList<SelectImageFileEntity>
             ) {
                 gotoPicturePreviewActivity(images, position, selectImages)
             }
@@ -183,23 +182,23 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
             position: Int,
             selectImages: ArrayList<SelectImageFileEntity>
     ) {
-        PicturePreview.create(activity!!)
-            .origin(images)
-            .previewPosition(position)
-            .selectImageFileList(selectImages)
-            .showBottomView(true)
-            .showTitleLeftBack(true)
-            .showTitleRightIcon(true)
-            .forResult(object : PictureFileResultCallback {
-                override fun onResult(result: ArrayList<SelectImageFileEntity>?) {
-                    mResultList = result
-                    if (mResultList == null) {
-                        mResultList = ArrayList()
+        PicturePreview.create(this)
+                .origin(images)
+                .previewPosition(position)
+                .selectImageFileList(selectImages)
+                .showBottomView(true)
+                .showTitleLeftBack(true)
+                .showTitleRightIcon(true)
+                .forResult(object : PictureFileResultCallback {
+                    override fun onResult(result: ArrayList<SelectImageFileEntity>?) {
+                        mResultList = result
+                        if (mResultList == null) {
+                            mResultList = ArrayList()
+                        }
+                        selector()
+                        mImageAdapter?.setSelectResult(mResultList)
                     }
-                    selector()
-                    mImageAdapter?.setSelectResult(mResultList)
-                }
-            })
+                })
 
     }
 
@@ -208,71 +207,71 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
      * 加载图片的CallBack
      */
     private val mLoaderCallback: LoaderManager.LoaderCallbacks<Cursor?> =
-        object : LoaderManager.LoaderCallbacks<Cursor?> {
-            private val IMAGE_PROJECTION = arrayOf(
-                MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.DATE_ADDED,
-                MediaStore.Images.Media.MIME_TYPE,
-                MediaStore.Images.Media.SIZE,
-                MediaStore.Images.Media._ID
-            )
-
-            override fun onCreateLoader(
-                id: Int,
-                args: Bundle
-            ): Loader<Cursor?> {
-                return CursorLoader(
-                    activity,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    IMAGE_PROJECTION,
-                    IMAGE_PROJECTION[4] + ">0 AND " + IMAGE_PROJECTION[3] + "=? OR " + IMAGE_PROJECTION[3] + "=? OR " + IMAGE_PROJECTION[3] + "=? ",
-                    arrayOf("image/jpeg", "image/png", "image/gif"),
-                    IMAGE_PROJECTION[2] + " DESC"
+            object : LoaderManager.LoaderCallbacks<Cursor?> {
+                private val IMAGE_PROJECTION = arrayOf(
+                        MediaStore.Images.Media.DATA,
+                        MediaStore.Images.Media.DISPLAY_NAME,
+                        MediaStore.Images.Media.DATE_ADDED,
+                        MediaStore.Images.Media.MIME_TYPE,
+                        MediaStore.Images.Media.SIZE,
+                        MediaStore.Images.Media._ID
                 )
-            }
 
-            override fun onLoadFinished(
-                loader: Loader<Cursor?>,
-                data: Cursor?
-            ) {
-                // 如果有数据变量数据
-                if (data != null && data.count > 0) {
-                    val images =
-                        ArrayList<ImageEntity?>()
-                    data.moveToFirst()
-                    // 不断的遍历循环
-                    do {
-                        val path =
-                            data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]))
-                        val name =
-                            data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]))
-                        val dateTime =
-                            data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]))
-
-                        // 判断文件是不是存在
-                        if (!pathExist(path)) {
-                            continue
-                        }
-                        // 封装数据对象
-                        val image = ImageEntity(path, name, dateTime)
-                        images.add(image)
-                    } while (data.moveToNext())
-
-                    // 显示列表数据
-                    showListData(images)
+                override fun onCreateLoader(
+                        id: Int,
+                        args: Bundle
+                ): Loader<Cursor?> {
+                    return CursorLoader(
+                            context,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            IMAGE_PROJECTION,
+                            IMAGE_PROJECTION[4] + ">0 AND " + IMAGE_PROJECTION[3] + "=? OR " + IMAGE_PROJECTION[3] + "=? OR " + IMAGE_PROJECTION[3] + "=? ",
+                            arrayOf("image/jpeg", "image/png", "image/gif"),
+                            IMAGE_PROJECTION[2] + " DESC"
+                    )
                 }
-            }
 
-            /**
-             * 判断该路径文件是不是存在
-             */
-            private fun pathExist(path: String): Boolean {
-                return if (!TextUtils.isEmpty(path)) {
-                    File(path).exists()
-                } else false
-            }
+                override fun onLoadFinished(
+                        loader: Loader<Cursor?>,
+                        data: Cursor?
+                ) {
+                    // 如果有数据变量数据
+                    if (data != null && data.count > 0) {
+                        val images =
+                                ArrayList<ImageEntity?>()
+                        data.moveToFirst()
+                        // 不断的遍历循环
+                        do {
+                            val path =
+                                    data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]))
+                            val name =
+                                    data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]))
+                            val dateTime =
+                                    data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]))
+                            val fileSize = data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[4]))
+                            // 判断文件是不是存在
+                            if (!pathExist(path)) {
+                                continue
+                            }
+                            // 封装数据对象
+                            val image = ImageEntity(path, name, dateTime, fileSize)
+                            images.add(image)
+                        } while (data.moveToNext())
 
-            override fun onLoaderReset(loader: Loader<Cursor?>) {}
-        }
+                        // 显示列表数据
+                        showListData(images)
+                    }
+                }
+
+                /**
+                 * 判断该路径文件是不是存在
+                 */
+                private fun pathExist(path: String): Boolean {
+                    return if (!TextUtils.isEmpty(path)) {
+                        File(path).exists()
+                    } else false
+                }
+
+                override fun onLoaderReset(loader: Loader<Cursor?>) {}
+            }
 }

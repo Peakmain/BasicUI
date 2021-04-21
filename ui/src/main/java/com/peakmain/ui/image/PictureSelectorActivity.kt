@@ -69,8 +69,6 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         //已经选择的数据集合key
         const val SELECT_RESULT_KEY = "SELECT_RESULT_KEY"
 
-        const val GO_IMAGE_SELECTOR_REQUEST_CODE = 40004
-        const val PICTURE_PREVIEW_QUEUEST_CODE = 20031
     }
 
 
@@ -189,16 +187,9 @@ internal class PictureSelectorActivity : AppCompatActivity() {
 
     private fun openCameraClick() {
         try {
-            PermissionUtils.request(this, PermissionConstants.CAMERA) { allGranted, deniedList ->
-                if (allGranted) {
-                    val tmpFile =
-                            createTmpFile(this)
-                    openCamera(tmpFile)
-                } else {
-                   ToastUtils.showLong("请打开相机权限..")
-                }
-            }
-
+            val tmpFile =
+                    createTmpFile(this)
+            openCamera(tmpFile)
         } catch (e: IOException) {
             e.printStackTrace()
             ToastUtils.showLong("相机打开失败")
@@ -280,13 +271,21 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                                 Uri.fromFile(mTempFile)
                         )
                 )
-                mResultList!!.add(
-                        SelectImageFileEntity(
-                                PictureConfig.IMAGE,
-                                mTempFile!!.absolutePath
-                        )
-                )
-                setResult(mResultList)
+                if (mResultList!!.size >= mConfig.maxSelectNumber) {
+                    ToastUtils.showLong(getString(R.string.ui_picture_message_max_num)!!,
+                            mConfig.maxSelectNumber
+                    )
+                    finish()
+                } else {
+                    mResultList!!.add(
+                            SelectImageFileEntity(
+                                    PictureConfig.IMAGE,
+                                    mTempFile!!.absolutePath
+                            )
+                    )
+                    setResult(mResultList)
+                }
+
             }
         }
     }
