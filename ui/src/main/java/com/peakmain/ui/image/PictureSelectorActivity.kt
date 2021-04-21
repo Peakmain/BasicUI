@@ -16,15 +16,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.peakmain.ui.R
-import com.peakmain.ui.image.adapter.ImageSelectorListAdapter
+import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.utils.FileUtils.createTmpFile
-import com.peakmain.ui.utils.PermissionConstants
-import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
 import com.xuantian.common.ui.helper.FragmentManagerHelper
@@ -243,7 +241,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                         file!!
                 )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        startActivityForResult(intent, ImageSelectorListAdapter.REQUEST_CAMERA)
+        startActivityForResult(intent, PictureSelectorListAdapter.REQUEST_CAMERA)
     }
 
     fun showFragment(bundle: Bundle?) {
@@ -263,7 +261,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == ImageSelectorListAdapter.REQUEST_CAMERA) {
+            if (requestCode == PictureSelectorListAdapter.REQUEST_CAMERA) {
                 // notify system the image has change
                 sendBroadcast(
                         Intent(

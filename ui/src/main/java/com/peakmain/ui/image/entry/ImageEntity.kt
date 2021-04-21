@@ -1,8 +1,6 @@
 package com.peakmain.ui.image.entry
 
 import android.text.TextUtils
-import com.peakmain.ui.image.config.PictureConfig
-import com.peakmain.ui.image.config.PictureMimeType
 import java.io.Serializable
 
 /**
