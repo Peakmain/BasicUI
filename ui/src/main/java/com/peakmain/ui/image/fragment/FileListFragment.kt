@@ -1,5 +1,7 @@
 package com.peakmain.ui.image.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.support.constraint.Group
@@ -18,6 +20,7 @@ import com.peakmain.ui.image.adapter.FileListAdapter
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.entry.FileInfo
+import com.peakmain.ui.utils.AppUtils
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LoadFileTask
 import java.io.File
@@ -29,7 +32,7 @@ import kotlin.collections.ArrayList
  * mail:2726449200@qq.com
  * describe：文件列表的Fragment
  */
-internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateSelectListener {
+internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateSelectListener, FileListAdapter.InstanllAppListener {
     private lateinit var mRvFileList: RecyclerView
     private var mFileListAdapter: FileListAdapter? = null
     private var mFileInfoList: List<FileInfo>? = null
@@ -48,7 +51,8 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
     }
 
     companion object {
-        const val MAX_FILESIZE = 100 //文件最大体积
+        const val MAX_FILESIZE = 20 //文件最大体积
+        private const val REQUEST_INSTALL_UNKNOWN_CODE = 332
     }
 
     private fun initView(view: View) {
@@ -69,6 +73,7 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
         mRvFileList.adapter = mFileListAdapter
         mRvFileList.layoutManager = LinearLayoutManager(activity)
         mFileListAdapter!!.setOnUpdateSelectListener(this)
+        mFileListAdapter!!.setInstallAppListener(this)
     }
 
     override fun showLoading(message: String?) {
@@ -99,6 +104,17 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
 
     override fun openCamera(file: File?) {
         TODO("Not yet implemented")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_INSTALL_UNKNOWN_CODE && Activity.RESULT_OK == resultCode) {
+            mFileListAdapter?.installApk(context)
+        }
+    }
+
+    override fun installAppClick(intent: Intent) {
+        startActivityForResult(intent, REQUEST_INSTALL_UNKNOWN_CODE)
     }
 
 }

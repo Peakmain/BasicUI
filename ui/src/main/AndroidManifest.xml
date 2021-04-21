@@ -2,6 +2,8 @@
     package="com.peakmain.ui">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application>
         <provider
             android:name="com.peakmain.ui.BasicUIProvider"
@@ -12,6 +14,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/basic_ui_provider_paths" />
         </provider>
+
         <activity
             android:name=".image.PictureSelectorActivity"
             android:screenOrientation="portrait"
@@ -21,6 +24,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden" />
         <activity android:name=".read.FileReadActivity" />
+
         <service
             android:name=".read.X5IntentService"
             android:enabled="true" />
