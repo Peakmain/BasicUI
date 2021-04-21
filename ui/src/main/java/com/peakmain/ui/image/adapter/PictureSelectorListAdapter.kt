@@ -26,7 +26,7 @@ import kotlin.collections.ArrayList
  * mail:2726449200@qq.com
  * describe：
  */
-class ImageSelectorListAdapter(
+class PictureSelectorListAdapter(
         var context: Context,
         private var mSelectImages: ArrayList<SelectImageFileEntity>,
         private val mMaxCount: Int,
@@ -86,7 +86,7 @@ class ImageSelectorListAdapter(
                 holder.setVisibility(View.INVISIBLE, R.id.mask)
             holder.setOnItemClickListener(R.id.media_selected_indicator, View.OnClickListener {
                 if(item.fileSize> PictureSelectFragment.MAX_FILESIZE*1024*1024){
-                    ToastUtils.showLong("无法选择大于20M的文件")
+                    ToastUtils.showLong("无法选择大于${PictureSelectFragment.MAX_FILESIZE}M的文件")
                 }else{
                     if (mSelectImages.contains(selectImageFileEntity)) {
                         mSelectImages.remove(selectImageFileEntity)

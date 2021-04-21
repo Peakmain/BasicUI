@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.peakmain.ui.adapter.BaseViewPagerAdapter
 import com.peakmain.ui.image.PicturePreviewActivity
-import com.peakmain.ui.image.config.PictureMimeType
+import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.entry.ImageEntity
 
 /**
@@ -24,12 +24,12 @@ class PicturePrieviewAdapter(var context: Context, var data: MutableList<ImageEn
         val imageUrl = getImageUrl(position)
         photoView.enable()
         when {
-            PictureMimeType.isHttp(imageUrl!!) -> {
+            PictureFileMimeType.isHttp(imageUrl!!) -> {
                 Glide.with(context).load(imageUrl)
                     .apply(RequestOptions())
                     .into(photoView)
             }
-            PictureMimeType.isImageGif(imageUrl) -> {
+            PictureFileMimeType.isImageGif(imageUrl) -> {
                 Glide.with(context).asGif().load(imageUrl)
                     .apply(RequestOptions())
                     .into(photoView)

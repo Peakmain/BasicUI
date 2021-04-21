@@ -13,7 +13,7 @@ import android.widget.TextView
 import com.peakmain.ui.R
 import com.peakmain.ui.image.adapter.PicturePrieviewAdapter
 import com.peakmain.ui.image.config.PictureConfig
-import com.peakmain.ui.image.config.PictureMimeType
+import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.config.PicturePreviewConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.ImageEntity
@@ -64,7 +64,6 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
         initListener()
     }
 
-    private var connect = false
     private fun initListener() {
         findViewById<View>(R.id.ui_left_back).setOnClickListener {
             //关闭
@@ -83,13 +82,10 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
         }
         mIvDownload.setOnClickListener {
             //下载的点击事件
-            /*   if (mPreviewConfig.mDownloadListener != null) {
-                   mPreviewConfig.mDownloadListener!!.onPicturePreviewDownload(mAllImageList!![currentPosition])
-               }*/
             if (mAllImageList != null) {
                 val imageEntity = mAllImageList!![currentPosition]
                 val fileUri = imageEntity.path
-                if (!TextUtils.isEmpty(fileUri) && PictureMimeType.isHttp(fileUri)) {
+                if (!TextUtils.isEmpty(fileUri) && PictureFileMimeType.isHttp(fileUri)) {
                     val filePath: String =
                             FileUtils.getDownloadFolderPath() + fileUri.substring(fileUri.lastIndexOf("/") + 1)
                     Log.e("TAG", "start=====$filePath")
@@ -171,8 +167,8 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
         val currentImageEntity = mAllImageList!![currentPosition]
         if (currentPosition > -1) {
             if (currentImageEntity.fileSize > FileListFragment.MAX_FILESIZE * 1024 * 1024) {
-                ToastUtils.showLong("无法选择大于20M的文件")
-            }else{
+                ToastUtils.showLong("无法选择大于${FileListFragment.MAX_FILESIZE}M的文件")
+            } else {
 
                 if (currentImageEntity.isSelect) {
                     //被选中则移除
@@ -279,9 +275,6 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
     }
 
     fun closeActivity() {
-        /* val intent = Intent()
-         intent.putExtra(PictureSelectorActivity.SELECT_RESULT_KEY, mSelectImageList)
-         setResult(Activity.RESULT_OK, intent)*/
         if (mPreviewConfig.mResultCallBack != null) {
             mPreviewConfig.mResultCallBack!!.onResult(mSelectImageList)
         }

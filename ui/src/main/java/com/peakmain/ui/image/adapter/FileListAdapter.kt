@@ -1,23 +1,30 @@
 package com.peakmain.ui.image.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.peakmain.ui.R
+import com.peakmain.ui.image.PicturePreview
 import com.peakmain.ui.image.PictureSelectorActivity
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
-import com.peakmain.ui.image.config.PictureMimeType
+import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.entry.FileInfo
+import com.peakmain.ui.image.entry.ImageEntity
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.image.fragment.FileListFragment
+import com.peakmain.ui.read.FileReadActivity
+import com.peakmain.ui.utils.*
 import com.peakmain.ui.utils.FileTypeUtil.getFileIconResource
 import com.peakmain.ui.utils.FileUtils.FormetFileSize
-import com.peakmain.ui.utils.ToastUtils
 
 /**
  * author ：Peakmain
@@ -35,6 +42,7 @@ class FileListAdapter(
         data,
         R.layout.ui_item_file_list_adapter
 ) {
+    var installApk: String? = ""
     override fun convert(
             holder: ViewHolder,
             item: FileInfo?
@@ -54,7 +62,7 @@ class FileListAdapter(
             val mFileSelect = holder.getView<ImageView>(R.id.ui_file_select)
             mFileSelect?.visibility = View.VISIBLE
             var tempData = SelectImageFileEntity(PictureConfig.FILE, item.filePath)
-            if (!TextUtils.isEmpty(item.filePath) && PictureMimeType.isImage(item.filePath!!)) {
+            if (!TextUtils.isEmpty(item.filePath) && PictureFileMimeType.isImage(item.filePath!!)) {
                 tempData = SelectImageFileEntity(PictureConfig.IMAGE, item.filePath)
             }
             mFileSelect?.isSelected = mSelectFileList.contains(tempData)
@@ -65,25 +73,13 @@ class FileListAdapter(
                             FormetFileSize(item.fileSize)
                     )
             )
-        }
-        holder.setImageResource(
-                R.id.iv_file_icon,
-                getFileIconResource(mContext!!, item)
-        )
-        holder.setOnItemClickListener(View.OnClickListener {
-            if (item.isDirectory) {
-                val bundle = Bundle()
-                bundle.putString(PictureSelectorActivity.directory, item.filePath)
-                bundle.putSerializable(PictureSelectorActivity.SELECT_RESULT_KEY, mSelectFileList)
-                (mContext as PictureSelectorActivity).showFragment(bundle)
-            } else {
-
+            mFileSelect!!.setOnClickListener {
                 //判断文件大小是否大于100M  1M=1024x1024B   因为1M=1024K 1K=1024B(字节)
                 if (item.fileSize > FileListFragment.MAX_FILESIZE * 1024 * 1024) {
-                    ToastUtils.showLong("无法发送大于100M的文件")
+                    ToastUtils.showLong("无法选择大于${FileListFragment.MAX_FILESIZE}M的文件")
                 } else {
                     var tempData = SelectImageFileEntity(PictureConfig.FILE, item.filePath)
-                    if (PictureMimeType.isImage(item.filePath!!)) {
+                    if (PictureFileMimeType.isImage(item.filePath!!)) {
                         //是图片
                         tempData = SelectImageFileEntity(PictureConfig.IMAGE, item.filePath)
                     }
@@ -99,9 +95,9 @@ class FileListAdapter(
                                             maxCount
                                     )
                             )
-                            return@OnClickListener
+                            return@setOnClickListener
                         }
-                        if (PictureMimeType.isImage(item.filePath!!)) {
+                        if (PictureFileMimeType.isImage(item.filePath!!)) {
                             mSelectFileList.add(
                                     SelectImageFileEntity(
                                             PictureConfig.IMAGE,
@@ -109,8 +105,8 @@ class FileListAdapter(
                                     )
                             )
                         } else {
-                            if (!PictureMimeType.isPdf(item.fileName!!)) {
-                                ToastUtils.showShort("暂不支持其他格式")
+                            if (!PictureFileMimeType.isPdf(item.fileName!!)) {
+                                ToastUtils.showShort("暂不支持${item.fileName}格式")
                             } else {
                                 mSelectFileList.add(
                                         SelectImageFileEntity(
@@ -128,8 +124,64 @@ class FileListAdapter(
                     (mContext as PictureSelectorActivity).updateSelectDataResult(mSelectFileList)
                     notifyItemChanged(holder.adapterPosition)
                 }
+
+            }
+        }
+
+        holder.setImageResource(
+                R.id.iv_file_icon,
+                getFileIconResource(mContext!!, item)
+        )
+        holder.setOnItemClickListener(View.OnClickListener {
+            if (item.isDirectory) {
+                val bundle = Bundle()
+                bundle.putString(PictureSelectorActivity.directory, item.filePath)
+                bundle.putSerializable(PictureSelectorActivity.SELECT_RESULT_KEY, mSelectFileList)
+                (mContext as PictureSelectorActivity).showFragment(bundle)
+            } else {
+                if (PictureFileMimeType.isImage(item.filePath!!)) {
+                    val images = java.util.ArrayList<ImageEntity?>()
+                    val imageEntity = ImageEntity(item.filePath!!, item.fileName!!, 0, item.fileSize)
+                    images.add(imageEntity)
+                    PicturePreview.create(context = mContext!!)
+                            .origin(images)
+                            .showBottomView(false)
+                            .showTitleLeftBack(true)
+                            .showTitleRightIcon(false)
+                            .forResult(null)
+                } else if (PictureFileMimeType.isApk(item.filePath!!)) {
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            val canInstall = mContext!!.packageManager.canRequestPackageInstalls()
+                            this.installApk = item.filePath
+                            if (!canInstall) {
+                                val packageURI = Uri.parse("package:" + mContext!!.packageName)
+                                val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI)
+                               if(mInstallAppListener!=null){
+                                   mInstallAppListener!!.installAppClick(intent)
+                               }
+                            }else{
+                                AppUtils.installApp(item.filePath)
+                            }
+                        } else {
+                            AppUtils.installApp(item.filePath)
+                        }
+
+                } else {
+                    FileReadActivity.startActivity(mContext!!, item.filePath!!)
+                }
+
             }
         })
+    }
+
+    var mInstallAppListener: InstanllAppListener? = null
+    fun setInstallAppListener(installAppListener: InstanllAppListener) {
+        this.mInstallAppListener=installAppListener
+    }
+
+    interface InstanllAppListener {
+        fun installAppClick(intent: Intent)
     }
 
     private var mListener: UpdateSelectListener? = null
@@ -137,4 +189,9 @@ class FileListAdapter(
         mListener = listener
     }
 
+    fun installApk(context: Context?) {
+        if (installApk != null && installApk!!.isNotEmpty()) {
+            AppUtils.installApp(installApk)
+        }
+    }
 }
