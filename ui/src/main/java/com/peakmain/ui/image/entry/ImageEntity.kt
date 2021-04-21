@@ -1,6 +1,8 @@
 package com.peakmain.ui.image.entry
 
 import android.text.TextUtils
+import com.peakmain.ui.image.config.PictureConfig
+import com.peakmain.ui.image.config.PictureMimeType
 import java.io.Serializable
 
 /**
@@ -9,8 +11,9 @@ import java.io.Serializable
  * mail:2726449200@qq.com
  * describe： 图片对象
  */
-class ImageEntity(var path: String, var name: String, var time: Long) : Serializable {
-    constructor() : this("", "", 0)
+class ImageEntity(var path: String, var name: String, var time: Long, var fileSize: Long) :
+        Serializable {
+    constructor() : this("", "", 0, 0)
 
     var isSelect = false
 
