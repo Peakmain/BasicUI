@@ -50,7 +50,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation project(path: ':ui')
-    implementation 'pub.devrel:easypermissions:2.0.0'
 
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
