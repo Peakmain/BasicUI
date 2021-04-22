@@ -27,7 +27,6 @@ import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
@@ -49,7 +48,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     // 图片显示的Adapter
     private var mImageAdapter: PictureSelectorListAdapter? = null
 
-    private var mResultList: ArrayList<SelectImageFileEntity>? = null
+    private var mResultList: ArrayList<PictureFileInfo>? = null
 
     private lateinit var mConfig: PictureSelectionConfig
 
@@ -89,7 +88,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
         val bundle = arguments
         if (bundle != null) {
             mResultList =
-                    bundle.getSerializable(PictureSelectorActivity.SELECT_RESULT_KEY) as ArrayList<SelectImageFileEntity>
+                    bundle.getSerializable(PictureSelectorActivity.SELECT_RESULT_KEY) as ArrayList<PictureFileInfo>
         }
         if (mResultList == null) {
             mResultList = ArrayList()
@@ -153,7 +152,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                     )
             )
             mResultList!!.add(
-                    SelectImageFileEntity(
+                    PictureFileInfo(
                             PictureConfig.IMAGE,
                             mTempFile!!.absolutePath
                     )
@@ -165,7 +164,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     /**
      * 显示图片列表数据
      */
-    private fun showListData(images: ArrayList<PictureFileInfo?>) {
+    private fun showListData(images: ArrayList<PictureFileInfo>?) {
         if (mImageAdapter == null) {
             mImageAdapter =
                     PictureSelectorListAdapter(
@@ -182,7 +181,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                 PictureSelectorListAdapter.PicturePreviewClick {
             override fun onPicturePreviewClick(
                     position: Int,
-                    selectImages: ArrayList<SelectImageFileEntity>
+                    selectImages: ArrayList<PictureFileInfo>
             ) {
                 gotoPicturePreviewActivity(images, position, selectImages)
             }
@@ -195,9 +194,9 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
         PermissionUtils.onRequestPermissionsResult(requestCode,permissions)
     }
     private fun gotoPicturePreviewActivity(
-            images: ArrayList<PictureFileInfo?>,
+            images: ArrayList<PictureFileInfo>?,
             position: Int,
-            selectImages: ArrayList<SelectImageFileEntity>
+            selectImages: ArrayList<PictureFileInfo>
     ) {
         PicturePreview.create(this)
                 .origin(images)
@@ -207,7 +206,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                 .showTitleLeftBack(true)
                 .showTitleRightIcon(true)
                 .forResult(object : PictureFileResultCallback {
-                    override fun onResult(result: ArrayList<SelectImageFileEntity>?) {
+                    override fun onResult(result: ArrayList<PictureFileInfo>?) {
                         mResultList = result
                         if (mResultList == null) {
                             mResultList = ArrayList()
@@ -255,7 +254,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                     // 如果有数据变量数据
                     if (data != null && data.count > 0) {
                         val images =
-                                ArrayList<PictureFileInfo?>()
+                                ArrayList<PictureFileInfo>()
                         data.moveToFirst()
                         // 不断的遍历循环
                         do {

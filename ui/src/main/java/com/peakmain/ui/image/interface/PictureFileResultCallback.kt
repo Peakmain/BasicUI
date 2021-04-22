@@ -1,6 +1,6 @@
 package com.peakmain.ui.image.`interface`
 
-import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 
 /**
  * author ：Peakmain
@@ -9,5 +9,5 @@ import com.peakmain.ui.image.entry.SelectImageFileEntity
  * describe：文件图片选择后的结果回调
  */
 interface PictureFileResultCallback {
-    fun onResult(result: ArrayList<SelectImageFileEntity>?)
+    fun onResult(result: ArrayList<PictureFileInfo>?)
 }

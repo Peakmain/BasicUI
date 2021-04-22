@@ -18,7 +18,6 @@ import com.peakmain.ui.image.PictureSelectorActivity
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.adapter.FileListAdapter
 import com.peakmain.ui.image.config.PictureSelectionConfig
-import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LoadFileTask
@@ -35,7 +34,7 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
     private lateinit var mRvFileList: RecyclerView
     private var mFileListAdapter: FileListAdapter? = null
     private var mFileInfoList: List<PictureFileInfo>? = null
-    private lateinit var mResultList: ArrayList<SelectImageFileEntity>
+    private lateinit var mResultList: ArrayList<PictureFileInfo>
     private lateinit var mGroupEmpty: Group
     private lateinit var mConfig: PictureSelectionConfig
     override fun onCreateView(
@@ -88,7 +87,7 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
         if (bundle != null) {
             currentPath = bundle.getString(PictureSelectorActivity.directory).toString()
             mResultList =
-                    bundle.getSerializable(PictureSelectorActivity.SELECT_RESULT_KEY) as ArrayList<SelectImageFileEntity>
+                    bundle.getSerializable(PictureSelectorActivity.SELECT_RESULT_KEY) as ArrayList<PictureFileInfo>
             Log.e("TAG", "size==" + mResultList.size)
         }
         if (TextUtils.isEmpty(currentPath)) {

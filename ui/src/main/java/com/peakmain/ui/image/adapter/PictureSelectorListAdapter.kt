@@ -11,7 +11,6 @@ import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.imageLoader.ImageLoader
 import com.peakmain.ui.utils.FileUtils.createTmpFile
@@ -27,7 +26,7 @@ import kotlin.collections.ArrayList
  */
 class PictureSelectorListAdapter(
         var context: Context,
-        private var mSelectImages: ArrayList<SelectImageFileEntity>,
+        private var mSelectImages: ArrayList<PictureFileInfo>,
         private val mMaxCount: Int,
         private val mMode: Int
 ) : CommonRecyclerAdapter<PictureFileInfo?>(
@@ -67,12 +66,12 @@ class PictureSelectorListAdapter(
                     holder.getView<ImageView>(R.id.media_selected_indicator)
             for (mSelectImage in mSelectImages) {
                 selectedIndicatorIv!!.isSelected =
-                        item.filePath == mSelectImage.path && mSelectImage.type.equals(
+                        item.filePath == mSelectImage.filePath && mSelectImage.type.equals(
                                 PictureConfig.IMAGE
                         )
             }
             val selectImageFileEntity =
-                    SelectImageFileEntity(
+                    PictureFileInfo(
                             PictureConfig.IMAGE,
                             item.filePath
                     )
@@ -105,7 +104,7 @@ class PictureSelectorListAdapter(
                         }
                         item.isSelect = true
                         mSelectImages.add(
-                                SelectImageFileEntity(
+                                PictureFileInfo(
                                         PictureConfig.IMAGE,
                                         item.filePath
                                 )
@@ -130,7 +129,7 @@ class PictureSelectorListAdapter(
     interface PicturePreviewClick {
         fun onPicturePreviewClick(
                 position: Int,
-                selectImages: ArrayList<SelectImageFileEntity>
+                selectImages: ArrayList<PictureFileInfo>
         )
     }
 
@@ -154,19 +153,19 @@ class PictureSelectorListAdapter(
      * 设置数据
      */
     fun setData(
-            images: MutableList<PictureFileInfo?>,
+            images: MutableList<PictureFileInfo>?,
             showCamera: Boolean
     ) {
         val dataList = ArrayList<PictureFileInfo?>()
         if (showCamera) {
             dataList.add(null)
         }
-        dataList.addAll(images)
+        dataList.addAll(images!!)
         setData(dataList)
         notifyDataSetChanged()
     }
 
-    fun setSelectResult(selectImages: ArrayList<SelectImageFileEntity>?) {
+    fun setSelectResult(selectImages: ArrayList<PictureFileInfo>?) {
         if (selectImages != null) {
             this.mSelectImages = selectImages
             notifyDataSetChanged()
