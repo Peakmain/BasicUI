@@ -5,17 +5,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.peakmain.basicui.R
-import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.image.PicturePreview
 import com.peakmain.ui.image.PictureSelector
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
-import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.imageLoader.ImageLoader
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
-import com.peakmain.ui.utils.LogUtils
 
 /**
  * author ：Peakmain
@@ -25,7 +23,7 @@ import com.peakmain.ui.utils.LogUtils
  */
 class ImageSelectActivity : BaseActivity() {
     private lateinit var mRecyclerView: RecyclerView
-    private var originList: ArrayList<SelectImageFileEntity>? = ArrayList()
+    private var originList: java.util.ArrayList<PictureFileInfo>?= ArrayList()
     private lateinit var mAdapter: ImageSelectAdapter
     override fun getLayoutId(): Int {
         return R.layout.activity_image_select
@@ -41,7 +39,15 @@ class ImageSelectActivity : BaseActivity() {
 
         mAdapter = ImageSelectAdapter(this@ImageSelectActivity, originList!!)
         mRecyclerView.adapter = mAdapter
+        mAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                PicturePreview.create(activity = this@ImageSelectActivity)
+                        .origin(originList = originList!!)
+                        .previewPosition(position)
+                        .forResult(null)
+            }
 
+        })
     }
 
     fun selectImageClick(view: View) {
@@ -49,7 +55,7 @@ class ImageSelectActivity : BaseActivity() {
                 .maxSelectNumber(9)
                 .origin(originList)
                 .forResult(object : PictureFileResultCallback {
-                    override fun onResult(result: ArrayList<SelectImageFileEntity>?) {
+                    override fun onResult(result: ArrayList<PictureFileInfo>?) {
                         originList = result
                         mAdapter.setData(originList!!)
 
@@ -58,9 +64,9 @@ class ImageSelectActivity : BaseActivity() {
                 })
     }
 
-    class ImageSelectAdapter(context: Context, data: ArrayList<SelectImageFileEntity>) : CommonRecyclerAdapter<SelectImageFileEntity>(context, data, R.layout.recycler_view_image) {
-        override fun convert(holder: ViewHolder, item: SelectImageFileEntity) {
-            holder.setImageByUrl(R.id.iv_image, object : ViewHolder.HolderImageLoader(item.path!!) {
+    class ImageSelectAdapter(context: Context, data: ArrayList<PictureFileInfo>) : CommonRecyclerAdapter<PictureFileInfo>(context, data, R.layout.recycler_view_image) {
+        override fun convert(holder: ViewHolder, item: PictureFileInfo) {
+            holder.setImageByUrl(R.id.iv_image, object : ViewHolder.HolderImageLoader(item.filePath!!) {
                 override fun displayImage(context: Context?, imageView: ImageView?, imagePath: String?) {
                     ImageLoader.instance!!.displayImage(context!!, imagePath!!, imageView)
                 }

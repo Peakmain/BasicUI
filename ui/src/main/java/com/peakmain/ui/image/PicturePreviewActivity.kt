@@ -17,7 +17,6 @@ import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.config.PicturePreviewConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LogUtils
@@ -52,7 +51,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
     private var mAllUrlDataList: ArrayList<String>? = null
 
     //已经选择的图片集合
-    private var mSelectImageList: ArrayList<SelectImageFileEntity>? = null
+    private var mSelectImageList: ArrayList<PictureFileInfo>? = null
 
     private var currentPosition = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -174,7 +173,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                     //被选中则移除
                     currentImageEntity.isSelect = false
                     mSelectImageList!!.remove(
-                            SelectImageFileEntity(
+                            PictureFileInfo(
                                     PictureConfig.IMAGE,
                                     currentImageEntity.filePath
                             )
@@ -192,7 +191,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                     }
                     currentImageEntity.isSelect = true
                     mSelectImageList!!.add(
-                            SelectImageFileEntity(
+                            PictureFileInfo(
                                     PictureConfig.IMAGE,
                                     currentImageEntity.filePath
                             )

@@ -17,8 +17,16 @@ class PictureFileInfo : Serializable {
         this.time = time
         this.fileSize = fileSize
     }
+
+    constructor(type: String?, path: String?) {
+        this.filePath = path
+        this.type = type
+    }
+
     constructor() : this("", "", 0, 0)
+
     var isSelect = false
+
     /**
      * 文件名称
      */
@@ -55,8 +63,8 @@ class PictureFileInfo : Serializable {
     var time: Long = 0
 
     override fun equals(other: Any?): Boolean {
-        if (other is SelectImageFileEntity) {
-            return type.equals(other.type) && filePath.equals(other.path)
+        if (other is PictureFileInfo) {
+            return type.equals(other.type) && filePath.equals(other.filePath)
         }
         return false
     }

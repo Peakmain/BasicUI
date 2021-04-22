@@ -1,7 +1,7 @@
 package com.peakmain.ui.image.config
 
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
-import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import java.util.ArrayList
 
 /**
@@ -40,7 +40,7 @@ class PictureSelectionConfig private constructor() {
 
     //是否显示动画
     var zoomAnim = true
-    var mOriginData: ArrayList<SelectImageFileEntity>? = ArrayList()
+    var mOriginData: ArrayList<PictureFileInfo>? = ArrayList()
     var mResultCallBack: PictureFileResultCallback?=null
 
     private object InstanceHolder {
