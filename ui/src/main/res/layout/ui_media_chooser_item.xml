@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:layout_marginBottom="@dimen/dimen_5"
-        android:layout_marginRight="@dimen/dimen_5" />
+        android:layout_marginBottom="@dimen/dimen_3"
+        android:layout_marginRight="@dimen/dimen_3" />
 
     <View
         android:id="@+id/mask"

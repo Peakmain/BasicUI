@@ -13,6 +13,10 @@ import com.peakmain.basicui.BuildConfig
 import com.peakmain.basicui.R
 import com.peakmain.ui.compress.ImageCompressUtils.Companion.with
 import com.peakmain.ui.compress.OnCompressListener
+import com.peakmain.ui.image.PictureSelector
+import com.peakmain.ui.image.`interface`.PictureFileResultCallback
+import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.imageLoader.ImageLoader
 import java.util.*
 
 /**
@@ -48,13 +52,18 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
 
     protected fun initData() {
         mImageLists = ArrayList()
-        val directory = Environment.getExternalStorageDirectory().toString() + "/截屏"
-        val path1 = "$directory/1.jpg"
-        val path2 = "$directory/2.jpg"
-        val path3 = "$directory/3.jpg"
-        mImageLists.add(path1)
-        mImageLists.add(path2)
-        mImageLists.add(path3)
+    }
+
+    fun selectImageClick(view: View) {
+        PictureSelector.create(this)
+                .maxSelectNumber(1)
+                .forResult(object : PictureFileResultCallback {
+                    override fun onResult(result: ArrayList<SelectImageFileEntity>?) {
+                        ImageLoader.instance?.displayImage(this@ImageCompressActivity, result!![0].path!!, mIvImage)
+                        mImageLists.add(result!![0].path!!)
+                    }
+
+                })
     }
 
     override fun onClick(v: View) {
