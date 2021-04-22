@@ -19,8 +19,7 @@ import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.adapter.FileListAdapter
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.SelectImageFileEntity
-import com.peakmain.ui.image.entry.FileInfo
-import com.peakmain.ui.utils.AppUtils
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LoadFileTask
 import java.io.File
@@ -35,7 +34,7 @@ import kotlin.collections.ArrayList
 internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateSelectListener, FileListAdapter.InstanllAppListener {
     private lateinit var mRvFileList: RecyclerView
     private var mFileListAdapter: FileListAdapter? = null
-    private var mFileInfoList: List<FileInfo>? = null
+    private var mFileInfoList: List<PictureFileInfo>? = null
     private lateinit var mResultList: ArrayList<SelectImageFileEntity>
     private lateinit var mGroupEmpty: Group
     private lateinit var mConfig: PictureSelectionConfig
@@ -62,7 +61,7 @@ internal class FileListFragment : Fragment(), LoadFileTask.FileCallback, UpdateS
         mConfig = PictureSelectionConfig.newInstance
     }
 
-    override fun onGetFileList(mFileInfoList: List<FileInfo>?) {
+    override fun onGetFileList(mFileInfoList: List<PictureFileInfo>?) {
         this.mFileInfoList = mFileInfoList
         mFileListAdapter = FileListAdapter(activity, mResultList, mConfig.maxSelectNumber, mFileInfoList!!)
         if (mFileInfoList.isEmpty()) {

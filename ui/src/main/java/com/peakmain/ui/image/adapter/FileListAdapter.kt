@@ -16,8 +16,7 @@ import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.entry.SelectImageFileEntity
-import com.peakmain.ui.image.entry.FileInfo
-import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.image.fragment.FileListFragment
@@ -36,8 +35,8 @@ class FileListAdapter(
         context: Context?,
         private val mSelectFileList: ArrayList<SelectImageFileEntity>,
         private val maxCount: Int,
-        data: List<FileInfo?>
-) : CommonRecyclerAdapter<FileInfo?>(
+        data: List<PictureFileInfo?>
+) : CommonRecyclerAdapter<PictureFileInfo?>(
         context,
         data,
         R.layout.ui_item_file_list_adapter
@@ -45,7 +44,7 @@ class FileListAdapter(
     var installApk: String? = ""
     override fun convert(
             holder: ViewHolder,
-            item: FileInfo?
+            item: PictureFileInfo?
     ) {
         holder.setText(R.id.tv_file_name, item?.fileName)
         //判断如果是文件夹就显示文件数量，是文件则显示文件大小
@@ -142,8 +141,8 @@ class FileListAdapter(
                 (mContext as PictureSelectorActivity).showFragment(bundle)
             } else {
                 if (PictureFileMimeType.isImage(item.filePath!!)) {
-                    val images = java.util.ArrayList<ImageEntity?>()
-                    val imageEntity = ImageEntity(item.filePath!!, item.fileName!!, 0, item.fileSize)
+                    val images = java.util.ArrayList<PictureFileInfo?>()
+                    val imageEntity = PictureFileInfo(item.filePath!!, item.fileName!!, 0, item.fileSize)
                     images.add(imageEntity)
                     PicturePreview.create(context = mContext!!)
                             .origin(images)

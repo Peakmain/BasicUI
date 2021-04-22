@@ -9,7 +9,7 @@ import com.peakmain.ui.R
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
 import com.peakmain.ui.image.`interface`.PicturePreviewDownloadListener
 import com.peakmain.ui.image.config.PicturePreviewConfig
-import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import java.lang.ref.WeakReference
@@ -128,7 +128,7 @@ class PicturePreview {
     /**
      * 设置原始图片的集合
      */
-    fun origin(originList: ArrayList<ImageEntity?>): PicturePreview {
+    fun origin(originList: ArrayList<PictureFileInfo?>): PicturePreview {
         mPreviewConfig.imageFileLists = originList
         return this
     }

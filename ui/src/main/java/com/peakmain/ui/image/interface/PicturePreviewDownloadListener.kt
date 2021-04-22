@@ -1,6 +1,6 @@
 package com.peakmain.ui.image.`interface`
 
-import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 
 /**
  * author ：Peakmain
@@ -8,6 +8,6 @@ import com.peakmain.ui.image.entry.ImageEntity
  * mail:2726449200@qq.com
  * describe：
  */
- interface PicturePreviewDownloadListener {
-    fun onPicturePreviewDownload(imageEntity: ImageEntity)
+interface PicturePreviewDownloadListener {
+    fun onPicturePreviewDownload(imageEntity: PictureFileInfo)
 }
