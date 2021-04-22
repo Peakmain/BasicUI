@@ -16,7 +16,7 @@ import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.config.PicturePreviewConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
-import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.utils.FileUtils
@@ -44,7 +44,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
     private lateinit var mIvDownload: ImageView
     private lateinit var mIvClose: ImageView
     private lateinit var mLlComplete: LinearLayout
-    private var mAllImageList: ArrayList<ImageEntity>? = null
+    private var mAllImageList: ArrayList<PictureFileInfo>? = null
     private lateinit var mConfig: PictureSelectionConfig
     private lateinit var mPreviewConfig: PicturePreviewConfig
 
@@ -84,8 +84,8 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
             //下载的点击事件
             if (mAllImageList != null) {
                 val imageEntity = mAllImageList!![currentPosition]
-                val fileUri = imageEntity.path
-                if (!TextUtils.isEmpty(fileUri) && PictureFileMimeType.isHttp(fileUri)) {
+                val fileUri = imageEntity.filePath
+                if (!TextUtils.isEmpty(fileUri) && PictureFileMimeType.isHttp(fileUri!!)) {
                     val filePath: String =
                             FileUtils.getDownloadFolderPath() + fileUri.substring(fileUri.lastIndexOf("/") + 1)
                     Log.e("TAG", "start=====$filePath")
@@ -121,8 +121,8 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
         if (mAllUrlDataList!!.size > 0) {
             //将所有的网络图片转成ImageEntity
             mAllUrlDataList!!.forEach {
-                val imageEntity = ImageEntity()
-                imageEntity.path = it
+                val imageEntity = PictureFileInfo()
+                imageEntity.filePath = it
                 mAllImageList!!.add(imageEntity)
             }
             mLlComplete.visibility = View.GONE
@@ -142,7 +142,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
     }
 
     private fun getIntentResult() {
-        mAllImageList = mPreviewConfig.imageFileLists as ArrayList<ImageEntity>?
+        mAllImageList = mPreviewConfig.imageFileLists as ArrayList<PictureFileInfo>?
         if (mAllImageList == null) {
             mAllImageList = ArrayList()
         }
@@ -176,7 +176,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                     mSelectImageList!!.remove(
                             SelectImageFileEntity(
                                     PictureConfig.IMAGE,
-                                    currentImageEntity.path
+                                    currentImageEntity.filePath
                             )
                     )
                     updateSelectText()
@@ -194,7 +194,7 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                     mSelectImageList!!.add(
                             SelectImageFileEntity(
                                     PictureConfig.IMAGE,
-                                    currentImageEntity.path
+                                    currentImageEntity.filePath
                             )
                     )
                     updateSelectText()
