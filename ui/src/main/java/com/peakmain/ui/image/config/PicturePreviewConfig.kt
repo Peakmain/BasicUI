@@ -3,7 +3,6 @@ package com.peakmain.ui.image.config
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
 import com.peakmain.ui.image.`interface`.PicturePreviewDownloadListener
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.image.entry.SelectImageFileEntity
 import java.util.ArrayList
 
 /**
@@ -20,12 +19,12 @@ class PicturePreviewConfig private constructor() {
     //结果回调
     var mResultCallBack: PictureFileResultCallback? = null
     //选择的本地文件喝图片集合
-    var selectImageFileLists: ArrayList<SelectImageFileEntity>? = ArrayList()
+    var selectImageFileLists: ArrayList<PictureFileInfo>? = ArrayList()
     var previewPosition: Int = 0
     var urlLists: ArrayList<String>? = ArrayList()
 
     //本地图片的集合
-    var imageFileLists: ArrayList<PictureFileInfo?> = ArrayList()
+    var imageFileLists: ArrayList<PictureFileInfo>? = ArrayList()
 
 
     //是否显示底部的view
