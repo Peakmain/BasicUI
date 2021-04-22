@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.peakmain.ui.adapter.BaseViewPagerAdapter
 import com.peakmain.ui.image.PicturePreviewActivity
 import com.peakmain.ui.image.config.PictureFileMimeType
-import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 
 /**
  * author ：Peakmain
@@ -17,7 +17,7 @@ import com.peakmain.ui.image.entry.ImageEntity
  * mail:2726449200@qq.com
  * describe：图片预览adapter
  */
-class PicturePrieviewAdapter(var context: Context, var data: MutableList<ImageEntity>) :
+class PicturePrieviewAdapter(var context: Context, var data: MutableList<PictureFileInfo>) :
     BaseViewPagerAdapter() {
     override fun getView(position: Int, convertView: View?, container: ViewGroup?): View {
         val photoView = PhotoView(context)
@@ -47,7 +47,7 @@ class PicturePrieviewAdapter(var context: Context, var data: MutableList<ImageEn
     }
 
     private fun getImageUrl(position: Int): String? {
-        return data[position].path
+        return data[position].filePath
     }
 
     override fun getCount(): Int {

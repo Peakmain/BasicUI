@@ -2,7 +2,7 @@ package com.peakmain.ui.utils
 
 import android.content.Context
 import com.peakmain.ui.R
-import com.peakmain.ui.image.entry.FileInfo
+import com.peakmain.ui.image.entry.PictureFileInfo
 import java.io.File
 import java.io.FileFilter
 import java.util.*
@@ -24,8 +24,8 @@ object FileTypeUtil {
      * @return
      */
     @JvmStatic
-    fun getFileInfosFromFileArray(files: Array<File>?): List<FileInfo> {
-        val fileInfos: MutableList<FileInfo> =
+    fun getFileInfosFromFileArray(files: Array<File>?): List<PictureFileInfo> {
+        val fileInfos: MutableList<PictureFileInfo> =
             ArrayList()
         if (files != null) {
             val length = files.size
@@ -43,9 +43,9 @@ object FileTypeUtil {
      * 根据一个File文件获取FileInfo
      *
      */
-    private fun getFileInfoFromFile(file: File?): FileInfo {
+    private fun getFileInfoFromFile(file: File?): PictureFileInfo {
         val fileInfo =
-            FileInfo()
+            PictureFileInfo()
         if (file != null && file.exists()) {
             fileInfo.fileName = file.name
             fileInfo.filePath = file.path
@@ -71,7 +71,7 @@ object FileTypeUtil {
      * @param fileInfo
      * @return
      */
-    private fun getNumFilesInFolder(fileInfo: FileInfo?): Int {
+    private fun getNumFilesInFolder(fileInfo: PictureFileInfo?): Int {
         if (fileInfo != null) {
             //如果不是一个文件夹
             if (!fileInfo.isDirectory) {
@@ -91,7 +91,7 @@ object FileTypeUtil {
      */
     fun getFileIconResource(
         context: Context,
-        file: FileInfo
+        file: PictureFileInfo
     ): Int {
         return if (file.isDirectory) R.drawable.ui_ic_file_folder else getFileTypeImageId(
             context,
@@ -227,10 +227,10 @@ object FileTypeUtil {
      * 文件列表比较器
      */
     class FileNameComparator :
-        Comparator<FileInfo> {
+        Comparator<PictureFileInfo> {
         override fun compare(
-            lhs: FileInfo,
-            rhs: FileInfo
+                lhs: PictureFileInfo,
+                rhs: PictureFileInfo
         ): Int {
             return if (!lhs.isDirectory && !rhs.isDirectory) {
                 lhs.fileName!!.compareTo(rhs.fileName!!, ignoreCase = true)
