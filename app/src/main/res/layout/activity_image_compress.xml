@@ -13,7 +13,12 @@
         android:adjustViewBounds="true"
         android:maxHeight="200dp"
         tools:src="@drawable/ic_address_select" />
-
+    <Button
+        android:onClick="selectImageClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="选择图片" />
     <Button
         android:id="@+id/bt_compress"
         android:layout_width="wrap_content"

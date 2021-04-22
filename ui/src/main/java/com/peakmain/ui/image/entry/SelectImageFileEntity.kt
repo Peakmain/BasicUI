@@ -9,6 +9,7 @@ import java.io.Serializable
  * describe：已选择图片和文件的实体类
  */
 class SelectImageFileEntity(var type: String?, var path: String?) : Serializable {
+    var size: Long = 0
     override fun equals(other: Any?): Boolean {
         if (other is SelectImageFileEntity) {
             return type.equals(other.type) && path.equals(other.path)
