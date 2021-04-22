@@ -17,18 +17,18 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags ""
-                abiFilters "armeabi-v7a","arm64-v8a","x86"
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86"
             }
         }
     }
 
     buildTypes {
-        debug{
-            buildConfigField("String","TAG","\"BasicUI\"")
+        debug {
+            buildConfigField("String", "TAG", "\"BasicUI\"")
         }
         release {
             minifyEnabled false
-            buildConfigField("String","TAG","\"BasicUI\"")
+            buildConfigField("String", "TAG", "\"BasicUI\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -49,9 +49,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //阅读器
-    api 'com.tencent.tbs.tbssdk:sdk:43903'
+    implementation 'com.tencent.tbs.tbssdk:sdk:43903'
     // 图片浏览
-    api 'com.bm.photoview:library:1.4.1'
+    implementation 'com.bm.photoview:library:1.4.1'
 }
 repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }

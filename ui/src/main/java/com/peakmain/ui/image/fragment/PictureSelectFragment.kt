@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.peakmain.ui.R
+import com.peakmain.ui.constants.PermissionConstants
 import com.peakmain.ui.image.PicturePreview
 import com.peakmain.ui.image.PictureSelectorActivity
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
@@ -27,6 +28,9 @@ import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.PermissionUtils
+import com.peakmain.ui.utils.ToastUtils
 import java.io.File
 import kotlin.collections.ArrayList
 
@@ -61,9 +65,19 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     ): View? {
         val view: View = inflater.inflate(R.layout.ui_fragment_image_select, container, false)
         initView(view)
+        PermissionUtils.request(fragment = this,requestCode = 123,permissions = PermissionConstants.getPermissions(PermissionConstants.STORAGE),block = object : PermissionUtils.OnPermissionListener {
+            override fun onPermissionGranted() {
+                LogUtils.e("读写权限被授予了")
+                // 初始化本地图片数据
+                initImageList()
+            }
 
-        // 初始化本地图片数据
-        initImageList()
+            override fun onPermissionDenied(deniedPermissions: List<String>) {
+                ToastUtils.showLong("请开启读写权限")
+                activity?.finish()
+            }
+
+        })
         return view
     }
 
@@ -176,6 +190,10 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
         })
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        PermissionUtils.onRequestPermissionsResult(requestCode,permissions)
+    }
     private fun gotoPicturePreviewActivity(
             images: ArrayList<ImageEntity?>,
             position: Int,
