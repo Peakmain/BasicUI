@@ -4,15 +4,14 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.peakmain.ui.R
 import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.entry.SelectImageFileEntity
-import com.peakmain.ui.image.entry.ImageEntity
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.imageLoader.ImageLoader
 import com.peakmain.ui.utils.FileUtils.createTmpFile
@@ -31,15 +30,15 @@ class PictureSelectorListAdapter(
         private var mSelectImages: ArrayList<SelectImageFileEntity>,
         private val mMaxCount: Int,
         private val mMode: Int
-) : CommonRecyclerAdapter<ImageEntity?>(
+) : CommonRecyclerAdapter<PictureFileInfo?>(
         context,
-        ArrayList<ImageEntity>(),
+        ArrayList<PictureFileInfo>(),
         R.layout.ui_media_chooser_item
 ) {
 
     override fun convert(
             holder: ViewHolder,
-            item: ImageEntity?
+            item: PictureFileInfo?
     ) {
         if (item == null) {
             holder.setVisibility(
@@ -63,19 +62,19 @@ class PictureSelectorListAdapter(
             // 显示图片
             val imageView =
                     holder.getView<ImageView>(R.id.image)
-            ImageLoader.instance?.displayImage(mContext!!,item.path,imageView)
+            ImageLoader.instance?.displayImage(mContext!!,item.filePath!!,imageView)
             val selectedIndicatorIv =
                     holder.getView<ImageView>(R.id.media_selected_indicator)
             for (mSelectImage in mSelectImages) {
                 selectedIndicatorIv!!.isSelected =
-                        item.path == mSelectImage.path && mSelectImage.type.equals(
+                        item.filePath == mSelectImage.path && mSelectImage.type.equals(
                                 PictureConfig.IMAGE
                         )
             }
             val selectImageFileEntity =
                     SelectImageFileEntity(
                             PictureConfig.IMAGE,
-                            item.path
+                            item.filePath
                     )
             selectedIndicatorIv!!.isSelected = mSelectImages.contains(selectImageFileEntity)
 
@@ -108,7 +107,7 @@ class PictureSelectorListAdapter(
                         mSelectImages.add(
                                 SelectImageFileEntity(
                                         PictureConfig.IMAGE,
-                                        item.path
+                                        item.filePath
                                 )
                         )
                     }
@@ -155,10 +154,10 @@ class PictureSelectorListAdapter(
      * 设置数据
      */
     fun setData(
-            images: MutableList<ImageEntity?>,
+            images: MutableList<PictureFileInfo?>,
             showCamera: Boolean
     ) {
-        val dataList = ArrayList<ImageEntity?>()
+        val dataList = ArrayList<PictureFileInfo?>()
         if (showCamera) {
             dataList.add(null)
         }

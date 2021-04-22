@@ -2,7 +2,7 @@ package com.peakmain.ui.image.config
 
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
 import com.peakmain.ui.image.`interface`.PicturePreviewDownloadListener
-import com.peakmain.ui.image.entry.ImageEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.entry.SelectImageFileEntity
 import java.util.ArrayList
 
@@ -25,7 +25,7 @@ class PicturePreviewConfig private constructor() {
     var urlLists: ArrayList<String>? = ArrayList()
 
     //本地图片的集合
-    var imageFileLists: ArrayList<ImageEntity?> = ArrayList()
+    var imageFileLists: ArrayList<PictureFileInfo?> = ArrayList()
 
 
     //是否显示底部的view

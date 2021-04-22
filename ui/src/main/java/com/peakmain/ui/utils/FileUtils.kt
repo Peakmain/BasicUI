@@ -7,7 +7,7 @@ import android.media.ExifInterface
 import android.os.AsyncTask
 import android.os.Environment
 import android.text.TextUtils
-import com.peakmain.ui.image.entry.FileInfo
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.utils.FileTypeUtil.getFileInfosFromFileArray
 import java.io.*
 import java.text.DecimalFormat
@@ -541,7 +541,7 @@ object FileUtils {
 
 }
 class LoadFileTask :
-        AsyncTask<File?, Void?, List<FileInfo>> {
+        AsyncTask<File?, Void?, List<PictureFileInfo>> {
     private var mLoadFileTask: LoadFileTask? = null
     private var mCallback: FileCallback? = null
 
@@ -568,9 +568,9 @@ class LoadFileTask :
      * @param files
      * @return
      */
-    protected override fun doInBackground(vararg files: File?): List<FileInfo> {
+    protected override fun doInBackground(vararg files: File?): List<PictureFileInfo> {
         return try {
-            val fileInfoList: List<FileInfo>
+            val fileInfoList: List<PictureFileInfo>
             val mFiles =
                     files[0]?.listFiles(FileTypeUtil.ALL_FOLDER_AND_FILES_FILTER)
             fileInfoList = getFileInfosFromFileArray(mFiles)
@@ -597,7 +597,7 @@ class LoadFileTask :
      * 查找完毕
      * @param fileInfos
      */
-    override fun onPostExecute(fileInfos: List<FileInfo>) {
+    override fun onPostExecute(fileInfos: List<PictureFileInfo>) {
         super.onPostExecute(fileInfos)
         mLoadFileTask = null
         if (mCallback != null) {
@@ -614,7 +614,7 @@ class LoadFileTask :
     }
 
     interface FileCallback {
-        fun onGetFileList(mFileInfoList: List<FileInfo>?)
+        fun onGetFileList(mFileInfoList: List<PictureFileInfo>?)
 
         /**
          * 显示loading
