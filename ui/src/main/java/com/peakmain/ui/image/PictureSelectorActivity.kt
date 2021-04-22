@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.peakmain.ui.R
+import com.peakmain.ui.constants.PermissionConstants
 import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
@@ -23,6 +24,7 @@ import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.utils.FileUtils.createTmpFile
+import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
 import com.xuantian.common.ui.helper.FragmentManagerHelper
@@ -66,7 +68,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
 
         //已经选择的数据集合key
         const val SELECT_RESULT_KEY = "SELECT_RESULT_KEY"
-
+        const val OPEN_CARMERY = 345
     }
 
 
@@ -185,9 +187,19 @@ internal class PictureSelectorActivity : AppCompatActivity() {
 
     private fun openCameraClick() {
         try {
-            val tmpFile =
-                    createTmpFile(this)
-            openCamera(tmpFile)
+            PermissionUtils.request(this, OPEN_CARMERY, PermissionConstants.getPermissions(PermissionConstants.CAMERA), object : PermissionUtils.OnPermissionListener {
+                override fun onPermissionGranted() {
+                    val tmpFile =
+                            createTmpFile(this@PictureSelectorActivity)
+                    openCamera(tmpFile)
+                }
+
+                override fun onPermissionDenied(deniedPermissions: List<String>) {
+                    ToastUtils.showLong("请开启相机权限")
+                }
+
+            })
+
         } catch (e: IOException) {
             e.printStackTrace()
             ToastUtils.showLong("相机打开失败")
@@ -237,7 +249,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         val uri =
                 FileProvider.getUriForFile(
                         this,
-                        applicationContext.packageName + ".fileProvider",
+                        applicationContext.packageName + ".provider",
                         file!!
                 )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
@@ -328,9 +340,14 @@ internal class PictureSelectorActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        val fragments = supportFragmentManager.fragments
-        fragments.forEach {
-            it?.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == OPEN_CARMERY) {
+            PermissionUtils.onRequestPermissionsResult(requestCode, permissions)
+        } else {
+            val fragments = supportFragmentManager.fragments
+            fragments.forEach {
+                it?.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            }
         }
+
     }
 }
