@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     android:orientation="vertical">
 
     <LinearLayout
@@ -57,7 +58,7 @@
         android:id="@+id/ui_ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_dark"
+        android:background="#801a1a1a"
         android:paddingTop="12dp"
         android:paddingBottom="12dp">
 

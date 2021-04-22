@@ -51,6 +51,7 @@ class FileListAdapter(
         //判断如果是文件夹就显示文件数量，是文件则显示文件大小
         if (item!!.isDirectory) {
             holder.setVisibility(View.GONE, R.id.ui_file_select)
+            holder.setVisibility(View.VISIBLE, R.id.ui_arrow_right)
             holder.setText(
                     R.id.tv_file_detail,
                     String.format(
@@ -60,6 +61,7 @@ class FileListAdapter(
             )
         } else {
             val mFileSelect = holder.getView<ImageView>(R.id.ui_file_select)
+            holder.setVisibility(View.GONE, R.id.ui_arrow_right)
             mFileSelect?.visibility = View.VISIBLE
             var tempData = SelectImageFileEntity(PictureConfig.FILE, item.filePath)
             if (!TextUtils.isEmpty(item.filePath) && PictureFileMimeType.isImage(item.filePath!!)) {
