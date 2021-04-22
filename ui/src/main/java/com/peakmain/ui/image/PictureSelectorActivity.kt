@@ -20,7 +20,7 @@ import com.peakmain.ui.constants.PermissionConstants
 import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
-import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.utils.FileUtils.createTmpFile
@@ -56,7 +56,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
     private var mFileListFragmentCount = 1
     private lateinit var mImageBackView: ImageView
     private lateinit var mLlBottomView: LinearLayout
-    private var mResultList: ArrayList<SelectImageFileEntity>? = null
+    private var mResultList: ArrayList<PictureFileInfo>? = null
     private lateinit var mStvComplete: ShapeTextView
     private lateinit var mConfig: PictureSelectionConfig
 
@@ -110,7 +110,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         if (intent != null) {
             val serializableExtra = intent.getSerializableExtra(SELECT_RESULT_KEY)
             if (serializableExtra != null) {
-                mResultList = serializableExtra as ArrayList<SelectImageFileEntity>
+                mResultList = serializableExtra as ArrayList<PictureFileInfo>
             }
             if (mResultList == null) {
                 mResultList = ArrayList()
@@ -159,7 +159,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         }
     }
 
-    private fun onResult(mResultList: ArrayList<SelectImageFileEntity>?) {
+    private fun onResult(mResultList: ArrayList<PictureFileInfo>?) {
         if (mResultList != null && mResultList.size > 0) {
             handleCallbackResult(mResultList)
             setResult(mResultList)
@@ -167,7 +167,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
 
     }
 
-    private fun setResult(resultList: ArrayList<SelectImageFileEntity>?) {
+    private fun setResult(resultList: ArrayList<PictureFileInfo>?) {
         if (mConfig.mResultCallBack != null) {
             runOnUiThread {
                 run {
@@ -181,7 +181,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
     /**
      * 回调之前可以做一些处理，比如图片压缩，裁剪等
      */
-    public fun handleCallbackResult(resultList: ArrayList<SelectImageFileEntity>) {
+    public fun handleCallbackResult(resultList: ArrayList<PictureFileInfo>) {
 
     }
 
@@ -288,7 +288,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                     finish()
                 } else {
                     mResultList!!.add(
-                            SelectImageFileEntity(
+                            PictureFileInfo(
                                     PictureConfig.IMAGE,
                                     mTempFile!!.absolutePath
                             )
@@ -300,7 +300,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         }
     }
 
-    fun updateSelectDataResult(list: ArrayList<SelectImageFileEntity>) {
+    fun updateSelectDataResult(list: ArrayList<PictureFileInfo>) {
         this.mResultList = list
         mSelectNumTv?.text = "已选${mResultList!!.size}/${mConfig.maxSelectNumber}"
         if (list.isEmpty()) {

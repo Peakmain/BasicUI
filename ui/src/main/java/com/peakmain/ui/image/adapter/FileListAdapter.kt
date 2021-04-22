@@ -15,7 +15,6 @@ import com.peakmain.ui.image.PictureSelectorActivity
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureFileMimeType
-import com.peakmain.ui.image.entry.SelectImageFileEntity
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
@@ -33,7 +32,7 @@ import com.peakmain.ui.utils.FileUtils.FormetFileSize
  */
 class FileListAdapter(
         context: Context?,
-        private val mSelectFileList: ArrayList<SelectImageFileEntity>,
+        private val mSelectFileList: ArrayList<PictureFileInfo>,
         private val maxCount: Int,
         data: List<PictureFileInfo?>
 ) : CommonRecyclerAdapter<PictureFileInfo?>(
@@ -62,9 +61,9 @@ class FileListAdapter(
             val mFileSelect = holder.getView<ImageView>(R.id.ui_file_select)
             holder.setVisibility(View.GONE, R.id.ui_arrow_right)
             mFileSelect?.visibility = View.VISIBLE
-            var tempData = SelectImageFileEntity(PictureConfig.FILE, item.filePath)
+            var tempData = PictureFileInfo(PictureConfig.FILE, item.filePath)
             if (!TextUtils.isEmpty(item.filePath) && PictureFileMimeType.isImage(item.filePath!!)) {
-                tempData = SelectImageFileEntity(PictureConfig.IMAGE, item.filePath)
+                tempData = PictureFileInfo(PictureConfig.IMAGE, item.filePath)
             }
             mFileSelect?.isSelected = mSelectFileList.contains(tempData)
             holder.setText(
@@ -79,10 +78,10 @@ class FileListAdapter(
                 if (item.fileSize > FileListFragment.MAX_FILESIZE * 1024 * 1024) {
                     ToastUtils.showLong("无法选择大于${FileListFragment.MAX_FILESIZE}M的文件")
                 } else {
-                    var tempData = SelectImageFileEntity(PictureConfig.FILE, item.filePath)
+                    var tempData = PictureFileInfo(PictureConfig.FILE, item.filePath)
                     if (PictureFileMimeType.isImage(item.filePath!!)) {
                         //是图片
-                        tempData = SelectImageFileEntity(PictureConfig.IMAGE, item.filePath)
+                        tempData = PictureFileInfo(PictureConfig.IMAGE, item.filePath)
                     }
 
                     if (mSelectFileList.contains(tempData)) {
@@ -100,7 +99,7 @@ class FileListAdapter(
                         }
                         if (PictureFileMimeType.isImage(item.filePath!!)) {
                             mSelectFileList.add(
-                                    SelectImageFileEntity(
+                                    PictureFileInfo(
                                             PictureConfig.IMAGE,
                                             item.filePath!!
                                     )
@@ -110,7 +109,7 @@ class FileListAdapter(
                                 ToastUtils.showShort("暂不支持${item.fileName}格式")
                             } else {
                                 mSelectFileList.add(
-                                        SelectImageFileEntity(
+                                        PictureFileInfo(
                                                 PictureConfig.FILE,
                                                 item.filePath!!
                                         )
@@ -141,7 +140,7 @@ class FileListAdapter(
                 (mContext as PictureSelectorActivity).showFragment(bundle)
             } else {
                 if (PictureFileMimeType.isImage(item.filePath!!)) {
-                    val images = java.util.ArrayList<PictureFileInfo?>()
+                    val images = java.util.ArrayList<PictureFileInfo>()
                     val imageEntity = PictureFileInfo(item.filePath!!, item.fileName!!, 0, item.fileSize)
                     images.add(imageEntity)
                     PicturePreview.create(context = mContext!!)

@@ -15,7 +15,7 @@ import com.peakmain.ui.compress.ImageCompressUtils.Companion.with
 import com.peakmain.ui.compress.OnCompressListener
 import com.peakmain.ui.image.PictureSelector
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
-import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.imageLoader.ImageLoader
 import java.util.*
 
@@ -58,9 +58,9 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
         PictureSelector.create(this)
                 .maxSelectNumber(1)
                 .forResult(object : PictureFileResultCallback {
-                    override fun onResult(result: ArrayList<SelectImageFileEntity>?) {
-                        ImageLoader.instance?.displayImage(this@ImageCompressActivity, result!![0].path!!, mIvImage)
-                        mImageLists.add(result!![0].path!!)
+                    override fun onResult(result: ArrayList<PictureFileInfo>?) {
+                        ImageLoader.instance?.displayImage(this@ImageCompressActivity, result!![0].filePath!!, mIvImage)
+                        mImageLists.add(result!![0].filePath!!)
                     }
 
                 })

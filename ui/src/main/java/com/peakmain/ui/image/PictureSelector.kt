@@ -6,7 +6,7 @@ import com.peakmain.ui.R
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
-import com.peakmain.ui.image.entry.SelectImageFileEntity
+import com.peakmain.ui.image.entry.PictureFileInfo
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -66,7 +66,7 @@ class PictureSelector private constructor(var activity: Activity) {
     /**
      * 原来选择好的图片
      */
-    fun origin(originList: ArrayList<SelectImageFileEntity>?): PictureSelector {
+    fun origin(originList: ArrayList<PictureFileInfo>?): PictureSelector {
         mSelectionConfig.mOriginData = originList
         return this
     }
