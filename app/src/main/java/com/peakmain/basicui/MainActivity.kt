@@ -28,15 +28,6 @@ class MainActivity : BaseActivity() {
         showFragment(FRAGMENT_HOME)
         mBottomNavigation!!.setOnNavigationItemSelectedListener { item: MenuItem -> onOptionsItemSelected(item) }
         mBottomNavigation!!.selectedItemId = R.id.menu_home
-        if (!haveNetWorkPerm()) {
-            requestNetWorkPerm()
-        }
-        if (!haveReadAndWritePerm()) {
-            requestReadAndWritePerm()
-        }
-        if(!haveCameraPerm()){
-            requestCameraPerm()
-        }
 
     }
 

@@ -1,16 +1,16 @@
-package com.peakmain.ui.utils
+package com.peakmain.ui.constants
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.os.Build
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
 
 /**
  * author ：Peakmain
- * createTime：2021/4/19
+ * createTime：2021/4/22
  * mail:2726449200@qq.com
- * describe：权限常量
+ * describe：
  */
-@SuppressLint("InlinedApi")
 object PermissionConstants {
     const val CALENDAR = Manifest.permission_group.CALENDAR
     const val CAMERA = Manifest.permission_group.CAMERA
@@ -55,7 +55,7 @@ object PermissionConstants {
     private val GROUP_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-   internal fun getPermissions(permission: String): Array<String> {
+    fun getPermissions( permission: String): Array<String> {
         when (permission) {
             CALENDAR -> return GROUP_CALENDAR
             CAMERA -> return GROUP_CAMERA
@@ -73,5 +73,5 @@ object PermissionConstants {
         }
         return arrayOf(permission)
     }
-    
+
 }
