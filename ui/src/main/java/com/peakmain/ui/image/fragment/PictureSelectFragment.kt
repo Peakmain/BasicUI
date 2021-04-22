@@ -26,8 +26,8 @@ import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
+import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.entry.SelectImageFileEntity
-import com.peakmain.ui.image.entry.ImageEntity
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
@@ -165,7 +165,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     /**
      * 显示图片列表数据
      */
-    private fun showListData(images: ArrayList<ImageEntity?>) {
+    private fun showListData(images: ArrayList<PictureFileInfo?>) {
         if (mImageAdapter == null) {
             mImageAdapter =
                     PictureSelectorListAdapter(
@@ -195,7 +195,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
         PermissionUtils.onRequestPermissionsResult(requestCode,permissions)
     }
     private fun gotoPicturePreviewActivity(
-            images: ArrayList<ImageEntity?>,
+            images: ArrayList<PictureFileInfo?>,
             position: Int,
             selectImages: ArrayList<SelectImageFileEntity>
     ) {
@@ -255,7 +255,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                     // 如果有数据变量数据
                     if (data != null && data.count > 0) {
                         val images =
-                                ArrayList<ImageEntity?>()
+                                ArrayList<PictureFileInfo?>()
                         data.moveToFirst()
                         // 不断的遍历循环
                         do {
@@ -271,7 +271,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                                 continue
                             }
                             // 封装数据对象
-                            val image = ImageEntity(path, name, dateTime, fileSize)
+                            val image = PictureFileInfo(path, name, dateTime, fileSize)
                             images.add(image)
                         } while (data.moveToNext())
 
