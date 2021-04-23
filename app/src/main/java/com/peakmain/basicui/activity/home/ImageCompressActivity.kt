@@ -17,6 +17,8 @@ import com.peakmain.ui.image.PictureSelector
 import com.peakmain.ui.image.`interface`.PictureFileResultCallback
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.imageLoader.ImageLoader
+import com.peakmain.ui.utils.FileUtils
+import java.io.File
 import java.util.*
 
 /**
@@ -60,7 +62,9 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
                 .forResult(object : PictureFileResultCallback {
                     override fun onResult(result: ArrayList<PictureFileInfo>?) {
                         ImageLoader.instance?.displayImage(this@ImageCompressActivity, result!![0].filePath!!, mIvImage)
-                        mImageLists.add(result!![0].filePath!!)
+                        val filePath = result!![0].filePath!!
+                        mImageLists.add(filePath)
+                        mTvResult?.text=FileUtils.FormetFileSize(FileUtils.getFileSize(File(filePath)))
                     }
 
                 })
@@ -82,7 +86,9 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
                             }
 
                             override fun onSuccess(list: List<String?>?) {
-                                Log.e(BuildConfig.TAG, "压缩完成")
+                                Log.e(BuildConfig.TAG, "压缩完成$list")
+                                Log.e(BuildConfig.TAG, "文件是否存在${File(list?.get(0)).exists()}")
+                                  mTvResult?.text=FileUtils.FormetFileSize(FileUtils.getFileSize(File(list?.get(0))))
                             }
 
                             override fun onError(e: Throwable?) {
