@@ -37,6 +37,11 @@ android {
             path "CMakeLists.txt"
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libjpeg/so']
+        }
+    }
 }
 
 dependencies {
