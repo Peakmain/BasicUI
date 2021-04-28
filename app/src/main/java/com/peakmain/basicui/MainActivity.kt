@@ -3,10 +3,12 @@ package com.peakmain.basicui
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
 import android.view.MenuItem
+import android.widget.FrameLayout
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment
 import com.peakmain.basicui.fragment.UtilsFragment
+import com.peakmain.ui.widget.SuspensionView
 
 class MainActivity : BaseActivity() {
     //View
@@ -21,6 +23,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
+        addContentView(SuspensionView(this), FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
         mBottomNavigation = findViewById(R.id.bottom_navigation)
     }
 
