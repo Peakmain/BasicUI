@@ -4,10 +4,12 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentTransaction
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.Toast
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment
 import com.peakmain.basicui.fragment.UtilsFragment
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.SuspensionView
 
 class MainActivity : BaseActivity() {
@@ -23,7 +25,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-        addContentView(SuspensionView(this), FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+        val suspensionView = SuspensionView(this)
+        addContentView(suspensionView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+        suspensionView.setSuspensionViewClick {
+            ToastUtils.showLong("测试悬浮按钮的点击事件")
+        }
         mBottomNavigation = findViewById(R.id.bottom_navigation)
     }
 

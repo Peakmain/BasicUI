@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewConfiguration
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -18,7 +19,11 @@ import kotlin.math.sqrt
  * mail:2726449200@qq.com
  * describe：悬浮的view
  */
-class SuspensionView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defAttrStyle: Int = 0) : FrameLayout(context, attributeSet, defAttrStyle) {
+class SuspensionView @JvmOverloads constructor(context: Context, resId: Int = R.drawable.ui_ic_suspension_setting,
+                                               imageViewSize: Float = 56f,//图标大小
+                                               bottomMargin: Float = 60f,
+                                               rightMargin: Float = 20f,
+                                               attributeSet: AttributeSet? = null, defAttrStyle: Int = 0) : FrameLayout(context, attributeSet, defAttrStyle) {
     private var mImageViewSize = 0
     private var mViewOffsetUtils: UIViewOffsetUtils
     private var mImageView: ImageView
@@ -31,15 +36,15 @@ class SuspensionView @JvmOverloads constructor(context: Context, attributeSet: A
     private var mTouchSlop = 0
 
     init {
-        mImageViewSize = SizeUtils.dp2px(56f)
+        mImageViewSize = SizeUtils.dp2px(imageViewSize)
         mImageView = ImageView(context)
-        mImageView.setImageResource(R.drawable.ui_ic_file_word)
+        mImageView.setImageResource(resId)
         mImageView.isClickable = true
 
-        var layoutParams = LayoutParams(mImageViewSize, mImageViewSize)
+        val layoutParams = LayoutParams(mImageViewSize, mImageViewSize)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
-        layoutParams.bottomMargin = SizeUtils.dp2px(60f)
-        layoutParams.rightMargin = SizeUtils.dp2px(24f)
+        layoutParams.bottomMargin = SizeUtils.dp2px(bottomMargin)
+        layoutParams.rightMargin = SizeUtils.dp2px(rightMargin)
         addView(mImageView, layoutParams)
         mViewOffsetUtils = UIViewOffsetUtils(mImageView)
         mTouchSlop = ViewConfiguration.get(context).scaledPagingTouchSlop
@@ -151,5 +156,20 @@ class SuspensionView @JvmOverloads constructor(context: Context, attributeSet: A
 
     private fun isDownInImageView(x: Float, y: Float): Boolean {
         return mImageView.left < x && mImageView.right > x && mImageView.top < y && mImageView.bottom > y
+    }
+
+    /**
+     * 获取悬浮的view
+     */
+    fun getSuspensionView(): ImageView {
+        return mImageView
+    }
+
+    /**
+     * 设置悬浮view的点击事件
+     */
+    fun setSuspensionViewClick(block: () -> Unit) {
+        mImageView.setOnClickListener { block.invoke() }
+
     }
 }
