@@ -7,6 +7,7 @@ import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.utils.DataBaseActivity
 import com.peakmain.basicui.activity.utils.GlideActivity
 import com.peakmain.basicui.activity.utils.OkHttpActivity
+import com.peakmain.basicui.activity.utils.TextUtilsActivity
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseFragmnet
 import com.peakmain.basicui.utils.ActivityUtil
@@ -42,6 +43,7 @@ class UtilsFragment : BaseFragmnet() {
         mUtilsBean.add("okhttp网络引擎切换工具类封装")
         mUtilsBean.add("数据库封装")
         mUtilsBean.add("Glide图片选择切换封装")
+        mUtilsBean.add("文本高亮工具类的封装")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
@@ -51,6 +53,7 @@ class UtilsFragment : BaseFragmnet() {
                     0 -> ActivityUtil.gotoActivity(context, OkHttpActivity::class.java)
                     1 -> ActivityUtil.gotoActivity(context, DataBaseActivity::class.java)
                     2 -> ActivityUtil.gotoActivity(context, GlideActivity::class.java)
+                    3 -> ActivityUtil.gotoActivity(context, TextUtilsActivity::class.java)
                     else -> {
                     }
                 }
