@@ -15,11 +15,11 @@ import android.widget.ImageView
  */
 object BitmapUtils {
     private val mCanvas = Canvas()
-    fun Bitmap.createBitmapFromView(view: View): Bitmap? {
+    fun createBitmapFromView(view: View): Bitmap? {
         return createBitmapFromView(view, 1f)
     }
 
-    fun Bitmap.createBitmapFromView(view: View, scale: Float): Bitmap? {
+    fun createBitmapFromView(view: View, scale: Float): Bitmap? {
         if (view is ImageView) {
             val drawable = view.drawable
             if (drawable != null && drawable is BitmapDrawable) {
@@ -44,9 +44,9 @@ object BitmapUtils {
     }
 
 
-    fun Bitmap.createBitmapSafely(width: Int, height: Int, config: Bitmap.Config, retryCount: Int): Bitmap? {
+    fun createBitmapSafely(width: Int, height: Int, config: Bitmap.Config, retryCount: Int): Bitmap? {
         try {
-            Bitmap.createBitmap(width, height, config)
+            return Bitmap.createBitmap(width, height, config)
         } catch (e: Exception) {
             e.printStackTrace()
             if (retryCount > 0) {
