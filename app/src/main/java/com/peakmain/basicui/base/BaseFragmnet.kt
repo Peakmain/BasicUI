@@ -55,6 +55,9 @@ abstract class BaseFragmnet : Fragment(), ImmersionOwner {
             mRootView = inflater.inflate(layoutId, container, false)
         }
     }
+    fun getRootView():View{
+        return mRootView!!
+    }
 
     protected abstract val layoutId: Int
     protected abstract fun initView(view: View?)
