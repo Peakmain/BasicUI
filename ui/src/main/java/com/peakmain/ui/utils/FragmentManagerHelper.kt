@@ -1,4 +1,4 @@
-package com.xuantian.common.ui.helper
+package com.peakmain.ui.utils
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
