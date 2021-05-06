@@ -29,7 +29,8 @@ class MainActivity : BaseActivity() {
         val suspensionView = SuspensionView(this)
         addContentView(suspensionView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
         suspensionView.setSuspensionViewClick {
-            FpsMonitorUtils.toggle()
+            FpsMonitorUtils.printMessage(false)
+                    .toggle()
         }
         mBottomNavigation = findViewById(R.id.bottom_navigation)
     }

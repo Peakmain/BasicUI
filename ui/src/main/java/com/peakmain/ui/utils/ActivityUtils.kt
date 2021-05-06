@@ -31,6 +31,25 @@ class ActivityUtils {
         application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbacks())
     }
 
+    /**
+     * 获得当前栈顶没有被销毁的activity
+     */
+    fun getTopActivity(isAlive: Boolean): Activity? {
+        if (mActivityLists.size <= 0) {
+            return null
+        } else {
+            val activityRef = mActivityLists[mActivityLists.size - 1]
+            val activity = activityRef.get()
+            if (isAlive) {
+                if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)) {
+                    mActivityLists.remove(activityRef)
+                    return getTopActivity(isAlive)
+                }
+            }
+            return activity
+        }
+    }
+
     inner class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         override fun onActivityPaused(p0: Activity?) {
 
