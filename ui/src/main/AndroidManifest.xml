@@ -3,7 +3,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application>
         <provider
             android:name="com.peakmain.ui.BasicUIProvider"
