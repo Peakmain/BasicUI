@@ -8,17 +8,6 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 object BubbleUtils {
-    /**
-     * 获取状态栏高度
-     */
-    fun getStatusBarHeight(context: Context): Int {
-        //获取status_bar_height资源的ID
-        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        return if (resourceId > 0) {
-            //根据资源ID获取响应的尺寸值
-            context.resources.getDimensionPixelSize(resourceId)
-        } else dp2px(25f)
-    }
 
     /**
      * As meaning of method name. 获得两点之间的距离 (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2) 开平方
