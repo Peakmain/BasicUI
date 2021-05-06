@@ -27,7 +27,7 @@ import com.peakmain.ui.utils.FileUtils.createTmpFile
 import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
-import com.xuantian.common.ui.helper.FragmentManagerHelper
+import com.peakmain.ui.utils.FragmentManagerHelper
 import java.io.File
 import java.io.IOException
 import java.util.*

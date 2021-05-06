@@ -10,6 +10,7 @@ import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment
 import com.peakmain.basicui.fragment.UtilsFragment
 import com.peakmain.ui.utils.ToastUtils
+import com.peakmain.ui.utils.fps.FpsMonitorUtils
 import com.peakmain.ui.widget.SuspensionView
 
 class MainActivity : BaseActivity() {
@@ -28,7 +29,7 @@ class MainActivity : BaseActivity() {
         val suspensionView = SuspensionView(this)
         addContentView(suspensionView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
         suspensionView.setSuspensionViewClick {
-            ToastUtils.showLong("测试悬浮按钮的点击事件")
+            FpsMonitorUtils.toggle()
         }
         mBottomNavigation = findViewById(R.id.bottom_navigation)
     }
