@@ -1,5 +1,6 @@
 package com.peakmain.ui.utils
 
+import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
@@ -173,6 +174,19 @@ class SizeUtils private constructor() {
         @JvmStatic
         val screenHeight: Int
             get() = BasicUIUtils.application?.resources?.displayMetrics!!.heightPixels
+
+        /**
+         * 获取状态栏高度
+         */
+        fun getStatusBarHeight(context: Context): Int {
+            //获取status_bar_height资源的ID
+            val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+            return if (resourceId > 0) {
+                //根据资源ID获取响应的尺寸值
+                context.resources.getDimensionPixelSize(resourceId)
+            } else dp2px(25f)
+        }
+
     }
 
     init {

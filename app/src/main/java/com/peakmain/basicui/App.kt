@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import com.peakmain.basicui.launcher.*
+import com.peakmain.ui.utils.ActivityUtils
 import com.peakmain.ui.utils.launcher.dispatcher.TaskDispatcher.Companion.createInstance
 import com.peakmain.ui.utils.launcher.dispatcher.TaskDispatcher.Companion.init
 
@@ -26,6 +27,7 @@ class App : Application() {
                 .addTask(DeviceIdTask())
                 .addTask(WeexTask())
                 .start()
+        ActivityUtils.mInstance.init(this)
     }
 
     companion object {
