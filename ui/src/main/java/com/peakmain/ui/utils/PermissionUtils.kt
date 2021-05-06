@@ -1,8 +1,11 @@
 package com.peakmain.ui.utils
 
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -20,6 +23,8 @@ class PermissionUtils private constructor(var mObject: Any) {
     companion object {
         private var requestCode: Int = -1
         private var mOnPermissionListener: OnPermissionListener? = null
+        private val mApplication = BasicUIUtils.application!!
+
         /**
          * 判断是否有某个权限
          */
@@ -34,14 +39,23 @@ class PermissionUtils private constructor(var mObject: Any) {
                 false
             }
         }
+
+        /**
+         * 是否有悬浮窗的权限
+         */
+        fun hasOverLaysPermission(): Boolean {
+            return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(mApplication)
+        }
+
+
         fun request(activity: Activity, requestCode: Int, permissions: Array<String>, block: OnPermissionListener) {
-            this.requestCode=requestCode
+            this.requestCode = requestCode
             with(activity).requestCode(requestCode).requestPermission(*permissions)
                     .request(block)
         }
 
         fun request(fragment: Fragment, requestCode: Int, permissions: Array<String>, block: OnPermissionListener) {
-            this.requestCode=requestCode
+            this.requestCode = requestCode
             with(fragment).requestCode(requestCode).requestPermission(*permissions)
                     .request(block)
         }
