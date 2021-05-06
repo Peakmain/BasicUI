@@ -26,12 +26,19 @@ object FpsMonitorUtils {
         mFpsView.toggle()
     }
 
-    fun addCallback(callback: FpsCallback) {
+    fun addCallback(callback: FpsCallback):FpsMonitorUtils {
         mFpsView.addCallback(callback)
+        return this
     }
-     fun reset(){
-         mFpsView.reset()
-     }
+
+    fun reset() {
+        mFpsView.reset()
+    }
+    fun printMessage(isPrint:Boolean):FpsMonitorUtils{
+        mFpsView.printMessage(isPrint)
+        return this
+    }
+
     interface FpsCallback {
         fun onFrame(fps: Double)
     }
@@ -111,6 +118,10 @@ object FpsMonitorUtils {
 
         fun reset() {
             mFrameMonitor.reset()
+        }
+
+        fun printMessage(isPrint: Boolean) {
+            mFrameMonitor.printMessage(isPrint)
         }
 
     }
