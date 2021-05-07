@@ -2,6 +2,7 @@ package com.peakmain.basicui.fragment
 
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.peakmain.basicui.R
@@ -16,6 +17,7 @@ import com.peakmain.ui.dialog.AlertDialog
 import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.BitmapUtils
+import com.peakmain.ui.utils.LogUtils
 import java.util.*
 
 /**
@@ -48,6 +50,7 @@ open class UtilsFragment : BaseFragmnet() {
         mUtilsBean.add("Glide图片选择切换封装")
         mUtilsBean.add("文本高亮工具类的封装")
         mUtilsBean.add("View创建Bitmap")
+        mUtilsBean.add("Java异常测试")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
@@ -67,7 +70,9 @@ open class UtilsFragment : BaseFragmnet() {
                         val bitmap = BitmapUtils.createBitmapFromView(getRootView())
                         imageView.setImageBitmap(bitmap)
                     }
-
+                    5->{
+                        LogUtils.e(5/0)
+                    }
                     else -> {
                     }
                 }
