@@ -95,6 +95,12 @@ class PermissionUtils private constructor(var mObject: Any) {
             }
             return deniedPermissions
         }
+        fun onDestory() {
+            if(mOnPermissionListener!=null){
+                mOnPermissionListener=null
+            }
+        }
+
     }
 
     private var mRequestCode: Int = -1
