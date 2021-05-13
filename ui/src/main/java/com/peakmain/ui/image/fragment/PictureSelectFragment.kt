@@ -64,7 +64,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     ): View? {
         val view: View = inflater.inflate(R.layout.ui_fragment_image_select, container, false)
         initView(view)
-        PermissionUtils.request(fragment = this,requestCode = 123,permissions = PermissionConstants.getPermissions(PermissionConstants.STORAGE),block = object : PermissionUtils.OnPermissionListener {
+        PermissionUtils.request(fragment = this, requestCode = 123, permissions = PermissionConstants.getPermissions(PermissionConstants.STORAGE), block = object : PermissionUtils.OnPermissionListener {
             override fun onPermissionGranted() {
                 LogUtils.e("读写权限被授予了")
                 // 初始化本地图片数据
@@ -191,8 +191,9 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        PermissionUtils.onRequestPermissionsResult(requestCode,permissions)
+        PermissionUtils.onRequestPermissionsResult(requestCode, permissions)
     }
+
     private fun gotoPicturePreviewActivity(
             images: ArrayList<PictureFileInfo>?,
             position: Int,
@@ -290,4 +291,9 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
 
                 override fun onLoaderReset(loader: Loader<Cursor?>) {}
             }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        PermissionUtils.onDestory()
+    }
 }
