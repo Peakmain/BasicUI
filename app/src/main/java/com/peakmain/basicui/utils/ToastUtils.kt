@@ -164,19 +164,6 @@ class ToastUtils private constructor() {
             }
         }
 
-        /**
-         * Show the sToast for a short period of time.
-         *
-         * @param format The format.
-         * @param args   The args.
-         */
-        fun showShort(format: String, vararg args: Any) {
-            if (args.size == 0) {
-                show(format, Toast.LENGTH_SHORT)
-            } else {
-                show(format, Toast.LENGTH_SHORT, *args)
-            }
-        }
 
         /**
          * Show the sToast for a long period of time.
@@ -203,7 +190,7 @@ class ToastUtils private constructor() {
          * @param args  The args.
          */
         fun showLong(@StringRes resId: Int, vararg args: Any) {
-            if (args != null && args.size == 0) {
+            if (args.isEmpty()) {
                 show(resId, Toast.LENGTH_SHORT)
             } else {
                 show(resId, Toast.LENGTH_LONG, *args)
