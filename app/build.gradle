@@ -22,11 +22,6 @@ android {
             abiFilters "armeabi-v7a","arm64-v8a","x86"
         }
         multiDexEnabled true
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
-            }
-        }
     }
     buildTypes {
         debug{
@@ -36,12 +31,6 @@ android {
             buildConfigField("String","TAG","\"TAG\"")
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    externalNativeBuild {
-        cmake {
-            path "src/main/cpp/CMakeLists.txt"
-            version "3.4.1"
         }
     }
     compileOptions {
