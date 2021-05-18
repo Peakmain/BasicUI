@@ -32,12 +32,6 @@ open class UtilsFragment : BaseFragmnet() {
     private var mRecyclerView: RecyclerView? = null
     private lateinit var mUtilsBean: MutableList<String>
     private var mAdapter: BaseRecyclerStringAdapter? = null
-    companion object{
-        init {
-            System.loadLibrary("native-lib")
-        }
-    }
-    private external fun testNativeBug(): String
     override val layoutId: Int
         protected get() = R.layout.fragment_utils
 
@@ -59,7 +53,7 @@ open class UtilsFragment : BaseFragmnet() {
         mUtilsBean.add("文本高亮工具类的封装")
         mUtilsBean.add("View创建Bitmap")
         mUtilsBean.add("Java异常测试")
-        mUtilsBean.add("Native异常测试")
+        //mUtilsBean.add("Native异常测试")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
@@ -87,9 +81,6 @@ open class UtilsFragment : BaseFragmnet() {
                     }
                     5->{
                         LogUtils.e(5/0)
-                    }
-                    6->{
-                        LogUtils.e(testNativeBug())
                     }
                     else -> {
                     }
