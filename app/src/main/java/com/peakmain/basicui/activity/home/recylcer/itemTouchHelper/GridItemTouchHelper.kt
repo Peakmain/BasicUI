@@ -1,6 +1,6 @@
-package com.peakmain.basicui.activity.home.recylcer.ItemTouchHelper
+package com.peakmain.basicui.activity.home.recylcer.itemTouchHelper
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean
 import com.peakmain.ui.recyclerview.itemTouch.BaseItemTouchHelper
 

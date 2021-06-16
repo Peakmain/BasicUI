@@ -5,12 +5,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ItemDecoration
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-class DividerGridItemDecoration(context: Context) : ItemDecoration() {
+class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable
     private val attrs = intArrayOf(
             R.attr.listDivider
@@ -83,11 +82,9 @@ class DividerGridItemDecoration(context: Context) : ItemDecoration() {
      */
     fun isLastRow(itemPosition: Int, parent: RecyclerView): Boolean {
         val spanCount = getSpanCount(parent)
-        val childCount = parent.adapter.itemCount
+        val childCount = parent.adapter!!.itemCount
         val rowNumber = if (childCount % spanCount == 0) childCount / spanCount else childCount / spanCount + 1
-        return if (itemPosition > (rowNumber - 1) * spanCount - 1) {
-            true
-        } else false
+        return itemPosition > (rowNumber - 1) * spanCount - 1
     }
 
     /**

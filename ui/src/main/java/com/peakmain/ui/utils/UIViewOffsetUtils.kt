@@ -1,7 +1,7 @@
 package com.peakmain.ui.utils
 
-import android.support.v4.view.ViewCompat
 import android.view.View
+import androidx.core.view.ViewCompat
 
 /**
  * author ：Peakmain

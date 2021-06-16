@@ -1,7 +1,6 @@
 package com.peakmain.ui.utils
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
 import android.text.*
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
@@ -9,6 +8,7 @@ import android.text.style.*
 import android.util.SparseArray
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorInt
 
 
 /**

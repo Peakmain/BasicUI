@@ -1,11 +1,10 @@
 package com.peakmain.basicui.activity.home.recylcer.activity
 
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.peakmain.basicui.BuildConfig
 import com.peakmain.basicui.R
-import com.peakmain.basicui.activity.home.recylcer.ItemTouchHelper.GridItemTouchHelper
-import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean
+import com.peakmain.basicui.activity.home.recylcer.itemTouchHelper.GridItemTouchHelper
 
 /**
  * author ：Peakmain

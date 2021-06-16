@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/navigation_header_container"
     android:theme="@style/toolbar_theme">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/view_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,8 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginEnd="@dimen/dimen_10"
-            android:src="@drawable/ic_more"/>
-    </android.support.v7.widget.Toolbar>
+            android:src="@drawable/ic_more"
+            android:layout_marginRight="@dimen/dimen_10" />
+    </androidx.appcompat.widget.Toolbar>
 
-</android.support.design.widget.AppBarLayout>
+</com.google.android.material.appbar.AppBarLayout>
 

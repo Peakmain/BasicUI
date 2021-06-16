@@ -2,10 +2,12 @@ package com.peakmain.ui.widget
 
 import android.content.Context
 import android.graphics.Canvas
-import android.support.v4.content.ContextCompat
-import android.support.v7.appcompat.R
-import android.support.v7.widget.AppCompatCheckBox
+import android.os.Build
 import android.util.AttributeSet
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.core.content.ContextCompat
+import com.peakmain.ui.R
 
 /**
  * author ：Peakmain
@@ -13,7 +15,8 @@ import android.util.AttributeSet
  * mail:2726449200@qq.com
  * describe：
  */
-class RoundCheckBox @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.radioButtonStyle) : AppCompatCheckBox(context, attrs, defStyleAttr) {
+class RoundCheckBox @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.radioButtonStyle) : AppCompatCheckBox(context, attrs, defStyleAttr) {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val checked = isChecked
