@@ -22,8 +22,14 @@ Add it in your root build.gradle at the end of repositories:
         }
     }
 - Step 2. Add the dependency
+you can use support
+
 ```
     dependencies {
             implementation 'com.github.Peakmain:BasicUI:1.0.9'
     }
+```
+Now Android x is also supported
+```
+implementation 'com.github.Peakmain:BasicUI:1.0.9-androidx'
 ```
