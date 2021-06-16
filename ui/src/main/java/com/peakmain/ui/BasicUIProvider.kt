@@ -14,7 +14,6 @@ import com.peakmain.ui.read.X5IntentService
 class BasicUIProvider : FileProvider() {
     override fun onCreate(): Boolean {
         BasicUIUtils.init(context.applicationContext as Application)
-        X5IntentService.start(context.applicationContext)
         return true
     }
 }
