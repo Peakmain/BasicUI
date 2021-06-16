@@ -1,5 +1,7 @@
 package com.peakmain.ui.utils.crash
 
+import android.os.Looper
+import android.os.MessageQueue
 import com.peakmain.breakpad.NativeCrashHandler
 import com.peakmain.ui.constants.BasicUIUtils
 import java.io.File
@@ -10,14 +12,11 @@ import java.io.File
  * mail:2726449200@qq.com
  * describe：异常处理工具类
  */
-object CrashUtils {
+object CrashUtils : MessageQueue.IdleHandler {
     private const val CRASH_DIR_JAVA = "javaCrash"
     private const val CRASH_DIR_NATIVE = "nativeCrash"
     fun init() {
-        val javaCrashDir = getJavaCrashDir()
-        val nativeCrashDir = getNativeCrashDir()
-        CrashHelper.init(javaCrashDir.absolutePath)
-        NativeCrashHandler.init(nativeCrashDir.absolutePath)
+       Looper.myQueue().addIdleHandler(this)
     }
 
     private fun getNativeCrashDir(): File {
@@ -44,5 +43,13 @@ object CrashUtils {
    //文件上传
     fun setOnFileUploadListener(listener: OnFileUploadListener?) {
         this.mListener = listener
+    }
+
+    override fun queueIdle(): Boolean {
+        val javaCrashDir = getJavaCrashDir()
+        val nativeCrashDir = getNativeCrashDir()
+        CrashHelper.init(javaCrashDir.absolutePath)
+        NativeCrashHandler.init(nativeCrashDir.absolutePath)
+        return false
     }
 }
