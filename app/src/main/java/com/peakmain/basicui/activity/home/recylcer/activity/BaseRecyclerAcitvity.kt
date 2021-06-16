@@ -1,7 +1,7 @@
 package com.peakmain.basicui.activity.home.recylcer.activity
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean
 import com.peakmain.basicui.activity.home.recylcer.data.PesudoImageData

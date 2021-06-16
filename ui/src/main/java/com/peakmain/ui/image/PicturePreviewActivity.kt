@@ -1,15 +1,15 @@
 package com.peakmain.ui.image
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import com.peakmain.ui.R
 import com.peakmain.ui.image.adapter.PicturePrieviewAdapter
 import com.peakmain.ui.image.config.PictureConfig

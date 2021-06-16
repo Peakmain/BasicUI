@@ -1,11 +1,11 @@
 package com.peakmain.ui.recyclerview.adapter
 
 import android.content.Context
-import android.support.annotation.IntRange
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IntRange
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.recyclerview.listener.OnLongClickListener
 
@@ -104,7 +104,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
         notifyItemInserted(mData.size - 1)
     }
 
-    fun addData(@IntRange(from = 0) position: Int, data: T) {
+    fun addData(@androidx.annotation.IntRange(from = 0) position: Int, data: T) {
         mData.add(position, data)
         notifyItemInserted(position)
     }

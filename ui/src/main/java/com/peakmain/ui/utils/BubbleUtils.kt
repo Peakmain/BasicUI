@@ -1,8 +1,6 @@
 package com.peakmain.ui.utils
 
-import android.content.Context
 import android.graphics.PointF
-import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
 import kotlin.math.atan
 import kotlin.math.cos
 import kotlin.math.sin

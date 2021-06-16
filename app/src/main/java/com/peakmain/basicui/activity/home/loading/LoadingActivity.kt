@@ -2,8 +2,8 @@ package com.peakmain.basicui.activity.home.loading
 
 import android.os.Handler
 import android.os.Looper
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity

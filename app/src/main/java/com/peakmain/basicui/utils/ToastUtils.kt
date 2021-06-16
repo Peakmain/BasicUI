@@ -10,14 +10,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import com.peakmain.basicui.App
 
 /**

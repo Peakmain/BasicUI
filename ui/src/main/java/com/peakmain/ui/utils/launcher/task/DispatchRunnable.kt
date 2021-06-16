@@ -2,7 +2,7 @@ package com.peakmain.ui.utils.launcher.task
 
 import android.os.Looper
 import android.os.Process
-import android.support.v4.os.TraceCompat
+import androidx.core.os.TraceCompat
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.launcher.dispatcher.TaskDispatcher
 import com.peakmain.ui.utils.launcher.stat.TaskStat.currentSituation

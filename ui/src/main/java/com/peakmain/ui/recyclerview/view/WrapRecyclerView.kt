@@ -1,15 +1,14 @@
 package com.peakmain.ui.recyclerview.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.ui.R
 import com.peakmain.ui.recyclerview.adapter.WrapRecyclerAdapter
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
-import com.peakmain.ui.recyclerview.listener.OnLongClickListener
 import java.util.*
 
 /**

@@ -1,7 +1,7 @@
 package com.peakmain.ui
 
 import android.app.Application
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.read.X5IntentService
 

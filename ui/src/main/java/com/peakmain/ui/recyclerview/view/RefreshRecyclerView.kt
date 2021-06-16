@@ -3,10 +3,10 @@ package com.peakmain.ui.recyclerview.view
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
-import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.view.ViewCompat
 import com.peakmain.ui.recyclerview.creator.RefreshViewCreator
 
 /**

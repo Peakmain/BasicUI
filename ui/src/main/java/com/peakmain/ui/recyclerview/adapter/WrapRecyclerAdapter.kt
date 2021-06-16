@@ -1,11 +1,10 @@
 package com.peakmain.ui.recyclerview.adapter
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.GridLayoutManager.SpanSizeLookup
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.recyclerview.listener.OnLongClickListener
 
@@ -160,7 +159,7 @@ class WrapRecyclerAdapter(
     fun adjustSpanSize(recyclerView: RecyclerView) {
         if (recyclerView.layoutManager is GridLayoutManager) {
             val layoutManager = recyclerView.layoutManager as GridLayoutManager
-            layoutManager.spanSizeLookup = object : SpanSizeLookup() {
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val isHeaderOrFooter = isHeaderPosition(position) || isFooterPosition(position)
                     return if (isHeaderOrFooter) layoutManager.spanCount else 1
