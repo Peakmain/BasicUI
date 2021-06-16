@@ -72,8 +72,28 @@ class PreferencesUtil private constructor() {
     @Synchronized
     fun remove(key: String?) {
         if (editor == null) editor = preferences!!.edit()
-        editor!!.remove(key)
-        editor!!.apply()
+        editor!!.remove(key).apply()
+    }
+
+    @Synchronized
+    fun clear() {
+        if (editor == null) editor = preferences!!.edit()
+        editor?.clear()?.apply()
+    }
+
+    /**
+     * 是否已经包含key
+     */
+    @Synchronized
+    fun contains(key: String?): Boolean {
+        return preferences!!.contains(key)
+    }
+
+    /**
+     * 获取SharedPreferences所有的value
+     */
+    fun getAll(): Map<String?, *>? {
+        return preferences!!.all
     }
 
     /**
@@ -164,6 +184,6 @@ class PreferencesUtil private constructor() {
 
     init {
         preferences = PreferenceManager.getDefaultSharedPreferences(BasicUIUtils.application
-                !!.applicationContext)
+        !!.applicationContext)
     }
 }
