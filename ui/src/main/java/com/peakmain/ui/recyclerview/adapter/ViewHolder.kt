@@ -1,11 +1,11 @@
 package com.peakmain.ui.recyclerview.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * author ：Peakmain
@@ -14,7 +14,7 @@ import android.widget.TextView
  * mail:2726449200@qq.com
  * describe：
  */
-class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
     // 用来存放子View减少findViewById的次数
     private val mViews: SparseArray<View?>
 

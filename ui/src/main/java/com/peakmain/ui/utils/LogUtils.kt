@@ -1,7 +1,7 @@
 package com.peakmain.ui.utils
 
-import android.support.annotation.IntDef
 import android.util.Log
+import androidx.annotation.IntDef
 import com.peakmain.ui.BuildConfig
 import org.json.JSONArray
 import org.json.JSONException

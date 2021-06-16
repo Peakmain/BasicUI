@@ -1,7 +1,7 @@
 package com.peakmain.ui.utils.launcher.task
 
 import android.os.Process
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 import java.util.concurrent.Executor
 
 /**

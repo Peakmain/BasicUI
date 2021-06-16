@@ -1,6 +1,6 @@
 package com.peakmain.ui.utils.launcher.sort
 
-import android.support.v4.util.ArraySet
+import androidx.collection.ArraySet
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.launcher.task.Task
 import java.util.*

@@ -5,9 +5,9 @@ import android.os.AsyncTask
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.support.annotation.UiThread
 import android.text.TextUtils
 import android.util.Log
+import androidx.annotation.UiThread
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.FileUtils.getFileByPath
 import com.peakmain.ui.utils.FileUtils.writeFileFromIS

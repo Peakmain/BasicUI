@@ -1,9 +1,8 @@
 package com.peakmain.ui.recyclerview.group
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.GridLayoutManager.SpanSizeLookup
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
 
@@ -27,7 +26,7 @@ abstract class BaseGroupRecyclerAdapter<T : GroupRecyclerBean<T>?>(context: Cont
      */
     fun adjustSpanSize(recyclerView: RecyclerView) {
         val layoutManager = recyclerView.layoutManager as GridLayoutManager
-        layoutManager.spanSizeLookup = object : SpanSizeLookup() {
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val itemViewType = getItemViewType(position)
                 return if (itemViewType == GROUP_HEADER_VIEW) layoutManager.spanCount else 1

@@ -1,9 +1,9 @@
 package com.peakmain.basicui.activity.home
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.image.PicturePreview

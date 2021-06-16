@@ -1,8 +1,8 @@
 package com.peakmain.basicui.launcher
 
 import android.R
-import android.support.v4.content.ContextCompat
 import android.view.Gravity
+import androidx.core.content.ContextCompat
 import com.peakmain.basicui.utils.ToastUtils
 import com.peakmain.ui.utils.launcher.task.Task
 

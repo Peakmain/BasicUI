@@ -30,7 +30,7 @@ class App : Application() {
                 .start()
         ActivityUtils.mInstance.init(this)
         //异常初始化
-        CrashUtils.init()
+       // CrashUtils.init()
     }
 
     companion object {

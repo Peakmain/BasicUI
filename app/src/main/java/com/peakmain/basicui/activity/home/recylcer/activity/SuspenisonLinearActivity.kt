@@ -1,6 +1,6 @@
 package com.peakmain.basicui.activity.home.recylcer.activity
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean
 import com.peakmain.basicui.activity.home.recylcer.data.PesudoImageData
@@ -32,7 +32,7 @@ class SuspenisonLinearActivity : BaseActivity() {
         val itemDecoration = SuspenisonItemDecoration.Builder(this, mGroupBeans)
                 .setTextCenter(true).create()
         val suspenisonItemDecoration = SuspenisonItemDecoration(this, mGroupBeans)
-        mRecyclerView!!.addItemDecoration(itemDecoration)
+        mRecyclerView!!.addItemDecoration(itemDecoration!!)
         mGroupAdapter = GroupLinearAdapter(this, mGroupBeans)
         mRecyclerView!!.adapter = mGroupAdapter
     }
