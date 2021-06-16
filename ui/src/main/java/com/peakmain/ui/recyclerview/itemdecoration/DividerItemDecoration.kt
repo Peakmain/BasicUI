@@ -5,10 +5,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ItemDecoration
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /*
  * Copyright (C) 2014 The Android Open Source Project
@@ -31,7 +30,7 @@ import android.view.View
  * mail : 2726449200@qq.com
  * describe ：
  */
-class DividerItemDecoration(context: Context, orientation: Int) : ItemDecoration() {
+class DividerItemDecoration(context: Context, orientation: Int) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable
     private var mOrientation = 0
     fun setOrientation(orientation: Int) {

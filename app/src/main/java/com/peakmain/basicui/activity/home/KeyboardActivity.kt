@@ -1,7 +1,7 @@
 package com.peakmain.basicui.activity.home
 
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.home.keyboard.CustomIdKeyboardActivity
 import com.peakmain.basicui.activity.home.keyboard.CustomPasswordKeyboardActivity

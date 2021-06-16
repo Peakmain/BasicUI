@@ -2,10 +2,10 @@ package com.peakmain.basicui.activity.utils
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.navigationbar.DefaultNavigationBar

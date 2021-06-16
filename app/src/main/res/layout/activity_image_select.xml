@@ -20,11 +20,11 @@
         android:textColor="@color/white"
         android:text="选择图片"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="4" />

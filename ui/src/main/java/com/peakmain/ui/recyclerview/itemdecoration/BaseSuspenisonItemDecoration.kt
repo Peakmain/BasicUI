@@ -1,19 +1,18 @@
 package com.peakmain.ui.recyclerview.itemdecoration
 
-import android.R
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ItemDecoration
 import android.text.TextPaint
 import android.text.TextUtils
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import android.R
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.peakmain.ui.recyclerview.group.GroupRecyclerBean
 import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
 
@@ -23,7 +22,7 @@ import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
  * mail:2726449200@qq.com
  * describe：基本悬浮列表
  */
-abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : ItemDecoration {
+abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : RecyclerView.ItemDecoration {
     private var mData: List<T>
     private var mBgPaint: Paint? = null
     private var mTextPaint: TextPaint? = null
@@ -47,7 +46,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : ItemDec
 
     constructor(context: Context?, data: List<T>) {
         mData = data
-        mBgColor = ContextCompat.getColor(context!!, R.color.white)
+        mBgColor = ContextCompat.getColor(context!!, android.R.color.white)
         mSectionHeight = dp2px(30f)
         topHeight = dp2px(10f)
         mTextSize = dp2px(10f)
@@ -149,11 +148,11 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : ItemDec
             return
         }
         var section = getTopText(mData, pos)
-        val child = parent.findViewHolderForLayoutPosition(pos).itemView
+        val child = parent.findViewHolderForLayoutPosition(pos)?.itemView
         var flag = false
         if (pos + 1 < mData.size) {
             if (null != section && section != getTopText(mData, pos + 1)) {
-                if (child.height + child.top < mSectionHeight) {
+                if (child!!.height + child.top < mSectionHeight) {
                     c.save()
                     flag = true
                     c.translate(0f, child.height + child.top - mSectionHeight.toFloat())
@@ -175,7 +174,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : ItemDec
                         mTextPaint)
             } else {
                 c.drawText(section,
-                        child.paddingLeft + mPaddingLeft.toFloat(),
+                        child!!.paddingLeft + mPaddingLeft.toFloat(),
                         parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
                         mTextPaint)
             }
@@ -190,7 +189,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : ItemDec
                             mTextPaint)
                 } else {
                     c.drawText(section,
-                            child.paddingLeft + mPaddingLeft.toFloat(),
+                            child!!.paddingLeft + mPaddingLeft.toFloat(),
                             parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
                             mTextPaint)
                 }

@@ -46,9 +46,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar',"*.aar"])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'

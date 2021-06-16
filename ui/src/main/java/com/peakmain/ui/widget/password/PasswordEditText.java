@@ -9,6 +9,8 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 
+import androidx.appcompat.widget.AppCompatEditText;
+
 import com.peakmain.ui.R;
 import com.peakmain.ui.utils.SizeUtils;
 
@@ -18,7 +20,7 @@ import com.peakmain.ui.utils.SizeUtils;
  * mail:2726449200@qq.com
  * describe：支付密码的EditText
  */
-public class PasswordEditText extends android.support.v7.widget.AppCompatEditText {
+public class PasswordEditText extends AppCompatEditText {
     // 画笔
     private Paint mPaint;
     // 一个密码所占的宽度

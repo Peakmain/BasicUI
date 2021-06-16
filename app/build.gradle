@@ -41,10 +41,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta05'
     implementation 'com.google.code.gson:gson:2.7'
@@ -58,6 +56,8 @@ dependencies {
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
     // implementation 'com.taobao.android:weex_sdk:0.18.0'
