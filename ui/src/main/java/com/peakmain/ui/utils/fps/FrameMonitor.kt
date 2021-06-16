@@ -1,10 +1,6 @@
 package com.peakmain.ui.utils.fps
 
-import android.os.Build
-import android.util.Log
 import android.view.Choreographer
-import com.peakmain.ui.BuildConfig
-import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.utils.ActivityUtils
 import com.peakmain.ui.utils.LogUtils
 import java.util.concurrent.TimeUnit

@@ -1,12 +1,12 @@
 package com.peakmain.basicui.activity.utils
 
 import android.os.Environment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity

@@ -2,7 +2,7 @@ package com.peakmain.ui.utils.launcher.dispatcher
 
 import android.content.Context
 import android.os.Looper
-import android.support.annotation.UiThread
+import androidx.annotation.UiThread
 import com.peakmain.ui.utils.HandlerUtils.isMainProcess
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.launcher.sort.TaskSortUtil.getSortResult

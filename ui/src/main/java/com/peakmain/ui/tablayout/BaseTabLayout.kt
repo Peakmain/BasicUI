@@ -3,15 +3,14 @@ package com.peakmain.ui.tablayout
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import androidx.core.view.ViewCompat
+import androidx.viewpager.widget.ViewPager
 import com.peakmain.ui.R
-import com.peakmain.ui.tablayout.ColorTrackTextView
 import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
 import java.util.*
 

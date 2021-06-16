@@ -3,12 +3,12 @@ package com.peakmain.basicui.activity.home
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.peakmain.basicui.BuildConfig
 import com.peakmain.basicui.R
 import com.peakmain.ui.compress.ImageCompressUtils.Companion.with

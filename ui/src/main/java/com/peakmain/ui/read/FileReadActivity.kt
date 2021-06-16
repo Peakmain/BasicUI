@@ -3,9 +3,9 @@ package com.peakmain.ui.read
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.peakmain.ui.R
 import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.utils.FileUtils

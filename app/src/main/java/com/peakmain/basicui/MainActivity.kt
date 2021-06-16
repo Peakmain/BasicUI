@@ -1,10 +1,10 @@
 package com.peakmain.basicui
 
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.FragmentTransaction
 import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment

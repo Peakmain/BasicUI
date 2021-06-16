@@ -1,9 +1,8 @@
 package com.peakmain.basicui.activity.home
-
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.fragment.ItemFragment

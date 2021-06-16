@@ -2,10 +2,10 @@ package com.peakmain.ui.constants
 
 import android.app.Application
 import android.content.Context
-import android.support.annotation.LayoutRes
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.LayoutRes
 import com.peakmain.ui.BuildConfig
 
 /**

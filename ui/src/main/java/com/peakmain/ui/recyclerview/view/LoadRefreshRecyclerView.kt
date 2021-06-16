@@ -2,11 +2,11 @@ package com.peakmain.ui.recyclerview.view
 
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.view.ViewCompat
 import com.peakmain.ui.recyclerview.creator.LoadViewCreator
 
 /**
@@ -127,7 +127,7 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
                 mLoadViewHeight = mLoadView!!.measuredHeight
                 // 解决上拉加载更多自动滚动问题
                 if (mCurrentDrag) {
-                    scrollToPosition(adapter.itemCount - 1)
+                    scrollToPosition(adapter!!.itemCount - 1)
                 }
 
                 // 获取手指触摸拖拽的距离
