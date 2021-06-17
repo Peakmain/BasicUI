@@ -31,5 +31,5 @@ you can use support
 ```
 Now Android x is also supported
 ```
-implementation 'com.github.Peakmain:BasicUI:1.0.9-androidx'
+implementation 'com.github.Peakmain:BasicUI:1.1.0-androidx'
 ```
