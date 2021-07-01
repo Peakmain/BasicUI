@@ -1,2 +1,2 @@
-include ':app', ':ui'
+include ':libbreakpad'
 rootProject.name='BasicUI'
