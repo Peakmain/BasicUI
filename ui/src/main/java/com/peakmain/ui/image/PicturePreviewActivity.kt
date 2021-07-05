@@ -198,6 +198,9 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                     )
                     updateSelectText()
                     mIvSelect.isSelected = true
+                    if (mPreviewConfig.mResultCallBack != null) {
+                        mPreviewConfig.mResultCallBack!!.onResult(mSelectImageList)
+                    }
                 }
             }
 
