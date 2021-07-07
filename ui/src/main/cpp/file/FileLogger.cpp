@@ -4,7 +4,9 @@
 
 #include "../include/FileLogger.h"
 #include "ui_log.h"
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 /**
  * 默认最小的增长大小
  */
@@ -101,3 +103,8 @@ FileLogger::~FileLogger() {
         munmap(mmapPtr, mmapSize);
     }
 }
+#ifdef __cplusplus
+}
+
+
+#endif

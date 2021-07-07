@@ -14,7 +14,11 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <jni.h>
+#include "ui_log.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #define REMMAP_TIMES 4
 class FileLogger {
 public:
@@ -55,5 +59,7 @@ public:
     int getLogFileSize();
 };
 
+#ifdef __cplusplus
+}
 
 #endif //BASICUI_FILELOGGER_H
