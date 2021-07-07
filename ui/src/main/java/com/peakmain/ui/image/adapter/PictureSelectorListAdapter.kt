@@ -13,7 +13,7 @@ import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.imageLoader.ImageLoader
-import com.peakmain.ui.utils.FileUtils.createTmpFile
+import com.peakmain.ui.utils.file.FileUtils.createTmpFile
 import com.peakmain.ui.utils.ToastUtils
 import java.io.IOException
 import kotlin.collections.ArrayList

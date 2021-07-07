@@ -6,8 +6,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <time.h>
-
-
+#include "FileLogger.h"
 
 //统一编译方式
 extern "C" {
@@ -17,11 +16,7 @@ extern "C" {
 #include "jconfig.h"
 }
 
-// log打印
-#define LOG_TAG "jni"
-#define LOGW(...)  __android_log_write(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+#include "ui_log.h"
 
 #define true 1
 #define false 0
@@ -110,9 +105,9 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 
 extern "C"
 jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
-                                                                   jclass thiz, jobject bitmap,
-                                                                   jint quality,
-                                                                   jstring fileNameStr) {
+                                                                jclass thiz, jobject bitmap,
+                                                                jint quality,
+                                                                jstring fileNameStr) {
     // 1. 解析RGB
     // 1.1 获取bitmap信息  w，h，format  Android的Native要有了解
     AndroidBitmapInfo info;
@@ -182,11 +177,11 @@ jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
     env->ReleaseStringUTFChars(fileNameStr, file_name);
     // 释放bitmap,调用bitmap的recycle
     // 3.2 获取对象的class
-    jclass obj_clazz = env -> GetObjectClass(bitmap);
+    jclass obj_clazz = env->GetObjectClass(bitmap);
     // 3.3 通过class获取方法id
-    jmethodID method_id = env -> GetMethodID(obj_clazz,"recycle","()V");//()V代表void方法
+    jmethodID method_id = env->GetMethodID(obj_clazz, "recycle", "()V");//()V代表void方法
     // 3.4 调用方法释放Bitmap
-    env->CallVoidMethod(bitmap,method_id);
+    env->CallVoidMethod(bitmap, method_id);
 
     LOGE("result = %d", result);
 
@@ -196,4 +191,51 @@ jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
     }
 
     return 1;
+}
+extern "C"
+JNIEXPORT jlong JNICALL
+Java_com_peakmain_ui_utils_file_FileLogger_nativeLogFileCreate(JNIEnv *env, jobject thiz,
+                                                               jstring logPath_, jint maxFileSize) {
+    const char *logPath = env->GetStringUTFChars(logPath_, NULL);
+
+    FileLogger *fileLogger = new FileLogger(logPath, maxFileSize);
+
+    env->ReleaseStringUTFChars(logPath_, logPath);
+
+    return reinterpret_cast<jlong>(fileLogger);
+
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_peakmain_ui_utils_file_FileLogger_nativeWriteData(JNIEnv *env, jobject thiz,
+                                                           jlong nativePtr, jbyteArray data_,
+                                                           jint dataLen) {
+    jbyte *data = env->GetByteArrayElements(data_, NULL);
+
+    FileLogger *fileLogger = reinterpret_cast<FileLogger *>(nativePtr);
+    if (fileLogger != NULL) {
+        fileLogger->writeData((char *) data, dataLen);
+    }
+
+    env->ReleaseByteArrayElements(data_, data, 0);
+
+}
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_peakmain_ui_utils_file_FileLogger_nativeLogFileLength(JNIEnv *env, jobject thiz,
+                                                               jlong nativePtr) {
+    FileLogger *fileLogger = (FileLogger *) nativePtr;
+    if (fileLogger != NULL) {
+        return fileLogger->dataPos;
+    }
+    return 0;
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_peakmain_ui_utils_file_FileLogger_nativeRelease(JNIEnv *env, jobject thiz,
+                                                         jlong nativePtr) {
+    FileLogger *fileLogger = reinterpret_cast<FileLogger *>(nativePtr);
+    if (fileLogger != NULL) {
+        delete (fileLogger);
+    }
 }

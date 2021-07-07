@@ -23,11 +23,11 @@ import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.image.fragment.PictureSelectFragment
-import com.peakmain.ui.utils.FileUtils.createTmpFile
 import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
 import com.peakmain.ui.utils.FragmentManagerHelper
+import com.peakmain.ui.utils.file.FileUtils.createTmpFile
 import java.io.File
 import java.io.IOException
 import java.util.*

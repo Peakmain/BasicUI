@@ -6,7 +6,7 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import com.peakmain.ui.utils.FileUtils
+import com.peakmain.ui.utils.file.FileUtils
 import com.tencent.smtt.sdk.TbsReaderView
 
 /**

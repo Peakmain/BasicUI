@@ -1,6 +1,6 @@
 package com.peakmain.ui.utils.network.download
 
-import com.peakmain.ui.utils.FileUtils.closeIO
+import com.peakmain.ui.utils.file.FileUtils.closeIO
 import com.peakmain.ui.utils.HandlerUtils.runOnUiThreadDelay
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.network.callback.DownloadCallback

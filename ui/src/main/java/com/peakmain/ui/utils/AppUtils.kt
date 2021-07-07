@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.FileProvider
 import com.peakmain.ui.constants.BasicUIUtils
+import com.peakmain.ui.utils.file.FileUtils
 import java.io.File
 
 /**

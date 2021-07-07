@@ -28,6 +28,7 @@ class PermissionUtils private constructor(var mObject: Any) {
         /**
          * 判断是否有某个权限
          */
+        @JvmStatic
         fun hasPermission(permission: String): Boolean {
             return try {
                 ContextCompat.checkSelfPermission(

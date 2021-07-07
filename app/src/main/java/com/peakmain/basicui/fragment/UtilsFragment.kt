@@ -18,7 +18,9 @@ import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.BitmapUtils
 import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.utils.crash.CrashUtils
+import com.peakmain.ui.utils.file.LogFileUtils
 import java.io.File
 import java.util.*
 
@@ -53,6 +55,7 @@ open class UtilsFragment : BaseFragmnet() {
         mUtilsBean.add("文本高亮工具类的封装")
         mUtilsBean.add("View创建Bitmap")
         mUtilsBean.add("Java异常测试")
+        mUtilsBean.add("mmap实现日志写入")
         //mUtilsBean.add("Native异常测试")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
@@ -81,6 +84,23 @@ open class UtilsFragment : BaseFragmnet() {
                     }
                     5->{
                         LogUtils.e(5/0)
+                    }
+                    6->{
+                        val start = System.currentTimeMillis()
+                        for (i in 0..3) {
+                            LogFileUtils.getLogger("测试1").writeLog(
+                                    "我是测试2-$i\n"
+                            )
+                        }
+
+                        for (i in 0..100) {
+                            LogFileUtils.getLogger("测试2").writeLog(
+                                    "我是测试2-$i\n"
+                            )
+                        }
+                        val end = System.currentTimeMillis()
+
+                        ToastUtils.showLong("保存成功，花费时间：${end-start}")
                     }
                     else -> {
                     }

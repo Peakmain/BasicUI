@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.peakmain.ui.R
 import com.peakmain.ui.image.config.PictureFileMimeType
-import com.peakmain.ui.utils.FileUtils
+import com.peakmain.ui.utils.file.FileUtils
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.utils.network.HttpUtils

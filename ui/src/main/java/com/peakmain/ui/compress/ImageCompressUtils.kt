@@ -7,10 +7,9 @@ import android.os.Looper
 import android.os.Message
 import android.support.annotation.UiThread
 import android.text.TextUtils
-import android.util.Log
-import com.peakmain.ui.utils.FileUtils
-import com.peakmain.ui.utils.FileUtils.getFileByPath
-import com.peakmain.ui.utils.FileUtils.writeFileFromIS
+import com.peakmain.ui.utils.file.FileUtils
+import com.peakmain.ui.utils.file.FileUtils.getFileByPath
+import com.peakmain.ui.utils.file.FileUtils.writeFileFromIS
 import com.peakmain.ui.utils.LogUtils
 import java.io.File
 import java.io.FileInputStream

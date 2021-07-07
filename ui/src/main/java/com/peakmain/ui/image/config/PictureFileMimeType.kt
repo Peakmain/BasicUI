@@ -3,11 +3,10 @@ package com.peakmain.ui.image.config
 import android.content.Context
 import android.media.MediaMetadataRetriever
 import android.text.TextUtils
-import com.peakmain.ui.BasicUIProvider
 import com.peakmain.ui.R
 import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.image.entry.LocalMedia
-import com.peakmain.ui.utils.FileTypeUtil
+import com.peakmain.ui.utils.file.FileTypeUtil
 import java.io.File
 
 /**

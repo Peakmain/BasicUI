@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import com.peakmain.basicui.launcher.*
 import com.peakmain.ui.utils.ActivityUtils
-import com.peakmain.ui.utils.crash.CrashUtils
 import com.peakmain.ui.utils.launcher.dispatcher.TaskDispatcher.Companion.createInstance
 import com.peakmain.ui.utils.launcher.dispatcher.TaskDispatcher.Companion.init
 
@@ -26,11 +25,10 @@ class App : Application() {
                 .addTask(UtilsTask())
                 .addTask(JPushTask())
                 .addTask(DeviceIdTask())
-                .addTask(WeexTask())
+                .addTask(MainUtilsTask())
                 .start()
         ActivityUtils.mInstance.init(this)
-        //异常初始化
-        CrashUtils.init()
+
     }
 
     companion object {

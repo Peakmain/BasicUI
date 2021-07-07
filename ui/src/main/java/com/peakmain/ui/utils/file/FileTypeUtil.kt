@@ -1,4 +1,4 @@
-package com.peakmain.ui.utils
+package com.peakmain.ui.utils.file
 
 import android.content.Context
 import com.peakmain.ui.R
@@ -32,7 +32,7 @@ object FileTypeUtil {
             for (i in 0 until length) {
                 val file = files[i]
                 val fileInfo =
-                    getFileInfoFromFile(file)
+                        getFileInfoFromFile(file)
                 fileInfos.add(fileInfo)
             }
         }
@@ -94,8 +94,8 @@ object FileTypeUtil {
         file: PictureFileInfo
     ): Int {
         return if (file.isDirectory) R.drawable.ui_ic_file_folder else getFileTypeImageId(
-            context,
-            file.fileName
+                context,
+                file.fileName
         )
     }
 
@@ -107,94 +107,94 @@ object FileTypeUtil {
     fun getFileTypeImageId(mContext: Context, fileName: String?): Int {
         val id: Int
         id = if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_file_txt_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_file_txt_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_txt
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_file_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_file_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_file
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_video_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_video_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_video
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_audio_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_audio_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_audio
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_ppt_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_ppt_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_ppt
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_pdf_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_pdf_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_pdf
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_image_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_image_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_image
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_apk_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_apk_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_apk
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_word_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_word_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_word
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_excel_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_excel_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_excel
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_numbers_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_numbers_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_numbers
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_pages_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_pages_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_pages
         } else if (checkSuffix(
-                fileName,
-                mContext.resources
-                    .getStringArray(R.array.ui_zip_file_suffix)
-            )
+                        fileName,
+                        mContext.resources
+                                .getStringArray(R.array.ui_zip_file_suffix)
+                )
         ) {
             R.drawable.ui_ic_file_zip
         } else {

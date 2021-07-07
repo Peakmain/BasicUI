@@ -18,7 +18,7 @@ import com.peakmain.ui.image.config.PicturePreviewConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.FileListFragment
-import com.peakmain.ui.utils.FileUtils
+import com.peakmain.ui.utils.file.FileUtils
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.utils.network.HttpUtils

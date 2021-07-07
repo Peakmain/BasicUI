@@ -21,8 +21,8 @@ import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.read.FileReadActivity
 import com.peakmain.ui.utils.*
-import com.peakmain.ui.utils.FileTypeUtil.getFileIconResource
-import com.peakmain.ui.utils.FileUtils.FormetFileSize
+import com.peakmain.ui.utils.file.FileTypeUtil.getFileIconResource
+import com.peakmain.ui.utils.file.FileUtils.FormetFileSize
 
 /**
  * author ：Peakmain

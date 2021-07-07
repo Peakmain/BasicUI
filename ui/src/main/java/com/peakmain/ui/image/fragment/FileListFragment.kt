@@ -19,8 +19,8 @@ import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.adapter.FileListAdapter
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.utils.FileUtils
-import com.peakmain.ui.utils.LoadFileTask
+import com.peakmain.ui.utils.file.FileUtils
+import com.peakmain.ui.utils.file.LoadFileTask
 import java.io.File
 import kotlin.collections.ArrayList
 

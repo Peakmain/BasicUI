@@ -1,4 +1,4 @@
-package com.peakmain.ui.utils
+package com.peakmain.ui.utils.file
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -8,9 +8,10 @@ import android.os.AsyncTask
 import android.os.Environment
 import android.text.TextUtils
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.utils.FileTypeUtil.getFileInfosFromFileArray
+import com.peakmain.ui.utils.file.FileTypeUtil.getFileInfosFromFileArray
 import java.io.*
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -538,7 +539,11 @@ object FileUtils {
         str = paramString.substring(i + 1)
         return str
     }
-
+    @JvmStatic
+    fun getLogFileName(path:String?,name: String): String {
+        val sdf = SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
+        return path + "/" + name + "-" + sdf.format(System.currentTimeMillis()) + ".log"
+    }
 }
 class LoadFileTask :
         AsyncTask<File?, Void?, List<PictureFileInfo>> {
