@@ -234,8 +234,19 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_peakmain_ui_utils_file_FileLogger_nativeRelease(JNIEnv *env, jobject thiz,
                                                          jlong nativePtr) {
-    FileLogger *fileLogger = reinterpret_cast<FileLogger *>(nativePtr);
+    FileLogger *fileLogger = (FileLogger *) nativePtr;
     if (fileLogger != NULL) {
         delete (fileLogger);
+    }
+}extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_peakmain_ui_utils_file_FileLogger_nativeReadLog(JNIEnv *env, jobject thiz,
+                                                         jlong nativePtr) {
+
+    FileLogger *fileLogger = (FileLogger *) nativePtr;
+    if (fileLogger != NULL) {
+        char *mmapPtr = fileLogger->readLog();
+        jstring data=env->NewStringUTF(mmapPtr);
+        return data;
     }
 }

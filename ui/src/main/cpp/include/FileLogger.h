@@ -57,9 +57,13 @@ public:
     void writeData(const char *data, int dataLen);
 
     int getLogFileSize();
+
+    char* readLog();
 };
 
 #ifdef __cplusplus
 }
 
 #endif //BASICUI_FILELOGGER_H
+
+#endif

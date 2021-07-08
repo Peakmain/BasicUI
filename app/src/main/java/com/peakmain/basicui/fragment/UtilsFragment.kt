@@ -56,6 +56,7 @@ open class UtilsFragment : BaseFragmnet() {
         mUtilsBean.add("View创建Bitmap")
         mUtilsBean.add("Java异常测试")
         mUtilsBean.add("mmap实现日志写入")
+        mUtilsBean.add("mmap读取日志")
         //mUtilsBean.add("Native异常测试")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
@@ -101,6 +102,10 @@ open class UtilsFragment : BaseFragmnet() {
                         val end = System.currentTimeMillis()
 
                         ToastUtils.showLong("保存成功，花费时间：${end-start}")
+
+                    }
+                    7->{
+                        LogUtils.e( LogFileUtils.getLogger("测试1").readLog())
                     }
                     else -> {
                     }

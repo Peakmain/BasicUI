@@ -4,6 +4,7 @@
 
 #include "../include/FileLogger.h"
 #include "ui_log.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -104,6 +105,11 @@ FileLogger::~FileLogger() {
     }
 }
 #ifdef __cplusplus
+}
+
+char* FileLogger::readLog() {
+
+    return mmapPtr;
 }
 
 

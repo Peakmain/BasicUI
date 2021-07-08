@@ -38,6 +38,11 @@ public class FileLogger implements Comparable<FileLogger> {
         byte[] data = content.getBytes();
         nativeWriteData(mNativePtr, data, data.length);
     }
+    public String readLog(){
+        return nativeReadLog(mNativePtr);
+    }
+
+    private native String nativeReadLog(long nativePtr);
 
     private native void nativeWriteData(long nativePtr, byte[] data, int dataLen);
 
