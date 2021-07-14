@@ -350,4 +350,11 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mConfig.mResultCallBack != null) {
+            mConfig.mResultCallBack = null;
+        }
+    }
 }

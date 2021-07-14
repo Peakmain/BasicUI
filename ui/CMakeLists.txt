@@ -17,7 +17,6 @@ include_directories(./src/main/cpp/include)
 #指定源文件的目录
 set(SOURCE_FILES src/main/cpp/compress-lib.cpp)
 aux_source_directory(./src/main/cpp/file SOURCE_FILES)
-aux_source_directory(./src/main/cpp/common SOURCE_FILES)
 add_library(compress-lib
         SHARED
         ${SOURCE_FILES})
