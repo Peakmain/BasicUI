@@ -16,12 +16,7 @@ class X5IntentService : IntentService(X5IntentService::class.java.canonicalName)
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, X5IntentService::class.java)
-            if(Build.VERSION.SDK_INT>Build.VERSION_CODES.O){
-                context.startForegroundService(intent)
-            }else{
-                context.startService(intent)
-            }
-           
+            context.startService(intent)
         }
     }
 
