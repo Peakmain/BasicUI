@@ -21,7 +21,7 @@ class HttpUtils {
 
     //请求方式
     private var mType = GET_TYPE
-    private  var mContext: Context
+    private var mContext: Context
     private var mParams: LinkedHashMap<String, Any>
     private var mFile: File? = null
 
@@ -88,6 +88,11 @@ class HttpUtils {
      * @param value string类型
      */
     fun addParams(key: String, value: String): HttpUtils {
+        mParams[key] = value
+        return this
+    }
+
+    fun addParams(key: String, value: Int): HttpUtils {
         mParams[key] = value
         return this
     }
@@ -192,7 +197,7 @@ class HttpUtils {
         mHttpEngine.downloadMultiManager(mContext, url, file, callback)
     }
 
-    @StringDef(PARAMS_KEY_EQUAL_VALUE, PARAMS_KEY_BACKSPLASH_VALUE)
+    @StringDef(PARAMS_KEY_EQUAL_VALUE, PARAMS_KEY_BACKSPLASH_VALUE,PARAMS_KEY_NOKEY_VALUE)
     @Retention(AnnotationRetention.SOURCE)
     annotation class ParamsType
     companion object {
@@ -201,8 +206,12 @@ class HttpUtils {
         private const val UPLOAD_TYPE = 0x0012
         private const val DOWNLOAD_SINGLE_TYPE = 0x0013
         private const val DOWNLOAD_MULTI_TYPE = 0x0014
+        //http://gank.io/api/history/content/2/1
         const val PARAMS_KEY_EQUAL_VALUE: String = "PARAMS_KEY_EQUAL_VALUE"
+        //http://gank.io/api/search/query/listview/category/Android/count/10/page/1
         const val PARAMS_KEY_BACKSPLASH_VALUE: String = "PARAMS_KEY_BACKSPLASH_VALUE"
+        //http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_pic_comments&page=1
+        const val PARAMS_KEY_NOKEY_VALUE: String = "PARAMS_KEY_NOKEY_VALUE"
         private var mParamsType = PARAMS_KEY_EQUAL_VALUE
 
         @JvmStatic
@@ -236,8 +245,10 @@ class HttpUtils {
             for ((key, value) in params) {
                 if (mParamsType == PARAMS_KEY_EQUAL_VALUE)
                     stringBuffer.append("$key=$value&")
-                else
+                else if(mParamsType== PARAMS_KEY_BACKSPLASH_VALUE)
                     stringBuffer.append("$key/$value/")
+                else
+                    stringBuffer.append("$value/")
             }
             stringBuffer.deleteCharAt(stringBuffer.length - 1)
             return stringBuffer.toString()

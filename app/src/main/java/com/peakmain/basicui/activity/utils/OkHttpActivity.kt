@@ -15,6 +15,8 @@ import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_BACKSPLASH_VALUE
+import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_EQUAL_VALUE
+import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_NOKEY_VALUE
 import com.peakmain.ui.utils.network.HttpUtils.Companion.with
 import com.peakmain.ui.utils.network.callback.DownloadCallback
 import com.peakmain.ui.utils.network.callback.EngineCallBack
@@ -53,8 +55,9 @@ class OkHttpActivity : BaseActivity() {
 
     override fun initData() {
         mBean = ArrayList()
-        mBean.add("get方法请求")
-        mBean.add("get方法请求——干货集中营接口")
+        mBean.add("get方法请求——params_key_equal_value")
+        mBean.add("get方法请求——params_key_equal_value")
+        mBean.add("get方法请求——params_key_nokey_value")
         mBean.add("post方法请求")
         mBean.add("单线程下载")
         mBean.add("多线程下载")
@@ -68,6 +71,7 @@ class OkHttpActivity : BaseActivity() {
                             .url("http://i.jandan.net/")
                             .addParams("oxwlxojflwblxbsapi", "jandan.get_pic_comments")
                             .addParams("page", "1")
+                            .paramsType(PARAMS_KEY_EQUAL_VALUE)
                             .execture(object : EngineCallBack {
                                 override fun onError(e: Exception?) {
                                     LogUtils.e(e!!.message)
@@ -95,10 +99,27 @@ class OkHttpActivity : BaseActivity() {
 
                                 })
                     }
-                    2 -> with(this@OkHttpActivity)
+                    2->{
+                        with(this@OkHttpActivity)
+                                .url("http://gank.io/api/history/content/")
+                                .addParams("count",1)
+                                .addParams("page",1)
+                                .paramsType(PARAMS_KEY_NOKEY_VALUE)
+                                .execture(object :EngineCallBack{
+                                    override fun onError(e: Exception?) {
+                                        LogUtils.e(e!!.message)
+                                    }
+
+                                    override fun onSuccess(result: String?) {
+                                        mTvResult.text = result
+                                    }
+
+                                })
+                    }
+                    3 -> with(this@OkHttpActivity)
                             .url("https://www.wanandroid.com/user/login")
                             .addParams("username", "peakmain123")
-                            .addParams("password", "123456")
+                            .addParams("password", 123456)
                             .post()
                             .execture(object : EngineCallBack {
                                 override fun onError(e: Exception?) {
@@ -109,7 +130,7 @@ class OkHttpActivity : BaseActivity() {
                                     mTvResult.text = result
                                 }
                             })
-                    3 -> {
+                    4-> {
                         val file = File(Environment.getExternalStorageDirectory(), "test.apk")
                         if (file.exists()) {
                             file.delete()
@@ -137,7 +158,7 @@ class OkHttpActivity : BaseActivity() {
                                     }
                                 })
                     }
-                    4-> {
+                    5-> {
                         file = File(Environment.getExternalStorageDirectory(), "test.apk")
                         if (file.exists()) {
                             file.delete()
