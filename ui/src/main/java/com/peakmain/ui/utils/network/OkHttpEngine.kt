@@ -14,6 +14,7 @@ import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.lang.StringBuilder
 import java.net.URLConnection
 
 /**
@@ -24,15 +25,15 @@ import java.net.URLConnection
  */
 class OkHttpEngine : IHttpEngine {
     private var mOkHttpClient: OkHttpClient? = null
+    private var mUrl: String = ""
     fun setOkHttpClient(okHttpClient: OkHttpClient?) {
         mOkHttpClient = okHttpClient
     }
 
-    override fun get(context: Context, url: String, params: Map<String, Any>, callBack: EngineCallBack) {
-        var url = url
-        url = HttpUtils.jointParams(url, params)
-        LogUtils.e("Get请求路径：$url")
-        val requestBuilder = Request.Builder().url(url).tag(context)
+    override fun get(context: Context, url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
+        mUrl = HttpUtils.jointParams(url, params)
+        LogUtils.e("Get请求路径：$mUrl")
+        val requestBuilder = Request.Builder().url(mUrl).tag(context)
         //可以省略，默认是GET请求
         val request = requestBuilder.build()
         mOkHttpClient!!.newCall(request).enqueue(object : Callback {
@@ -50,12 +51,11 @@ class OkHttpEngine : IHttpEngine {
         })
     }
 
-    override fun post(context: Context, url: String, params: Map<String, Any>, callBack: EngineCallBack) {
-        val jointUrl = HttpUtils.jointParams(url, params) //打印
-        LogUtils.e("Post请求路径：$jointUrl")
+    override fun post(context: Context, url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
+        mUrl = url
         val requestBody = appendBody(params)
         val request = Request.Builder()
-                .url(url)
+                .url(mUrl)
                 .tag(context)
                 .post(requestBody)
                 .build()
@@ -169,16 +169,16 @@ class OkHttpEngine : IHttpEngine {
 
     // 添加参数
     private fun addParams(builder: MultipartBody.Builder, params: Map<String, Any>?) {
-        if (params != null && !params.isEmpty()) {
+        val sb = StringBuffer("post请求:$mUrl").append("\n参数：")
+        if (params != null && params.isNotEmpty()) {
             for (key in params.keys) {
-                builder.addFormDataPart(key, params[key].toString() + "")
+                //builder.addFormDataPart(key, params[key].toString() + "")
                 val value = params[key]
                 if (value is File) {
                     // 处理文件 --> Object File
-                    val file = value
-                    builder.addFormDataPart(key, file.name, RequestBody
-                            .create(MediaType.parse(guessMimeType(file
-                                    .absolutePath)), file))
+                    builder.addFormDataPart(key, value.name, RequestBody
+                            .create(MediaType.parse(guessMimeType(value
+                                    .absolutePath)), value))
                 } else if (value is List<*>) {
                     // 代表提交的是 List集合
                     try {
@@ -195,9 +195,11 @@ class OkHttpEngine : IHttpEngine {
                     }
                 } else {
                     builder.addFormDataPart(key, value.toString() + "")
+                    sb.append("[$key=$value],")
                 }
             }
         }
+        LogUtils.e(sb.toString())
     }
 
     /**
@@ -217,8 +219,6 @@ class OkHttpEngine : IHttpEngine {
             mOkHttpClient = okHttpClient
         }
     }
-
-
 
 
 }

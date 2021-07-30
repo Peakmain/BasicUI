@@ -14,6 +14,7 @@ import com.peakmain.basicui.utils.ToastUtils
 import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_BACKSPLASH_VALUE
 import com.peakmain.ui.utils.network.HttpUtils.Companion.with
 import com.peakmain.ui.utils.network.callback.DownloadCallback
 import com.peakmain.ui.utils.network.callback.EngineCallBack
@@ -53,6 +54,7 @@ class OkHttpActivity : BaseActivity() {
     override fun initData() {
         mBean = ArrayList()
         mBean.add("get方法请求")
+        mBean.add("get方法请求——干货集中营接口")
         mBean.add("post方法请求")
         mBean.add("单线程下载")
         mBean.add("多线程下载")
@@ -72,12 +74,30 @@ class OkHttpActivity : BaseActivity() {
                                 }
 
                                 override fun onSuccess(result: String?) {
-                                    mTvResult!!.text = result
+                                    mTvResult.text = result
                                 }
                             })
-                    1 -> with(this@OkHttpActivity)
+                    1->{
+                        with(this@OkHttpActivity)
+                                .url("http://gank.io/api/search/query/listview/")
+                                .addParams("category","Android")
+                                .addParams("count","10")
+                                .addParams("page","1")
+                                .paramsType(PARAMS_KEY_BACKSPLASH_VALUE)
+                                .execture(object :EngineCallBack{
+                                    override fun onError(e: Exception?) {
+                                        LogUtils.e(e!!.message)
+                                    }
+
+                                    override fun onSuccess(result: String?) {
+                                        mTvResult.text = result
+                                    }
+
+                                })
+                    }
+                    2 -> with(this@OkHttpActivity)
                             .url("https://www.wanandroid.com/user/login")
-                            .addParams("username", "peakmain")
+                            .addParams("username", "peakmain123")
                             .addParams("password", "123456")
                             .post()
                             .execture(object : EngineCallBack {
@@ -86,10 +106,10 @@ class OkHttpActivity : BaseActivity() {
                                 }
 
                                 override fun onSuccess(result: String?) {
-                                    mTvResult!!.text = result
+                                    mTvResult.text = result
                                 }
                             })
-                    2 -> {
+                    3 -> {
                         val file = File(Environment.getExternalStorageDirectory(), "test.apk")
                         if (file.exists()) {
                             file.delete()
@@ -117,7 +137,7 @@ class OkHttpActivity : BaseActivity() {
                                     }
                                 })
                     }
-                    3 -> {
+                    4-> {
                         file = File(Environment.getExternalStorageDirectory(), "test.apk")
                         if (file.exists()) {
                             file.delete()
