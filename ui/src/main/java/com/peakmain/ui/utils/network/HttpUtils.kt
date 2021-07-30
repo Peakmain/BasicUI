@@ -1,13 +1,13 @@
 package com.peakmain.ui.utils.network
 
 import android.content.Context
+import androidx.annotation.StringDef
 import com.peakmain.ui.utils.network.callback.DownloadCallback
 import com.peakmain.ui.utils.network.callback.EngineCallBack
 import com.peakmain.ui.utils.network.callback.ProgressEngineCallBack
 import okhttp3.OkHttpClient
 import java.io.File
 import java.lang.reflect.ParameterizedType
-import java.util.*
 
 /**
  * author ：Peakmain
@@ -21,14 +21,15 @@ class HttpUtils {
 
     //请求方式
     private var mType = GET_TYPE
-    private lateinit var mContext: Context
-    private lateinit var mParams: MutableMap<String, Any>
-    private var mFile: File?=null
+    private  var mContext: Context
+    private var mParams: LinkedHashMap<String, Any>
+    private var mFile: File? = null
+
 
     //不允许外部去调用
     private constructor(context: Context) {
         mContext = context
-        mParams = HashMap()
+        mParams = LinkedHashMap()
     }
 
     //url
@@ -40,6 +41,11 @@ class HttpUtils {
     //get请求
     fun get(): HttpUtils {
         mType = GET_TYPE
+        return this
+    }
+
+    fun paramsType(@ParamsType paramsType: String): HttpUtils {
+        mParamsType = paramsType
         return this
     }
 
@@ -82,7 +88,7 @@ class HttpUtils {
      * @param value string类型
      */
     fun addParams(key: String, value: String): HttpUtils {
-        mParams!![key] = value
+        mParams[key] = value
         return this
     }
 
@@ -93,7 +99,7 @@ class HttpUtils {
      * @param file 文件类型
      */
     fun addParams(key: String, file: File): HttpUtils {
-        mParams!![key] = file
+        mParams[key] = file
         return this
     }
 
@@ -103,7 +109,7 @@ class HttpUtils {
      * @param params 参数集合
      */
     fun addParams(params: Map<String, Any>): HttpUtils {
-        mParams!!.putAll(params!!)
+        mParams.putAll(params)
         return this
     }
 
@@ -156,8 +162,6 @@ class HttpUtils {
         }
     }
 
-    constructor() {}
-
     /**
      * 切换引擎
      */
@@ -166,17 +170,17 @@ class HttpUtils {
         return this
     }
 
-    private operator fun get(url: String, params: Map<String, Any>, callBack: EngineCallBack) {
+    private operator fun get(url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
         mHttpEngine[mContext, url, params, callBack]
     }
 
-    private fun post(url: String, params: Map<String, Any>, callBack: EngineCallBack) {
+    private fun post(url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
         mHttpEngine.post(mContext, url, params, callBack)
     }
 
     private fun uploadFile(url: String, file: File, callBack: EngineCallBack) {
         if (callBack is ProgressEngineCallBack) {
-            mHttpEngine.uploadFile(mContext, url, file, callBack as ProgressEngineCallBack)
+            mHttpEngine.uploadFile(mContext, url, file, callBack)
         }
     }
 
@@ -188,12 +192,19 @@ class HttpUtils {
         mHttpEngine.downloadMultiManager(mContext, url, file, callback)
     }
 
+    @StringDef(PARAMS_KEY_EQUAL_VALUE, PARAMS_KEY_BACKSPLASH_VALUE)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class ParamsType
     companion object {
         private const val GET_TYPE = 0x0010
         private const val POST_TYPE = 0x0011
         private const val UPLOAD_TYPE = 0x0012
         private const val DOWNLOAD_SINGLE_TYPE = 0x0013
         private const val DOWNLOAD_MULTI_TYPE = 0x0014
+        const val PARAMS_KEY_EQUAL_VALUE: String = "PARAMS_KEY_EQUAL_VALUE"
+        const val PARAMS_KEY_BACKSPLASH_VALUE: String = "PARAMS_KEY_BACKSPLASH_VALUE"
+        private var mParamsType = PARAMS_KEY_EQUAL_VALUE
+
         @JvmStatic
         fun with(context: Context): HttpUtils {
             return HttpUtils(context)
@@ -210,8 +221,8 @@ class HttpUtils {
         /**
          * 拼接参数
          */
-        fun jointParams(url: String, params: Map<String, Any>): String {
-            if (params == null || params.size <= 0) {
+        fun jointParams(url: String, params: LinkedHashMap<String, Any>): String {
+            if (params.isEmpty()) {
                 return url
             }
             val stringBuffer = StringBuffer(url)
@@ -223,7 +234,10 @@ class HttpUtils {
                 }
             }
             for ((key, value) in params) {
-                stringBuffer.append("$key=$value&")
+                if (mParamsType == PARAMS_KEY_EQUAL_VALUE)
+                    stringBuffer.append("$key=$value&")
+                else
+                    stringBuffer.append("$key/$value/")
             }
             stringBuffer.deleteCharAt(stringBuffer.length - 1)
             return stringBuffer.toString()

@@ -20,7 +20,7 @@ interface IHttpEngine {
      * @param params 方法参数的集合
      * @param callBack 回掉
      */
-    operator fun get(context: Context, url: String, params: Map<String, Any>, callBack: EngineCallBack)
+    operator fun get(context: Context, url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack)
 
     /**
      * post方法
@@ -29,7 +29,7 @@ interface IHttpEngine {
      * @param params 方法参数的集合
      * @param callBack 回掉
      */
-    fun post(context: Context, url: String, params: Map<String, Any>, callBack: EngineCallBack)
+    fun post(context: Context, url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack)
 
     /**
      * 上传文件
