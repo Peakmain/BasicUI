@@ -1,5 +1,6 @@
 package com.peakmain.ui.widget
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
@@ -41,7 +42,9 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         ta.getColor(R.styleable.CrumbView_dark_color, ARROW_DARK_COLOR)
         ta.recycle()
     }
-
+   fun setActivity(activity: FragmentActivity){
+       setActivity(activity,"")
+   }
     fun setActivity(activity: FragmentActivity, label: String) {
         mFragmentManager = activity.supportFragmentManager
         mFragmentManager?.addOnBackStackChangedListener {
@@ -84,10 +87,10 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private fun updateCrumbs() {
         val numFrags = mFragmentManager!!.backStackEntryCount
         var numCrumbs = mContainer.childCount
-        var i = 0
         for (i in 0..numFrags) {
             val backStackEntryAt = mFragmentManager?.getBackStackEntryAt(i)
             var itemView: View
+            //移除tag!=backStackEntryAt
             if (i < numCrumbs) {
                 itemView = mContainer.getChildAt(i)
                 val tag = itemView.tag
@@ -98,13 +101,14 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
                     numCrumbs = i
                 }
             }
+            //新增一个item
             if (i >= numCrumbs) {
                 itemView = LayoutInflater.from(this.context).inflate(layout.ui_crumb_item_layout, null)
                 val tvName: TextView = itemView.findViewById(R.id.ui_tv_name)
                 tvName.text = backStackEntryAt?.breadCrumbTitle
                 itemView.tag = backStackEntryAt
                 itemView.setOnClickListener {
-                    var bse: FragmentManager.BackStackEntry
+                    val bse: FragmentManager.BackStackEntry
                     if (it.tag is FragmentManager.BackStackEntry) {
                         bse = it.tag as FragmentManager.BackStackEntry
                         mFragmentManager?.popBackStack(bse.id, 0)
