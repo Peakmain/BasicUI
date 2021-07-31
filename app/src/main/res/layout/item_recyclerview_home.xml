@@ -8,6 +8,6 @@
     android:gravity="center"
     android:padding="@dimen/space_10"
     android:background="@color/white"
-    android:textColor="@color/color_4A4A4A"
+    android:textColor="@color/ui_color_4A4A4A"
     android:textSize="@dimen/font_16"
     tools:text="首页" />

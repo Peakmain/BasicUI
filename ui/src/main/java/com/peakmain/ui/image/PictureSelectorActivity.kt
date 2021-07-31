@@ -102,7 +102,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         mStvComplete = findViewById(R.id.ui_stv_complete)
         mConfig = PictureSelectionConfig.newInstance
         mStvComplete.isEnabled = false
-        mStvComplete.setNormalBackgroundColor(ContextCompat.getColor(this, R.color.color_802F73F6))
+        mStvComplete.setNormalBackgroundColor(ContextCompat.getColor(this, R.color.ui_color_802F73F6))
     }
 
     private fun getIntentResult() {
@@ -309,13 +309,13 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                 setNormalBackgroundColor(
                         ContextCompat.getColor(
                                 this@PictureSelectorActivity,
-                                R.color.color_802F73F6
+                                R.color.ui_color_802F73F6
                         )
                 )
                 setTextColor(
                         ContextCompat.getColor(
                                 this@PictureSelectorActivity,
-                                R.color.color_9B9B9B
+                                R.color.ui_color_9B9B9B
                         )
                 )
             }
@@ -325,7 +325,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                 mStvComplete.setNormalBackgroundColor(
                         ContextCompat.getColor(
                                 this@PictureSelectorActivity,
-                                R.color.color_2F73F6
+                                R.color.ui_color_2F73F6
                         )
                 )
                 setTextColor(
