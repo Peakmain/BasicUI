@@ -105,10 +105,10 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
     private fun intDefaultOption() {
         mTextSize = 18
         mSelectTextColor =
-            ContextCompat.getColor(mContext, R.color.color_4A4A4A)
+            ContextCompat.getColor(mContext, R.color.ui_color_4A4A4A)
         mUnSelectTextColor =
-            ContextCompat.getColor(mContext, R.color.color_AFAFAF)
-        mDividerColor = ContextCompat.getColor(mContext, R.color.color_F5F5F5)
+            ContextCompat.getColor(mContext, R.color.ui_color_AFAFAF)
+        mDividerColor = ContextCompat.getColor(mContext, R.color.ui_color_F5F5F5)
         setmTextSize(mTextSize)
         setSelectTextColor(mSelectTextColor)
         setUnSelectTextColor(mUnSelectTextColor)

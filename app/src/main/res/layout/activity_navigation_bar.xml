@@ -15,7 +15,7 @@
         android:buttonTint="@color/checkbox_button_tint"
         android:checked="true"
         android:text="@string/show_right_arrow"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.basicui.view.RadioCancelButton
@@ -25,7 +25,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/set_left_text"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.basicui.view.RadioCancelButton
@@ -35,7 +35,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/hide_left_text"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.basicui.view.RadioCancelButton
@@ -45,7 +45,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/hide_title"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
 
@@ -56,7 +56,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/alert_background_color"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.basicui.view.RadioCancelButton
@@ -66,7 +66,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/show_back_button"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.basicui.view.RadioCancelButton
@@ -76,7 +76,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/show_toolbar_title"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.basicui.view.RadioCancelButton
@@ -86,7 +86,7 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/checkbox_button_tint"
         android:text="@string/alert_right_image"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 
     <com.peakmain.ui.widget.ShapeTextView

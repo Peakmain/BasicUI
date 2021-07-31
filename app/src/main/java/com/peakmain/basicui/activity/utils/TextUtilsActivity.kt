@@ -1,8 +1,6 @@
 package com.peakmain.basicui.activity.utils
 
-import android.content.Context
 import android.graphics.Typeface
-import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -54,7 +52,7 @@ class TextUtilsActivity : BaseActivity() {
                 //第二个高亮文本区域
                 .setClipText(ContextCompat.getColor(this, R.color.colorAccent), mTvContent2.text.indexOf("点"), mTvContent2.length())
                 .setAbsoluteTextSize(28)
-                .setBackgroundColor(ContextCompat.getColor(this,R.color.color_CDCECE))
+                .setBackgroundColor(ContextCompat.getColor(this,R.color.ui_color_CDCECE))
                  .setOnClickableSpan(object : OnClickableSpan {
                     override fun onClickableSpan(view: View) {
                         ToastUtils.showShort("点击了“点击”")

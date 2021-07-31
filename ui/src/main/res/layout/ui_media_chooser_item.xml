@@ -47,7 +47,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:text="@string/ui_take_photo"
-            android:textColor="@color/color_CDCECE"
+            android:textColor="@color/ui_color_CDCECE"
             android:textSize="@dimen/font_size_14" />
     </LinearLayout>
 
