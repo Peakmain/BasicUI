@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         android:textSize="@dimen/font_16"
         android:layout_gravity="center"
 
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         android:textSize="@dimen/font_16"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/space_10"
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_4A4A4A"
+        android:textColor="@color/ui_color_4A4A4A"
         android:textSize="@dimen/font_16"
         android:layout_gravity="center"
         android:autoLink="web"
