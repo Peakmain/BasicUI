@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_4A4A4A">#4A4A4A</color>
-    <color name="color_333333">#333333</color>
-    <color name="color_6A6A6A">#6A6A6A</color>
-    <color name="color_434343">#434343</color>
-    <color name="color_191919">#191919</color>
-    <color name="color_08B906">#08B906</color>
-    <color name="color_CDCECE">#CDCECE</color>
-    <color name="color_2F73F6">#2F73F6</color>
-    <color name="color_802F73F6">#802F73F6</color>
-    <color name="color_9B9B9B">#9B9B9B</color>
-    <color name="color_F5F5F5">#F5F5F5</color>
-    <color name="color_BE3468">#BE3468</color>
-    <color name="color_AFAFAF">#AFAFAF</color>
+    <color name="ui_color_4A4A4A">#4A4A4A</color>
+    <color name="ui_color_333333">#333333</color>
+    <color name="ui_color_6A6A6A">#6A6A6A</color>
+    <color name="ui_color_434343">#434343</color>
+    <color name="ui_color_191919">#191919</color>
+    <color name="ui_color_08B906">#08B906</color>
+    <color name="ui_color_CDCECE">#CDCECE</color>
+    <color name="ui_color_2F73F6">#2F73F6</color>
+    <color name="ui_color_802F73F6">#802F73F6</color>
+    <color name="ui_color_9B9B9B">#9B9B9B</color>
+    <color name="ui_color_F5F5F5">#F5F5F5</color>
+    <color name="ui_color_BE3468">#BE3468</color>
+    <color name="ui_color_AFAFAF">#AFAFAF</color>
+    <color name="ui_color_7F7F7F">#7F7F7F</color>
 </resources>

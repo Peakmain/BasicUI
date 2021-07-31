@@ -21,9 +21,9 @@ class RoundCheckBox @JvmOverloads constructor(context: Context, attrs: Attribute
         super.onDraw(canvas)
         val checked = isChecked
         buttonTintList = if (!checked) {
-            ContextCompat.getColorStateList(context, com.peakmain.ui.R.color.color_6A6A6A)
+            ContextCompat.getColorStateList(context, com.peakmain.ui.R.color.ui_color_6A6A6A)
         } else {
-            ContextCompat.getColorStateList(context, com.peakmain.ui.R.color.color_08B906)
+            ContextCompat.getColorStateList(context, com.peakmain.ui.R.color.ui_color_08B906)
         }
     }
 }

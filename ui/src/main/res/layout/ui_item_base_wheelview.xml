@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_44"
-        android:background="@color/color_F5F5F5"
+        android:background="@color/ui_color_F5F5F5"
         android:paddingLeft="@dimen/dimen_15"
         android:paddingRight="@dimen/dimen_15">
 
@@ -23,7 +23,7 @@
             android:paddingLeft="@dimen/dimen_5"
             android:paddingRight="@dimen/dimen_5"
             android:text="取消"
-            android:textColor="@color/color_BE3468"
+            android:textColor="@color/ui_color_BE3468"
             android:textSize="@dimen/font_size_16"
             android:layout_alignParentLeft="true" />
 
@@ -34,7 +34,7 @@
             android:layout_centerInParent="true"
             android:maxLength="10"
             android:gravity="center"
-            android:textColor="@color/color_4A4A4A"
+            android:textColor="@color/ui_color_4A4A4A"
             android:textSize="@dimen/font_size_16"
             tools:text="标题" />
 
@@ -47,7 +47,7 @@
             android:paddingLeft="@dimen/dimen_5"
             android:paddingRight="@dimen/dimen_5"
             android:text="确认"
-            android:textColor="@color/color_BE3468"
+            android:textColor="@color/ui_color_BE3468"
             android:textSize="@dimen/font_size_16"
             android:layout_alignParentRight="true" />
     </RelativeLayout>
