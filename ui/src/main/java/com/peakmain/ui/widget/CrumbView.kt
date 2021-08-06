@@ -72,7 +72,7 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     }
 
     private fun setLab(activity: FragmentActivity, label: String) {
-        val itemView: View = LayoutInflater.from(this.context).inflate(layout.ui_crumb_item_header, null)
+        val itemView: View = LayoutInflater.from(this.context).inflate(R.layout.ui_crumb_item_header, null)
         val tvName: TextView = itemView.findViewById(R.id.ui_tv_name)
         tvName.apply {
             text = label
@@ -103,7 +103,7 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             }
             //新增一个item
             if (i >= numCrumbs) {
-                itemView = LayoutInflater.from(this.context).inflate(layout.ui_crumb_item_layout, null)
+                itemView = LayoutInflater.from(this.context).inflate(R.layout.ui_crumb_item_layout, null)
                 val tvName: TextView = itemView.findViewById(R.id.ui_tv_name)
                 tvName.text = backStackEntryAt?.breadCrumbTitle
                 itemView.tag = backStackEntryAt
@@ -113,7 +113,7 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
                         bse = it.tag as FragmentManager.BackStackEntry
                         mFragmentManager?.popBackStack(bse.id, 0)
                     } else {
-                        val count = mFragmentManager?.backStackEntryCount
+                        val count = mFragmentManager!!.backStackEntryCount
                         if (count > 0) {
                             bse = mFragmentManager!!.getBackStackEntryAt(0)
                             mFragmentManager!!.popBackStack(bse.id, 0)
