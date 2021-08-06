@@ -1,18 +1,23 @@
 package com.peakmain.ui.image.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.LoaderManager
 import android.content.CursorLoader
 import android.content.Intent
 import android.content.Loader
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,7 +31,9 @@ import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
+import com.peakmain.ui.image.entry.GifPlayerMessage
 import com.peakmain.ui.image.entry.PictureFileInfo
+import com.peakmain.ui.image.gif.GifHelper
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
@@ -56,6 +63,21 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
         const val MAX_FILESIZE = 20 //文件最大体积
     }
 
+
+
+    var mHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            val gifPlayCallback: GifPlayerMessage = msg.obj as GifPlayerMessage
+            val gifHelper = gifPlayCallback.gifHelper
+            val bitmap = gifPlayCallback.bitmap
+            val delay = gifHelper.updateFrame(bitmap)
+            gifPlayCallback.imageView.setImageBitmap(bitmap)
+            val message = Message()
+            message.what = msg.what
+            message.obj = GifPlayerMessage(gifHelper, bitmap, gifPlayCallback.imageView, delay)
+            sendMessageDelayed(message, delay.toLong())
+        }
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -187,6 +209,12 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
             }
 
         })
+        mImageAdapter?.setGifPlayCallBack { gifHelper, bitmap, imageView, delay ->
+            val message = Message()
+            message.what = 100
+            message.obj = GifPlayerMessage(gifHelper, bitmap, imageView, delay)
+            mHandler.sendMessageDelayed(message, delay.toLong())
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -295,5 +323,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     override fun onDestroy() {
         super.onDestroy()
         PermissionUtils.onDestory()
+        mHandler.removeMessages(100)
+        mHandler = Handler()
     }
 }

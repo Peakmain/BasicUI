@@ -1,5 +1,8 @@
 package com.peakmain.ui.image.entry
 
+import android.graphics.Bitmap
+import android.widget.ImageView
+import com.peakmain.ui.image.gif.GifHelper
 import java.io.Serializable
 
 
@@ -76,3 +79,4 @@ class PictureFileInfo : Serializable {
 
 
 }
+data class GifPlayerMessage(val gifHelper: GifHelper, val bitmap: Bitmap, val imageView: ImageView, val delay: Int)

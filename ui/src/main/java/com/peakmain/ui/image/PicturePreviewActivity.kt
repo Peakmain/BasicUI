@@ -1,6 +1,8 @@
 package com.peakmain.ui.image
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -16,8 +18,10 @@ import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.config.PicturePreviewConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
+import com.peakmain.ui.image.entry.GifPlayerMessage
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.FileListFragment
+import com.peakmain.ui.image.fragment.PictureSelectFragment
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.ToastUtils
@@ -61,6 +65,20 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
         getIntentResult()
         initData()
         initListener()
+    }
+
+    var mHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            val gifPlayCallback: GifPlayerMessage = msg.obj as GifPlayerMessage
+            val gifHelper = gifPlayCallback.gifHelper
+            val bitmap = gifPlayCallback.bitmap
+            val delay = gifHelper.updateFrame(bitmap)
+            gifPlayCallback.imageView.setImageBitmap(bitmap)
+            val message = Message()
+            message.what = msg.what
+            message.obj = GifPlayerMessage(gifHelper, bitmap, gifPlayCallback.imageView, delay)
+            sendMessageDelayed(message, delay.toLong())
+        }
     }
 
     private fun initListener() {
@@ -133,11 +151,17 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
         } else {
             mTvNumber.text = "${currentPosition + 1} / ${mAllImageList?.size}"
         }
-        mViewPager.adapter = PicturePrieviewAdapter(this, mAllImageList!!)
+        val adapter = PicturePrieviewAdapter(this, mAllImageList!!)
+        mViewPager.adapter = adapter
         mViewPager.currentItem = currentPosition
         mViewPager.addOnPageChangeListener(this)
         updateSelectText()
-
+        adapter.setGifPlayCallBack { gifHelper, bitmap, imageView, delay ->
+            val message = Message()
+            message.what = 100
+            message.obj = GifPlayerMessage(gifHelper, bitmap, imageView, delay)
+            mHandler.sendMessageDelayed(message, delay.toLong())
+        }
     }
 
     private fun getIntentResult() {
@@ -282,5 +306,11 @@ internal class PicturePreviewActivity : AppCompatActivity(), ViewPager.OnPageCha
                 0,
                 R.anim.ui_activity_exit_transition_anim
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeMessages(100)
+        mHandler = Handler()
     }
 }
