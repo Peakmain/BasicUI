@@ -1,6 +1,10 @@
 package com.peakmain.ui.image.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.os.Handler
+import android.os.Message
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -10,10 +14,13 @@ import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.image.`interface`.UpdateSelectListener
 import com.peakmain.ui.image.config.PictureConfig
+import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.PictureSelectFragment
+import com.peakmain.ui.image.gif.GifHelper
 import com.peakmain.ui.imageLoader.ImageLoader
 import com.peakmain.ui.utils.FileUtils.createTmpFile
+import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.ToastUtils
 import java.io.IOException
 import kotlin.collections.ArrayList
@@ -34,7 +41,7 @@ class PictureSelectorListAdapter(
         ArrayList<PictureFileInfo>(),
         R.layout.ui_media_chooser_item
 ) {
-
+    var gifPlayerCallback:( (gifHelper:GifHelper,bitmap:Bitmap, imageView:ImageView,delay:Int) -> Unit)? =null
     override fun convert(
             holder: ViewHolder,
             item: PictureFileInfo?
@@ -61,7 +68,26 @@ class PictureSelectorListAdapter(
             // 显示图片
             val imageView =
                     holder.getView<ImageView>(R.id.image)
-            ImageLoader.instance?.displayImage(mContext!!,item.filePath!!,imageView)
+            if (PictureFileMimeType.isImageGif(item.filePath!!)) {
+
+                val gifHelper = GifHelper.load(item.filePath)
+                if(gifHelper!=null){
+                    val width = gifHelper.width
+                    val height = gifHelper.height
+                    LogUtils.i("${item.filePath}的gif图片的宽:$width, 高:$height")
+                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                    val delay = gifHelper.updateFrame(bitmap)
+                    imageView?.setImageBitmap(bitmap)
+                    if (gifPlayerCallback != null) {
+                        gifPlayerCallback?.let { it(gifHelper,bitmap,imageView!!,delay) }
+                    }
+                }else{
+                    ImageLoader.instance?.displayImage(mContext!!, item.filePath!!, imageView)
+                }
+            } else {
+                ImageLoader.instance?.displayImage(mContext!!, item.filePath!!, imageView)
+            }
+
             val selectedIndicatorIv =
                     holder.getView<ImageView>(R.id.media_selected_indicator)
             for (mSelectImage in mSelectImages) {
@@ -83,9 +109,9 @@ class PictureSelectorListAdapter(
             else
                 holder.setVisibility(View.INVISIBLE, R.id.mask)
             holder.setOnItemClickListener(R.id.media_selected_indicator, View.OnClickListener {
-                if(item.fileSize> PictureSelectFragment.MAX_FILESIZE*1024*1024){
+                if (item.fileSize > PictureSelectFragment.MAX_FILESIZE * 1024 * 1024) {
                     ToastUtils.showLong("无法选择大于${PictureSelectFragment.MAX_FILESIZE}M的文件")
-                }else{
+                } else {
                     if (mSelectImages.contains(selectImageFileEntity)) {
                         mSelectImages.remove(selectImageFileEntity)
                         item.isSelect = false
@@ -177,7 +203,9 @@ class PictureSelectorListAdapter(
         mListener = listener
     }
 
-
+     fun setGifPlayCallBack(gifPlayerCallback: ((gifHelper:GifHelper,bitmap:Bitmap,imageView:ImageView,delay:Int) -> Unit)?){
+         this.gifPlayerCallback=gifPlayerCallback
+     }
     companion object {
         const val REQUEST_CAMERA = 0x0045
     }
