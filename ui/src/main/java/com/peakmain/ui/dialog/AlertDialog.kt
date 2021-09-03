@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import com.peakmain.ui.R
 
 /**
@@ -17,12 +18,15 @@ import com.peakmain.ui.R
 class AlertDialog : Dialog {
     private var mAlert: AlertController
 
-    private constructor(context: Context) : super(context) {
-        mAlert = AlertController(this, window)
+    private constructor(@NonNull context: Context) : super(context) {
+        mAlert = AlertController(this, window!!)
     }
 
-    private constructor(context: Context, themeResId: Int) : super(context, themeResId) {
-        mAlert = AlertController(this, window)
+    private constructor(@NonNull context: Context, themeResId: Int) : super(
+            context,
+            themeResId
+    ) {
+        mAlert = AlertController(this, window!!)
     }
 
     /**
@@ -40,10 +44,28 @@ class AlertDialog : Dialog {
         mAlert.setOnClickListener(viewId, listener)
     }
 
-    class Builder @JvmOverloads constructor(context: Context?, themeResId: Int = R.style.dialog) {
+    fun setVisibility(isShow: Boolean, id: Int) {
+        getView<View>(id).visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    fun setVisibility(isShow: Boolean, vararg ids: Int) {
+        ids.forEach { id ->
+            setVisibility(isShow, id)
+        }
+    }
+
+    class Builder @JvmOverloads constructor(
+            context: Context?,
+            themeResId: Int = R.style.dialog
+    ) {
         private val P: AlertController.AlertParams
-        private fun create(): AlertDialog {
-            val dialog = AlertDialog(P.mContext, P.themeResId)
+        private var mDialog: AlertDialog? = null
+        fun create(): AlertDialog {
+            val dialog =
+                    AlertDialog(
+                            P.mContext,
+                            P.themeResId
+                    )
             P.apply(dialog.mAlert)
             dialog.setCancelable(P.mCancelable)
             if (P.mCancelable) {
@@ -55,8 +77,10 @@ class AlertDialog : Dialog {
             if (P.mOnKeyListener != null) {
                 dialog.setOnKeyListener(P.mOnKeyListener)
             }
+            mDialog = dialog
             return dialog
         }
+
 
         /**
          * set view
@@ -76,7 +100,10 @@ class AlertDialog : Dialog {
         /**
          * save text in the custom View
          */
-        fun setText(layoutId: Int, text: CharSequence?): Builder {
+        fun setText(
+                layoutId: Int,
+                text: CharSequence?
+        ): Builder {
             P.mTextArray.put(layoutId, text)
             return this
         }
@@ -84,15 +111,32 @@ class AlertDialog : Dialog {
         /**
          * save button click events in the custom View
          */
-        fun setOnClickListener(layoutId: Int, listener: View.OnClickListener?): Builder {
+        fun setOnClickListener(
+                layoutId: Int,
+                listener: View.OnClickListener?
+        ): Builder {
             P.mClickArray.put(layoutId, listener)
+            return this
+        }
+
+        /**
+         * save button click events in the custom View and return dialog for cancel
+         */
+        fun addOnClickListener(
+                layoutId: Int,
+                listener: (dialog: AlertDialog?) -> Unit
+        ): Builder {
+            P.mClickArray.put(layoutId, View.OnClickListener { listener(mDialog) })
             return this
         }
 
         /**
          * set width and height
          */
-        fun setWidthAndHeight(width: Int, heigth: Int): Builder {
+        fun setWidthAndHeight(
+                width: Int,
+                heigth: Int
+        ): Builder {
             P.mWidth = width
             P.mHeigth = heigth
             return this
@@ -159,13 +203,18 @@ class AlertDialog : Dialog {
          * show dialog
          */
         fun show(): AlertDialog {
-            val dialog = create()
-            dialog.show()
-            return dialog
+            if (mDialog == null) {
+                create()
+            }
+            mDialog!!.show()
+            return mDialog!!
         }
 
         init {
-            P = AlertController.AlertParams(context!!, themeResId)
+            P = AlertController.AlertParams(
+                    context!!,
+                    themeResId
+            )
         }
     }
 }
