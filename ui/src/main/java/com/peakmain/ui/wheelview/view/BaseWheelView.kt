@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
+import com.peakmain.ui.dialog.AlertDialog
 import com.peakmain.ui.utils.SizeUtils
 import com.peakmain.ui.wheelview.adapter.ArrayWheelAdapter
 
@@ -21,13 +22,13 @@ import com.peakmain.ui.wheelview.adapter.ArrayWheelAdapter
  * describe：基本WheelView
  */
 abstract class BaseWheelView<T>(private val mContext: Context, private val mViewType: ViewType) :
-    View.OnClickListener {
+        View.OnClickListener {
     //ONE 展示一个  TWO 两个 ALL 所有
     enum class ViewType {
         ONE, TWO, ALL
     }
 
-    private var mDialog: Dialog? = null
+    private var mDialog: AlertDialog? = null
     private lateinit var mView: View
     private var tvTitle: TextView? = null
     private lateinit var mTvCancel: TextView
@@ -45,7 +46,7 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      */
     private fun initView() {
         val inflater =
-            mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mView = inflater.inflate(R.layout.ui_item_base_wheelview, null)
         mWheelView1 = mView.findViewById(R.id.ui_wheel_view1)
         mWheelView2 = mView.findViewById(R.id.ui_wheel_view2)
@@ -72,22 +73,12 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      * 创建Dialog
      */
     private fun createDialog() {
-        mDialog = Dialog(mContext)
-        mDialog!!.setContentView(mView)
-        mDialog!!.setCancelable(true)
-        mDialog!!.setCanceledOnTouchOutside(true)
-        // 定义Dialog布局和参数
-        val dialogWindow = mDialog!!.window
-        dialogWindow!!.decorView.setPadding(0, 0, 0, 0)
-        val lp = dialogWindow.attributes
-        dialogWindow.setGravity(Gravity.LEFT or Gravity.BOTTOM)
-        lp.x = 0
-        lp.y = 0
-        lp.height = SizeUtils.screenHeight / 5 * 2
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.windowAnimations = R.style.dialog
-        dialogWindow.decorView.setBackgroundColor(Color.TRANSPARENT)
-        dialogWindow.attributes = lp
+        mDialog = AlertDialog.Builder(mContext)
+                .setContentView(mView)
+                .setCancelable(true)
+                .fromButtom(true)
+                .setFullWidth()
+                .create()
     }
 
     override fun onClick(v: View) {
@@ -105,11 +96,11 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
     private fun intDefaultOption() {
         mTextSize = 18
         mSelectTextColor =
-            ContextCompat.getColor(mContext, R.color.ui_color_4A4A4A)
+                ContextCompat.getColor(mContext, R.color.ui_color_4A4A4A)
         mUnSelectTextColor =
-            ContextCompat.getColor(mContext, R.color.ui_color_AFAFAF)
+                ContextCompat.getColor(mContext, R.color.ui_color_AFAFAF)
         mDividerColor = ContextCompat.getColor(mContext, R.color.ui_color_F5F5F5)
-        setmTextSize(mTextSize)
+        setTextSize(mTextSize)
         setSelectTextColor(mSelectTextColor)
         setUnSelectTextColor(mUnSelectTextColor)
         setDividerColor(mDividerColor)
@@ -124,19 +115,21 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      *
      * @param title
      */
-    protected fun setTitle(title: String?) {
+    fun setTitle(title: String?): BaseWheelView<T> {
         if (!TextUtils.isEmpty(title)) {
             tvTitle!!.text = title
         }
+        return this
     }
 
     /**
      * 设置字体大小
      */
-    protected fun setmTextSize(mTextSize: Int) {
+    fun setTextSize(mTextSize: Int): BaseWheelView<T> {
         mWheelView1.setTextSize(mTextSize.toFloat())
         mWheelView2.setTextSize(mTextSize.toFloat())
         mWheelView3.setTextSize(mTextSize.toFloat())
+        return this
     }
 
     /**
@@ -144,37 +137,41 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      *
      * @param colorOut
      */
-    protected fun setUnSelectTextColor(colorOut: Int) {
+    fun setUnSelectTextColor(colorOut: Int): BaseWheelView<T> {
         mWheelView1.setUnSelectTextColor(colorOut)
         mWheelView2.setUnSelectTextColor(colorOut)
         mWheelView3.setUnSelectTextColor(colorOut)
+        return this
     }
 
     /**
      * 设置选中的字体颜色
      */
-    protected fun setSelectTextColor(color: Int) {
+    fun setSelectTextColor(color: Int): BaseWheelView<T> {
         mWheelView1.setSelectTextColor(color)
         mWheelView2.setSelectTextColor(color)
         mWheelView3.setSelectTextColor(color)
+        return this
     }
 
     /**
      * 设置Itemde线条颜色
      */
-    protected fun setDividerColor(color: Int) {
+    fun setDividerColor(color: Int): BaseWheelView<T> {
         mWheelView1.setDividerColor(color)
         mWheelView2.setDividerColor(color)
         mWheelView3.setDividerColor(color)
+        return this
     }
 
     /**
      * 设置Item线条样式
      */
-    protected fun setDividerType(dividerType: WheelView.DividerType?) {
+    fun setDividerType(dividerType: WheelView.DividerType?): BaseWheelView<T> {
         mWheelView1.setDividerType(dividerType)
         mWheelView2.setDividerType(dividerType)
         mWheelView3.setDividerType(dividerType)
+        return this
     }
 
     /**
@@ -182,10 +179,11 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      *
      * @param cyclic 是否循环
      */
-    protected fun setCyclic(cyclic: Boolean) {
+    fun setCyclic(cyclic: Boolean): BaseWheelView<T> {
         mWheelView1.setCyclic(cyclic)
         mWheelView2.setCyclic(cyclic)
         mWheelView3.setCyclic(cyclic)
+        return this
     }
 
     /**
@@ -193,19 +191,21 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      *
      * @param gravity
      */
-    protected fun setGravity(gravity: Int) {
+    fun setGravity(gravity: Int): BaseWheelView<T> {
         mWheelView1.setGravity(gravity)
         mWheelView2.setGravity(gravity)
         mWheelView3.setGravity(gravity)
+        return this
     }
 
     /**
      * 是否只显示中间选中项的label文字，false则每项item全部都带有label。
      */
-    protected fun isCenterLabel(isCenterLabel: Boolean) {
+    fun isCenterLabel(isCenterLabel: Boolean): BaseWheelView<T> {
         mWheelView1.isCenterLabel(isCenterLabel)
         mWheelView2.isCenterLabel(isCenterLabel)
         mWheelView3.isCenterLabel(isCenterLabel)
+        return this
     }
 
     /**
