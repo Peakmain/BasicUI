@@ -1,30 +1,30 @@
 [
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\fast_out_slow_in.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\fast_out_slow_in.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml"
     },
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_0.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_0.xml"
     },
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_0.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_0.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\fast_out_slow_in.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\fast_out_slow_in.xml"
     },
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_radio_to_off_mtrl_animation_interpolator_0.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\btn_radio_to_off_mtrl_animation_interpolator_0.xml"
     },
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_radio_to_on_mtrl_animation_interpolator_0.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\btn_radio_to_on_mtrl_animation_interpolator_0.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml"
     },
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_radio_to_off_mtrl_animation_interpolator_0.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\btn_radio_to_off_mtrl_animation_interpolator_0.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_radio_to_on_mtrl_animation_interpolator_0.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\btn_radio_to_on_mtrl_animation_interpolator_0.xml"
     },
     {
-        "merged": "D:\\github\\PerformanceUtils\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_1.xml",
-        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\619eb85ad112cdba55a5ad99dfed8cff\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_1.xml"
+        "merged": "D:\\github\\BasicUI\\libbreakpad\\build\\intermediates\\res\\merged\\release\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_1.xml",
+        "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-2\\files-2.1\\f93c37cb33f0a4469bcdd8a34c0be00c\\appcompat-1.2.0\\res\\interpolator\\btn_checkbox_checked_mtrl_animation_interpolator_1.xml"
     }
 ]

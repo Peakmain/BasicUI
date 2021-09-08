@@ -1,5 +1,4 @@
-org/devio/as/proj/libbreakpad/BuildConfig.java
- org.devio.as.proj.libbreakpad.BuildConfig
+com/peakmain/ndk/BuildConfig.java
+ com.peakmain.ndk.BuildConfig
 com/peakmain/breakpad/NativeCrashHandler.java
  com.peakmain.breakpad.NativeCrashHandler
- com.peakmain.breakpad.NativeCrashHandler$OnFileUploadListener
