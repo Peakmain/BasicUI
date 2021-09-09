@@ -33,3 +33,8 @@ Now Android x is also supported
 ```
 implementation 'com.github.Peakmain:BasicUI:1.1.0-androidx'
 ```
+
+##### Demonstration
+****
+##### Screenshot
+![1.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/1.png)&emsp;
