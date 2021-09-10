@@ -12,7 +12,7 @@ import java.util.*
  */
 class TimePickerWheelView(
     mContext: Context,
-    private val mCallback: OnSelectTimeCallback?
+    private val mCallback: ((String?)->Unit)?=null
 ) : BaseWheelView<Any?>(mContext, ViewType.ALL) {
     private var mWheelTimeUtil: WheelTimeUtil? = null
     override fun init() {
@@ -40,12 +40,9 @@ class TimePickerWheelView(
     }
 
     override fun confirm() {
-        mCallback?.onSelectTime(mWheelTimeUtil!!.time)
+        mCallback?.invoke(mWheelTimeUtil!!.time)
         dismiss()
     }
 
-    interface OnSelectTimeCallback {
-        fun onSelectTime(time: String?)
-    }
 
 }

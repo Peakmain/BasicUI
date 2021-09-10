@@ -9,8 +9,8 @@ import com.peakmain.ui.wheelview.adapter.ArrayWheelAdapter
  * mail:2726449200@qq.com
  * describe：性别滚轮选择
  */
-class GenderWheelWindow(context: Context, private val mCallback: OnSelectGenderCallback) :
-    BaseWheelView<String>(context, ViewType.ONE) {
+class GenderWheelView(context: Context, private val mCallback: ((String) -> Unit)? = null) :
+        BaseWheelView<String>(context, ViewType.ONE) {
 
     override fun init() {
         val items = ArrayList<String>()
@@ -26,12 +26,9 @@ class GenderWheelWindow(context: Context, private val mCallback: OnSelectGenderC
 
     override fun confirm() {
         val item = mWheelView1.adapter.getItem(mWheelView1.currentItem) as String
-        mCallback.onSelectGenderCallback(item)
+        mCallback?.invoke(item)
         dismiss()
     }
 
-    interface OnSelectGenderCallback {
-        fun onSelectGenderCallback(option: String)
-    }
 
 }

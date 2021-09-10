@@ -52,6 +52,7 @@
         <activity android:name=".activity.home.keyboard.CustomPointKeyboardActivity" />
         <activity android:name=".activity.home.ImageSelectActivity" />
         <activity android:name=".activity.utils.TextUtilsActivity" />
+        <activity android:name=".activity.home.WheelViewSelectorActivity" />
     </application>
 
 </manifest>
