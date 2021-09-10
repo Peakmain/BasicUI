@@ -1,16 +1,14 @@
 package com.peakmain.basicui.activity.home
 
-import android.graphics.Bitmap
-import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.peakmain.basicui.BuildConfig
 import com.peakmain.basicui.R
+import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.compress.ImageCompressUtils.Companion.with
 import com.peakmain.ui.compress.OnCompressListener
 import com.peakmain.ui.image.PictureSelector
@@ -27,7 +25,7 @@ import java.util.*
  * mail:2726449200@qq.com
  * describe：
  */
-class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
+class ImageCompressActivity : BaseActivity(), View.OnClickListener {
     private var mIvImage: ImageView? = null
 
     /**
@@ -35,24 +33,22 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
      */
     private lateinit var mBtCompress: Button
     private var mTvResult: TextView? = null
-    private val mBitmap: Bitmap? = null
-    private val mPath: String? = null
     private lateinit var mImageLists: MutableList<String>
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_image_compress)
-        initView()
-        initData()
+
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_image_compress
     }
 
-    protected fun initView() {
+    override fun initView() {
         mIvImage = findViewById(R.id.iv_image)
         mBtCompress = findViewById(R.id.bt_compress)
         mBtCompress.setOnClickListener(this)
         mTvResult = findViewById(R.id.tv_result)
+        mNavigationBuilder!!.setTitleText("图片压缩").create()
     }
 
-    protected fun initData() {
+    override fun initData() {
         mImageLists = ArrayList()
     }
 
@@ -64,7 +60,7 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
                         ImageLoader.instance?.displayImage(this@ImageCompressActivity, result!![0].filePath!!, mIvImage)
                         val filePath = result!![0].filePath!!
                         mImageLists.add(filePath)
-                        mTvResult?.text=FileUtils.FormetFileSize(FileUtils.getFileSize(File(filePath)))
+                        mTvResult?.text = FileUtils.FormetFileSize(FileUtils.getFileSize(File(filePath)))
                     }
 
                 })
@@ -88,7 +84,7 @@ class ImageCompressActivity : AppCompatActivity(), View.OnClickListener {
                             override fun onSuccess(list: List<String?>?) {
                                 Log.e(BuildConfig.TAG, "压缩完成$list")
                                 Log.e(BuildConfig.TAG, "文件是否存在${File(list?.get(0)).exists()}")
-                                  mTvResult?.text=FileUtils.FormetFileSize(FileUtils.getFileSize(File(list?.get(0))))
+                                mTvResult?.text = FileUtils.FormetFileSize(FileUtils.getFileSize(File(list?.get(0))))
                             }
 
                             override fun onError(e: Throwable?) {
