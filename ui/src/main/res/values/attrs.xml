@@ -138,25 +138,6 @@
 
     <!--六个圆的默认颜色-->
     <color name="basic_defalut_inspect_color1">#FF9600</color>
-    <color name="basic_defalut_inspect_color2">#02D1AC</color>
-    <color name="basic_defalut_inspect_color3">#FFD200</color>
-    <color name="basic_defalut_inspect_color4">#00C6FF</color>
-    <color name="basic_defalut_inspect_color5">#00E099</color>
-    <color name="basic_defalut_inspect_color6">#FF3891</color>
-    <array name="inspect_circle_color">
-        <item>@color/basic_defalut_inspect_color1</item>
-        <item>@color/basic_defalut_inspect_color2</item>
-        <item>@color/basic_defalut_inspect_color3</item>
-        <item>@color/basic_defalut_inspect_color4</item>
-        <item>@color/basic_defalut_inspect_color5</item>
-        <item>@color/basic_defalut_inspect_color6</item>
-    </array>
-    <array name="rotation_loading_view">
-        <item>@color/basic_defalut_inspect_color1</item>
-        <item>@color/basic_defalut_inspect_color2</item>
-        <item>@color/basic_defalut_inspect_color3</item>
-        <item>@color/basic_defalut_inspect_color6</item>
-    </array>
 
     <!--58同城加载的loading-->
     <declare-styleable name="ShapeView">
