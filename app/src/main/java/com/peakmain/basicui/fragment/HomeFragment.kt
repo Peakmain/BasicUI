@@ -52,6 +52,7 @@ class HomeFragment : BaseFragmnet() {
         mHomeDataBean.add("RecyclerView的使用")
         mHomeDataBean.add("图片压缩")
         mHomeDataBean.add("图片选择库的使用")
+        mHomeDataBean.add("时间选择器")
         mAdapter = BaseRecyclerStringAdapter(context, mHomeDataBean)
         mRecyclerView!!.addItemDecoration(DividerGridItemDecoration(context!!))
         mRecyclerView!!.adapter = mAdapter
@@ -73,6 +74,7 @@ class HomeFragment : BaseFragmnet() {
                     10 -> ActivityUtil.gotoActivity(context, RecyclerActivity::class.java)
                     11 -> ActivityUtil.gotoActivity(context, ImageCompressActivity::class.java)
                     12->ActivityUtil.gotoActivity(context, ImageSelectActivity::class.java)
+                    13->ActivityUtil.gotoActivity(context,WheelViewSelectorActivity::class.java)
                     else -> {
                     }
                 }
