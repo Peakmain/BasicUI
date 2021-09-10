@@ -19,17 +19,17 @@ class PesudoImageData private constructor() {
             val times = arrayOf("2020年1月", "2020年2月", "2020年3月", "2020年4月")
             val groupBeans: MutableList<GroupBean> = ArrayList()
             for (i in 0..3) {
-                groupBeans.add(GroupBean("http://dingyue.nosdn.127.net/iQ7THjahD4whhkkp=O0KohtFXf1gdn8w0NJQkoEbWOaGn1517149396307compressflag.jpg", times[i]))
-                groupBeans.add(GroupBean("https://04.imgmini.eastday.com/mobile/20170509/5ed27871c50a965d0f73c83352534e0e.jpeg", times[i]))
-                groupBeans.add(GroupBean("http://image3.xyzs.com/upload/86/ce/39722/20130831/137795629164825_0.jpg", times[i]))
-                groupBeans.add(GroupBean("http://g-ec4.images-amazon.com/images/G/28/aplus_rbs/C791820130315487.jpg", times[i]))
-                groupBeans.add(GroupBean("http://p7.qhimg.com/t01fb77727413c50484.jpg", times[i]))
-                groupBeans.add(GroupBean("https://i03piccdn.sogoucdn.com/816305ef14d12f61", times[i]))
-                groupBeans.add(GroupBean("http://blog.ellechina.com/775207/files/2011/04/201104172052245qHeT-1024x640.jpg", times[i]))
-                groupBeans.add(GroupBean("http://www.jnfkzx.com/uploads/allimg/130427/2-13042G01213N2.jpg", times[i]))
-                groupBeans.add(GroupBean("http://img5.hao123.com/data/1_59c413fa3d0e8c96cf9877b36c90bb0b_510", times[i]))
-                groupBeans.add(GroupBean("http://5b0988e595225.cdn.sohucs.com/images/20191001/d650ac75a9314471844558c34b6917a9.jpeg", times[i]))
-                groupBeans.add(GroupBean("http://img2.hnol.net/bbsimg/2007-3-5/8/20073585258510501.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/Ue16c54cac6574a06a0c1afdad979b007W.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/Uec00959acd9c4d0aa900d5fb8ea481931.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/Uef43b2afdd2e4480aab896c8fad7e5f1c.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/U892b3e7fb9b84ce3ade783d3396fc371A.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/U76a18e0d315e407a8daf3d91de033e31i.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/Ue16c54cac6574a06a0c1afdad979b007W.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/Uec00959acd9c4d0aa900d5fb8ea481931.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/U9a21a2f4b83c4030b87c840bc07105e5A.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/U97dda0f4080140bb99911d798328f56dJ.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/Udc4f4aac155545818ea877ccb4d09aa0Y.jpg", times[i]))
+                groupBeans.add(GroupBean("https://ae01.alicdn.com/kf/U8f29046315a345b488a91f19e0691d7bx.jpg", times[i]))
             }
             return groupBeans
         }
