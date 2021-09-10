@@ -19,19 +19,20 @@ class MultiStateLayoutActivity : BaseActivity() {
     lateinit var list: MutableList<String>
     private var index = 20
     private var lastIndex = index + 10
-    private  var mAdapter: BaseRecyclerStringAdapter?=null
+    private var mAdapter: BaseRecyclerStringAdapter? = null
     override fun getLayoutId(): Int {
         return R.layout.activity_multi_state
     }
 
     override fun initView() {
+        mNavigationBuilder!!.setTitleText("RecyclerView实现多状态布局").create()
         mRecyclerView = findViewById(R.id.recycler_view)
     }
 
     override fun initData() {
         val data = data
         mAdapter = BaseRecyclerStringAdapter(this, data)
-        mRecyclerView!!.adapter=mAdapter
+        mRecyclerView!!.adapter = mAdapter
         findViewById<View>(R.id.button1).setOnClickListener { v: View? -> mRecyclerView!!.showNoNetwork() }
         findViewById<View>(R.id.button2).setOnClickListener { v: View? ->
             list = ArrayList()

@@ -20,7 +20,7 @@ class SuspenisonLinearActivity : BaseActivity() {
     protected var mGroupAdapter: GroupLinearAdapter? = null
     protected var mRecyclerView: RecyclerView? = null
     override fun getLayoutId(): Int {
-        return R.layout.basic_linear_recycler_view
+        return R.layout.suspend_recycler_view
     }
 
     override fun initView() {
