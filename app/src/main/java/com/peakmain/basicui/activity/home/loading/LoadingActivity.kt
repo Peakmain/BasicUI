@@ -36,8 +36,6 @@ class LoadingActivity : BaseActivity() {
     override fun initData() {
         mLoadingBean = ArrayList()
         mLoadingBean.add("花束加载loading")
-        mLoadingBean.add("视察动画的loading")
-        mLoadingBean.add("仿钉钉的loading")
         mLoadingBean.add("仿老版58同城加载loading")
         mAdapter = BaseRecyclerStringAdapter(this, mLoadingBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -50,9 +48,7 @@ class LoadingActivity : BaseActivity() {
                         mLoadingView!!.show()
                         mHandler.postDelayed({ mLoadingView!!.hide() }, 2000)
                     }
-                    1 -> ActivityUtil.gotoActivity(this@LoadingActivity, InspectLoadingActvivity::class.java)
-                    2 -> ActivityUtil.gotoActivity(this@LoadingActivity, RotatingLoadingActivity::class.java)
-                    3 -> ActivityUtil.gotoActivity(this@LoadingActivity, ShapeLoadingActivity::class.java)
+                    1 -> ActivityUtil.gotoActivity(this@LoadingActivity, ShapeLoadingActivity::class.java)
                     else -> {
                     }
                 }

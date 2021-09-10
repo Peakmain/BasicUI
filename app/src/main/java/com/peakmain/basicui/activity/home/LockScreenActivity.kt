@@ -21,7 +21,6 @@ class LockScreenActivity : BaseActivity() {
     override fun initView() {
         mLockScreenView = findViewById(R.id.lock_pattern)
         mNavigationBuilder!!.setTitleText("九宫格解锁").create()
-        //mLockScreenView.hideArrow();
     }
 
     override fun initData() {

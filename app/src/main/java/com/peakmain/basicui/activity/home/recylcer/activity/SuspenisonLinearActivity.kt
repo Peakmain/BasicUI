@@ -3,10 +3,11 @@ package com.peakmain.basicui.activity.home.recylcer.activity
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean
-import com.peakmain.basicui.activity.home.recylcer.data.PesudoImageData
+import com.peakmain.basicui.activity.home.recylcer.data.PesudoImageData.Companion.instance
 import com.peakmain.basicui.activity.home.recylcer.itemDecoration.SuspenisonItemDecoration
 import com.peakmain.basicui.adapter.GroupLinearAdapter
 import com.peakmain.basicui.base.BaseActivity
+
 
 /**
  * author ：Peakmain
@@ -28,7 +29,7 @@ class SuspenisonLinearActivity : BaseActivity() {
 
     override fun initData() {
         mNavigationBuilder!!.setTitleText("LinearLayoutManager实现悬浮").create()
-        mGroupBeans = PesudoImageData.instance.data as MutableList<GroupBean>
+        mGroupBeans = instance.data.toMutableList()
         val itemDecoration = SuspenisonItemDecoration.Builder(this, mGroupBeans)
                 .setTextCenter(true).create()
         val suspenisonItemDecoration = SuspenisonItemDecoration(this, mGroupBeans)

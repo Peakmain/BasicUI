@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
     </style>
     <style name="activityAnimation" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
