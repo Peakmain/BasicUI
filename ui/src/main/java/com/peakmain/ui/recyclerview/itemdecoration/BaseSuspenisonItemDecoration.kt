@@ -97,7 +97,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
             val params = child
                     .layoutParams as RecyclerView.LayoutParams
             val position = params.viewLayoutPosition
-            if (mData != null && !mData.isEmpty() && position <= mData.size - 1 && position > -1) {
+            if (mData.isNotEmpty() && position <= mData.size - 1 && position > -1) {
                 if (position == 0) {
                     drawSection(c, left, right, child, params, position)
                 } else {
@@ -144,7 +144,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
         if (pos < 0) {
             return
         }
-        if (mData == null || mData.isEmpty()) {
+        if (mData.isEmpty()) {
             return
         }
         var section = getTopText(mData, pos)
@@ -178,7 +178,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
                         parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
                         mTextPaint)
             }
-        } else if (pos == 0 || mData.get(pos)!!.isHeader) {
+        } else if (pos == 0 || mData[pos]!!.isHeader) {
             section = getTopText(mData, pos + 1)
             if (!TextUtils.isEmpty(section)) {
                 mTextPaint!!.getTextBounds(section, 0, section!!.length, mBounds)
@@ -203,13 +203,13 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = (view.layoutParams as RecyclerView.LayoutParams).viewLayoutPosition
-        if (mData != null && !mData.isEmpty() && position <= mData.size - 1 && position > -1) {
+        if (mData.isNotEmpty() && position <= mData.size - 1 && position > -1) {
             val layoutManager = parent.layoutManager
             if (layoutManager is GridLayoutManager) {
                 if (position / (getSpanCount(parent) + 1) == 0) {
                     outRect[0, topHeight, 0] = 0
                 } else {
-                    if (mData.get(position)!!.isHeader) {
+                    if (mData[position]!!.isHeader) {
                         outRect[0, mSectionHeight + topHeight / 2, 0] = 0
                     }
                 }
