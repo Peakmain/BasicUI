@@ -6,6 +6,4 @@
     <item name="error_retry_view" type="id" />
     <item name="no_network_retry_view" type="id" />
 
-    <!--键盘切换-->
-    <item name="keyboardView" type="id"/>
 </resources>

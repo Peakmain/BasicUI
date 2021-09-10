@@ -12,7 +12,6 @@
     <string name="custom_password_8">8</string>
     <string name="custom_password_9">9</string>
     <string name="custom_password_x">X</string>
-    <string name="custom_password_dot">.</string>
 
     <string name="shape_loading_text_view">玩命加载中&#8230;</string>
     <!--多状态布局-->
@@ -25,19 +24,8 @@
     <string name="ui_picture_error">图片已损坏</string>
     <string name="ui_picture_video_error">视频已损坏</string>
     <string name="ui_picture_audio_error">音频已损坏</string>
-    <string name="ui_picture_all_audio">所有音频</string>
-    <string name="ui_picture_camera_roll">相机胶卷</string>
-    <string name="ui_picture_cancel">取消</string>
-    <string name="ui_picture_preview">预览</string>
-    <string name="ui_picture_please_select">请选择</string>
-    <string name="ui_picture_empty">你可以使用相机拍摄照片或视频</string>
-    <string name="ui_picture_take_picture">拍摄</string>
     <string name="ui_picture_message_max_num">你最多可以选择%1$d个图片和文件</string>
     <string name="ui_picture_completed">完成</string>
-    <string name="ui_media_choose_ok">确定</string>
-    <string name="ui_media_choose_only_single">不支持多选</string>
-    <string name="ui_media_choose_preview">预览</string>
-    <string name="ui_media_chooser_hint">支持选取最短4s最长10min</string>
     <string name="ui_files_numbers">文件：%1$s</string>
     <string name="ui_format_file_size">大小：%1$s</string>
     <string name="ui_please_select">请选择</string>
