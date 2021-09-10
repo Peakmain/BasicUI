@@ -29,6 +29,7 @@ class PullDownActivity1 : BaseActivity(), OnLoadMoreListener, RefreshRecyclerVie
     }
 
     override fun initView() {
+        mNavigationBuilder!!.setTitleText("Recyclerview封装的下拉刷新和加载更多1").create()
         mRecyclerView = findViewById(R.id.recycler_view)
     }
 
