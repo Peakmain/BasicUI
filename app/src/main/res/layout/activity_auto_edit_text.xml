@@ -18,7 +18,7 @@
         android:background="@drawable/select_bg"
         android:paddingLeft="@dimen/space_20"
         app:adet_hint="请输入姓名"
-        app:adet_hint_color="@color/view_line_background"
+        app:adet_hint_color="@color/ui_color_F5F5F5"
         app:adet_text_color="@android:color/white"
         app:adet_text_size="@dimen/font_16"
         app:adet_tint_color="@color/white" />
@@ -37,7 +37,7 @@
         app:adet_hint_color="#9B9B9B"
         app:adet_text_color="#4A4A4A"
         app:adet_text_size="@dimen/font_16"
-        app:adet_tint_color="@color/checkbox_button_tint"
+        app:adet_tint_color="@color/ui_color_F5F5F5"
         tools:ignore="RtlSymmetry" />
 
     <com.peakmain.ui.widget.AutoDeleteEditText
@@ -51,7 +51,7 @@
         android:inputType="numberPassword"
         android:paddingStart="@dimen/space_20"
         app:adet_hint="请再次输入密码"
-        app:adet_hint_color="#9B9B9B"
+        app:adet_hint_color="@color/ui_color_F5F5F5"
         app:adet_text_color="#4A4A4A"
         app:adet_text_size="@dimen/font_16"
         tools:ignore="RtlSymmetry" />

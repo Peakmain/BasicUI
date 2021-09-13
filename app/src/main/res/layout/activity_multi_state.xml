@@ -19,11 +19,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/second"
-        >
+        app:layout_constraintBottom_toTopOf="@id/second">
 
         <Button
             android:id="@+id/button1"

@@ -1,13 +1,17 @@
 package com.peakmain.ui.navigationbar
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.Nullable
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
@@ -45,6 +49,9 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
             mActionBar = context.supportActionBar
             if (mActionBar == null) {
                 return
+            }
+            if (builder.mToolbarBackIcon != null) {
+                mToolbar!!.navigationIcon = builder.mToolbarBackIcon
             }
             mActionBar!!.setDisplayShowTitleEnabled(builder.mShowTitle)
             mActionBar!!.setDisplayHomeAsUpEnabled(builder.mShowHomeAsUp)
@@ -202,14 +209,14 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         return this
     }
 
-    class Builder(context: Context?, parent: ViewGroup?) : AbsNavigationBar.Builder<Builder?>(context!!, R.layout.ui_defualt_navigation_bar, parent!!) {
+    class Builder(val context: Context?, parent: ViewGroup?) : AbsNavigationBar.Builder<Builder?>(context!!, R.layout.ui_defualt_navigation_bar, parent!!) {
         var mLeftVisible = View.VISIBLE
         private var mDefaultNavigationBar: DefaultNavigationBar? = null
         var mTitleVisible = View.VISIBLE
 
         //返回按钮的点击事件
         var mNavigationOnClickListener: View.OnClickListener? = null
-        var mToolbarBackgroundColor = 0
+        var mToolbarBackgroundColor = if (context != null) ContextCompat.getColor(context, R.color.ui_color_01a8e3) else 0
         var mShowHomeAsUp = false
         var mShowTitle = false
         var mRightViewVisible = View.VISIBLE
@@ -220,6 +227,16 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         //设置图片资源的高度和宽度
         var mRightResHeight = ViewGroup.LayoutParams.WRAP_CONTENT
         var mRightResWidth = ViewGroup.LayoutParams.WRAP_CONTENT
+
+        //左边返回键
+        var mToolbarBackIcon: Drawable? = null
+        fun setNavigationIcon(@DrawableRes resId: Int) {
+            setNavigationIcon(if (context != null) AppCompatResources.getDrawable(context, resId) else null)
+        }
+
+        fun setNavigationIcon(@Nullable icon: Drawable?) {
+            mToolbarBackIcon = icon
+        }
 
         /**
          * 设置左边文字

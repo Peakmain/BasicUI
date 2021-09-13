@@ -1,6 +1,5 @@
 package com.peakmain.ui.widget
 
-import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
@@ -22,7 +21,7 @@ import com.peakmain.ui.R
  * describe：
  */
 class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : HorizontalScrollView(context, attrs, defStyle) {
-    private val ARROW_LIGHT_COLOR = ContextCompat.getColor(context, R.color.ui_color_2F73F6)
+    private val ARROW_LIGHT_COLOR = ContextCompat.getColor(context, R.color.ui_color_01a8e3)
     private val ARROW_DARK_COLOR = ContextCompat.getColor(context, R.color.ui_color_7F7F7F)
     private lateinit var mContainer: LinearLayout
     private var rootView: LinearLayout
