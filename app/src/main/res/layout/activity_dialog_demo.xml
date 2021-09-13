@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_10"
-        android:buttonTint="@color/checkbox_button_tint"
+        android:buttonTint="@color/ui_color_01a8e3"
         android:text="@string/is_set_width_full"
         android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_10"
-        android:buttonTint="@color/checkbox_button_tint"
+        android:buttonTint="@color/ui_color_01a8e3"
         android:text="@string/is_set_default_animation"
         android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_10"
-        android:buttonTint="@color/checkbox_button_tint"
+        android:buttonTint="@color/ui_color_01a8e3"
         android:text="@string/is_from_bottom"
         android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_10"
-        android:buttonTint="@color/checkbox_button_tint"
+        android:buttonTint="@color/ui_color_01a8e3"
         android:text="@string/is_cancelable"
         android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
