@@ -18,14 +18,12 @@
             android:id="@+id/ui_tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
             android:gravity="center"
             android:paddingLeft="@dimen/dimen_5"
             android:paddingRight="@dimen/dimen_5"
             android:text="取消"
-            android:textColor="@color/ui_color_BE3468"
-            android:textSize="@dimen/font_size_16"
-            android:layout_alignParentLeft="true" />
+            android:textColor="@color/ui_color_01a8e3"
+            android:textSize="@dimen/font_size_16" />
 
         <TextView
             android:id="@+id/ui_tv_title"
@@ -47,7 +45,7 @@
             android:paddingLeft="@dimen/dimen_5"
             android:paddingRight="@dimen/dimen_5"
             android:text="确认"
-            android:textColor="@color/ui_color_BE3468"
+            android:textColor="@color/ui_color_01a8e3"
             android:textSize="@dimen/font_size_16"
             android:layout_alignParentRight="true" />
     </RelativeLayout>

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:background="@drawable/check_bg"
-        android:textColor="#BE3468"
+        android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="高血压" />

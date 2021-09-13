@@ -66,9 +66,8 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
 
     /**
      * 初始化可变色的指示器
-     *
-     * @param bean 换成List<String>也可以，看自己项目需要
-    </String> */
+     * @param bean
+     * */
     fun initIndicator(bean: List<T>?, viewPager: ViewPager?) {
         mViewPager = viewPager
         if (bean == null) {

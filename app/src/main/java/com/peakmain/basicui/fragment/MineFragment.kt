@@ -20,7 +20,7 @@ class MineFragment : BaseFragmnet() {
                 .hideLeftText()
                 .hideRightView()
                 .setTitleText("我的")
-                .setToolbarBackgroundColor(R.color.colorAccent)
+                .setToolbarBackgroundColor(R.color.ui_color_01a8e3)
                 .create()
     }
 

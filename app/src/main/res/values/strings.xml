@@ -28,6 +28,7 @@
     <string name="show_back_button">显示返回按钮</string>
     <string name="show_toolbar_title">显示toolbar中默认自带的title</string>
     <string name="alert_right_image">修改右边图片资源</string>
+    <string name="alert_left_icon">修改左边返回图标</string>
     <string name="test">测试</string>
     <string name="shapetextview1">测试shapeTextView1</string>
     <string name="dialog_loading">以dialog的方式显示loading!</string>

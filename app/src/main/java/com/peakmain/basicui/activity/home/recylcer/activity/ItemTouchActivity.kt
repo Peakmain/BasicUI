@@ -19,6 +19,7 @@ class ItemTouchActivity : BaseRecyclerAcitvity() {
 
     override fun initData() {
         mRecyclerView!!.adapter = mGroupAdapter
+        mNavigationBuilder?.setTitleText("itemTouchHelp方法实现删除和拖拽")?.create()
         val itemTouchHelper = GridItemTouchHelper(mGroupAdapter, mGroupBeans)
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
         mGroupAdapter!!.adjustSpanSize(mRecyclerView!!)

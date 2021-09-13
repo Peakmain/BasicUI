@@ -16,7 +16,7 @@
         android:paddingBottom="@dimen/space_6"
         android:text="@string/shapetextview1"
         android:textColor="@color/white"
-        app:shapeTvBackgroundColor="@color/colorAccent"
+        app:shapeTvBackgroundColor="@color/ui_color_01a8e3"
         app:shapeTvRadius="@dimen/space_20" />
 
     <com.peakmain.ui.widget.ShapeTextView
