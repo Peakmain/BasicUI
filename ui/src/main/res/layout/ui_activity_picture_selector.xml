@@ -43,7 +43,7 @@
             android:textColor="@android:color/white"
             android:layout_marginRight="16dp"
             android:textSize="@dimen/font_size_14"
-            app:shapeTvBackgroundColor="@color/ui_color_2F73F6"
+            app:shapeTvBackgroundColor="@color/ui_color_01a8e3"
             app:shapeTvRadius="@dimen/dimen_3" />
     </LinearLayout>
 

@@ -56,6 +56,11 @@ class NaviagtionBarActivity : BaseActivity() {
     private var mRadioAlertRightImage: RadioCancelButton? = null
 
     /**
+     * 修改左边返回图片资源
+     */
+    private var mRadioAlerLeftIcon: RadioCancelButton? = null
+
+    /**
      * 确定
      */
     private lateinit var mStvSure: ShapeTextView
@@ -74,8 +79,9 @@ class NaviagtionBarActivity : BaseActivity() {
         mRadioShowBackButton = findViewById(R.id.radio_show_back_button)
         mRadioShowToolbarTitle = findViewById(R.id.radio_show_toolbar_title)
         mRadioAlertRightImage = findViewById(R.id.radio_alert_right_image)
+        mRadioAlerLeftIcon = findViewById(R.id.radio_alert_left_back_icon)
         mStvSure = findViewById(R.id.stv_sure)
-        mStvSure.setOnClickListener(View.OnClickListener { v: View? -> showNavigationBar() })
+        mStvSure.setOnClickListener { showNavigationBar() }
     }
 
     /**
@@ -90,6 +96,8 @@ class NaviagtionBarActivity : BaseActivity() {
         val radioShowBackButtonChecked = mRadioShowBackButton!!.isChecked
         val radioShowToolbarTitleChecked = mRadioShowToolbarTitle!!.isChecked
         val radioAlertRightImageChecked = mRadioAlertRightImage!!.isChecked
+        val radioAlertLeftIconChecked = mRadioAlerLeftIcon!!.isChecked
+
         if (mNavigationBar != null) {
             val parent = mRadioShowRightArrow!!.parent as ViewGroup
             parent.removeViewAt(0)
@@ -110,7 +118,10 @@ class NaviagtionBarActivity : BaseActivity() {
             mBuilder!!.setTitleText("navigationBar的使用")
         }
         if (radioAlertBackgroundColorChecked) {
-            mBuilder!!.setToolbarBackgroundColor(R.color.colorAccent)
+            mBuilder!!.setToolbarBackgroundColor(R.color.ui_color_802F73F6)
+        }
+        if(radioAlertLeftIconChecked){
+            mBuilder!!.setNavigationIcon(R.drawable.ui_ic_left_back)
         }
         mBuilder!!.setDisplayHomeAsUpEnabled(radioShowBackButtonChecked)
                 .setNavigationOnClickListener(View.OnClickListener { v: View? -> finish() })

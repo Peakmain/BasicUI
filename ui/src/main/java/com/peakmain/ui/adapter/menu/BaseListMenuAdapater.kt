@@ -39,7 +39,7 @@ abstract class BaseListMenuAdapater(//上下文
     protected abstract val menuLayoutId: Int
     override fun openMenu(tabView: View) {
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
-        textView.setTextColor(Color.parseColor("#FF4081"))
+        textView.setTextColor(Color.parseColor("#01a8e3"))
     }
 
     override fun closeMenu(tabView: View) {

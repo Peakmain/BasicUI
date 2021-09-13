@@ -30,11 +30,7 @@ class GlideActivity : BaseActivity() {
     override fun initView() {
         mRecyclerView = findViewById(R.id.recycler_view)
         mImageView = findViewById(R.id.imageView)
-        DefaultNavigationBar.Builder(this, findViewById(android.R.id.content))
-                .hideLeftText()
-                .hideRightView()
-                .setTitleText("Glide图片切换封装")
-                .setToolbarBackgroundColor(R.color.colorAccent)
+   mNavigationBuilder!!.setToolbarBackgroundColor(R.color.ui_color_01a8e3)
                 .create()
     }
 
