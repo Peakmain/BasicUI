@@ -27,20 +27,16 @@ class TextUtilsActivity : BaseActivity() {
     override fun initView() {
         mTvContent1 = findViewById(R.id.tv_content1)
         mTvContent2 = findViewById(R.id.tv_content2)
-        DefaultNavigationBar.Builder(this, findViewById(android.R.id.content))
-                .hideRightView()
-                .setTitleText("文本高亮工具类")
-                .setToolbarBackgroundColor(R.color.colorAccent)
-                .create()
+        mNavigationBuilder?.setTitleText("文本高亮工具类")?.create()
     }
 
     override fun initData() {
         //第一种方式加载——无点击事件
-        mTvContent1.text = TextUtils.clipTextColor(mTvContent1.text.toString(), ContextCompat.getColor(this, R.color.colorAccent), mTvContent1.text.indexOf("加"), mTvContent1.length())
+        mTvContent1.text = TextUtils.clipTextColor(mTvContent1.text.toString(), ContextCompat.getColor(this, R.color.ui_color_01a8e3), mTvContent1.text.indexOf("加"), mTvContent1.length())
 
         TextUtils.Builder(mTvContent2)
                 //第一个高亮的文本区域
-                .setClipText(ContextCompat.getColor(this, R.color.colorAccent), mTvContent2.text.indexOf("加"), 7)
+                .setClipText(ContextCompat.getColor(this, R.color.ui_color_01a8e3), mTvContent2.text.indexOf("加"), 7)
                 .setOnClickableSpan(object : OnClickableSpan {
                     override fun onClickableSpan(view: View) {
                         ToastUtils.showShort("点击了“加载”")
@@ -50,10 +46,10 @@ class TextUtilsActivity : BaseActivity() {
                 .setStyleSpan(Typeface.BOLD_ITALIC)
                 .showUnderLine(true)
                 //第二个高亮文本区域
-                .setClipText(ContextCompat.getColor(this, R.color.colorAccent), mTvContent2.text.indexOf("点"), mTvContent2.length())
+                .setClipText(ContextCompat.getColor(this, R.color.ui_color_01a8e3), mTvContent2.text.indexOf("点"), mTvContent2.length())
                 .setAbsoluteTextSize(28)
-                .setBackgroundColor(ContextCompat.getColor(this,R.color.ui_color_CDCECE))
-                 .setOnClickableSpan(object : OnClickableSpan {
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.ui_color_CDCECE))
+                .setOnClickableSpan(object : OnClickableSpan {
                     override fun onClickableSpan(view: View) {
                         ToastUtils.showShort("点击了“点击”")
                     }

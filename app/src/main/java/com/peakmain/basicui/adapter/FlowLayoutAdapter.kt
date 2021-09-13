@@ -41,7 +41,7 @@ class FlowLayoutAdapter(private val mContext: Context, private val mData: List<S
                         .setOnDissmissListener(PopupWindow.OnDismissListener {
 
                             //取消选中
-                            tagTv.setTextColor(Color.parseColor("#BE3468"))
+                            tagTv.setTextColor(Color.parseColor("#ffffff"))
                             tagTv.background = ContextCompat.getDrawable(mContext, R.drawable.check_bg)
                         })
                         .create()

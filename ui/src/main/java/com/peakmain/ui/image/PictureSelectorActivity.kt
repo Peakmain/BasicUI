@@ -325,7 +325,7 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                 mStvComplete.setNormalBackgroundColor(
                         ContextCompat.getColor(
                                 this@PictureSelectorActivity,
-                                R.color.ui_color_2F73F6
+                                R.color.ui_color_01a8e3
                         )
                 )
                 setTextColor(

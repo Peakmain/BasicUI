@@ -42,11 +42,8 @@ class OkHttpActivity : BaseActivity() {
 
     override fun initView() {
         mRecyclerView = findViewById(R.id.recycler_view)
-        DefaultNavigationBar.Builder(this, findViewById(android.R.id.content))
-                .hideLeftText()
-                .hideRightView()
+      mNavigationBuilder!!
                 .setTitleText("okhttp网络引擎切换工具类")
-                .setToolbarBackgroundColor(R.color.colorAccent)
                 .create()
         mProgressBar = findViewById(R.id.progressbar)
         mTvResult = findViewById(R.id.tv_result)
