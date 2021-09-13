@@ -1,13 +1,11 @@
 package com.peakmain.ui.image.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.LoaderManager
 import android.content.CursorLoader
 import android.content.Intent
 import android.content.Loader
 import android.database.Cursor
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -17,7 +15,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,12 +30,10 @@ import com.peakmain.ui.image.config.PictureConfig
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.GifPlayerMessage
 import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.image.gif.GifHelper
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.PermissionUtils
 import com.peakmain.ui.utils.ToastUtils
 import java.io.File
-import kotlin.collections.ArrayList
 
 /**
  * author ：Peakmain
