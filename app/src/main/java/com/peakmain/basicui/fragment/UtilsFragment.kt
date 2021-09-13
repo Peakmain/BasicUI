@@ -5,7 +5,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
-import com.peakmain.basicui.activity.utils.DataBaseActivity
 import com.peakmain.basicui.activity.utils.GlideActivity
 import com.peakmain.basicui.activity.utils.OkHttpActivity
 import com.peakmain.basicui.activity.utils.TextUtilsActivity
@@ -39,7 +38,7 @@ open class UtilsFragment : BaseFragmnet() {
                 .hideLeftText()
                 .hideRightView()
                 .setTitleText("工具类")
-                .setToolbarBackgroundColor(R.color.colorAccent)
+                .setToolbarBackgroundColor(R.color.ui_color_01a8e3)
                 .create()
         mRecyclerView = view.findViewById(R.id.recycler_view)
     }
@@ -47,16 +46,14 @@ open class UtilsFragment : BaseFragmnet() {
     override fun initData() {
         mUtilsBean = ArrayList()
         mUtilsBean.add("okhttp网络引擎切换工具类封装")
-        mUtilsBean.add("数据库封装")
         mUtilsBean.add("Glide图片选择切换封装")
         mUtilsBean.add("文本高亮工具类的封装")
         mUtilsBean.add("View创建Bitmap")
         mUtilsBean.add("Java异常测试")
-        //mUtilsBean.add("Native异常测试")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
-        CrashUtils.setOnFileUploadListener(object : CrashUtils.OnFileUploadListener{
+        CrashUtils.setOnFileUploadListener(object : CrashUtils.OnFileUploadListener {
             override fun onFileUploadListener(file: File) {
                 LogUtils.e("Java异常崩溃，崩溃分拣目录：${file.absolutePath}")
             }
@@ -66,10 +63,9 @@ open class UtilsFragment : BaseFragmnet() {
             override fun onItemClick(position: Int) {
                 when (position) {
                     0 -> ActivityUtil.gotoActivity(context, OkHttpActivity::class.java)
-                    1 -> ActivityUtil.gotoActivity(context, DataBaseActivity::class.java)
-                    2 -> ActivityUtil.gotoActivity(context, GlideActivity::class.java)
-                    3 -> ActivityUtil.gotoActivity(context, TextUtilsActivity::class.java)
-                    4->{
+                    1 -> ActivityUtil.gotoActivity(context, GlideActivity::class.java)
+                    2 -> ActivityUtil.gotoActivity(context, TextUtilsActivity::class.java)
+                    3 -> {
                         val dialog = AlertDialog.Builder(context)
                                 .setContentView(R.layout.dialog_bitmap_utils)
                                 .setFullWidth()
@@ -78,8 +74,8 @@ open class UtilsFragment : BaseFragmnet() {
                         val bitmap = BitmapUtils.createBitmapFromView(getRootView())
                         imageView.setImageBitmap(bitmap)
                     }
-                    5->{
-                        LogUtils.e(5/0)
+                    4 -> {
+                        LogUtils.e(5 / 0)
                     }
                     else -> {
                     }

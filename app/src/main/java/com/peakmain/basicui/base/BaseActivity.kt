@@ -25,11 +25,11 @@ abstract class BaseActivity : AppCompatActivity() {
                 .setDisplayHomeAsUpEnabled(true)
                 .setNavigationOnClickListener(View.OnClickListener { v: View? -> finish() })
                 .hideRightView()
-                .setToolbarBackgroundColor(R.color.colorAccent)
+                .setToolbarBackgroundColor(R.color.ui_color_01a8e3)
         initView()
         initData()
         ImmersionBar.with(this)
-                .statusBarColor(R.color.colorStatus)
+                .statusBarColor(R.color.ui_color_01a8e3)
                 .fitsSystemWindows(true)
                 .statusBarAlpha(0.3f) //状态栏透明度，不写默认0.0f
                 .navigationBarAlpha(0.4f) //导航栏透明度，不写默认0.0F

@@ -12,8 +12,8 @@
       android:paddingTop="10dp"
       android:layout_width="match_parent"
       app:isShowUnderLine="true"
-      app:changeColor="#EF558B"
-      app:originColor="#09BB07"
+      app:changeColor="@color/ui_color_01a8e3"
+      app:originColor="#8001a8e3"
       android:layout_height="wrap_content">
 
   </com.peakmain.basicui.view.TableLayout>
