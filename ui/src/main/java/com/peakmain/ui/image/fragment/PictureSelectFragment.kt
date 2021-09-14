@@ -59,7 +59,6 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
     }
 
 
-
     var mHandler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             val gifPlayCallback: GifPlayerMessage = msg.obj as GifPlayerMessage
@@ -222,6 +221,14 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
             position: Int,
             selectImages: ArrayList<PictureFileInfo>
     ) {
+        selectImages.forEach { select ->
+            images?.forEach {
+                if (select.filePath == it.filePath) {
+                    it.isSelect = true
+                    return@forEach
+                }
+            }
+        }
         PicturePreview.create(this)
                 .origin(images)
                 .previewPosition(position)
