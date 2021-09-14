@@ -128,7 +128,8 @@ class PictureSelectorListAdapter(
                         mSelectImages.add(
                                 PictureFileInfo(
                                         PictureConfig.IMAGE,
-                                        item.filePath
+                                        item.filePath,
+                                        item.id
                                 )
                         )
                     }
