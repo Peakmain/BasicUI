@@ -221,12 +221,9 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
             position: Int,
             selectImages: ArrayList<PictureFileInfo>
     ) {
-        selectImages.forEach { select ->
-            images?.forEach {
-                if (select.filePath == it.filePath) {
-                    it.isSelect = true
-                    return@forEach
-                }
+        selectImages.forEach {
+            if (it.id >= 0 && it.id < images?.size?:0) {
+                images?.get(it.id)?.isSelect = true
             }
         }
         PicturePreview.create(this)
@@ -287,6 +284,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                         val images =
                                 ArrayList<PictureFileInfo>()
                         data.moveToFirst()
+                        var i = 0
                         // 不断的遍历循环
                         do {
                             val path =
@@ -302,6 +300,7 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
                             }
                             // 封装数据对象
                             val image = PictureFileInfo(path, name, dateTime, fileSize)
+                            image.id = i++
                             images.add(image)
                         } while (data.moveToNext())
 
