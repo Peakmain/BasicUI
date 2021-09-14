@@ -221,9 +221,13 @@ internal class PictureSelectFragment : Fragment(), UpdateSelectListener {
             position: Int,
             selectImages: ArrayList<PictureFileInfo>
     ) {
-        selectImages.forEach {
-            if (it.id >= 0 && it.id < images?.size?:0) {
-                images?.get(it.id)?.isSelect = true
+        selectImages.forEach { pictureInfo ->
+
+            images?.forEach {
+                if (pictureInfo.filePath == it.filePath) {
+                    it.isSelect = true
+                    return@forEach
+                }
             }
         }
         PicturePreview.create(this)
