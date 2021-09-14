@@ -1,4 +1,7 @@
-![ic_launcher.jpg](https://upload-images.jianshu.io/upload_images/9387746-3866ee64845e0831.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<p align="center">
+  <img src="https://upload-images.jianshu.io/upload_images/9387746-3866ee64845e0831.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  />
+</p>
+
 #### BasicUI
 ****
 BasicUI是一些常用的Android UI组件和一些实用工具类封装，提高Android的开发效率
