@@ -1,14 +1,7 @@
-### 前言
-- 查看在线pdf文档:
-http://note.youdao.com/s/EM20Cggm
-
-- 简书文档地址：
-https://www.jianshu.com/p/dfc3af038778
-
-- 项目库的GitHub地址：[https://github.com/Peakmain/BasicUI](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FPeakmain%2FBasicUI)
-
-*   如果大家觉得有点帮助，希望可以抬抬你的贵手，送我一个星星，谢谢。如果有什么问题，也欢迎你在下方留言或者在[BasicUI](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FPeakmain%2FBasicUI)中提
-
+![ic_launcher.jpg](https://upload-images.jianshu.io/upload_images/9387746-3866ee64845e0831.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+#### BasicUI
+****
+BasicUI是一些常用的Android UI组件和一些实用工具类封装，提高Android的开发效率
 #### How to
 
 - Step 1. Add the JitPack repository to your build file
@@ -22,20 +15,10 @@ Add it in your root build.gradle at the end of repositories:
         }
     }
 - Step 2. Add the dependency
-you can use support
-
 ```
-    dependencies {
-            implementation 'com.github.Peakmain:BasicUI:1.0.9'
-    }
-```
-Now Android x is also supported
-```
-implementation 'com.github.Peakmain:BasicUI:1.1.0-androidx'
+implementation 'com.github.Peakmain:BasicUI:1.1.1'
 ```
 
-##### Demonstration
-****
 ##### Screenshot
 ![首页.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/首页.jpg)&emsp;![dialog的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/dialog的使用.jpg)&emsp;![navigtionBar的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/navigtionBar的使用.jpg)&emsp;![popwindow+flowlayout的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/popwindow+flowlayout的使用.jpg)&emsp;
 ![自带删除的EditText.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/自带删除的EditText.jpg)&emsp;![TextView的封装.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/TextView的封装.jpg)&emsp;![仿今日头条的TableLayout.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/仿今日头条的TableLayout.gif)&emsp;![加载loading.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/加载loading.gif)&emsp;
@@ -45,5 +28,13 @@ implementation 'com.github.Peakmain:BasicUI:1.1.0-androidx'
 ![文件选择.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/文件选择.gif)&emsp;![选择器的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/选择器的使用.gif)&emsp;![glide的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/glide的使用.gif)&emsp;![View创建Bitmap.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/View创建Bitmap.jpg)&emsp;
 ![OkHttp的封装.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/OkHttp的封装.jpg)&emsp;![文本高亮的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/文本高亮的使用.gif)&emsp;![我的.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/我的.jpg)&emsp;
 
+ #### BasicUI Demo APP 安装包下载
+ ****
+ - 蒲公英下载地址
+ ![演示demo](https://www.pgyer.com/app/qrcode/BasicUI)
+ - Github下载地址：
+ ![image.png](https://upload-images.jianshu.io/upload_images/9387746-0a833896a68b7bc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
- 
+#### 关于我
+- 简书： [https://www.jianshu.com/u/3ff32f5aea98](https://www.jianshu.com/u/3ff32f5aea98)
+- 我的GitHub地址：[https://github.com/Peakmain](https://github.com/Peakmain)
