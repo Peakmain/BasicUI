@@ -31,8 +31,11 @@ implementation 'com.github.Peakmain:BasicUI:1.1.1'
  #### BasicUI Demo APP 安装包下载
  ****
  - 蒲公英下载地址
+ 
  ![演示demo](https://www.pgyer.com/app/qrcode/BasicUI)
+ 
  - Github下载地址：
+ 
  ![image.png](https://upload-images.jianshu.io/upload_images/9387746-0a833896a68b7bc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 #### 关于我
