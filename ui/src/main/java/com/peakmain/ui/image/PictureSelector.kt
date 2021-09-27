@@ -64,6 +64,14 @@ class PictureSelector private constructor(var activity: Activity) {
     }
 
     /**
+     * 是否开启裁剪
+     */
+    fun enableCrop(enableCrop: Boolean): PictureSelector{
+        mSelectionConfig.enableCrop = enableCrop
+        return this
+    }
+
+    /**
      * 原来选择好的图片
      */
     fun origin(originList: ArrayList<PictureFileInfo>?): PictureSelector {
