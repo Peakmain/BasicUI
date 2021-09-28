@@ -52,7 +52,7 @@ class PictureSelectionConfig private constructor() {
      */
     private fun reset() {
         mimeType = PictureConfig.TYPE_IMAGE
-        selectionMode = PictureConfig.MULTIPLE
+        selectionMode = PictureConfig.SINGLE
         maxSelectNumber = 9
         showCamera = false
         isCompress = true
