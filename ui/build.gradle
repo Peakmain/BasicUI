@@ -57,7 +57,7 @@ dependencies {
     implementation 'com.tencent.tbs.tbssdk:sdk:43903'
     // 图片浏览
     implementation 'com.bm.photoview:library:1.4.1'
-    implementation ('com.github.yalantis:ucrop:2.2.3'){
+    implementation ('com.github.yalantis:ucrop:2.2.6'){
         exclude group: 'com.android.support'
     }
 }
