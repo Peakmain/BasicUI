@@ -55,7 +55,6 @@ class ImageSelectActivity : BaseActivity() {
                 .maxSelectNumber(9)
                 .origin(originList)
                 .single()
-                .enableCrop(true)
                 .forResult(object : PictureFileResultCallback {
                     override fun onResult(result: ArrayList<PictureFileInfo>?) {
                         originList = result
