@@ -135,7 +135,9 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         //图片的后缀
         val imgType = PictureFileMimeType.getLastImgType(filePath)
         val uri = if (isHttp) Uri.parse(filePath) else Uri.fromFile(File(filePath))
-        val outUri = Uri.fromFile(File(FileUtils.getImageFolderPath, System.currentTimeMillis().toString() + imgType))
+        val file = File(FileUtils.getImageFolderPath)
+        FileUtils.createOrExistsDir(file)
+        val outUri = Uri.fromFile(File(file, System.currentTimeMillis().toString() + imgType))
         UCrop.of(uri, outUri)
                 .withAspectRatio(1f, 1f)
                 .withOptions(getCropOptions())
@@ -335,20 +337,20 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                     setResult(mResultList)
                 }
 
-            }
-        } else if (requestCode == UCrop.REQUEST_CROP) {
-            val resultUri = UCrop.getOutput(data!!)
-            val cropList: ArrayList<PictureFileInfo> = ArrayList()
-            if (resultUri != null && !TextUtils.isEmpty(resultUri.path)) {
-                val pictureFileInfo = PictureFileInfo()
-                pictureFileInfo.filePath = resultUri.path
-                cropList.add(pictureFileInfo)
-                onResult(cropList)
-            } else {
-                if (resultUri == null) {
-                    LogUtils.d("resultUri == null")
+            } else if (requestCode == UCrop.REQUEST_CROP) {
+                val resultUri = UCrop.getOutput(data!!)
+                val cropList: ArrayList<PictureFileInfo> = ArrayList()
+                if (resultUri != null && !TextUtils.isEmpty(resultUri.path)) {
+                    val pictureFileInfo = PictureFileInfo()
+                    pictureFileInfo.filePath = resultUri.path
+                    cropList.add(pictureFileInfo)
+                    onResult(cropList)
                 } else {
-                    LogUtils.d("resultUri == path == " + resultUri.path)
+                    if (resultUri == null) {
+                        LogUtils.d("resultUri == null")
+                    } else {
+                        LogUtils.d("resultUri == path == " + resultUri.path)
+                    }
                 }
             }
         }
