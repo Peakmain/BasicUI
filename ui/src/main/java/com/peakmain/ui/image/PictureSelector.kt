@@ -9,6 +9,7 @@ import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
 import java.lang.ref.WeakReference
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * author:Peakmain
@@ -66,7 +67,7 @@ class PictureSelector private constructor(var activity: Activity) {
     /**
      * 是否开启裁剪
      */
-    fun enableCrop(enableCrop: Boolean): PictureSelector{
+    fun enableCrop(enableCrop: Boolean): PictureSelector {
         mSelectionConfig.enableCrop = enableCrop
         return this
     }
@@ -81,6 +82,12 @@ class PictureSelector private constructor(var activity: Activity) {
 
     fun forResult(callback: PictureFileResultCallback) {
         mSelectionConfig.mResultCallBack = callback
+        if (mSelectionConfig.selectionMode == PictureConfig.SINGLE) {
+            mSelectionConfig.maxSelectNumber = 1
+        }
+        if(mSelectionConfig.enableCrop){
+            mSelectionConfig.mOriginData?.clear()
+        }
         val activity = mActivityWeakReferences.get() ?: return
         val intent = Intent(activity, PictureSelectorActivity::class.java)
         if (mSelectionConfig.mOriginData != null) {
