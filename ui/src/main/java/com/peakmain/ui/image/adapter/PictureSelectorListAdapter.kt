@@ -204,7 +204,7 @@ class PictureSelectorListAdapter(
         this.gifPlayerCallback=gifPlayerCallback
     }
     companion object {
-        const val REQUEST_CAMERA = 0x0045
+        const val REQUEST_CAMERA = 45
     }
 
 }
