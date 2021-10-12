@@ -10,9 +10,9 @@ import com.peakmain.ui.recyclerview.listener.OnLongClickListener
 
 /**
  * author: peakmain
- * createdata：2019/7/17
+ * createTime：2019/7/17
  * mail: 2726449200@qq.com
- * desiption:添加头部和底部
+ * describe:添加头部和底部
  */
 class WrapRecyclerAdapter(
         /**
