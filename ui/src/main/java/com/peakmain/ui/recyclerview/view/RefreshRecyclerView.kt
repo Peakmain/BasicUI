@@ -6,8 +6,11 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.LinearInterpolator
+import android.widget.Scroller
 import androidx.core.view.ViewCompat
 import com.peakmain.ui.recyclerview.creator.RefreshViewCreator
+import com.peakmain.ui.utils.LogUtils
 
 /**
  * @author ：Peakmain
@@ -49,10 +52,15 @@ open class RefreshRecyclerView : WrapRecyclerView {
 
     // 正在刷新状态
     private val REFRESH_STATUS_REFRESHING = 0x0044
+    private var mAutoScroller: AutoScroller? = null
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+
+    init {
+        mAutoScroller = AutoScroller()
+    }
 
     // 先处理下拉刷新，同时考虑刷新列表的不同风格样式，确保这个项目还是下一个项目都能用
     // 所以我们不能直接添加View，需要利用辅助类
@@ -194,7 +202,13 @@ open class RefreshRecyclerView : WrapRecyclerView {
                 }
             } else {
                 if (!mCurrentDrag && mCurrentRefreshStatus == REFRESH_STATUS_NORMAL) {
-                    setRefreshViewMarginTop(-mRefreshViewHeight + 1)
+                    //setRefreshViewMarginTop(-mRefreshViewHeight + 1)
+                    if(mRefreshView!!.bottom>mRefreshViewHeight){
+                        mAutoScroller?.recover(mRefreshView!!.bottom-mRefreshViewHeight)
+                    }else{
+                        mAutoScroller?.recover(mRefreshView!!.bottom)
+                    }
+
                 }
             }
         }
@@ -245,5 +259,37 @@ open class RefreshRecyclerView : WrapRecyclerView {
 
     interface OnRefreshListener {
         fun onRefresh()
+    }
+    private inner class AutoScroller internal constructor() : Runnable {
+        private val mScroller: Scroller = Scroller(context, LinearInterpolator())
+        private var mLastY = 0
+        var isFinished: Boolean
+            private set
+
+        override fun run() {
+            if (mScroller.computeScrollOffset()) {
+                offsetTopAndBottom(mLastY-mScroller.currY)
+                mLastY = mScroller.currY
+                post(this)
+            }else{
+                removeCallbacks(this)
+                isFinished=true
+            }
+        }
+
+        fun recover(dis: Int) {
+            if (dis <= 0) {
+                return
+            }
+            removeCallbacks(this)
+            mLastY = 0
+            isFinished = false
+            mScroller.startScroll(0, 0, 0, dis, 350)
+            post(this)
+        }
+
+        init {
+            isFinished = true
+        }
     }
 }
