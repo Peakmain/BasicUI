@@ -52,15 +52,10 @@ open class RefreshRecyclerView : WrapRecyclerView {
 
     // 正在刷新状态
     private val REFRESH_STATUS_REFRESHING = 0x0044
-    private var mAutoScroller: AutoScroller? = null
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
-
-    init {
-        mAutoScroller = AutoScroller()
-    }
 
     // 先处理下拉刷新，同时考虑刷新列表的不同风格样式，确保这个项目还是下一个项目都能用
     // 所以我们不能直接添加View，需要利用辅助类
@@ -89,7 +84,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
         return super.dispatchTouchEvent(ev)
     }
 
-    var count = 0
 
     /**
      * 重置当前刷新状态状态
@@ -98,7 +92,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
         val currentTopMargin = (mRefreshView!!.layoutParams as MarginLayoutParams).topMargin
         var finalTopMargin = -mRefreshViewHeight + 1
         if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {
-            count = 0
             finalTopMargin = 0
             mCurrentRefreshStatus = REFRESH_STATUS_REFRESHING
             if (mRefreshCreator != null) {
@@ -110,7 +103,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
             }
         }
         if (mCurrentDrag) {
-            count = count + 1
             val distance = currentTopMargin - finalTopMargin
             // 回弹到指定位置
             val animator = ObjectAnimator.ofFloat(currentTopMargin.toFloat(), finalTopMargin.toFloat()).setDuration(distance.toLong())
@@ -120,6 +112,15 @@ open class RefreshRecyclerView : WrapRecyclerView {
             }
             if (!animator.isRunning) animator.start()
             mCurrentDrag = false
+        }else{
+            val distance = currentTopMargin - finalTopMargin
+            // 回弹到指定位置
+            val animator = ObjectAnimator.ofFloat(currentTopMargin.toFloat(), (-mRefreshViewHeight+1).toFloat()).setDuration(distance.toLong())
+            animator.addUpdateListener { animation ->
+                val currentTopMargin = animation.animatedValue as Float
+                setRefreshViewMarginTop(currentTopMargin.toInt())
+            }
+            if (!animator.isRunning) animator.start()
         }
     }
 
@@ -200,16 +201,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
                     // 隐藏头部刷新的View  marginTop  多留出1px防止无法判断是不是滚动到头部问题
                     setRefreshViewMarginTop(-mRefreshViewHeight + 1)
                 }
-            } else {
-                if (!mCurrentDrag && mCurrentRefreshStatus == REFRESH_STATUS_NORMAL) {
-                    //setRefreshViewMarginTop(-mRefreshViewHeight + 1)
-                    if(mRefreshView!!.bottom>mRefreshViewHeight){
-                        mAutoScroller?.recover(mRefreshView!!.bottom-mRefreshViewHeight)
-                    }else{
-                        mAutoScroller?.recover(mRefreshView!!.bottom)
-                    }
-
-                }
             }
         }
     }
@@ -259,37 +250,5 @@ open class RefreshRecyclerView : WrapRecyclerView {
 
     interface OnRefreshListener {
         fun onRefresh()
-    }
-    private inner class AutoScroller internal constructor() : Runnable {
-        private val mScroller: Scroller = Scroller(context, LinearInterpolator())
-        private var mLastY = 0
-        var isFinished: Boolean
-            private set
-
-        override fun run() {
-            if (mScroller.computeScrollOffset()) {
-                offsetTopAndBottom(mLastY-mScroller.currY)
-                mLastY = mScroller.currY
-                post(this)
-            }else{
-                removeCallbacks(this)
-                isFinished=true
-            }
-        }
-
-        fun recover(dis: Int) {
-            if (dis <= 0) {
-                return
-            }
-            removeCallbacks(this)
-            mLastY = 0
-            isFinished = false
-            mScroller.startScroll(0, 0, 0, dis, 350)
-            post(this)
-        }
-
-        init {
-            isFinished = true
-        }
     }
 }
