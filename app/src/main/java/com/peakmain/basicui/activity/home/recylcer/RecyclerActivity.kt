@@ -39,6 +39,7 @@ class RecyclerActivity : BaseActivity() {
         mData.add("Recycleriew封装的下拉刷新和加载更多1")
         mData.add("Recycleriew封装的下拉刷新和加载更多2")
         mData.add("多状态布局")
+        mData.add("多类型布局")
         mAdapter = BaseRecyclerStringAdapter(this, mData)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         mRecyclerView!!.adapter = mAdapter
@@ -53,6 +54,7 @@ class RecyclerActivity : BaseActivity() {
                     5 -> ActivityUtil.gotoActivity(this@RecyclerActivity, PullDownActivity1::class.java)
                     6 -> ActivityUtil.gotoActivity(this@RecyclerActivity, PullDownActivity2::class.java)
                     7 -> ActivityUtil.gotoActivity(this@RecyclerActivity, MultiStateLayoutActivity::class.java)
+                    8->ActivityUtil.gotoActivity(this@RecyclerActivity, MultiTypeLayoutActivity::class.java)
                     else -> {
                     }
                 }
