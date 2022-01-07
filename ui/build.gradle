@@ -27,9 +27,9 @@ android {
             buildConfigField("String", "TAG", "\"BasicUI\"")
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             buildConfigField("String", "TAG", "\"BasicUI\"")
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     externalNativeBuild {
