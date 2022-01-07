@@ -33,12 +33,14 @@ object FileUtils {
 
     fun getVideoBasePath(): String = getESD() + VIDEO_PATH
 
+    var getImageFolderPath: String = getESD() + File.separator + "image" + File.separator
+
     private val mDownloadFolderPath: String =
             getESD() + File.separator + "download" + File.separator
 
-     fun getDownloadFolderPath(): String {
-         return mDownloadFolderPath
-     }
+    fun getDownloadFolderPath(): String {
+        return mDownloadFolderPath
+    }
 
     fun copyDir(srcDirPath: String?,
                 destDirPath: String?): Boolean {
@@ -516,6 +518,7 @@ object FileUtils {
         }
         return appCacheDir
     }
+
     fun loadFileList(path: String, callback: LoadFileTask.FileCallback?) {
         getAllFileList(getFileByPath(path), callback)
     }
@@ -523,6 +526,7 @@ object FileUtils {
     private fun getAllFileList(path: File?, callback: LoadFileTask.FileCallback?) {
         LoadFileTask().getAllFileList(path, callback)
     }
+
     /***
      * 获取文件类型
      */
@@ -540,6 +544,7 @@ object FileUtils {
     }
 
 }
+
 class LoadFileTask :
         AsyncTask<File?, Void?, List<PictureFileInfo>> {
     private var mLoadFileTask: LoadFileTask? = null

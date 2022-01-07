@@ -1,14 +1,10 @@
-### 前言
-- 查看在线pdf文档:
-http://note.youdao.com/s/EM20Cggm
+<p align="center">
+  <img src="https://upload-images.jianshu.io/upload_images/9387746-3866ee64845e0831.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"  />
+</p>
 
-- 简书文档地址：
-https://www.jianshu.com/p/dfc3af038778
-
-- 项目库的GitHub地址：[https://github.com/Peakmain/BasicUI](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FPeakmain%2FBasicUI)
-
-*   如果大家觉得有点帮助，希望可以抬抬你的贵手，送我一个星星，谢谢。如果有什么问题，也欢迎你在下方留言或者在[BasicUI](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FPeakmain%2FBasicUI)中提
-
+#### BasicUI
+****
+BasicUI是一些常用的Android UI组件和一些实用工具类封装，提高Android的开发效率
 #### How to
 
 - Step 1. Add the JitPack repository to your build file
@@ -22,25 +18,29 @@ Add it in your root build.gradle at the end of repositories:
         }
     }
 - Step 2. Add the dependency
-you can use support
-
 ```
-    dependencies {
-            implementation 'com.github.Peakmain:BasicUI:1.0.9'
-    }
-```
-Now Android x is also supported
-```
-implementation 'com.github.Peakmain:BasicUI:1.1.0-androidx'
+implementation 'com.github.Peakmain:BasicUI:1.1.2'
 ```
 
-##### Demonstration
-****
 ##### Screenshot
-![1.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/1.png)&emsp;![2.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/2.png)&emsp;![3.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/3.png)&emsp;![4.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/4.png)&emsp;
-![5.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/5.png)&emsp;![6.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/6.png)&emsp;![7.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/3.png)&emsp;![8.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/8.png)&emsp;
-![9.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/9.png)&emsp;![10.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/10.png)&emsp;![11.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/11.gif)&emsp;![12.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/12.gif)&emsp;
-![13.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/13.gif)&emsp;![14.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/14.gif)&emsp;![15.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/15.png)&emsp;![16.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/16.png)&emsp;
-![17.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/17.png)&emsp;![18.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/18.png)&emsp;![19.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/19.png)&emsp;![20.png](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/20.png)&emsp;
-![LinearLayoutmanager实现悬浮.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/LinearLayoutmanager实现悬浮.gif)&emsp;![GridLayoutManage实现分组.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/GridLayoutManage实现分组.gif)&emsp;![GridLayoutManage实现悬浮.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/GridLayoutManage实现悬浮.gif)&emsp;![ItemTouchHelper实现删除和拖拽.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/ItemTouchHelper实现删除和拖拽.gif)&emsp;
-![时间选择器的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/时间选择器的使用.gif)&emsp;
+![首页.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/首页.jpg)&emsp;![dialog的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/dialog的使用.jpg)&emsp;![navigtionBar的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/navigtionBar的使用.jpg)&emsp;![popwindow+flowlayout的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/popwindow+flowlayout的使用.jpg)&emsp;
+![自带删除的EditText.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/自带删除的EditText.jpg)&emsp;![TextView的封装.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/TextView的封装.jpg)&emsp;![仿今日头条的TableLayout.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/仿今日头条的TableLayout.gif)&emsp;![加载loading.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/加载loading.gif)&emsp;
+![多条目菜单删选.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/多条目菜单删选.gif)&emsp;![自定义键盘.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/自定义键盘.jpg)&emsp;![LinearlayoutManager分组.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/LinearlayoutManager分组.jpg)&emsp;![LinearlayoutManager悬浮.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/LinearlayoutManager悬浮.gif)&emsp;
+![GridLayoutManager分组.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/GridLayoutManager分组.jpg)&emsp;![GridLayoutManager悬浮.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/GridLayoutManager悬浮.gif)&emsp;![ItemTouchHelp实现删除和土拖拽.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/ItemTouchHelp实现删除和土拖拽.gif)&emsp;![RecyclerView实现下拉刷新和加载1.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/RecyclerView实现下拉刷新和加载1.gif)&emsp;
+![RecyclerView实现下拉刷新和加载更多2.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/RecyclerView实现下拉刷新和加载更多2.gif)&emsp;![RecyclerView实现多状态布局.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/RecyclerView实现多状态布局.gif)&emsp;![图片压缩.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/图片压缩.gif)&emsp;![图片选择.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/图片选择.gif)&emsp;
+![文件选择.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/文件选择.gif)&emsp;![选择器的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/选择器的使用.gif)&emsp;![glide的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/glide的使用.gif)&emsp;![View创建Bitmap.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/View创建Bitmap.jpg)&emsp;
+![OkHttp的封装.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/OkHttp的封装.jpg)&emsp;![文本高亮的使用.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/文本高亮的使用.gif)&emsp;![我的.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/我的.jpg)&emsp;
+
+ #### BasicUI Demo APP 安装包下载
+ ****
+ - 蒲公英下载地址
+ 
+ ![演示demo](https://www.pgyer.com/app/qrcode/BasicUI)
+ 
+ - Github下载地址：
+ 
+ ![image.png](https://upload-images.jianshu.io/upload_images/9387746-0a833896a68b7bc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 关于我
+- 简书： [https://www.jianshu.com/u/3ff32f5aea98](https://www.jianshu.com/u/3ff32f5aea98)
+- 我的GitHub地址：[https://github.com/Peakmain](https://github.com/Peakmain)
