@@ -6,8 +6,11 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.LinearInterpolator
+import android.widget.Scroller
 import androidx.core.view.ViewCompat
 import com.peakmain.ui.recyclerview.creator.RefreshViewCreator
+import com.peakmain.ui.utils.LogUtils
 
 /**
  * @author ：Peakmain
@@ -81,7 +84,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
         return super.dispatchTouchEvent(ev)
     }
 
-    var count = 0
 
     /**
      * 重置当前刷新状态状态
@@ -90,7 +92,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
         val currentTopMargin = (mRefreshView!!.layoutParams as MarginLayoutParams).topMargin
         var finalTopMargin = -mRefreshViewHeight + 1
         if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {
-            count = 0
             finalTopMargin = 0
             mCurrentRefreshStatus = REFRESH_STATUS_REFRESHING
             if (mRefreshCreator != null) {
@@ -102,7 +103,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
             }
         }
         if (mCurrentDrag) {
-            count = count + 1
             val distance = currentTopMargin - finalTopMargin
             // 回弹到指定位置
             val animator = ObjectAnimator.ofFloat(currentTopMargin.toFloat(), finalTopMargin.toFloat()).setDuration(distance.toLong())
@@ -112,6 +112,15 @@ open class RefreshRecyclerView : WrapRecyclerView {
             }
             if (!animator.isRunning) animator.start()
             mCurrentDrag = false
+        }else{
+            val distance = currentTopMargin - finalTopMargin
+            // 回弹到指定位置
+            val animator = ObjectAnimator.ofFloat(currentTopMargin.toFloat(), (-mRefreshViewHeight+1).toFloat()).setDuration(distance.toLong())
+            animator.addUpdateListener { animation ->
+                val currentTopMargin = animation.animatedValue as Float
+                setRefreshViewMarginTop(currentTopMargin.toInt())
+            }
+            if (!animator.isRunning) animator.start()
         }
     }
 
@@ -190,10 +199,6 @@ open class RefreshRecyclerView : WrapRecyclerView {
                 mRefreshViewHeight = mRefreshView!!.measuredHeight
                 if (mRefreshViewHeight > 0) {
                     // 隐藏头部刷新的View  marginTop  多留出1px防止无法判断是不是滚动到头部问题
-                    setRefreshViewMarginTop(-mRefreshViewHeight + 1)
-                }
-            } else {
-                if (!mCurrentDrag && mCurrentRefreshStatus == REFRESH_STATUS_NORMAL) {
                     setRefreshViewMarginTop(-mRefreshViewHeight + 1)
                 }
             }
