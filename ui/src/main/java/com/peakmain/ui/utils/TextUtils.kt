@@ -1,5 +1,6 @@
 package com.peakmain.ui.utils
 
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.*
 import android.text.TextUtils
@@ -24,25 +25,19 @@ class TextUtils private constructor() {
          *
          * 设置拆分的文字颜色（flags：默认包括起始位置）
          */
+        @JvmStatic
         fun clipTextColor(
                 text: String,
                 @ColorInt color: Int,
                 start: Int,
-                end: Int
-        ): SpannableString {
-            return clipTextColor(text, color, start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        }
-
-        fun clipTextColor(
-            text: String,
-            @ColorInt color: Int,
-            start: Int,
-            end: Int,
-            flags: Int
+                end: Int,
+                flags: Int = Spanned.SPAN_INCLUSIVE_EXCLUSIVE,
+                vararg styleSpan: StyleSpan = arrayOf(StyleSpan(Typeface.NORMAL))
         ): SpannableString {
             val foregroundColorSpan = ForegroundColorSpan(color)
             val spannableString = SpannableString(text)
             spannableString.setSpan(foregroundColorSpan, start, end, flags)
+            spannableString.setSpan(styleSpan, start, end, flags)
             return spannableString
         }
     }
