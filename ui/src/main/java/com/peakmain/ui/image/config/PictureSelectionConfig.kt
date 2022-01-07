@@ -18,7 +18,7 @@ class PictureSelectionConfig private constructor() {
     var mimeType = PictureConfig.TYPE_IMAGE
 
     //图片选择模式  单选或者多选
-    var selectionMode = PictureConfig.MULTIPLE
+    var selectionMode = PictureConfig.SINGLE
 
     //最多选择数量
     var maxSelectNumber = 9
@@ -52,7 +52,7 @@ class PictureSelectionConfig private constructor() {
      */
     private fun reset() {
         mimeType = PictureConfig.TYPE_IMAGE
-        selectionMode = PictureConfig.MULTIPLE
+        selectionMode = PictureConfig.SINGLE
         maxSelectNumber = 9
         showCamera = false
         isCompress = true

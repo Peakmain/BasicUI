@@ -13,6 +13,8 @@ import java.io.Serializable
  * describe：File文件属性
  */
 class PictureFileInfo : Serializable {
+    var id = 0
+
     constructor(filePath: String, name: String, time: Long, fileSize: Long) {
         this.filePath = filePath
         this.fileName = name
@@ -23,6 +25,12 @@ class PictureFileInfo : Serializable {
     constructor(type: String?, path: String?) {
         this.filePath = path
         this.type = type
+    }
+
+    constructor(type: String?, path: String?, id: Int) {
+        this.filePath = path
+        this.type = type
+        this.id = id
     }
 
     constructor() : this("", "", 0, 0)
@@ -79,4 +87,5 @@ class PictureFileInfo : Serializable {
 
 
 }
+
 data class GifPlayerMessage(val gifHelper: GifHelper, val bitmap: Bitmap, val imageView: ImageView, val delay: Int)
