@@ -2,10 +2,12 @@ package com.peakmain.ui.image
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
@@ -19,18 +21,17 @@ import com.peakmain.ui.R
 import com.peakmain.ui.constants.PermissionConstants
 import com.peakmain.ui.image.adapter.PictureSelectorListAdapter
 import com.peakmain.ui.image.config.PictureConfig
+import com.peakmain.ui.image.config.PictureFileMimeType
 import com.peakmain.ui.image.config.PictureSelectionConfig
 import com.peakmain.ui.image.entry.PictureFileInfo
 import com.peakmain.ui.image.fragment.FileListFragment
 import com.peakmain.ui.image.fragment.PictureSelectFragment
+import com.peakmain.ui.utils.*
 import com.peakmain.ui.utils.FileUtils.createTmpFile
-import com.peakmain.ui.utils.PermissionUtils
-import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
-import com.peakmain.ui.utils.FragmentManagerHelper
+import com.yalantis.ucrop.UCrop
 import java.io.File
 import java.io.IOException
-import java.util.*
 
 /**
  * author:Peakmain
@@ -122,6 +123,36 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         }
     }
 
+    private fun startCrop(filePath: String) {
+        //判断是不是网络图片
+        val isHttp = PictureFileMimeType.isHttp(filePath)
+        //图片的后缀
+        val imgType = PictureFileMimeType.getLastImgType(filePath)
+        val uri = if (isHttp) Uri.parse(filePath) else Uri.fromFile(File(filePath))
+        val file = File(FileUtils.getImageFolderPath)
+        FileUtils.createOrExistsDir(file)
+        val outUri = Uri.fromFile(File(file, System.currentTimeMillis().toString() + imgType))
+        UCrop.of(uri, outUri)
+                .withAspectRatio(1f, 1f)
+                .withOptions(getCropOptions())
+                .start(this)
+    }
+
+    private fun getCropOptions(): UCrop.Options {
+        val options = UCrop.Options()
+        //设置标题栏颜色
+        options.setToolbarColor(ContextCompat.getColor(this, R.color.ui_color_01a8e3))
+        //设置状态栏颜色
+        options.setStatusBarColor(ContextCompat.getColor(this, R.color.ui_color_01a8e3))
+        //设置标题栏文字颜色
+        options.setToolbarWidgetColor(ContextCompat.getColor(this, android.R.color.white))
+        options.setFreeStyleCropEnabled(false)
+        options.setHideBottomControls(true)
+        options.setCompressionQuality(90)
+        options.setCompressionFormat(Bitmap.CompressFormat.JPEG)
+        return options
+    }
+
     override fun onBackPressed() {
         if (mCurrentSelect == 2 && --mFileListFragmentCount == 0) {
             val fm = supportFragmentManager
@@ -155,7 +186,11 @@ internal class PictureSelectorActivity : AppCompatActivity() {
         }
         mStvComplete.setOnClickListener {
             //数据返回出去
-            onResult(mResultList)
+            if (mConfig.enableCrop && mConfig.selectionMode == PictureConfig.SINGLE) {
+                startCrop(mResultList!![0].filePath!!)
+            } else {
+                onResult(mResultList)
+            }
         }
     }
 
@@ -296,6 +331,21 @@ internal class PictureSelectorActivity : AppCompatActivity() {
                     setResult(mResultList)
                 }
 
+            } else if (requestCode == UCrop.REQUEST_CROP) {
+                val resultUri = UCrop.getOutput(data!!)
+                val cropList: ArrayList<PictureFileInfo> = ArrayList()
+                if (resultUri != null && !TextUtils.isEmpty(resultUri.path)) {
+                    val pictureFileInfo = PictureFileInfo()
+                    pictureFileInfo.filePath = resultUri.path
+                    cropList.add(pictureFileInfo)
+                    onResult(cropList)
+                } else {
+                    if (resultUri == null) {
+                        LogUtils.d("resultUri == null")
+                    } else {
+                        LogUtils.d("resultUri == path == " + resultUri.path)
+                    }
+                }
             }
         }
     }
@@ -349,5 +399,12 @@ internal class PictureSelectorActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mConfig.mResultCallBack != null) {
+            mConfig.mResultCallBack = null
+        }
     }
 }

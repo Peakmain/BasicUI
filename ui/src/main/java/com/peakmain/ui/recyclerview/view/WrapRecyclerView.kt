@@ -2,10 +2,14 @@ package com.peakmain.ui.recyclerview.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.peakmain.ui.R
 import com.peakmain.ui.recyclerview.adapter.WrapRecyclerAdapter
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
@@ -41,6 +45,8 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
     private var mInflater: LayoutInflater? = null
     private val mOtherIds = ArrayList<Int>()
     private val mStatusView = ArrayList<View?>()
+    private var isShouldSpan = false
+    private var mContextMenuInfo: RecyclerViewContextMenuInfo? = null
     private val mDataObserver: AdapterDataObserver = object : AdapterDataObserver() {
         override fun onChanged() {
             if (mAdapter == null) {
@@ -131,6 +137,35 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
         mInflater = LayoutInflater.from(context)
     }
 
+    override fun setLayoutManager(layout: LayoutManager?) {
+        if (layout is GridLayoutManager || layout is StaggeredGridLayoutManager) {
+            isShouldSpan = true
+        }
+        super.setLayoutManager(layout)
+    }
+
+    override fun getContextMenuInfo(): ContextMenu.ContextMenuInfo {
+        return mContextMenuInfo ?: super.getContextMenuInfo()
+    }
+
+    override fun showContextMenuForChild(originalView: View?): Boolean {
+        val longPressPosition = getChildBindingAdapterPosition(originalView)
+        if (longPressPosition >= 0) {
+            val longPressId = adapter?.getItemId(longPressPosition)
+            mContextMenuInfo = RecyclerViewContextMenuInfo(longPressPosition, longPressId!!)
+            return super.showContextMenuForChild(originalView)
+        }
+        return false
+    }
+
+    public fun getChildBindingAdapterPosition(@NonNull child: View?): Int {
+        if (child == null) {
+            return -1
+        }
+        val holder = getChildViewHolder(child)
+        return holder.adapterPosition
+    }
+
     override fun setAdapter(adapter: Adapter<ViewHolder>?) {
         if (mAdapter != null) {
             mAdapter!!.unregisterAdapterDataObserver(mDataObserver)
@@ -146,8 +181,10 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
         // 注册一个观察者
         mAdapter!!.registerAdapterDataObserver(mDataObserver)
 
-        // 解决GridLayout添加头部和底部也要占据一行
-        mWrapRecyclerAdapter!!.adjustSpanSize(this)
+        if (isShouldSpan) {
+            // 解决GridLayout添加头部和底部也要占据一行
+            mWrapRecyclerAdapter!!.adjustSpanSize(this)
+        }
 
         //加载数据页面
         if (mLoadingView != null && mLoadingView!!.visibility == View.VISIBLE) {
@@ -504,6 +541,9 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
          */
         private val DEFAULT_LAYOUT_PARAMS = LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT)
+
+        private class RecyclerViewContextMenuInfo(val position: Int, val id: Long) : ContextMenu.ContextMenuInfo {
+        }
     }
 
     init {
