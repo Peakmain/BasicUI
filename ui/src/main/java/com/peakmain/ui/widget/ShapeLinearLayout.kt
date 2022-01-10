@@ -10,7 +10,7 @@ import com.peakmain.ui.R
  * author ：Peakmain
  * createTime：2020/3/1
  * mail:2726449200@qq.com
- * describe：自定义Linearlayout
+ * describe：自定义LinearLayout
  */
 class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
     private var mRadius = 0f
@@ -42,9 +42,27 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
         mNormalStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlStrokeWidth, 0)
         mStartColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStartColor, 0)
         mEndColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlEndColor, 0)
+        val topLeftRadius: Int = ta.getDimensionPixelSize(
+                R.styleable.ShapeLinearLayout_topLeftRadius, mRadius.toInt())
+        val topRightRadius: Int = ta.getDimensionPixelSize(
+                R.styleable.ShapeLinearLayout_topRightRadius, mRadius.toInt())
+        val bottomLeftRadius: Int = ta.getDimensionPixelSize(
+                R.styleable.ShapeLinearLayout_bottomLeftRadius, mRadius.toInt())
+        val bottomRightRadius: Int = ta.getDimensionPixelSize(
+                R.styleable.ShapeLinearLayout_bottomRightRadius, mRadius.toInt())
+        if (topLeftRadius != mRadius.toInt() || topRightRadius != mRadius.toInt() || bottomLeftRadius != mRadius.toInt() || bottomRightRadius != mRadius.toInt()) {
+            setCornerRadii(floatArrayOf(
+                    topLeftRadius.toFloat(), topLeftRadius.toFloat(),
+                    topRightRadius.toFloat(), topRightRadius.toFloat(),
+                    bottomRightRadius.toFloat(), bottomRightRadius.toFloat(),
+                    bottomLeftRadius.toFloat(), bottomLeftRadius
+                    .toFloat()))
+        }
         ta.recycle()
         mGradientDrawable = GradientDrawable()
         background = mGradientDrawable
+
+
         setStroke()
     }
 
@@ -71,6 +89,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
     fun setRadius(radius: Float) {
         mRadius = radius
         mGradientDrawable!!.cornerRadius = mRadius
+        setStroke()
     }
 
     /**
@@ -80,6 +99,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
     fun setNormalStrokeWidth(strokeWidth: Int) {
         mNormalStrokeWidth = strokeWidth
         mGradientDrawable!!.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
+        setStroke()
     }
 
     /**
@@ -89,6 +109,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
     fun setNormalStrokeColor(strokeColor: Int) {
         mNormalStrokeColor = strokeColor
         mGradientDrawable!!.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
+        setStroke()
     }
 
     /**
@@ -98,6 +119,14 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
     fun setNormalBackgroundColor(backgroundColor: Int) {
         mNormalBackgroundColor = backgroundColor
         mGradientDrawable!!.setColor(mNormalBackgroundColor)
+        setStroke()
+    }
+
+    /**
+     * 设置四周的圆角
+     */
+    private fun setCornerRadii( radius: FloatArray) {
+        mGradientDrawable!!.cornerRadii = radius
     }
 
     init {
