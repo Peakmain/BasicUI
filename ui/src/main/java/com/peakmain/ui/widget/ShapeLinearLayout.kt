@@ -37,6 +37,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
     private fun init(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ShapeLinearLayout)
         mNormalBackgroundColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlBackgroundColor, 0)
+        mGradientDrawable = GradientDrawable()
         mRadius = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlRadius, 0).toFloat()
         mNormalStrokeColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStrokeColor, 0)
         mNormalStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlStrokeWidth, 0)
@@ -59,7 +60,6 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
                     .toFloat()))
         }
         ta.recycle()
-        mGradientDrawable = GradientDrawable()
         background = mGradientDrawable
 
 
