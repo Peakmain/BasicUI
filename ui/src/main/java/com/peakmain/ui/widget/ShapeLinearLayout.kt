@@ -43,13 +43,13 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
         mStartColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStartColor, 0)
         mEndColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlEndColor, 0)
         val topLeftRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_topLeftRadius, mRadius.toInt())
+                R.styleable.ShapeLinearLayout_shapeLlTopLeftRadius, mRadius.toInt())
         val topRightRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_topRightRadius, mRadius.toInt())
+                R.styleable.ShapeLinearLayout_shapeLlTopRightRadius, mRadius.toInt())
         val bottomLeftRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_bottomLeftRadius, mRadius.toInt())
+                R.styleable.ShapeLinearLayout_shapeLlBottomLeftRadius, mRadius.toInt())
         val bottomRightRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_bottomRightRadius, mRadius.toInt())
+                R.styleable.ShapeLinearLayout_shapeLlBottomRightRadius, mRadius.toInt())
         if (topLeftRadius != mRadius.toInt() || topRightRadius != mRadius.toInt() || bottomLeftRadius != mRadius.toInt() || bottomRightRadius != mRadius.toInt()) {
             setCornerRadii(floatArrayOf(
                     topLeftRadius.toFloat(), topLeftRadius.toFloat(),
