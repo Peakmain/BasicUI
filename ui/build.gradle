@@ -27,7 +27,7 @@ android {
             buildConfigField("String", "TAG", "\"BasicUI\"")
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             buildConfigField("String", "TAG", "\"BasicUI\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
