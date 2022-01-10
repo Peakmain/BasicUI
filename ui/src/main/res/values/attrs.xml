@@ -30,6 +30,11 @@
         <attr name="shapeTvActiveMotion" format="boolean" />
         <!--按下去后文字颜色-->
         <attr name="shapeTvPressedColor" format="color|reference" />
+        <!--四周的圆角-->
+        <attr name="topLeftRadius" format="dimension|reference" />
+        <attr name="topRightRadius" format="dimension|reference" />
+        <attr name="bottomLeftRadius" format="dimension|reference" />
+        <attr name="bottomRightRadius" format="dimension|reference" />
     </declare-styleable>
 
     <!--自定义CircleImageView 属性-->
@@ -52,6 +57,11 @@
         <attr name="shapeLlRadius" format="dimension|reference" />
         <attr name="shapeLlStartColor" format="color|reference" />
         <attr name="shapeLlEndColor" format="color|reference" />
+        <!--四周的圆角-->
+        <attr name="topLeftRadius" format="dimension|reference" />
+        <attr name="topRightRadius" format="dimension|reference" />
+        <attr name="bottomLeftRadius" format="dimension|reference" />
+        <attr name="bottomRightRadius" format="dimension|reference" />
     </declare-styleable>
 
 
@@ -155,13 +165,13 @@
 
     <!--自定义键盘的属性-->
     <declare-styleable name="customKeyboardView">
-        <attr name="ckExtraKey" format="string"/>
-        <attr name="ckDecimalPlaces" format="integer"/>
+        <attr name="ckExtraKey" format="string" />
+        <attr name="ckDecimalPlaces" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="CrumbView">
-        <attr format="color" name="light_color"/>
-        <attr format="color" name="dark_color"/>
+        <attr name="light_color" format="color" />
+        <attr name="dark_color" format="color" />
     </declare-styleable>
 
 </resources>

@@ -103,6 +103,23 @@ class ShapeTextView @JvmOverloads constructor(
         isActiveMotion = a.getBoolean(R.styleable.ShapeTextView_shapeTvActiveMotion, isActiveMotion)
         //按下去的颜色
         mPressedColor = a.getColor(R.styleable.ShapeTextView_shapeTvPressedColor, mPressedColor)
+
+        val topLeftRadius: Int = a.getDimensionPixelSize(
+                R.styleable.ShapeTextView_topLeftRadius, mRadius.toInt())
+        val topRightRadius: Int = a.getDimensionPixelSize(
+                R.styleable.ShapeTextView_topRightRadius, mRadius.toInt())
+        val bottomLeftRadius: Int = a.getDimensionPixelSize(
+                R.styleable.ShapeTextView_bottomLeftRadius, mRadius.toInt())
+        val bottomRightRadius: Int = a.getDimensionPixelSize(
+                R.styleable.ShapeTextView_bottomRightRadius, mRadius.toInt())
+        if (topLeftRadius != mRadius.toInt() || topRightRadius != mRadius.toInt() || bottomLeftRadius != mRadius.toInt() || bottomRightRadius != mRadius.toInt()) {
+            setCornerRadii(floatArrayOf(
+                    topLeftRadius.toFloat(), topLeftRadius.toFloat(),
+                    topRightRadius.toFloat(), topRightRadius.toFloat(),
+                    bottomRightRadius.toFloat(), bottomRightRadius.toFloat(),
+                    bottomLeftRadius.toFloat(), bottomLeftRadius
+                    .toFloat()))
+        }
         setStroke()
         gravity = Gravity.CENTER
         a.recycle()
@@ -215,9 +232,18 @@ class ShapeTextView @JvmOverloads constructor(
         mRadius = radius
         setStroke()
     }
-
+    /**
+     * 设置四周的圆角
+     */
+    private fun setCornerRadii( radius: FloatArray) {
+        mGradientDrawable!!.cornerRadii = radius
+    }
+    
+    
     //按压后的shape样式
     init {
         init(attrs)
     }
+    
+    
 }
