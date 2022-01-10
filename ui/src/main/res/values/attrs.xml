@@ -31,10 +31,10 @@
         <!--按下去后文字颜色-->
         <attr name="shapeTvPressedColor" format="color|reference" />
         <!--四周的圆角-->
-        <attr name="topLeftRadius" format="dimension|reference" />
-        <attr name="topRightRadius" format="dimension|reference" />
-        <attr name="bottomLeftRadius" format="dimension|reference" />
-        <attr name="bottomRightRadius" format="dimension|reference" />
+        <attr name="shapeTvTopLeftRadius" format="dimension|reference" />
+        <attr name="shapeTvTopRightRadius" format="dimension|reference" />
+        <attr name="shapeTvBottomLeftRadius" format="dimension|reference" />
+        <attr name="shapeTvBottomRightRadius" format="dimension|reference" />
     </declare-styleable>
 
     <!--自定义CircleImageView 属性-->
@@ -58,10 +58,10 @@
         <attr name="shapeLlStartColor" format="color|reference" />
         <attr name="shapeLlEndColor" format="color|reference" />
         <!--四周的圆角-->
-        <attr name="topLeftRadius" format="dimension|reference" />
-        <attr name="topRightRadius" format="dimension|reference" />
-        <attr name="bottomLeftRadius" format="dimension|reference" />
-        <attr name="bottomRightRadius" format="dimension|reference" />
+        <attr name="shapeLlTopLeftRadius" format="dimension|reference" />
+        <attr name="shapeLlTopRightRadius" format="dimension|reference" />
+        <attr name="shapeLlBottomLeftRadius" format="dimension|reference" />
+        <attr name="shapeLlBottomRightRadius" format="dimension|reference" />
     </declare-styleable>
 
 

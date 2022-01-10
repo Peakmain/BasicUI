@@ -105,13 +105,13 @@ class ShapeTextView @JvmOverloads constructor(
         mPressedColor = a.getColor(R.styleable.ShapeTextView_shapeTvPressedColor, mPressedColor)
 
         val topLeftRadius: Int = a.getDimensionPixelSize(
-                R.styleable.ShapeTextView_topLeftRadius, mRadius.toInt())
+                R.styleable.ShapeTextView_shapeTvTopLeftRadius, mRadius.toInt())
         val topRightRadius: Int = a.getDimensionPixelSize(
-                R.styleable.ShapeTextView_topRightRadius, mRadius.toInt())
+                R.styleable.ShapeTextView_shapeTvTopRightRadius, mRadius.toInt())
         val bottomLeftRadius: Int = a.getDimensionPixelSize(
-                R.styleable.ShapeTextView_bottomLeftRadius, mRadius.toInt())
+                R.styleable.ShapeTextView_shapeTvBottomLeftRadius, mRadius.toInt())
         val bottomRightRadius: Int = a.getDimensionPixelSize(
-                R.styleable.ShapeTextView_bottomRightRadius, mRadius.toInt())
+                R.styleable.ShapeTextView_shapeTvBottomRightRadius, mRadius.toInt())
         if (topLeftRadius != mRadius.toInt() || topRightRadius != mRadius.toInt() || bottomLeftRadius != mRadius.toInt() || bottomRightRadius != mRadius.toInt()) {
             setCornerRadii(floatArrayOf(
                     topLeftRadius.toFloat(), topLeftRadius.toFloat(),
