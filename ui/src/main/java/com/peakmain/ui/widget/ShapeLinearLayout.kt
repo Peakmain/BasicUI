@@ -73,7 +73,9 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
         //设置背景色
         mGradientDrawable!!.setColor(mNormalBackgroundColor)
         //设置弧度
-        mGradientDrawable!!.cornerRadius = mRadius
+        if (mRadius != 0f) {
+            mGradientDrawable!!.cornerRadius = mRadius
+        }
         //设置边线
         mGradientDrawable!!.setStroke(mNormalStrokeWidth, mNormalBackgroundColor)
         if (mStartColor != 0 && mEndColor != 0) {
@@ -125,7 +127,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * 设置四周的圆角
      */
-    private fun setCornerRadii( radius: FloatArray) {
+    private fun setCornerRadii(radius: FloatArray) {
         mGradientDrawable!!.cornerRadii = radius
     }
 
