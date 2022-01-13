@@ -55,7 +55,8 @@ object PermissionConstants {
     private val GROUP_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-    fun getPermissions( permission: String): Array<String> {
+    @JvmStatic
+    fun getPermissions(permission: String): Array<String> {
         when (permission) {
             CALENDAR -> return GROUP_CALENDAR
             CAMERA -> return GROUP_CAMERA
