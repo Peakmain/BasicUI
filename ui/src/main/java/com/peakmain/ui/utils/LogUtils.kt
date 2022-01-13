@@ -72,117 +72,121 @@ class LogUtils private constructor() {
         private const val NULL_TIPS = "Log with null object."
         private const val NULL = "null"
         private const val ARGS = "args"
+        @JvmStatic
         fun v(contents: Any?) {
             log(V, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun v(tag: String?, content: Any?, vararg contents: Any?) {
             log(V, tag, content!!, contents)
         }
 
+        @JvmStatic
         fun d(contents: Any?) {
             log(D, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun d(tag: String?, content: Any?, vararg contents: Any?) {
             log(D, tag, content!!, contents)
         }
-
+        @JvmStatic
         fun i(contents: Any?) {
             log(I, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun normal(message: String?) {
             Log.i(BuildConfig.TAG, message)
         }
-
+        @JvmStatic
         fun i(tag: String?, content: Any?, vararg contents: Any?) {
             log(I, tag, content!!, contents)
         }
-
+        @JvmStatic
         fun w(contents: Any?) {
             log(W, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun w(tag: String?, content: Any?, vararg contents: Any?) {
             log(W, tag, content!!, contents)
         }
-
+        @JvmStatic
         fun e(contents: Any?) {
             log(E, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun e(tag: String?, content: Any?, vararg contents: Any?) {
             log(E, tag, content!!, contents)
         }
-
+        @JvmStatic
         fun a(contents: Any?) {
             log(A, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun a(tag: String?, content: Any?, vararg contents: Any?) {
             log(A, tag, content!!, contents)
         }
-
+        @JvmStatic
         fun file(contents: Any?) {
             log(FILE or D, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun file(@TYPE type: Int, contents: Any?) {
             log(FILE or type, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun file(tag: String?, contents: Any?) {
             log(FILE or D, tag, contents!!)
         }
-
+        @JvmStatic
         fun file(@TYPE type: Int, tag: String?, contents: Any?) {
             log(FILE or type, tag, contents!!)
         }
-
+        @JvmStatic
         fun json(contents: String?) {
             log(JSON or D, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun json(@TYPE type: Int, contents: String?) {
             log(JSON or type, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun json(tag: String?, contents: String?) {
             log(JSON or D, tag, contents!!)
         }
-
+        @JvmStatic
         fun json(@TYPE type: Int, tag: String?, contents: String?) {
             log(JSON or type, tag, contents!!)
         }
-
+        @JvmStatic
         fun xml(contents: String?) {
             log(XML or D, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun xml(@TYPE type: Int, contents: String?) {
             log(XML or type, sGlobalTag, contents!!)
         }
-
+        @JvmStatic
         fun xml(tag: String?, contents: String?) {
             log(XML or D, tag, contents!!)
         }
-
+        @JvmStatic
         fun xml(@TYPE type: Int, tag: String?, contents: String?) {
             log(XML or type, tag, contents!!)
         }
 
         private fun log(type: Int, tag: String?, vararg contents: Any) {
-            val typeLow = type and 0x0f
-            val typeHigh = type and 0xf0
-            if (typeLow < sConsoleFilter && typeLow < sFileFilter) return
-            val tagHead = processTagAndHead(tag)
-            val body = processBody(typeHigh, *contents)
-            if (sLog2ConsoleSwitch && typeLow >= sConsoleFilter && typeHigh != FILE) {
-                print2Console(typeLow, tagHead.tag, tagHead.consoleHead, body)
-            }
-            if ((sLog2FileSwitch || typeHigh == FILE) && typeLow >= sFileFilter) {
-                print2File(typeLow, tagHead.tag, tagHead.fileHead + body)
+            if (BuildConfig.DEBUG) {
+                val typeLow = type and 0x0f
+                val typeHigh = type and 0xf0
+                if (typeLow < sConsoleFilter && typeLow < sFileFilter) return
+                val tagHead = processTagAndHead(tag)
+                val body = processBody(typeHigh, *contents)
+                if (sLog2ConsoleSwitch && typeLow >= sConsoleFilter && typeHigh != FILE) {
+                    print2Console(typeLow, tagHead.tag, tagHead.consoleHead, body)
+                }
+                if ((sLog2FileSwitch || typeHigh == FILE) && typeLow >= sFileFilter) {
+                    print2File(typeLow, tagHead.tag, tagHead.fileHead + body)
+                }
             }
         }
 
@@ -429,7 +433,6 @@ class LogUtils private constructor() {
             }
             return true
         }
-
 
 
     }
