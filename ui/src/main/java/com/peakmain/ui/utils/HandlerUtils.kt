@@ -28,6 +28,7 @@ object HandlerUtils {
     }
 
     //判断是否是主进程
+    @JvmStatic
     val isOnMainThread: Boolean
         get() = Looper.myLooper() == Looper.getMainLooper()
 

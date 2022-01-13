@@ -109,6 +109,7 @@ class TaskDispatcher private constructor() {
 
     //执行
     private fun sendAndExecuteAsyncTasks() {
+        val isMainProcess = if (context != null) isMainProcess(context!!) else false
         for (task in mAllTasks) {
             if (task.onlyInMainProcess() && !isMainProcess) {
                 markTaskDone(task)
@@ -229,15 +230,12 @@ class TaskDispatcher private constructor() {
 
         @Volatile
         private var sHasInit = false
-        var isMainProcess = false
-            private set
 
         @JvmStatic
         fun init(context: Context?) {
             if (context != null) {
                 this.context = context.applicationContext
                 sHasInit = true
-                isMainProcess = isMainProcess(context)
             }
         }
 

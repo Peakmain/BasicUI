@@ -24,6 +24,7 @@ object BasicUIUtils {
      * @param layoutId 布局的id
      * @return view
      */
+    @JvmStatic
     fun getView(context: Context?, @LayoutRes layoutId: Int): View {
         if (context == null) {
             throw NullPointerException("context cannot be null")
