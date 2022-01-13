@@ -26,6 +26,7 @@ class PermissionUtils private constructor(var mObject: Any) {
         /**
          * 判断是否有某个权限
          */
+        @JvmStatic
         fun hasPermission(permission: String): Boolean {
             return try {
                 ContextCompat.checkSelfPermission(
@@ -39,19 +40,36 @@ class PermissionUtils private constructor(var mObject: Any) {
         }
 
         /**
+         * 判断是否有权限
+         */
+        @JvmStatic
+        fun hasPermission(permissions: Array<String>): Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return true
+            }
+            permissions.forEach {
+               if(!hasPermission(it)){
+                   return false
+               }
+            }
+            return true
+        }
+
+        /**
          * 是否有悬浮窗的权限
          */
+        @JvmStatic
         fun hasOverLaysPermission(): Boolean {
             return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(mApplication)
         }
 
-
+        @JvmStatic
         fun request(activity: Activity, requestCode: Int, permissions: Array<String>, block: OnPermissionListener) {
             this.requestCode = requestCode
             with(activity).requestCode(requestCode).requestPermission(*permissions)
                     .request(block)
         }
-
+        @JvmStatic
         fun request(fragment: Fragment, requestCode: Int, permissions: Array<String>, block: OnPermissionListener) {
             this.requestCode = requestCode
             with(fragment).requestCode(requestCode).requestPermission(*permissions)
@@ -65,7 +83,7 @@ class PermissionUtils private constructor(var mObject: Any) {
         private fun with(fragment: Fragment): PermissionUtils {
             return PermissionUtils(fragment)
         }
-
+        @JvmStatic
         fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>) {
             if (this.requestCode != -1 && this.requestCode == requestCode) {
                 val deniedPermissions = getDeniedPermissions(*permissions)
