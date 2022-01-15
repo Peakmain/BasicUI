@@ -24,6 +24,7 @@ implementation 'com.github.Peakmain:BasicUI:1.1.9'
 - Step 3.some probleam
 如果你的gradle版本比3.5.3高，可能会出现以下几个问题：
   - Entry name 'AndroidManifest.xml' collided
+  
   **解决办法：在gradle.properties添加以下代码**
   ```
   android.useNewApkCreator=false
