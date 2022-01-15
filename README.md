@@ -22,24 +22,27 @@ Add it in your root build.gradle at the end of repositories:
 implementation 'com.github.Peakmain:BasicUI:1.1.9'
 ```
 - Step 3.some probleam
-如果你的gradle版本比3.5.3高，可能会出现以下几个问题：
-  - Entry name 'AndroidManifest.xml' collided
+
+  如果你的gradle版本比3.5.3高，可能会出现以下几个问题：
+
+  1、Entry name 'AndroidManifest.xml' collided
   
   **解决办法：在gradle.properties添加以下代码**
   ```
   android.useNewApkCreator=false
   ```
-  - 如果安装失败，用adb install安装报错提示如下
-  failed to install app-debug.apk: Failure [INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION: Failed to parse /data/app/vmdl1335956833.tmp/base.apk: Corrupt XML binary file]
+   2、如果安装失败，用adb install安装报错提示如下
+  
+    failed to install app-debug.apk: Failure [INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION: Failed to parse /data/app/vmdl1335956833.tmp/base.apk: Corrupt XML binary file]
  
- **解决办法:在添加依赖的build.gradle中添加以下代码**
- ```
- android{
-     packagingOptions {
-        exclude 'AndroidManifest.xml'
-    }
- }
- ```
+  **解决办法:在添加依赖的build.gradle中添加以下代码**
+   ```
+    android{
+         packagingOptions {
+          exclude 'AndroidManifest.xml'
+       }
+     }
+    ```
  
 ##### Screenshot
 ![首页.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/首页.jpg)&emsp;![dialog的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/dialog的使用.jpg)&emsp;![navigtionBar的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/navigtionBar的使用.jpg)&emsp;![popwindow+flowlayout的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/popwindow+flowlayout的使用.jpg)&emsp;
