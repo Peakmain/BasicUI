@@ -5,6 +5,8 @@
 #### BasicUI
 ****
 BasicUI是一些常用的Android UI组件和一些实用工具类封装，提高Android的开发效率
+
+**使用文档链接：https://github.com/Peakmain/BasicUI/wiki**
 #### How to
 
 - Step 1. Add the JitPack repository to your build file
