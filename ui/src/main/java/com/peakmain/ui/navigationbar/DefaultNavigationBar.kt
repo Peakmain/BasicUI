@@ -69,6 +69,16 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         }
     }
 
+    fun setHomeAsUpIndicator(@DrawableRes resId: Int) {
+        if (mActionBar != null) {
+            mActionBar!!.setHomeAsUpIndicator(resId)
+        }
+    }
+
+    fun getActionBar(): ActionBar? {
+        return mActionBar
+    }
+
     /**
      * 是否显示返回按钮
      *
@@ -209,7 +219,7 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         return this
     }
 
-    class Builder(val context: Context?, parent: ViewGroup?) : AbsNavigationBar.Builder<Builder?>(context!!, R.layout.ui_defualt_navigation_bar, parent!!) {
+    open class Builder(val context: Context?, parent: ViewGroup?) : AbsNavigationBar.Builder<Builder?>(context!!, R.layout.ui_defualt_navigation_bar, parent!!) {
         var mLeftVisible = View.VISIBLE
         private var mDefaultNavigationBar: DefaultNavigationBar? = null
         var mTitleVisible = View.VISIBLE
