@@ -23,7 +23,7 @@ import java.util.*
  * mail : 2726449200@qq.com
  * describe ：
  */
-open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?> internal constructor(val builder: B) : INavigation {
+open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : INavigation {
     /**
      * 返回NavigationBar的builder
      */
