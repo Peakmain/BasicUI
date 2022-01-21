@@ -1,7 +1,9 @@
 package com.peakmain.ui.navigationbar
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -46,12 +48,17 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
             } catch (e: Exception) {
                 mToolbar!!.setBackgroundColor(builder.mToolbarBackgroundColor)
             }
+            if (builder.mToolbarBackIcon != null) {
+                mToolbar!!.navigationIcon = builder.mToolbarBackIcon
+            }
             mActionBar = context.supportActionBar
             if (mActionBar == null) {
                 return
             }
-            if (builder.mToolbarBackIcon != null) {
-                mToolbar!!.navigationIcon = builder.mToolbarBackIcon
+            if(builder.mHomeAsUpIndicator!=null){
+                mActionBar!!.setHomeAsUpIndicator(builder.mHomeAsUpIndicator!!)
+            }else if(builder.mHomeAsUpIndicatorDrawable!=null){
+                mActionBar!!.setHomeAsUpIndicator(builder.mHomeAsUpIndicatorDrawable!!)
             }
             mActionBar!!.setDisplayShowTitleEnabled(builder.mShowTitle)
             mActionBar!!.setDisplayHomeAsUpEnabled(builder.mShowHomeAsUp)
@@ -69,10 +76,21 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         }
     }
 
-    fun setHomeAsUpIndicator(@DrawableRes resId: Int) {
+    /**
+     * 自定设置返回按钮
+     */
+    fun setHomeAsUpIndicator(@DrawableRes resId: Int): DefaultNavigationBar {
         if (mActionBar != null) {
             mActionBar!!.setHomeAsUpIndicator(resId)
         }
+        return this
+    }
+
+    fun setHomeAsUpIndicator(@Nullable indicator: Drawable): DefaultNavigationBar {
+        if (mActionBar != null) {
+            mActionBar!!.setHomeAsUpIndicator(indicator)
+        }
+        return this
     }
 
     fun getActionBar(): ActionBar? {
@@ -238,14 +256,34 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         var mRightResHeight = ViewGroup.LayoutParams.WRAP_CONTENT
         var mRightResWidth = ViewGroup.LayoutParams.WRAP_CONTENT
 
-        //左边返回键
         var mToolbarBackIcon: Drawable? = null
-        fun setNavigationIcon(@DrawableRes resId: Int) {
+
+        //左边返回键
+        var mHomeAsUpIndicator: Int? = null
+        var mHomeAsUpIndicatorDrawable: Drawable? = null
+
+        /**
+         * Set the icon to use for the toolbar's navigation button
+         */
+        fun setNavigationIcon(@DrawableRes resId: Int): Builder {
             setNavigationIcon(if (context != null) AppCompatResources.getDrawable(context, resId) else null)
+            return this
         }
 
-        fun setNavigationIcon(@Nullable icon: Drawable?) {
+        fun setNavigationIcon(@Nullable icon: Drawable?): Builder {
             mToolbarBackIcon = icon
+            return this
+        }
+        fun setHomeAsUpIndicator(@Nullable indicator: Drawable): Builder {
+             mHomeAsUpIndicatorDrawable = indicator
+            return this
+        }
+        /**
+         * 自定义左边返回键按钮
+         */
+        fun setHomeAsUpIndicator(@DrawableRes resId: Int): Builder {
+            this.mHomeAsUpIndicator = resId
+            return this
         }
 
         /**
@@ -253,8 +291,8 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
          *
          * @param text 文字
          */
-        fun setLeftText(text: CharSequence?): Builder {
-            setText(R.id.tv_left, text)
+        fun setLeftText(text: CharSequence?, typeface: Typeface = Typeface.DEFAULT): Builder {
+            setText(R.id.tv_left, text, typeface)
             return this
         }
 
@@ -279,11 +317,12 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
             return this
         }
 
+
         /**
          * 设置标题文字
          */
-        fun setTitleText(text: CharSequence?): Builder {
-            setText(R.id.tv_title, text)
+        fun setTitleText(text: CharSequence?, typeface: Typeface= Typeface.DEFAULT): Builder {
+            setText(R.id.tv_title, text, typeface)
             return this
         }
 
