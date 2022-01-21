@@ -1,6 +1,7 @@
 package com.peakmain.ui.navigationbar
 
 import android.content.Context
+import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -76,6 +77,7 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
                 val textView = findViewById<TextView>(viewId)!!
                 //设置文本
                 textView.text = parameter.text
+                textView.typeface = parameter.typeface
                 val textColorId = parameter.textColorId
                 if (textColorId != 0) {
                     try {
@@ -131,9 +133,10 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
          * @return
          */
         abstract fun create(): AbsNavigationBar<*>?
-        fun setText(viewId: Int, text: CharSequence?): B {
+        fun setText(viewId: Int, text: CharSequence?, typeface: Typeface): B {
             getNavigationParameter(viewId)
             mNavigationParameter!!.text = text
+            mNavigationParameter!!.typeface = typeface
             mNavigationParameterMaps[viewId] = mNavigationParameter
             return this as B
         }

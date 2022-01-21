@@ -17,7 +17,6 @@
         android:text="@string/show_right_arrow"
         android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
-
     <com.peakmain.basicui.view.RadioCancelButton
         android:id="@+id/radio_set_left_text"
         android:layout_width="match_parent"
@@ -97,6 +96,15 @@
         android:layout_margin="@dimen/space_10"
         android:buttonTint="@color/ui_color_01a8e3"
         android:text="@string/alert_left_icon"
+        android:textColor="@color/ui_color_4A4A4A"
+        tools:targetApi="lollipop" />
+    <com.peakmain.basicui.view.RadioCancelButton
+        android:id="@+id/radio_custom_back_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
+        android:buttonTint="@color/ui_color_01a8e3"
+        android:text="@string/custom_left_icon"
         android:textColor="@color/ui_color_4A4A4A"
         tools:targetApi="lollipop" />
 

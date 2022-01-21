@@ -33,5 +33,6 @@
     <string name="shapetextview1">测试shapeTextView1</string>
     <string name="dialog_loading">以dialog的方式显示loading!</string>
     <string name="compress">压缩</string>
+    <string name="custom_left_icon">自定义左边图标</string>
 
 </resources>
