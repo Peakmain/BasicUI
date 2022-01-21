@@ -1,5 +1,6 @@
 package com.peakmain.ui.navigationbar
 
+import android.graphics.Typeface
 import android.view.View
 
 /**
@@ -18,5 +19,5 @@ class NavigationParameter {
 
     //文字颜色id的集合
     var textColorId = 0
-
+    var typeface :Typeface= Typeface.DEFAULT
 }

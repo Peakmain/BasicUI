@@ -1,5 +1,6 @@
 package com.peakmain.basicui.activity.home
 
+import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import com.peakmain.basicui.R
@@ -61,6 +62,11 @@ class NaviagtionBarActivity : BaseActivity() {
     private var mRadioAlerLeftIcon: RadioCancelButton? = null
 
     /**
+     * 自定义左边返回按钮
+     */
+    private var mRadioCustomBackIcon: RadioCancelButton? = null
+
+    /**
      * 确定
      */
     private lateinit var mStvSure: ShapeTextView
@@ -80,6 +86,7 @@ class NaviagtionBarActivity : BaseActivity() {
         mRadioShowToolbarTitle = findViewById(R.id.radio_show_toolbar_title)
         mRadioAlertRightImage = findViewById(R.id.radio_alert_right_image)
         mRadioAlerLeftIcon = findViewById(R.id.radio_alert_left_back_icon)
+        mRadioCustomBackIcon = findViewById(R.id.radio_custom_back_icon)
         mStvSure = findViewById(R.id.stv_sure)
         mStvSure.setOnClickListener { showNavigationBar() }
     }
@@ -97,6 +104,7 @@ class NaviagtionBarActivity : BaseActivity() {
         val radioShowToolbarTitleChecked = mRadioShowToolbarTitle!!.isChecked
         val radioAlertRightImageChecked = mRadioAlertRightImage!!.isChecked
         val radioAlertLeftIconChecked = mRadioAlerLeftIcon!!.isChecked
+        val radioCustomBackIconChecked = mRadioCustomBackIcon!!.isChecked
 
         if (mNavigationBar != null) {
             val parent = mRadioShowRightArrow!!.parent as ViewGroup
@@ -115,13 +123,16 @@ class NaviagtionBarActivity : BaseActivity() {
         if (radioHideTitleChecked) {
             mBuilder!!.hideTitleText()
         } else {
-            mBuilder!!.setTitleText("navigationBar的使用")
+            mBuilder!!.setTitleText("navigationBar的使用", Typeface.DEFAULT_BOLD)
         }
         if (radioAlertBackgroundColorChecked) {
             mBuilder!!.setToolbarBackgroundColor(R.color.ui_color_802F73F6)
         }
         if(radioAlertLeftIconChecked){
             mBuilder!!.setNavigationIcon(R.drawable.ui_ic_left_back)
+        }
+        if(radioCustomBackIconChecked){
+            mBuilder!!.setHomeAsUpIndicator(R.drawable.ui_ic_left_back)
         }
         mBuilder!!.setDisplayHomeAsUpEnabled(radioShowBackButtonChecked)
                 .setNavigationOnClickListener(View.OnClickListener { v: View? -> finish() })
