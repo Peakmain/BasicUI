@@ -42,6 +42,10 @@ android {
             jniLibs.srcDirs = ['libjpeg/so']
         }
     }
+    packagingOptions {
+        // pickFirsts:当出现重复文件，会使用第一个匹配的文件打包进入apk
+        pickFirst 'lib/arm64-v8a/libjpeg.so'
+    }
 }
 
 dependencies {
