@@ -1,5 +1,7 @@
 package com.peakmain.basicui.activity.home.recylcer.activity;
 
+import android.graphics.Typeface;
+
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.activity.home.recylcer.itemDecoration.SuspenisonItemDecoration;
 import com.peakmain.basicui.adapter.GroupGridAdapter;
@@ -22,7 +24,7 @@ public class SuspenisonGridActivity extends BaseRecyclerAcitvity {
 
     @Override
     protected void initData() {
-        mNavigationBuilder.setTitleText("GridLayoutManager实现悬浮").create();
+        mNavigationBuilder.setTitleText("GridLayoutManager实现悬浮", Typeface.DEFAULT).create();
         BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration.Builder(this, mGroupBeans)
                 .setTextCenter(true).create();
         mRecyclerView.addItemDecoration(itemDecoration);
