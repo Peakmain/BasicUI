@@ -16,7 +16,6 @@ import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.BitmapUtils
 import com.peakmain.ui.utils.LogUtils
-import com.peakmain.ui.utils.crash.CrashUtils
 import java.io.File
 import java.util.*
 
@@ -53,12 +52,6 @@ open class UtilsFragment : BaseFragmnet() {
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
-        CrashUtils.setOnFileUploadListener(object : CrashUtils.OnFileUploadListener {
-            override fun onFileUploadListener(file: File) {
-                LogUtils.e("Java异常崩溃，崩溃分拣目录：${file.absolutePath}")
-            }
-
-        })
         mAdapter!!.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 when (position) {
@@ -73,9 +66,6 @@ open class UtilsFragment : BaseFragmnet() {
                         val imageView = dialog.getView<ImageView>(R.id.iv_bitmap)
                         val bitmap = BitmapUtils.createBitmapFromView(getRootView())
                         imageView.setImageBitmap(bitmap)
-                    }
-                    4 -> {
-                        LogUtils.e(5 / 0)
                     }
                     else -> {
                     }
