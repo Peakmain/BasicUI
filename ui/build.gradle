@@ -49,9 +49,11 @@ android {
         pickFirst 'lib/x86/libjpeg.so'
     }
 }
-
+android {
+    ndkVersion '22.1.7171670'
+}
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar',"*.aar"])
+    implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
@@ -64,7 +66,7 @@ dependencies {
     implementation 'com.tencent.tbs.tbssdk:sdk:43903'
     // 图片浏览
     implementation 'com.bm.photoview:library:1.4.1'
-    implementation ('com.github.yalantis:ucrop:2.2.6'){
+    implementation('com.github.yalantis:ucrop:2.2.6') {
         exclude group: 'com.android.support'
     }
 }
