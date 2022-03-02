@@ -50,7 +50,7 @@ android {
     }
 }
 android {
-    ndkVersion '22.1.7171670'
+    ndkVersion '21.1.6352462'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
