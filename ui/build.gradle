@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 31
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -48,9 +48,6 @@ android {
         pickFirst 'lib/armeabi-v7a/libjpeg.so'
         pickFirst 'lib/x86/libjpeg.so'
     }
-}
-android {
-    ndkVersion '21.1.6352462'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
