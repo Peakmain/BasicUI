@@ -15,8 +15,12 @@ import com.peakmain.ui.constants.BasicUIUtils
 class X5IntentService : IntentService(X5IntentService::class.java.canonicalName) {
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, X5IntentService::class.java)
-            context.startService(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(Intent(context, X5IntentService::class.java))
+            } else {
+                val intent = Intent(context, X5IntentService::class.java)
+                context.startService(intent)
+            }
         }
     }
 
