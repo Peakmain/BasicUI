@@ -45,7 +45,14 @@ implementation 'com.github.Peakmain:BasicUI:1.1.13'
        }
      }
     ```
- 
+  3、提示报错
+  <img width="908" alt="image" src="https://user-images.githubusercontent.com/26482737/167089658-d5176dbc-ae07-4fd3-ac91-8caf6cea7e00.png">
+   **解决办法**
+   ```
+    implementation ('com.github.Peakmain:BasicUI:1.1.13'){
+        exclude group:"com.github.yalantis",module:"ucrop"
+    }
+   ```
 ##### Screenshot
 ![首页.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/首页.jpg)&emsp;![dialog的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/dialog的使用.jpg)&emsp;![navigtionBar的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/navigtionBar的使用.jpg)&emsp;![popwindow+flowlayout的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/popwindow+flowlayout的使用.jpg)&emsp;
 ![自带删除的EditText.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/自带删除的EditText.jpg)&emsp;![TextView的封装.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/TextView的封装.jpg)&emsp;![仿今日头条的TableLayout.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/仿今日头条的TableLayout.gif)&emsp;![加载loading.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/加载loading.gif)&emsp;
