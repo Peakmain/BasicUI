@@ -21,7 +21,7 @@ Add it in your root build.gradle at the end of repositories:
     }
 - Step 2. Add the dependency
 ```
-implementation 'com.github.Peakmain:BasicUI:1.1.12'
+implementation 'com.github.Peakmain:BasicUI:1.1.13'
 ```
 - Step 3.some probleam
 
