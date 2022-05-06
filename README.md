@@ -53,6 +53,10 @@ implementation 'com.github.Peakmain:BasicUI:1.1.13'
         exclude group:"com.github.yalantis",module:"ucrop"
     }
    ```
+   AndroidManifest.xml添加如下代码
+   ```
+    <activity android:name="com.yalantis.ucrop.UCropActivity" tools:node="remove"/>
+   ```
 ##### Screenshot
 ![首页.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/首页.jpg)&emsp;![dialog的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/dialog的使用.jpg)&emsp;![navigtionBar的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/navigtionBar的使用.jpg)&emsp;![popwindow+flowlayout的使用.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/popwindow+flowlayout的使用.jpg)&emsp;
 ![自带删除的EditText.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/自带删除的EditText.jpg)&emsp;![TextView的封装.jpg](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/TextView的封装.jpg)&emsp;![仿今日头条的TableLayout.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/仿今日头条的TableLayout.gif)&emsp;![加载loading.gif](https://github.com/Peakmain/BasicUI/blob/androidx/img-preview/加载loading.gif)&emsp;
