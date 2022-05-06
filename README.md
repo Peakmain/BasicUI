@@ -45,9 +45,9 @@ implementation 'com.github.Peakmain:BasicUI:1.1.13'
        }
      }
     ```
-  3、提示报错
+  3、如果提示报错
   <img width="908" alt="image" src="https://user-images.githubusercontent.com/26482737/167089658-d5176dbc-ae07-4fd3-ac91-8caf6cea7e00.png">
-   **解决办法**
+   **解决办法:修改依赖如下**
    ```
     implementation ('com.github.Peakmain:BasicUI:1.1.13'){
         exclude group:"com.github.yalantis",module:"ucrop"
