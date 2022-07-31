@@ -227,10 +227,16 @@ public final class ToastUtils {
     }
 
     private static void show(@StringRes final int resId, final int duration) {
+        if(BasicUIUtils.getApplication()==null){
+            return;
+        }
         show(BasicUIUtils.getApplication().getResources().getText(resId).toString(), duration);
     }
 
     private static void show(@StringRes final int resId, final int duration, final Object... args) {
+        if(BasicUIUtils.getApplication()==null){
+            return;
+        }
         show(String.format(BasicUIUtils.getApplication().getResources().getString(resId), args), duration);
     }
 
@@ -303,11 +309,7 @@ public final class ToastUtils {
                         new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
                 );
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    toastView.setBackground(new ColorDrawable(sBgColor));
-                } else {
-                    toastView.setBackgroundDrawable(new ColorDrawable(sBgColor));
-                }
+                toastView.setBackground(new ColorDrawable(sBgColor));
             }
         }
     }
