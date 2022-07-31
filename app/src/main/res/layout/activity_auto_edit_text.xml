@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <com.peakmain.ui.widget.AutoDeleteEditText
+        android:id="@+id/auto_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_20"
