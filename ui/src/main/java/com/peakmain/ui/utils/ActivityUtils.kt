@@ -51,14 +51,14 @@ class ActivityUtils {
     }
 
     inner class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
-        override fun onActivityPaused(p0: Activity?) {
+        override fun onActivityPaused(p0: Activity) {
 
         }
 
-        override fun onActivityResumed(p0: Activity?) {
+        override fun onActivityResumed(p0: Activity) {
         }
 
-        override fun onActivityStarted(p0: Activity?) {
+        override fun onActivityStarted(p0: Activity) {
             mActivityStartCount++
             //!isFront表示之前处于后台
             if (!isFront && mActivityStartCount > 0) {
@@ -67,7 +67,7 @@ class ActivityUtils {
             }
         }
 
-        override fun onActivityDestroyed(p0: Activity?) {
+        override fun onActivityDestroyed(p0: Activity) {
             for (activityRef in mActivityLists) {
                 if (activityRef.get() == p0) {
                     mActivityLists.remove(activityRef);
@@ -77,10 +77,8 @@ class ActivityUtils {
 
         }
 
-        override fun onActivitySaveInstanceState(p0: Activity?, p1: Bundle?) {
-        }
 
-        override fun onActivityStopped(p0: Activity?) {
+        override fun onActivityStopped(p0: Activity) {
             mActivityStartCount--
             if (mActivityStartCount <= 0 && isFront) {
                 isFront = false
@@ -88,8 +86,11 @@ class ActivityUtils {
             }
         }
 
-        override fun onActivityCreated(p0: Activity?, p1: Bundle?) {
-            mActivityLists.add(WeakReference(p0!!))
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+        }
+
+        override fun onActivityCreated(p0: Activity, p1: Bundle?) {
+            mActivityLists.add(WeakReference(p0))
         }
 
     }

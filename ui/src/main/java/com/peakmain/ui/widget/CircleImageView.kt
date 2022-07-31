@@ -248,7 +248,7 @@ class CircleImageView : AppCompatImageView {
             invalidate()
             return
         }
-        mBitmapShader = BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        mBitmapShader = BitmapShader(mBitmap!!, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
         mBitmapPaint.isAntiAlias = true
         mBitmapPaint.shader = mBitmapShader
         mBorderPaint.style = Paint.Style.STROKE

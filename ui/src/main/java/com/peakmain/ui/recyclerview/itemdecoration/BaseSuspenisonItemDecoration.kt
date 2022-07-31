@@ -22,7 +22,8 @@ import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
  * mail:2726449200@qq.com
  * describe：基本悬浮列表
  */
-abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : RecyclerView.ItemDecoration {
+abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
+    RecyclerView.ItemDecoration {
     private var mData: List<T>
     private var mBgPaint: Paint? = null
     private var mTextPaint: TextPaint? = null
@@ -61,11 +62,15 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
 
     constructor(builder: Builder<T>) {
         mData = builder.mData
-        mBgColor = if (builder.mBgColor != 0) builder.mBgColor else ContextCompat.getColor(builder.mContext, R.color.white)
+        mBgColor =
+            if (builder.mBgColor != 0) builder.mBgColor else ContextCompat.getColor(builder.mContext,
+                R.color.white)
         mSectionHeight = if (builder.mSectionHeight != 0) builder.mSectionHeight else dp2px(30f)
         topHeight = if (builder.topHeight != 0) builder.topHeight else dp2px(10f)
         mTextSize = if (builder.mTextSize != 0) builder.mTextSize else dp2px(10f)
-        mTextColor = if (builder.mTextColor != 0) builder.mTextColor else ContextCompat.getColor(builder.mContext, com.peakmain.ui.R.color.ui_color_4A4A4A)
+        mTextColor = if (builder.mTextColor != 0) builder.mTextColor else ContextCompat.getColor(
+            builder.mContext,
+            com.peakmain.ui.R.color.ui_color_4A4A4A)
         mPaddingLeft = if (builder.mPaddingLeft != 0) builder.mPaddingLeft else dp2px(10f)
         mPaddingBottom = if (builder.mPaddingBottom != 0) builder.mPaddingBottom else dp2px(5f)
         mPaddingRight = if (builder.mPaddingRight != 0) builder.mPaddingRight else dp2px(10f)
@@ -95,14 +100,15 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
             val params = child
-                    .layoutParams as RecyclerView.LayoutParams
+                .layoutParams as RecyclerView.LayoutParams
             val position = params.viewLayoutPosition
             if (mData.isNotEmpty() && position <= mData.size - 1 && position > -1) {
                 if (position == 0) {
                     drawSection(c, left, right, child, params, position)
                 } else {
                     if (null != getTopText(mData, position)
-                            && getTopText(mData, position) != getTopText(mData, position - 1)) {
+                        && getTopText(mData, position) != getTopText(mData, position - 1)
+                    ) {
                         drawSection(c, left, right, child, params, position)
                     }
                 }
@@ -110,30 +116,37 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
         }
     }
 
-    private fun drawSection(c: Canvas, left: Int, right: Int, child: View,
-                            params: RecyclerView.LayoutParams, position: Int) {
+    private fun drawSection(
+        c: Canvas, left: Int, right: Int, child: View,
+        params: RecyclerView.LayoutParams, position: Int
+    ) {
         val topText = getTopText(mData, position)
         if (!TextUtils.isEmpty(topText)) {
             val rect = Rect(left,
-                    child.top - params.topMargin - mSectionHeight,
-                    right,
-                    child.top - params.topMargin)
-            c.drawRect(rect, mBgPaint)
+                child.top - params.topMargin - mSectionHeight,
+                right,
+                child.top - params.topMargin)
+            c.drawRect(rect, mBgPaint!!)
             mTextPaint!!.getTextBounds(topText,
-                    0,
-                    getTopText(mData, position)!!.length,
-                    mBounds)
+                0,
+                getTopText(mData, position)!!.length,
+                mBounds)
             if (isCenter) {
-                mTextPaint!!.textAlign = Paint.Align.CENTER
-                c.drawText(topText,
+                mTextPaint?.apply {
+                    textAlign = Paint.Align.CENTER
+                    c.drawText(topText ?: "",
                         rect.centerX().toFloat(),
                         child.top - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2.toFloat(),
-                        mTextPaint)
+                        this)
+                }
+
             } else {
-                c.drawText(topText,
+                mTextPaint?.apply {
+                    c.drawText(topText ?: "",
                         child.paddingLeft + mPaddingLeft.toFloat(),
                         child.top - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2.toFloat(),
-                        mTextPaint)
+                        this)
+                }
             }
         }
     }
@@ -160,38 +173,46 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
             }
         }
         val rect = Rect(parent.paddingLeft,
-                parent.paddingTop,
-                parent.right - parent.paddingRight,
-                parent.paddingTop + mSectionHeight + mPaddingBottom / 2 + mPaddingTop / 2)
-        c.drawRect(rect, mBgPaint)
+            parent.paddingTop,
+            parent.right - parent.paddingRight,
+            parent.paddingTop + mSectionHeight + mPaddingBottom / 2 + mPaddingTop / 2)
+        c.drawRect(rect, mBgPaint!!)
         if (!TextUtils.isEmpty(section)) {
             mTextPaint!!.getTextBounds(section, 0, section!!.length, mBounds)
             if (isCenter) {
                 mTextPaint!!.textAlign = Paint.Align.CENTER
-                c.drawText(section,
+                mTextPaint?.apply {
+                    c.drawText(section ?: "",
                         rect.centerX().toFloat(),
                         parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                        mTextPaint)
+                        this)
+                }
             } else {
-                c.drawText(section,
+                mTextPaint?.apply {
+                    c.drawText(section ?: "",
                         child!!.paddingLeft + mPaddingLeft.toFloat(),
                         parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                        mTextPaint)
+                        this)
+                }
             }
         } else if (pos == 0 || mData[pos]!!.isHeader) {
             section = getTopText(mData, pos + 1)
             if (!TextUtils.isEmpty(section)) {
                 mTextPaint!!.getTextBounds(section, 0, section!!.length, mBounds)
                 if (isCenter) {
-                    c.drawText(section,
+                    mTextPaint?.apply {
+                        c.drawText(section,
                             rect.centerX().toFloat(),
                             parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                            mTextPaint)
+                            this)
+                    }
                 } else {
-                    c.drawText(section,
+                    mTextPaint?.apply {
+                        c.drawText(section,
                             child!!.paddingLeft + mPaddingLeft.toFloat(),
                             parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                            mTextPaint)
+                            this)
+                    }
                 }
             }
         }
@@ -200,7 +221,12 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
         }
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = (view.layoutParams as RecyclerView.LayoutParams).viewLayoutPosition
         if (mData.isNotEmpty() && position <= mData.size - 1 && position > -1) {
@@ -218,7 +244,8 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> : Recycle
                     outRect[0, mSectionHeight, 0] = 0
                 } else {
                     if (null != getTopText(mData, position)
-                            && getTopText(mData, position) != getTopText(mData, position - 1)) {
+                        && getTopText(mData, position) != getTopText(mData, position - 1)
+                    ) {
                         outRect[0, mSectionHeight + topHeight, 0] = 0
                     }
                 }
