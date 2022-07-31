@@ -109,7 +109,7 @@ class CircleLoadingView @JvmOverloads constructor(context: Context?, attrs: Attr
         //清理所有动画
         mLeftView.clearAnimation()
         mRightView.clearAnimation()
-        val parent = parent as ViewGroup
+        val parent = parent as ViewGroup?
         if (parent != null) {
             //父布局中移除当前view
             parent.removeView(mLeftView)

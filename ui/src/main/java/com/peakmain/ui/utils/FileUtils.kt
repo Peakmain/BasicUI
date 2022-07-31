@@ -4,14 +4,10 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.media.ExifInterface
-import android.os.AsyncTask
 import android.os.Environment
 import android.text.TextUtils
-import com.peakmain.ui.image.entry.PictureFileInfo
-import com.peakmain.ui.utils.FileTypeUtil.getFileInfosFromFileArray
 import java.io.*
 import java.text.DecimalFormat
-import java.util.*
 
 /**
  * author ：Peakmain
@@ -24,23 +20,8 @@ object FileUtils {
     private const val JPEG_FILE_SUFFIX = ".jpg"
     private const val EXTERNAL_STORAGE_PERMISSION =
             "android.permission.WRITE_EXTERNAL_STORAGE"
-    private const val UI_CACHE_FOLDER_NAME = "UICache"
-    const val VIDEO_PATH = "/video/"
-
-    private fun getESD() =
-            Environment.getExternalStorageDirectory().absolutePath + File.separator + UI_CACHE_FOLDER_NAME
 
 
-    fun getVideoBasePath(): String = getESD() + VIDEO_PATH
-
-    var getImageFolderPath: String = getESD() + File.separator + "image" + File.separator
-
-    private val mDownloadFolderPath: String =
-            getESD() + File.separator + "download" + File.separator
-
-    fun getDownloadFolderPath(): String {
-        return mDownloadFolderPath
-    }
 
     fun copyDir(srcDirPath: String?,
                 destDirPath: String?): Boolean {
@@ -519,14 +500,6 @@ object FileUtils {
         return appCacheDir
     }
 
-    fun loadFileList(path: String, callback: LoadFileTask.FileCallback?) {
-        getAllFileList(getFileByPath(path), callback)
-    }
-
-    private fun getAllFileList(path: File?, callback: LoadFileTask.FileCallback?) {
-        LoadFileTask().getAllFileList(path, callback)
-    }
-
     /***
      * 获取文件类型
      */
@@ -543,98 +516,4 @@ object FileUtils {
         return str
     }
 
-}
-
-class LoadFileTask :
-        AsyncTask<File?, Void?, List<PictureFileInfo>> {
-    private var mLoadFileTask: LoadFileTask? = null
-    private var mCallback: FileCallback? = null
-
-    /**
-     * 根据文件路径查找所有文件
-     */
-    fun getAllFileList(
-            path: File?,
-            callback: FileCallback?
-    ) {
-        mLoadFileTask = LoadFileTask(callback)
-        mLoadFileTask!!.executeOnExecutor(THREAD_POOL_EXECUTOR, path)
-    }
-
-    override fun onPreExecute() {
-        if (mCallback != null) {
-            mCallback!!.showLoading("")
-        }
-        super.onPreExecute()
-    }
-
-    /**
-     * 执行文件列表查找
-     * @param files
-     * @return
-     */
-    protected override fun doInBackground(vararg files: File?): List<PictureFileInfo> {
-        return try {
-            val fileInfoList: List<PictureFileInfo>
-            val mFiles =
-                    files[0]?.listFiles(FileTypeUtil.ALL_FOLDER_AND_FILES_FILTER)
-            fileInfoList = getFileInfosFromFileArray(mFiles)
-            if (fileInfoList == null) {
-                ArrayList()
-            } else if (isCancelled) {
-                ArrayList()
-            } else {
-                Collections.sort(fileInfoList, FileTypeUtil.FileNameComparator())
-                if (mCallback != null) {
-                    mCallback!!.hideLoading()
-                }
-                fileInfoList
-            }
-        } catch (e: Exception) {
-            if (mCallback != null) {
-                mCallback!!.hideLoading()
-            }
-            ArrayList()
-        }
-    }
-
-    /**
-     * 查找完毕
-     * @param fileInfos
-     */
-    override fun onPostExecute(fileInfos: List<PictureFileInfo>) {
-        super.onPostExecute(fileInfos)
-        mLoadFileTask = null
-        if (mCallback != null) {
-            mCallback!!.onGetFileList(fileInfos)
-        }
-    }
-
-    override fun onCancelled() {
-        mLoadFileTask = null
-        if (mCallback != null) {
-            mCallback!!.hideLoading()
-        }
-        super.onCancelled()
-    }
-
-    interface FileCallback {
-        fun onGetFileList(mFileInfoList: List<PictureFileInfo>?)
-
-        /**
-         * 显示loading
-         */
-        fun showLoading(message: String?)
-
-        /**
-         * 隐藏loading
-         */
-        fun hideLoading()
-    }
-
-    constructor(callback: FileCallback?) {
-        mCallback = callback
-    }
-
-    constructor()
 }

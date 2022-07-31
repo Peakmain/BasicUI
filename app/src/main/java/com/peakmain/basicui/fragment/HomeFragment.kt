@@ -50,8 +50,6 @@ class HomeFragment : BaseFragmnet() {
         mHomeDataBean.add("自定义键盘")
         mHomeDataBean.add("九宫格解锁")
         mHomeDataBean.add("RecyclerView的使用")
-        mHomeDataBean.add("图片压缩")
-        mHomeDataBean.add("图片选择库的使用")
         mHomeDataBean.add("时间选择器")
         mAdapter = BaseRecyclerStringAdapter(context, mHomeDataBean)
         mRecyclerView!!.addItemDecoration(DividerGridItemDecoration(context!!))
@@ -72,9 +70,7 @@ class HomeFragment : BaseFragmnet() {
                     8 -> ActivityUtil.gotoActivity(context, KeyboardActivity::class.java)
                     9 -> ActivityUtil.gotoActivity(context, LockScreenActivity::class.java)
                     10 -> ActivityUtil.gotoActivity(context, RecyclerActivity::class.java)
-                    11 -> ActivityUtil.gotoActivity(context, ImageCompressActivity::class.java)
-                    12->ActivityUtil.gotoActivity(context, ImageSelectActivity::class.java)
-                    13->ActivityUtil.gotoActivity(context,WheelViewSelectorActivity::class.java)
+                    11->ActivityUtil.gotoActivity(context,WheelViewSelectorActivity::class.java)
                     else -> {
                     }
                 }

@@ -55,7 +55,7 @@ object HandlerUtils {
 
     // ignore
     private val curProcessNameFromProc: String?
-        private get() {
+        get() {
             var cmdlineReader: BufferedReader? = null
             try {
                 cmdlineReader = BufferedReader(InputStreamReader(
