@@ -25,7 +25,12 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：
  */
-class AutoDeleteEditText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr), TextWatcher, View.OnFocusChangeListener, View.OnClickListener {
+class AutoDeleteEditText @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr), TextWatcher, View.OnFocusChangeListener,
+    View.OnClickListener {
     /**
      * 字体大小
      */
@@ -95,7 +100,8 @@ class AutoDeleteEditText @JvmOverloads constructor(context: Context, attrs: Attr
         mPaddingTop = ta.getDimension(R.styleable.AutoDeleteEditText_adet_padding_top, 0f)
         mHint = ta.getString(R.styleable.AutoDeleteEditText_adet_hint)
         isSingle = ta.getBoolean(R.styleable.AutoDeleteEditText_adet_isSingle, false)
-        mInputType = ta.getInt(R.styleable.AutoDeleteEditText_android_inputType, EditorInfo.TYPE_NULL)
+        mInputType =
+            ta.getInt(R.styleable.AutoDeleteEditText_android_inputType, EditorInfo.TYPE_NULL)
         mMaxLength = ta.getInt(R.styleable.AutoDeleteEditText_adet_max_length, 0)
         if (ta.hasValue(R.styleable.AutoDeleteEditText_adet_tint_color)) {
             mDrawableTintList = ta.getColorStateList(R.styleable.AutoDeleteEditText_adet_tint_color)
@@ -106,7 +112,7 @@ class AutoDeleteEditText @JvmOverloads constructor(context: Context, attrs: Attr
         ta.recycle()
         mEditText = findViewById(R.id.et_content)
         mEditText.addTextChangedListener(this)
-        mEditText.setOnFocusChangeListener(this)
+        mEditText.onFocusChangeListener = this
         mIvDelete = findViewById(R.id.iv_delete)
         mIvDelete.setOnClickListener(this)
         setUp()
@@ -129,7 +135,7 @@ class AutoDeleteEditText @JvmOverloads constructor(context: Context, attrs: Attr
         if (!TextUtils.isEmpty(mHint)) {
             mEditText.hint = mHint
         }
-        mEditText.setSingleLine(isSingle)
+        mEditText.isSingleLine = isSingle
         if (mMaxLength > 0) {
             mEditText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(mMaxLength))
         }
@@ -175,6 +181,20 @@ class AutoDeleteEditText @JvmOverloads constructor(context: Context, attrs: Attr
         if (v.id == R.id.iv_delete) {
             post { mEditText.text.clear() }
         }
+    }
+
+    /**
+     * 获取EditText
+     */
+    fun getEditText(): EditText {
+        return mEditText
+    }
+
+    /**
+     * 设置文本
+     */
+    fun setText(text: CharSequence) {
+        mEditText.setText(text)
     }
 
     /**
