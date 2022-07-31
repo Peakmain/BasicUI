@@ -354,7 +354,7 @@ object FileUtils {
      * @param path 图片绝对路径
      * @return degree旋转的角度
      */
-    fun readPictureDegree(path: String?): Int {
+    fun readPictureDegree(path: String): Int {
         var degree = 0
         try {
             val exifInterface = ExifInterface(path)
