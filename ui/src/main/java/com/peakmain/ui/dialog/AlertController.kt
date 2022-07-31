@@ -87,7 +87,7 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
             }
             requireNotNull(viewHelper) { "Plase Set the layout setContentView()" }
             //Set the layout for the dialog
-            mAlert.dialog.setContentView(viewHelper.contentView)
+            mAlert.dialog.setContentView(viewHelper.contentView!!)
             //2.set text
             val textArraysize = mTextArray.size()
             for (i in 0 until textArraysize) {

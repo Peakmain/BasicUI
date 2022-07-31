@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
-    private val mDivider: Drawable
+    private val mDivider: Drawable?
     private val attrs = intArrayOf(
-            R.attr.listDivider
+        R.attr.listDivider
     )
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -21,6 +21,7 @@ class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration(
     }
 
     private fun drawHorizontal(c: Canvas, parent: RecyclerView) {
+        if (mDivider == null) return
         // 绘制水平间隔线
         val childCount = parent.childCount
         for (i in 0 until childCount) {
@@ -36,6 +37,7 @@ class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration(
     }
 
     private fun drawVertical(c: Canvas, parent: RecyclerView) {
+        if (mDivider == null) return
         //绘制垂直间隔线(垂直的矩形)
         val childCount = parent.childCount
         for (i in 0 until childCount) {
@@ -51,7 +53,13 @@ class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration(
         // 去掉右边的分割线
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        if (mDivider == null) return
         // 四个方向的偏移值
         var right = mDivider.intrinsicWidth
         var bottom = mDivider.intrinsicHeight
@@ -83,7 +91,8 @@ class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration(
     fun isLastRow(itemPosition: Int, parent: RecyclerView): Boolean {
         val spanCount = getSpanCount(parent)
         val childCount = parent.adapter!!.itemCount
-        val rowNumber = if (childCount % spanCount == 0) childCount / spanCount else childCount / spanCount + 1
+        val rowNumber =
+            if (childCount % spanCount == 0) childCount / spanCount else childCount / spanCount + 1
         return itemPosition > (rowNumber - 1) * spanCount - 1
     }
 

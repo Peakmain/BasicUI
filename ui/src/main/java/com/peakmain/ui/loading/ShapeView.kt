@@ -15,7 +15,8 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：仿老版58同城加载loading
  */
-class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : View(context, attrs, defStyleAttr) {
+class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+    View(context, attrs, defStyleAttr) {
     private var mPaint: Paint? = null
     var currentShape = Shape.Circle
         private set
@@ -56,12 +57,16 @@ class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Vie
         val center = width / 2
         when (currentShape) {
             Shape.Circle -> {
-                mPaint!!.color = mCircleColor
-                canvas.drawCircle(center.toFloat(), center.toFloat(), center.toFloat(), mPaint)
+                mPaint?.apply {
+                    color = mCircleColor
+                    canvas.drawCircle(center.toFloat(), center.toFloat(), center.toFloat(), this)
+                }
             }
             Shape.Square -> {
-                mPaint!!.color = mRectColor
-                canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), mPaint)
+                mPaint?.apply {
+                    color = mRectColor
+                    canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), this)
+                }
             }
             Shape.Triangle -> {
                 //绘制等边三角形
@@ -73,9 +78,9 @@ class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Vie
                     mPath!!.lineTo(width.toFloat(), (center * Math.sqrt(3.0)).toFloat())
                     mPath!!.close()
                 }
-               if(mPath!=null&&mPaint!=null){
-                   canvas.drawPath(mPath!!, mPaint!!)
-               }
+                if (mPath != null && mPaint != null) {
+                    canvas.drawPath(mPath!!, mPaint!!)
+                }
             }
         }
     }

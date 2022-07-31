@@ -12,7 +12,11 @@ import android.view.View
  * mail:2726449200@qq.com
  * describe：圆形的view
  */
-class CircleView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class CircleView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
     /**
      * 返回颜色
      */
@@ -28,9 +32,11 @@ class CircleView @JvmOverloads constructor(context: Context?, attrs: AttributeSe
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val cx = width / 2
-        val cy = height / 2
-        canvas.drawCircle(cx.toFloat(), cy.toFloat(), cx.toFloat(), mPaint)
+        mPaint?.apply {
+            val cx = width / 2
+            val cy = height / 2
+            canvas.drawCircle(cx.toFloat(), cy.toFloat(), cx.toFloat(), this)
+        }
     }
 
     /**

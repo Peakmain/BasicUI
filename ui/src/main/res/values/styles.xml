@@ -14,12 +14,12 @@
         <!--没有标题-->
         <item name="android:windowIsTranslucent">true</item>
         <!--背景透明-->
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <!--模糊-->
         <item name="android:backgroundDimEnabled">true</item>
         <!--没有标题-->
         <item name="android:windowNoTitle">true</item>
-
+        <item name="android:windowContentOverlay">@null</item>
     </style>
     <!--进入时的动画-->
     <style name="dialog_from_bottom_anim">
