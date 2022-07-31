@@ -129,8 +129,7 @@ class SizeUtils private constructor() {
             }
             val widthSpec = ViewGroup.getChildMeasureSpec(0, 0, lp.width)
             val lpHeight = lp.height
-            val heightSpec: Int
-            heightSpec = if (lpHeight > 0) {
+            val heightSpec: Int = if (lpHeight > 0) {
                 View.MeasureSpec.makeMeasureSpec(lpHeight, View.MeasureSpec.EXACTLY)
             } else {
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)

@@ -98,7 +98,7 @@ class PermissionUtils private constructor(var mObject: Any) {
         /**
          * 获取请求权限中需要授权的权限
          */
-        private fun getDeniedPermissions(vararg permissions: String): List<String> {
+        fun getDeniedPermissions(vararg permissions: String): List<String> {
             val deniedPermissions = ArrayList<String>()
             for (permission in permissions) {
                 if (ContextCompat.checkSelfPermission(

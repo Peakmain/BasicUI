@@ -172,7 +172,7 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         mShapeView!!.clearAnimation()
         mShadowView!!.clearAnimation()
         // 把LoadingView从父布局移除
-        val parent = parent as ViewGroup
+        val parent = parent as ViewGroup?
         if (parent != null) {
             parent.removeView(this) // 从父布局移除
             removeAllViews() // 移除自己所有的View

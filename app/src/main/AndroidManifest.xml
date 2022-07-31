@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,17 +42,14 @@
         <activity android:name=".activity.home.recylcer.activity.SuspenisonLinearActivity" />
         <activity android:name=".activity.home.recylcer.activity.SuspenisonGridActivity" />
         <activity android:name=".activity.home.recylcer.activity.ItemTouchActivity" />
-        <activity android:name=".activity.home.ImageCompressActivity" />
         <activity android:name=".activity.home.recylcer.activity.PullDownActivity1" />
         <activity android:name=".activity.home.recylcer.activity.PullDownActivity2" />
         <activity android:name=".activity.home.recylcer.activity.MultiStateLayoutActivity" />
-        <activity android:name=".activity.utils.DataBaseActivity" />
         <activity android:name=".activity.utils.OkHttpActivity" />
         <activity android:name=".activity.utils.GlideActivity" />
         <activity android:name=".activity.home.KeyboardActivity" />
         <activity android:name=".activity.home.keyboard.CustomIdKeyboardActivity" />
         <activity android:name=".activity.home.keyboard.CustomPointKeyboardActivity" />
-        <activity android:name=".activity.home.ImageSelectActivity" />
         <activity android:name=".activity.utils.TextUtilsActivity" />
         <activity android:name=".activity.home.WheelViewSelectorActivity" />
         <activity android:name=".activity.home.recylcer.activity.MultiTypeLayoutActivity" />

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.SimpleTarget
 
 /**
@@ -13,6 +14,12 @@ import com.bumptech.glide.request.target.SimpleTarget
  * describe：
  */
 interface ILoader {
+    /**
+     *
+     */
+    fun userAgent(userAgent:String?)
+
+
     /**
      * 加载网路图片
      *
@@ -32,7 +39,13 @@ interface ILoader {
      * @param corner  显示圆角的图片
      * @param desId   默认图片的Id
      */
-    fun displayImageRound(context: Context?, url: String?, view: ImageView?, corner: Int, desId: Int)
+    fun displayImageRound(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        corner: Int,
+        desId: Int
+    )
 
     /**
      * 加载Uri的图片
@@ -53,7 +66,13 @@ interface ILoader {
      * @param desId       默认的图片
      * @param isSkipCache 是否跳过缓存， 默认是false
      */
-    fun displayImage(context: Context?, url: String?, view: ImageView?, desId: Int, isSkipCache: Boolean)
+    fun displayImage(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        desId: Int,
+        isSkipCache: Boolean
+    )
 
     /**
      * 指定图片大小加载
@@ -65,7 +84,14 @@ interface ILoader {
      * @param width   指定图片宽度
      * @param desId   默认图片Id
      */
-    fun displayImage(context: Context?, url: String?, view: ImageView?, height: Int, width: Int, desId: Int)
+    fun displayImage(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        height: Int,
+        width: Int,
+        desId: Int
+    )
 
     /**
      * 指定图片大小加载
@@ -77,7 +103,15 @@ interface ILoader {
      * @param width   指定图片宽度
      * @param desId   默认图片Id
      */
-    fun displayImage(context: Context?, url: String?, view: ImageView?, height: Int, width: Int, sizeMultiplier: Float, desId: Int)
+    fun displayImage(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        height: Int,
+        width: Int,
+        sizeMultiplier: Float,
+        desId: Int
+    )
 
     /**
      * 加载本地图片
@@ -92,7 +126,7 @@ interface ILoader {
     /**
      * 加载图片 使用SimpleTarget
      */
-    fun displayImage(context: Context?, url: Uri?, simpleTarget: SimpleTarget<Bitmap>)
+    fun displayImage(context: Context?, url: Uri?, simpleTarget: CustomTarget<Bitmap>)
 
     /**
      * 清除内存缓存

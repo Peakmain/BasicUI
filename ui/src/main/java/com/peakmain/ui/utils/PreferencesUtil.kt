@@ -31,36 +31,43 @@ class PreferencesUtil private constructor() {
         if (editor == null) editor = preferences!!.edit()
         // 得到object的类型
         val type = `object`.javaClass.simpleName
-        if ("String" == type) {
-            // 保存String 类型
-            editor!!.putString(key, `object` as String)
-        } else if ("Integer" == type) {
-            // 保存integer 类型
-            editor!!.putInt(key, (`object` as Int))
-        } else if ("Boolean" == type) {
-            // 保存 boolean 类型
-            editor!!.putBoolean(key, (`object` as Boolean))
-        } else if ("Float" == type) {
-            // 保存float类型
-            editor!!.putFloat(key, (`object` as Float))
-        } else if ("Long" == type) {
-            // 保存long类型
-            editor!!.putLong(key, (`object` as Long))
-        } else {
-            require(`object` is Serializable) { `object`.javaClass.name + " 必须实现Serializable接口!" }
+        when (type) {
+            "String" -> {
+                // 保存String 类型
+                editor!!.putString(key, `object` as String)
+            }
+            "Integer" -> {
+                // 保存integer 类型
+                editor!!.putInt(key, (`object` as Int))
+            }
+            "Boolean" -> {
+                // 保存 boolean 类型
+                editor!!.putBoolean(key, (`object` as Boolean))
+            }
+            "Float" -> {
+                // 保存float类型
+                editor!!.putFloat(key, (`object` as Float))
+            }
+            "Long" -> {
+                // 保存long类型
+                editor!!.putLong(key, (`object` as Long))
+            }
+            else -> {
+                require(`object` is Serializable) { `object`.javaClass.name + " 必须实现Serializable接口!" }
 
-            // 不是基本类型则是保存对象
-            val baos = ByteArrayOutputStream()
-            try {
-                val oos = ObjectOutputStream(baos)
-                oos.writeObject(`object`)
-                val productBase64 = Base64.encodeToString(
+                // 不是基本类型则是保存对象
+                val baos = ByteArrayOutputStream()
+                try {
+                    val oos = ObjectOutputStream(baos)
+                    oos.writeObject(`object`)
+                    val productBase64 = Base64.encodeToString(
                         baos.toByteArray(), Base64.DEFAULT)
-                editor!!.putString(key, productBase64)
-                Log.d(this.javaClass.simpleName, "save object success")
-            } catch (e: IOException) {
-                e.printStackTrace()
-                Log.e(this.javaClass.simpleName, "save object error")
+                    editor!!.putString(key, productBase64)
+                    Log.d(this.javaClass.simpleName, "save object success")
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.e(this.javaClass.simpleName, "save object error")
+                }
             }
         }
         editor!!.apply()
@@ -107,19 +114,24 @@ class PreferencesUtil private constructor() {
         if (defaultObject == null) {
             return getObject(key)
         }
-        val type = defaultObject.javaClass.simpleName
-        if ("String" == type) {
-            return preferences!!.getString(key, defaultObject as String?)
-        } else if ("Integer" == type) {
-            return preferences!!.getInt(key, (defaultObject as Int?)!!)
-        } else if ("Boolean" == type) {
-            return preferences!!.getBoolean(key, (defaultObject as Boolean?)!!)
-        } else if ("Float" == type) {
-            return preferences!!.getFloat(key, (defaultObject as Float?)!!)
-        } else if ("Long" == type) {
-            return preferences!!.getLong(key, (defaultObject as Long?)!!)
+        when (defaultObject.javaClass.simpleName) {
+            "String" -> {
+                return preferences!!.getString(key, defaultObject as String?)
+            }
+            "Integer" -> {
+                return preferences!!.getInt(key, (defaultObject as Int?)!!)
+            }
+            "Boolean" -> {
+                return preferences!!.getBoolean(key, (defaultObject as Boolean?)!!)
+            }
+            "Float" -> {
+                return preferences!!.getFloat(key, (defaultObject as Float?)!!)
+            }
+            "Long" -> {
+                return preferences!!.getLong(key, (defaultObject as Long?)!!)
+            }
+            else -> return getObject(key)
         }
-        return getObject(key)
     }
 
     /**
@@ -135,7 +147,7 @@ class PreferencesUtil private constructor() {
         }
 
     private val date: String
-        private get() {
+        get() {
             @SuppressLint("SimpleDateFormat") val sdf = SimpleDateFormat("MM-dd HH:mm")
             return sdf.format(System.currentTimeMillis())
         }
@@ -148,7 +160,7 @@ class PreferencesUtil private constructor() {
         get() = getParam("REFRESH_TIME", date) as String?
 
     fun getObject(key: String?): Any? {
-        val wordBase64 = preferences!!.getString(key, "")
+        val wordBase64 = preferences!!.getString(key, "") ?: return null
         val base64 = Base64.decode(wordBase64.toByteArray(), Base64.DEFAULT)
         val bais = ByteArrayInputStream(base64)
         try {
@@ -163,27 +175,15 @@ class PreferencesUtil private constructor() {
     }
 
     companion object {
-        @Volatile
-        var preferencesUtil: PreferencesUtil? = null
 
         // 使用双重同步锁
         @JvmStatic
-        val instance: PreferencesUtil?
-            get() {
-                if (preferencesUtil == null) {
-                    synchronized(PreferencesUtil::class.java) {
-                        if (preferencesUtil == null) {
-                            // 使用双重同步锁
-                            preferencesUtil = PreferencesUtil()
-                        }
-                    }
-                }
-                return preferencesUtil
-            }
+        val instance: PreferencesUtil by lazy(LazyThreadSafetyMode.SYNCHRONIZED){
+            PreferencesUtil()
+        }
     }
 
     init {
-        preferences = PreferenceManager.getDefaultSharedPreferences(BasicUIUtils.application
-        !!.applicationContext)
+        preferences = PreferenceManager.getDefaultSharedPreferences(BasicUIUtils.application?.applicationContext)
     }
 }

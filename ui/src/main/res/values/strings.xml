@@ -20,14 +20,4 @@
     <string name="loading_text">加载中&#8230;</string>
     <string name="no_network">请检查网络后点击重新加载</string>
 
-    <!--图片选择框架-->
-    <string name="ui_picture_error">图片已损坏</string>
-    <string name="ui_picture_video_error">视频已损坏</string>
-    <string name="ui_picture_audio_error">音频已损坏</string>
-    <string name="ui_picture_message_max_num">你最多可以选择%1$d个图片和文件</string>
-    <string name="ui_picture_completed">完成</string>
-    <string name="ui_files_numbers">文件：%1$s</string>
-    <string name="ui_format_file_size">大小：%1$s</string>
-    <string name="ui_please_select">请选择</string>
-    <string name="ui_take_photo">拍照</string>
 </resources>
