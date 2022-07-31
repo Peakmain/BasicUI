@@ -103,7 +103,7 @@ object HandlerUtils {
      * @param delayMillis
      */
     @JvmStatic
-    fun runOnUiThreadDelay(runnable: Runnable?, delayMillis: Long) {
+    fun runOnUiThreadDelay(runnable: Runnable, delayMillis: Long) {
         HANDLER.postDelayed(runnable, delayMillis)
     }
 
@@ -112,7 +112,7 @@ object HandlerUtils {
      *
      * @param runnable
      */
-    fun removeRunable(runnable: Runnable?) {
+    fun removeRunable(runnable: Runnable) {
         HANDLER.removeCallbacks(runnable)
     }
 }

@@ -92,7 +92,7 @@ class LogUtils private constructor() {
             log(I, sGlobalTag, contents!!)
         }
         @JvmStatic
-        fun normal(message: String?) {
+        fun normal(message: String) {
             Log.i(BuildConfig.TAG, message)
         }
         @JvmStatic
@@ -328,7 +328,7 @@ class LogUtils private constructor() {
         private fun printHead(type: Int, tag: String?, head: Array<String?>?) {
             if (head != null) {
                 for (aHead in head) {
-                    Log.println(type, tag, if (sLogBorderSwitch) LEFT_BORDER + aHead else aHead)
+                    Log.println(type, tag, if (sLogBorderSwitch) LEFT_BORDER + aHead else aHead?:"")
                 }
                 if (sLogBorderSwitch) Log.println(type, tag, SPLIT_BORDER)
             }
