@@ -7,8 +7,6 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +26,7 @@ import javax.xml.transform.stream.StreamSource
  */
 class LogUtils private constructor() {
     @IntDef(V, D, I, W, E, A)
-    @Retention(RetentionPolicy.SOURCE)
+    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     private annotation class TYPE
     private class TagHead internal constructor(var tag: String?, var consoleHead: Array<String?>?, var fileHead: String)
 

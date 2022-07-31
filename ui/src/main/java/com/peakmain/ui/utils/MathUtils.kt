@@ -1,5 +1,9 @@
 package com.peakmain.ui.utils
 
+import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.sqrt
+
 /**
  * author ：Peakmain
  * createTime：2020/3/15
@@ -12,15 +16,15 @@ object MathUtils {
      */
     @JvmStatic
     fun distance(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-        return Math.sqrt(Math.abs(x1 - x2) * Math.abs(x1 - x2)
-                + Math.abs(y1 - y2) * Math.abs(y1 - y2))
+        return sqrt(abs(x1 - x2) * abs(x1 - x2)
+                + abs(y1 - y2) * abs(y1 - y2))
     }
 
     /**
      * 转成度
      */
     fun pointTotoDegrees(x: Double, y: Double): Double {
-        return Math.toDegrees(Math.atan2(x, y))
+        return Math.toDegrees(atan2(x, y))
     }
 
     /**
@@ -30,6 +34,6 @@ object MathUtils {
     fun checkInRound(sx: Float, sy: Float, r: Float, x: Float,
                      y: Float): Boolean {
         // x的平方 + y的平方 开根号 < 半径
-        return Math.sqrt((sx - x) * (sx - x) + (sy - y) * (sy - y).toDouble()) < r
+        return sqrt((sx - x) * (sx - x) + (sy - y) * (sy - y).toDouble()) < r
     }
 }

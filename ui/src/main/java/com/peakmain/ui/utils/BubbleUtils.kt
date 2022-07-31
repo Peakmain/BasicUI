@@ -1,9 +1,7 @@
 package com.peakmain.ui.utils
 
 import android.graphics.PointF
-import kotlin.math.atan
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
 object BubbleUtils {
 
@@ -13,8 +11,8 @@ object BubbleUtils {
      *
      */
     fun getDistanceBetween2Points(p0: PointF, p1: PointF): Float {
-        return Math.sqrt(Math.pow(p0.y - p1.y.toDouble(), 2.0)
-                + Math.pow(p0.x - p1.x.toDouble(), 2.0)).toFloat()
+        return sqrt((p0.y - p1.y.toDouble()).pow(2.0)
+                + (p0.x - p1.x.toDouble()).pow(2.0)).toFloat()
     }
 
     /**
@@ -66,8 +64,8 @@ object BubbleUtils {
 
         //高中数学：几何
         val arctan: Float
-        var xOffset: Float
-        var yOffset: Float
+        val xOffset: Float
+        val yOffset: Float
         if (lineK != null) {
             // 计算直角三角形边长
             // 余切函数（弧度）

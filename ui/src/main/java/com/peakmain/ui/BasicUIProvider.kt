@@ -3,7 +3,6 @@ package com.peakmain.ui
 import android.app.Application
 import androidx.core.content.FileProvider
 import com.peakmain.ui.constants.BasicUIUtils
-import com.peakmain.ui.read.X5IntentService
 
 /**
  * author ：Peakmain
@@ -13,7 +12,7 @@ import com.peakmain.ui.read.X5IntentService
  */
 class BasicUIProvider : FileProvider() {
     override fun onCreate(): Boolean {
-        BasicUIUtils.init(context.applicationContext as Application)
+        BasicUIUtils.init(context?.applicationContext as Application?)
         return true
     }
 }
