@@ -18,7 +18,11 @@ import java.util.*
  * mail:2726449200@qq.com
  * describe：锁屏view
  */
-class LockScreenView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class LockScreenView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
     private var isInit = false
 
     //二维数组初始化int[3][3]
@@ -48,12 +52,17 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mIsHideArrow = false
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.LockScreenView)
-        mOuterNormalColor = ta.getColor(R.styleable.LockScreenView_lpNormalOutColor, mOuterNormalColor)
-        mOuterPressedColor = ta.getColor(R.styleable.LockScreenView_lpPressOutColor, mOuterPressedColor)
+        mOuterNormalColor =
+            ta.getColor(R.styleable.LockScreenView_lpNormalOutColor, mOuterNormalColor)
+        mOuterPressedColor =
+            ta.getColor(R.styleable.LockScreenView_lpPressOutColor, mOuterPressedColor)
         mOuterErrorColor = ta.getColor(R.styleable.LockScreenView_lpErrorOutColor, mOuterErrorColor)
-        mInnerNormalColor = ta.getColor(R.styleable.LockScreenView_lpNormalInnerColor, mInnerNormalColor)
-        mInnerPressedColor = ta.getColor(R.styleable.LockScreenView_lpPressInnerColor, mInnerPressedColor)
-        mInnerErrorColor = ta.getColor(R.styleable.LockScreenView_lpErrorInnerColor, mInnerErrorColor)
+        mInnerNormalColor =
+            ta.getColor(R.styleable.LockScreenView_lpNormalInnerColor, mInnerNormalColor)
+        mInnerPressedColor =
+            ta.getColor(R.styleable.LockScreenView_lpPressInnerColor, mInnerPressedColor)
+        mInnerErrorColor =
+            ta.getColor(R.styleable.LockScreenView_lpErrorInnerColor, mInnerErrorColor)
         ta.recycle()
     }
 
@@ -75,22 +84,40 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
                 if (status == point!!.STATUS_NORMAL) {
                     //先绘制外圆
                     mNormalPaint.color = mOuterNormalColor
-                    canvas.drawCircle(point.centerX.toFloat(), point.centerY.toFloat(), mDotRadius.toFloat(), mNormalPaint)
+                    canvas.drawCircle(point.centerX.toFloat(),
+                        point.centerY.toFloat(),
+                        mDotRadius.toFloat(),
+                        mNormalPaint)
                     //后绘制内圆
                     mNormalPaint.color = mInnerNormalColor
-                    canvas.drawCircle(point.centerX.toFloat(), point.centerY.toFloat(), mDotRadius.toFloat() / 6.0f, mNormalPaint)
+                    canvas.drawCircle(point.centerX.toFloat(),
+                        point.centerY.toFloat(),
+                        mDotRadius.toFloat() / 6.0f,
+                        mNormalPaint)
                 }
                 if (status == point.STATUS_PRESSED) {
                     mPressedPaint.color = mOuterPressedColor
-                    canvas.drawCircle(point.centerX.toFloat(), point.centerY.toFloat(), mDotRadius.toFloat(), mPressedPaint)
+                    canvas.drawCircle(point.centerX.toFloat(),
+                        point.centerY.toFloat(),
+                        mDotRadius.toFloat(),
+                        mPressedPaint)
                     mPressedPaint.color = mInnerPressedColor
-                    canvas.drawCircle(point.centerX.toFloat(), point.centerY.toFloat(), mDotRadius.toFloat() / 6, mPressedPaint)
+                    canvas.drawCircle(point.centerX.toFloat(),
+                        point.centerY.toFloat(),
+                        mDotRadius.toFloat() / 6,
+                        mPressedPaint)
                 }
                 if (status == point.STATUS_ERROR) {
                     mErrorPaint.color = mOuterErrorColor
-                    canvas.drawCircle(point.centerX.toFloat(), point.centerY.toFloat(), mDotRadius.toFloat(), mErrorPaint)
+                    canvas.drawCircle(point.centerX.toFloat(),
+                        point.centerY.toFloat(),
+                        mDotRadius.toFloat(),
+                        mErrorPaint)
                     mErrorPaint.color = mInnerErrorColor
-                    canvas.drawCircle(point.centerX.toFloat(), point.centerY.toFloat(), mDotRadius.toFloat() / 6, mErrorPaint)
+                    canvas.drawCircle(point.centerX.toFloat(),
+                        point.centerY.toFloat(),
+                        mDotRadius.toFloat() / 6,
+                        mErrorPaint)
                 }
             }
         }
@@ -109,15 +136,27 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
                 drawLine(lastPoint, mSelectPoints[i], canvas, mLinePaint)
                 //两个点之间绘制箭头
                 if (!mIsHideArrow) {
-                    drawArrow(canvas, mArrowPaint, lastPoint, mSelectPoints[i], mDotRadius.toFloat() / 5, 38)
+                    drawArrow(canvas,
+                        mArrowPaint,
+                        lastPoint,
+                        mSelectPoints[i],
+                        mDotRadius.toFloat() / 5,
+                        38)
                 }
                 lastPoint = mSelectPoints[i]
             }
             // 绘制最后一个点到手指当前位置的连线
             // 如果手指在内圆里面就不要绘制
-            val isInnerPoint = checkInRound(lastPoint.centerX.toFloat(), lastPoint.centerY.toFloat(), (mDotRadius / 4.0).toFloat(), mMovingX, mMovingY)
+            val isInnerPoint = checkInRound(lastPoint.centerX.toFloat(),
+                lastPoint.centerY.toFloat(),
+                (mDotRadius / 4.0).toFloat(),
+                mMovingX,
+                mMovingY)
             if (!isInnerPoint && isTouchPoint) {
-                drawLine(lastPoint, Point(mMovingX.toInt(), mMovingY.toInt(), -1), canvas, mLinePaint)
+                drawLine(lastPoint,
+                    Point(mMovingX.toInt(), mMovingY.toInt(), -1),
+                    canvas,
+                    mLinePaint)
             }
         }
     }
@@ -153,7 +192,7 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
                             mSelectPoints.add(point)
                         }
                         //改变当前的一个状态
-                        point.status= point.STATUS_PRESSED
+                        point.status = point.STATUS_PRESSED
                     }
                 }
                 invalidate()
@@ -172,7 +211,7 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
                     }
                 }
                 for (selectPoint in mSelectPoints) {
-                    selectPoint.status= selectPoint.STATUS_ERROR
+                    selectPoint.status = selectPoint.STATUS_ERROR
                 }
                 invalidate()
             }
@@ -201,7 +240,8 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
             for (i in 0..2) {
                 for (point in mPoints[i]) {
                     if (checkInRound(point!!.centerX.toFloat(), point.centerY.toFloat(),
-                                    mDotRadius.toFloat(), mMovingX, mMovingY)) {
+                            mDotRadius.toFloat(), mMovingX, mMovingY)
+                    ) {
                         return point
                     }
                 }
@@ -212,9 +252,20 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 画箭头
      */
-    private fun drawArrow(canvas: Canvas, paint: Paint?, start: Point, end: Point, arrowHeight: Float, angle: Int) {
+    private fun drawArrow(
+        canvas: Canvas,
+        paint: Paint?,
+        start: Point,
+        end: Point,
+        arrowHeight: Float,
+        angle: Int
+    ) {
+        if (paint == null) return
         //两点之间的距离
-        val d = distance(start.centerX.toDouble(), start.centerY.toDouble(), end.centerX.toDouble(), end.centerY.toDouble())
+        val d = distance(start.centerX.toDouble(),
+            start.centerY.toDouble(),
+            end.centerX.toDouble(),
+            end.centerY.toDouble())
         val sinB = ((end.centerX - start.centerX) / d).toFloat()
         val cosB = ((end.centerY - start.centerY) / d).toFloat()
         val tanA = Math.tan(Math.toRadians(angle.toDouble())).toFloat()
@@ -239,13 +290,21 @@ class LockScreenView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     private fun drawLine(start: Point, end: Point, canvas: Canvas, paint: Paint?) {
+        if (paint == null) return
         //两点之间的距离
-        val pointDistance = distance(start.centerX.toDouble(), start.centerY.toDouble(), end.centerX.toDouble(), end.centerY.toDouble())
+        val pointDistance = distance(start.centerX.toDouble(),
+            start.centerY.toDouble(),
+            end.centerX.toDouble(),
+            end.centerY.toDouble())
         val dx = end.centerX - start.centerX.toDouble()
         val dy = end.centerY - start.centerY.toDouble()
         val rx = (dx / pointDistance * (mDotRadius / 6.0)).toFloat()
         val ry = (dy / pointDistance * (mDotRadius / 6.0)).toFloat()
-        canvas.drawLine(start.centerX + rx, start.centerY + ry, end.centerX - rx, end.centerY - ry, paint)
+        canvas.drawLine(start.centerX + rx,
+            start.centerY + ry,
+            end.centerX - rx,
+            end.centerY - ry,
+            paint)
     }
 
     /**
