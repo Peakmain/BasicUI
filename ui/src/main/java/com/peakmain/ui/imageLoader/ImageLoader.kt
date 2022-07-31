@@ -4,7 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.SimpleTarget
+import com.peakmain.ui.imageLoader.factory.ILoaderFactory
+import com.peakmain.ui.imageLoader.factory.GlideLoaderFactory
 import com.peakmain.ui.imageLoader.glide.GlideLoader
 
 /**
@@ -20,14 +23,20 @@ class ImageLoader private constructor() {
      * @return Gilde的加载工厂
      */
     private var loader: ILoader? = null
+    private var loaderFactory: ILoaderFactory? = null
+
+    init {
+        loaderFactory = GlideLoaderFactory()
+    }
 
     /**
      * 切换图片的ImageLoader
      *
      * @param loader 默认是glideLoader
      */
-    fun exchangeImageLoader(loader: ILoader?): ImageLoader {
-        this.loader = loader
+    fun exchangeImageLoaderFactory(loaderFactory: ILoaderFactory): ImageLoader {
+        this.loaderFactory = loaderFactory
+        loader = loaderFactory.createLoader()
         return this
     }
 
@@ -40,6 +49,13 @@ class ImageLoader private constructor() {
      */
     fun displayImage(context: Context, url: String, view: ImageView?) {
         loader!!.displayImage(context, url, view, 0)
+    }
+
+    /**
+     * 设置UserAgent
+     */
+    fun userAgent(userAgent: String?) {
+      loader!!.userAgent(userAgent)
     }
 
     /**
@@ -63,7 +79,13 @@ class ImageLoader private constructor() {
      * @param desId       默认的图片
      * @param isSkipCache 是否跳过缓存， 默认是false
      */
-    fun displayImage(context: Context, url: String, view: ImageView, desId: Int, isSkipCache: Boolean) {
+    fun displayImage(
+        context: Context,
+        url: String,
+        view: ImageView,
+        desId: Int,
+        isSkipCache: Boolean
+    ) {
         loader!!.displayImage(context, url, view, desId, isSkipCache)
     }
 
@@ -101,14 +123,29 @@ class ImageLoader private constructor() {
      * @param width   指定图片宽度
      * @param desId   默认图片Id
      */
-    fun displayImage(context: Context, url: String, view: ImageView, height: Int, width: Int, desId: Int) {
+    fun displayImage(
+        context: Context,
+        url: String,
+        view: ImageView,
+        height: Int,
+        width: Int,
+        desId: Int
+    ) {
         loader!!.displayImage(context, url, view, height, width, desId)
     }
 
     /**
      * 按照指定大小的缩略图形式加载
      */
-    fun displayImage(context: Context, url: String, view: ImageView, height: Int, width: Int, sizeMultiplier: Float, desId: Int) {
+    fun displayImage(
+        context: Context,
+        url: String,
+        view: ImageView,
+        height: Int,
+        width: Int,
+        sizeMultiplier: Float,
+        desId: Int
+    ) {
         loader!!.displayImage(context, url, view, height, width, sizeMultiplier, desId)
     }
 
@@ -129,7 +166,7 @@ class ImageLoader private constructor() {
      *
      * @param context 上下文
      */
-    fun displayImage(context: Context, url: Uri, simpleTarget: SimpleTarget<Bitmap>) {
+    fun displayImage(context: Context, url: Uri, simpleTarget: CustomTarget<Bitmap>) {
         loader!!.displayImage(context, url, simpleTarget)
     }
 
@@ -167,7 +204,7 @@ class ImageLoader private constructor() {
      *
      * @param context
      */
-    fun resumeRequest(context: Context) {
+    fun resumeRequest(context: Context?) {
         if (context != null) {
             loader!!.resumeRequest(context)
         }
@@ -178,27 +215,18 @@ class ImageLoader private constructor() {
      *
      * @param context
      */
-    fun pauseRequest(context: Context) {
+    fun pauseRequest(context: Context?) {
         if (context != null) {
             loader!!.pauseRequest(context)
         }
     }
 
     companion object {
-        @Volatile
-        private var mInstance: ImageLoader? = null
+
         @JvmStatic
-        val instance: ImageLoader?
-            get() {
-                if (mInstance == null) {
-                    synchronized(ImageLoader::class.java) {
-                        if (mInstance == null) {
-                            mInstance = ImageLoader()
-                        }
-                    }
-                }
-                return mInstance
-            }
+        val instance: ImageLoader by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            ImageLoader()
+        }
     }
 
     init {

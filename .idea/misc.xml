@@ -11,9 +11,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_navigation_bar.xml" value="0.68408262454435" />
+        <entry key="app/src/main/res/layout/activity_auto_edit_text.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/activity_image_compress.xml" value="0.1381340579710145" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.12436676798378926" />
+        <entry key="app/src/main/res/layout/activity_navigation_bar.xml" value="0.3991477272727273" />
+        <entry key="ui/src/main/res/drawable/ui_ic_arrow_right.xml" value="0.271875" />
         <entry key="ui/src/main/res/drawable/ui_ic_left_back.xml" value="0.3921875" />
+        <entry key="ui/src/main/res/layout/ui_crumb_item_header.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_crumb_item_layout.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_custom_keyboard.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_default_refresh_view.xml" value="0.11197916666666667" />
         <entry key="ui/src/main/res/layout/ui_defualt_navigation_bar.xml" value="0.12436676798378926" />
+        <entry key="ui/src/main/res/layout/ui_item_base_wheelview.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_item_file_list_adapter.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_item_recycle_group_head.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_media_chooser_item.xml" value="0.11197916666666667" />
+        <entry key="ui/src/main/res/layout/ui_shape_view.xml" value="0.11197916666666667" />
       </map>
     </option>
   </component>

@@ -73,7 +73,9 @@ class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Vie
                     mPath!!.lineTo(width.toFloat(), (center * Math.sqrt(3.0)).toFloat())
                     mPath!!.close()
                 }
-                canvas.drawPath(mPath, mPaint)
+               if(mPath!=null&&mPaint!=null){
+                   canvas.drawPath(mPath!!, mPaint!!)
+               }
             }
         }
     }

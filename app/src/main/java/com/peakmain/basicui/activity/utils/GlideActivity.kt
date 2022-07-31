@@ -44,13 +44,14 @@ class GlideActivity : BaseActivity() {
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
         val data = PesudoImageData.instance.data
+        ImageLoader.instance.userAgent("Android")
         mAdapter!!.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 when (position) {
-                    0 -> ImageLoader.instance!!.displayImage(this@GlideActivity, data[0].url!!, mImageView)
-                    1 -> ImageLoader.instance!!.displayImage(this@GlideActivity, data[1].url!!, mImageView, R.mipmap.ic_default_portrait)
-                    2 -> ImageLoader.instance!!.displayImageRound(this@GlideActivity, data[2].url!!, mImageView!!, 50, 0)
-                    3 -> ImageLoader.instance!!.displayImage(this@GlideActivity, data[4].url!!, mImageView!!, 800, 800, 0)
+                    0 -> ImageLoader.instance.displayImage(this@GlideActivity, data[0].url!!, mImageView)
+                    1 -> ImageLoader.instance.displayImage(this@GlideActivity, data[1].url!!, mImageView, R.mipmap.ic_default_portrait)
+                    2 -> ImageLoader.instance.displayImageRound(this@GlideActivity, data[2].url!!, mImageView!!, 50, 0)
+                    3 -> ImageLoader.instance.displayImage(this@GlideActivity, data[4].url!!, mImageView!!, 800, 800, 0)
                     else -> {
                     }
                 }
