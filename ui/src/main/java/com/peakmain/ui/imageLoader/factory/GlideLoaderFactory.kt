@@ -9,7 +9,7 @@ import com.peakmain.ui.imageLoader.glide.GlideLoader
  * mail:2726449200@qq.com
  * describe：
  */
-class GlideLoaderFactory:ILoaderFactory {
+class GlideLoaderFactory: ILoaderFactory() {
     override fun createLoader(): ILoader {
         return GlideLoader()
     }
