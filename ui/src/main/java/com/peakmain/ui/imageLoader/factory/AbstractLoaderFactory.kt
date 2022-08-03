@@ -8,6 +8,6 @@ import com.peakmain.ui.imageLoader.ILoader
  * mail:2726449200@qq.com
  * describe：
  */
-abstract class ILoaderFactory {
+abstract class AbstractLoaderFactory {
     abstract fun createLoader():ILoader
 }
