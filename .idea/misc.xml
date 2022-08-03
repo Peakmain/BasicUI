@@ -11,6 +11,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_dialog_demo.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_shape_text_view.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog_show.xml" value="0.14130434782608695" />
         <entry key="app/src/main/res/layout/activity_auto_edit_text.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/activity_image_compress.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12436676798378926" />
