@@ -5,8 +5,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.SimpleTarget
-import com.peakmain.ui.imageLoader.factory.ILoaderFactory
+import com.peakmain.ui.imageLoader.factory.AbstractLoaderFactory
 import com.peakmain.ui.imageLoader.factory.GlideLoaderFactory
 import com.peakmain.ui.imageLoader.glide.GlideLoader
 
@@ -23,7 +22,7 @@ class ImageLoader private constructor() {
      * @return Gilde的加载工厂
      */
     private var loader: ILoader? = null
-    private var loaderFactory: ILoaderFactory? = null
+    private var loaderFactory: AbstractLoaderFactory? = null
 
     init {
         loaderFactory = GlideLoaderFactory()
@@ -34,7 +33,7 @@ class ImageLoader private constructor() {
      *
      * @param loader 默认是glideLoader
      */
-    fun exchangeImageLoaderFactory(loaderFactory: ILoaderFactory): ImageLoader {
+    fun exchangeImageLoaderFactory(loaderFactory: AbstractLoaderFactory): ImageLoader {
         this.loaderFactory = loaderFactory
         loader = loaderFactory.createLoader()
         return this
