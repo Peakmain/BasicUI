@@ -10,7 +10,7 @@ android {
             keyPassword '123456'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.peakmain.basicui"
         minSdkVersion 16
