@@ -3,6 +3,7 @@ package com.peakmain.ui.utils.fps
 import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
+import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
@@ -10,7 +11,6 @@ import android.widget.TextView
 import com.peakmain.ui.R
 import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.utils.ActivityUtils
-import com.peakmain.ui.utils.PermissionUtils
 import java.text.DecimalFormat
 
 /**
@@ -93,7 +93,7 @@ object FpsMonitorUtils {
         }
 
         private fun play() {
-            if (!PermissionUtils.hasOverLaysPermission()) {
+            if (!hasOverLaysPermission()) {
                 ActivityUtils.startOverlaySettingActivity()
                 return
             }
@@ -124,5 +124,10 @@ object FpsMonitorUtils {
             mFrameMonitor.printMessage(isPrint)
         }
 
+    }
+    fun hasOverLaysPermission(): Boolean {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(
+            BasicUIUtils.application
+        )
     }
 }
