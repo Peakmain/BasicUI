@@ -198,7 +198,7 @@ object JsonUtil {
      *
      * @param fileName 文件名
      */
-    fun getAssetsJson(fileName: String?): String {
+    fun getAssetsJson(fileName: String): String {
         //将json数据变成字符串
         val stringBuilder = StringBuilder()
         try {
