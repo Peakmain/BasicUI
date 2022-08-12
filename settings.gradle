@@ -1,2 +1,3 @@
-include ':app', ':ui'
-rootProject.name='BasicUI'
+include ':app'//, ':ui'
+rootProject.name = 'BasicUI'
+include ':res'
