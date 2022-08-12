@@ -26,7 +26,7 @@ class ItemTouchActivity : BaseRecyclerAcitvity() {
         //获取更新后的数据
         itemTouchHelper.setOnDataUpdatedListener {
             for (data in it) {
-                Log.e(BuildConfig.TAG, if (data!!.isHeader) "head" else data.url)
+                Log.e(BuildConfig.TAG, if (data!!.isHeader) "head" else data.url?:"")
             }
         }.setGridDragFlags(ItemTouchHelper.UP)
     }
