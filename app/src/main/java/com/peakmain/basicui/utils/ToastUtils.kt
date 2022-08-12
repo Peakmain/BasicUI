@@ -27,7 +27,8 @@ import com.peakmain.basicui.App
  * describe：
  */
 class ToastUtils private constructor() {
-    private class ApplicationContextWrapperForApi25 internal constructor() : ContextWrapper(App.app!!) {
+    private class ApplicationContextWrapperForApi25 internal constructor() :
+        ContextWrapper(App.app!!) {
         override fun getApplicationContext(): Context {
             return this
         }
@@ -36,7 +37,7 @@ class ToastUtils private constructor() {
             return if (Context.WINDOW_SERVICE == name) {
                 // noinspection ConstantConditions
                 WindowManagerWrapper(
-                        baseContext.getSystemService(name) as WindowManager
+                    baseContext.getSystemService(name) as WindowManager
                 )
             } else super.getSystemService(name)
         }
@@ -54,7 +55,7 @@ class ToastUtils private constructor() {
                 try {
                     base.addView(view, params)
                 } catch (e: WindowManager.BadTokenException) {
-                    Log.e("WindowManagerWrapper", e.message)
+                    Log.e("WindowManagerWrapper", e.message ?: "")
                 } catch (throwable: Throwable) {
                     Log.e("WindowManagerWrapper", "[addView]", throwable)
                 }
@@ -258,17 +259,18 @@ class ToastUtils private constructor() {
             HANDLER.post {
                 cancel()
                 sToast = Toast.makeText(App.app, text, duration)
-                val tvMessage = sToast!!.view.findViewById<TextView>(R.id.message)
+                val tvMessage = sToast!!.view?.findViewById<TextView>(R.id.message)
                 if (sMsgColor != COLOR_DEFAULT) {
-                    tvMessage.setTextColor(sMsgColor)
+                    tvMessage?.setTextColor(sMsgColor)
                 }
                 if (sMsgTextSize != -1) {
-                    tvMessage.textSize = sMsgTextSize.toFloat()
+                    tvMessage?.textSize = sMsgTextSize.toFloat()
                 }
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
                     sToast?.setGravity(sGravity, sXOffset, sYOffset)
                 }
-                setBg(tvMessage)
+                if (tvMessage != null)
+                    setBg(tvMessage)
                 showToast()
             }
         }
@@ -303,17 +305,17 @@ class ToastUtils private constructor() {
         private fun setBg() {
             if (sBgResource != -1) {
                 val toastView = sToast!!.view
-                toastView.setBackgroundResource(sBgResource)
+                toastView?.setBackgroundResource(sBgResource)
             } else if (sBgColor != COLOR_DEFAULT) {
                 val toastView = sToast!!.view
-                val background = toastView.background
+                val background = toastView?.background
                 if (background != null) {
                     background.colorFilter = PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        toastView.background = ColorDrawable(sBgColor)
+                        toastView?.background = ColorDrawable(sBgColor)
                     } else {
-                        toastView.setBackgroundDrawable(ColorDrawable(sBgColor))
+                        toastView?.setBackgroundDrawable(ColorDrawable(sBgColor))
                     }
                 }
             }
@@ -322,11 +324,11 @@ class ToastUtils private constructor() {
         private fun setBg(tvMsg: TextView) {
             if (sBgResource != -1) {
                 val toastView = sToast!!.view
-                toastView.setBackgroundResource(sBgResource)
+                toastView?.setBackgroundResource(sBgResource)
                 tvMsg.setBackgroundColor(Color.TRANSPARENT)
             } else if (sBgColor != COLOR_DEFAULT) {
                 val toastView = sToast!!.view
-                val tvBg = toastView.background
+                val tvBg = toastView?.background
                 val msgBg = tvMsg.background
                 if (tvBg != null && msgBg != null) {
                     tvBg.colorFilter = PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
@@ -336,13 +338,14 @@ class ToastUtils private constructor() {
                 } else if (msgBg != null) {
                     msgBg.colorFilter = PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
                 } else {
-                    toastView.setBackgroundColor(sBgColor)
+                    toastView?.setBackgroundColor(sBgColor)
                 }
             }
         }
 
         private fun getView(@LayoutRes layoutId: Int): View? {
-            val inflate = App.app!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val inflate =
+                App.app!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             return inflate?.inflate(layoutId, null)
         }
     }
