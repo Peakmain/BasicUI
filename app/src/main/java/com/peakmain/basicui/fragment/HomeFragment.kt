@@ -9,6 +9,7 @@ import com.peakmain.basicui.activity.home.recylcer.RecyclerActivity
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseFragmnet
 import com.peakmain.basicui.utils.ActivityUtil
+import com.peakmain.ui.dialog.AlertDialog
 import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.itemdecoration.DividerGridItemDecoration
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
@@ -28,8 +29,8 @@ class HomeFragment : BaseFragmnet() {
         protected get() = R.layout.fragment_home
 
     override fun initView(view: View?) {
-        mRecyclerView = view!!.findViewById(R.id.recycler_view)
-        DefaultNavigationBar.Builder(context, view.findViewById(R.id.view_root))
+        mRecyclerView = view?.findViewById(R.id.recycler_view)
+        DefaultNavigationBar.Builder(context, view?.findViewById(R.id.view_root))
                 .hideLeftText()
                 .hideRightView()
                 .setTitleText("首页")
@@ -51,8 +52,9 @@ class HomeFragment : BaseFragmnet() {
         mHomeDataBean.add("九宫格解锁")
         mHomeDataBean.add("RecyclerView的使用")
         mHomeDataBean.add("时间选择器")
+        mHomeDataBean.add("ShapeConstraintLayout")
         mAdapter = BaseRecyclerStringAdapter(context, mHomeDataBean)
-        mRecyclerView!!.addItemDecoration(DividerGridItemDecoration(context!!))
+        mRecyclerView!!.addItemDecoration(DividerGridItemDecoration(requireContext()))
         mRecyclerView!!.adapter = mAdapter
         mAdapter!!.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
@@ -71,10 +73,19 @@ class HomeFragment : BaseFragmnet() {
                     9 -> ActivityUtil.gotoActivity(context, LockScreenActivity::class.java)
                     10 -> ActivityUtil.gotoActivity(context, RecyclerActivity::class.java)
                     11->ActivityUtil.gotoActivity(context,WheelViewSelectorActivity::class.java)
+                    12->showAlertDialog()
                     else -> {
                     }
                 }
             }
         })
+    }
+
+    private fun showAlertDialog() {
+        AlertDialog.Builder(context)
+            .setContentView(R.layout.dialog_constraintlayout)
+            .setFullWidth()
+            .fromButtom(true)
+            .show()
     }
 }

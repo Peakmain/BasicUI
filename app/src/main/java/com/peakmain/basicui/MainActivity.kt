@@ -9,6 +9,7 @@ import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment
 import com.peakmain.basicui.fragment.UtilsFragment
+import com.peakmain.ui.utils.SizeUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.utils.fps.FpsMonitorUtils
 import com.peakmain.ui.widget.SuspensionView
@@ -26,18 +27,31 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-        val suspensionView = SuspensionView(this)
-        addContentView(suspensionView, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+        val suspensionView = SuspensionView(
+            this,
+            imageViewSize = SizeUtils.dp2px(36f).toFloat()
+        )
+        addContentView(
+            suspensionView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        )
         suspensionView.setSuspensionViewClick {
             FpsMonitorUtils.printMessage(false)
-                    .toggle()
+                .toggle()
         }
         mBottomNavigation = findViewById(R.id.bottom_navigation)
     }
 
     override fun initData() {
         showFragment(FRAGMENT_HOME)
-        mBottomNavigation!!.setOnNavigationItemSelectedListener { item: MenuItem -> onOptionsItemSelected(item) }
+        mBottomNavigation!!.setOnNavigationItemSelectedListener { item: MenuItem ->
+            onOptionsItemSelected(
+                item
+            )
+        }
         mBottomNavigation!!.selectedItemId = R.id.menu_home
 
     }
