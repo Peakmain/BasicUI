@@ -11,9 +11,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/drawable/ic_bottom_navigation_home.xml" value="0.134" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/drawable/selector_tab_color.xml" value="0.2215" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity/layout/activity_custom_id.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity/layout/activity_custom_keyboard_point.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity/layout/activity_custom_password.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity/layout/activity_data_base.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity/layout/activity_shape_loading.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity/layout/activity_text_utils.xml" value="0.129981884057971" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_dialog_demo.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_shape_text_view.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog/layout/dialog_bitmap_utils.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog/layout/dialog_constraintlayout.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog/layout/dialog_custom_keyboard_point.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog/layout/dialog_show.xml" value="0.129981884057971" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog_show.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/fragment/layout/fragment_utils.xml" value="0.129981884057971" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/fragment_home.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/fragment_mine.xml" value="0.22" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/menu/bottom_navigation_main.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_auto_edit_text.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/activity_image_compress.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12436676798378926" />
