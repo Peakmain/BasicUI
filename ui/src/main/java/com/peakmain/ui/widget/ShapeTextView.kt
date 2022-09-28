@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.StateListDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatTextView
@@ -38,7 +39,7 @@ class ShapeTextView @JvmOverloads constructor(
     private var mNormalBackgroundColor = 0
 
     //默认shape样式
-    private var mGradientDrawable: GradientDrawable? = null
+    private lateinit var mGradientDrawable: GradientDrawable
 
     //渐变开始颜色
     private var mStartColor = 0
@@ -126,7 +127,7 @@ class ShapeTextView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val drawables: Array<Drawable> = compoundDrawables
+        val drawables: Array<Drawable?> = compoundDrawables
         //图片在文字左侧居中
         val drawableLeft = drawables[0]
         val drawablePadding: Int = compoundDrawablePadding
@@ -155,35 +156,37 @@ class ShapeTextView @JvmOverloads constructor(
      */
     private fun setStroke() {
         //设置边线
-        mGradientDrawable!!.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
+        mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
         //设置背景颜色
-        mGradientDrawable!!.setColor(mNormalBackgroundColor)
+        mGradientDrawable.setColor(mNormalBackgroundColor)
         //设置弧度
-        mGradientDrawable!!.cornerRadius = mRadius
+        mGradientDrawable.cornerRadius = mRadius
         if (mStartColor != 0 && mEndColor != 0) {
             if (mOrientation == 0) mGradientDrawable!!.orientation =
                     GradientDrawable.Orientation.LEFT_RIGHT else mGradientDrawable!!.orientation =
                     GradientDrawable.Orientation.TOP_BOTTOM
-            mGradientDrawable!!.colors = intArrayOf(mStartColor, mEndColor)
+            mGradientDrawable.colors = intArrayOf(mStartColor, mEndColor)
         }
         if (mShape == 0) {
-            mGradientDrawable!!.shape = GradientDrawable.RECTANGLE
+            mGradientDrawable.shape = GradientDrawable.RECTANGLE
         } else if (mShape == 1) {
-            mGradientDrawable!!.shape = GradientDrawable.OVAL
+            mGradientDrawable.shape = GradientDrawable.OVAL
         } else if (mShape == 2) {
-            mGradientDrawable!!.shape = GradientDrawable.LINE
+            mGradientDrawable.shape = GradientDrawable.LINE
         } else if (mShape == 3) {
-            mGradientDrawable!!.shape = GradientDrawable.RING
+            mGradientDrawable.shape = GradientDrawable.RING
         }
         // 是否开启点击动效
         if (isActiveMotion) {
             if (background == null) {
                 //水波纹 5.0以上
-                background = RippleDrawable(
-                        ColorStateList.valueOf(mPressedColor),
-                        mGradientDrawable,
-                        null
-                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    background = RippleDrawable(
+                            ColorStateList.valueOf(mPressedColor),
+                            mGradientDrawable,
+                            null
+                    )
+                }
             }
 
         } else {
@@ -236,7 +239,7 @@ class ShapeTextView @JvmOverloads constructor(
      * 设置四周的圆角
      */
     private fun setCornerRadii( radius: FloatArray) {
-        mGradientDrawable!!.cornerRadii = radius
+        mGradientDrawable.cornerRadii = radius
     }
     
     
