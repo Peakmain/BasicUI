@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         val suspensionView = SuspensionView(
             this,
-            imageViewSize = SizeUtils.dp2px(36f).toFloat()
+            imageViewSize = SizeUtils.dp2px(12f).toFloat()
         )
         addContentView(
             suspensionView,
