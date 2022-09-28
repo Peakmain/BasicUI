@@ -63,6 +63,23 @@
         <attr name="shapeLlBottomLeftRadius" format="dimension|reference" />
         <attr name="shapeLlBottomRightRadius" format="dimension|reference" />
     </declare-styleable>
+    <!--自定义ConstraintLayout-->
+    <declare-styleable name="ShapeConstraintLayout">
+
+        <attr name="shapeClStrokeWidth" format="dimension|reference" />
+        <attr name="shapeClStrokeColor" format="color|reference" />
+        <!--background color-->
+        <attr name="shapeClBackgroundColor" format="color|reference" />
+        <!--background radius-->
+        <attr name="shapeClRadius" format="dimension|reference" />
+        <attr name="shapeClStartColor" format="color|reference" />
+        <attr name="shapeClEndColor" format="color|reference" />
+        <!--四周的圆角-->
+        <attr name="shapeClTopLeftRadius" format="dimension|reference" />
+        <attr name="shapeClTopRightRadius" format="dimension|reference" />
+        <attr name="shapeClBottomLeftRadius" format="dimension|reference" />
+        <attr name="shapeClBottomRightRadius" format="dimension|reference" />
+    </declare-styleable>
 
 
     <!--自定义带有删除按钮的Edittext-->
