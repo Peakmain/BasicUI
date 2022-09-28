@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.peakmain.ui.widget.ShapeConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dimen_150"
+    android:paddingBottom="@dimen/dimen_150"
+    app:shapeClBackgroundColor="@color/white"
+    app:shapeClTopLeftRadius="@dimen/dimen_4"
+    app:shapeClTopRightRadius="@dimen/dimen_4">
+
+    <ImageView
+        android:id="@+id/no_network_retry_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_no_network"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="测试ShapeConstraintLayout"
+        android:textSize="@dimen/font_14"
+        app:layout_constraintLeft_toLeftOf="@id/no_network_retry_view"
+        app:layout_constraintRight_toRightOf="@id/no_network_retry_view"
+        app:layout_constraintTop_toBottomOf="@id/no_network_retry_view" />
+</com.peakmain.ui.widget.ShapeConstraintLayout>
