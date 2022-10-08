@@ -4,8 +4,8 @@ import android.view.View
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.basicui.utils.ToastUtils
 import com.peakmain.ui.recyclerview.view.LoadRefreshRecyclerView
+import com.peakmain.ui.utils.ToastUtils
 import java.util.*
 
 /**

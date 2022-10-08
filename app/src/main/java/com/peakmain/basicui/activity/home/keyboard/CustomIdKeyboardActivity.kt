@@ -2,7 +2,7 @@ package com.peakmain.basicui.activity.home.keyboard
 
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.basicui.utils.ToastUtils
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener
 import com.peakmain.ui.widget.password.CustomerKeyboard
 import com.peakmain.ui.widget.password.PasswordEditText
