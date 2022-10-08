@@ -5,9 +5,9 @@ import android.view.View
 import com.peakmain.basicui.BuildConfig
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.basicui.utils.ToastUtils
 import com.peakmain.basicui.view.RadioCancelButton
 import com.peakmain.ui.dialog.AlertDialog
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
 
 /**
