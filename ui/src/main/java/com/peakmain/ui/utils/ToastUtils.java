@@ -227,14 +227,14 @@ public final class ToastUtils {
     }
 
     private static void show(@StringRes final int resId, final int duration) {
-        if(BasicUIUtils.getApplication()==null){
+        if (BasicUIUtils.getApplication() == null) {
             return;
         }
         show(BasicUIUtils.getApplication().getResources().getText(resId).toString(), duration);
     }
 
     private static void show(@StringRes final int resId, final int duration, final Object... args) {
-        if(BasicUIUtils.getApplication()==null){
+        if (BasicUIUtils.getApplication() == null) {
             return;
         }
         show(String.format(BasicUIUtils.getApplication().getResources().getString(resId), args), duration);
@@ -251,17 +251,19 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 sToast = Toast.makeText(BasicUIUtils.getApplication(), text, duration);
-                final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
-                if (sMsgColor != COLOR_DEFAULT) {
-                    tvMessage.setTextColor(sMsgColor);
-                }
-                if (sMsgTextSize != -1) {
-                    tvMessage.setTextSize(sMsgTextSize);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    final TextView tvMessage = sToast.getView().findViewById(android.R.id.message);
+                    if (sMsgColor != COLOR_DEFAULT) {
+                        tvMessage.setTextColor(sMsgColor);
+                    }
+                    if (sMsgTextSize != -1) {
+                        tvMessage.setTextSize(sMsgTextSize);
+                    }
+                    setBg(tvMessage);
                 }
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
                     sToast.setGravity(sGravity, sXOffset, sYOffset);
                 }
-                setBg(tvMessage);
                 showToast();
             }
         });
@@ -273,12 +275,14 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 sToast = new Toast(BasicUIUtils.getApplication());
-                sToast.setView(view);
+               if(Build.VERSION.SDK_INT<Build.VERSION_CODES.R){
+                   sToast.setView(view);
+                   setBg();
+               }
                 sToast.setDuration(duration);
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
                     sToast.setGravity(sGravity, sXOffset, sYOffset);
                 }
-                setBg();
                 showToast();
             }
         });
