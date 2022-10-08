@@ -1,6 +1,7 @@
 package com.peakmain.ui.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
@@ -185,7 +186,22 @@ class SizeUtils private constructor() {
                 context.resources.getDimensionPixelSize(resourceId)
             } else dp2px(25f)
         }
-
+        @JvmStatic
+        fun getNavBarHeight(): Int {
+            val res: Resources? = BasicUIUtils.application?.resources
+            val resourceId: Int = res?.getIdentifier("navigation_bar_height", "dimen", "android")?:0
+            return if (resourceId != 0) {
+                res?.getDimensionPixelSize(resourceId)?:0
+            } else {
+                0
+            }
+        }
+        @JvmStatic
+        fun getStatusBarHeight(): Int {
+            val resources: Resources? =  BasicUIUtils.application?.resources
+            val resourceId = resources?.getIdentifier("status_bar_height", "dimen", "android")?:0
+            return resources?.getDimensionPixelSize(resourceId)?:0
+        }
     }
 
     init {
