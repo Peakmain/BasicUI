@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.peakmain.basicui.R
-import com.peakmain.basicui.utils.ToastUtils
 import com.peakmain.ui.adapter.flow.BaseFlowAdapter
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.CustomPopupWindow
 
 /**

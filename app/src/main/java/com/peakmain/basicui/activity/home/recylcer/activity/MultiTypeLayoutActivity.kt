@@ -1,13 +1,9 @@
 package com.peakmain.basicui.activity.home.recylcer.activity
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
-import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.adapter.MultiTypeRecyclerAdapter
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.basicui.utils.ToastUtils
-import com.peakmain.ui.recyclerview.view.LoadRefreshRecyclerView
 import java.util.*
 
 /**
