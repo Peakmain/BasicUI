@@ -2,7 +2,7 @@ package com.peakmain.basicui.activity.home
 
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.basicui.utils.ToastUtils
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.lock.LockScreenView
 import com.peakmain.ui.widget.lock.LockScreenView.OnLockSuccessListener
 
