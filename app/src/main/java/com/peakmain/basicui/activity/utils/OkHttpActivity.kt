@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.basicui.utils.ToastUtils
-import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_BACKSPLASH_VALUE
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_EQUAL_VALUE
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_NOKEY_VALUE
