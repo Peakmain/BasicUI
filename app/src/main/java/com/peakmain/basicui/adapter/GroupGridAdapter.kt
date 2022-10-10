@@ -14,10 +14,11 @@ import com.peakmain.ui.recyclerview.group.BaseGridGroupRecyclerAdapter
  * mail:2726449200@qq.com
  * describe：
  */
-class GroupGridAdapter(var context: Context, data: List<GroupBean?>?) : BaseGridGroupRecyclerAdapter<GroupBean>(context, data, R.layout.item_recycler_group) {
+class GroupGridAdapter(var context: Context, data: List<GroupBean?>?) :
+    BaseGridGroupRecyclerAdapter<GroupBean>(context, data, R.layout.item_recycler_group) {
     override fun convert(holder: ViewHolder, item: GroupBean) {
         val imageView = holder.getView<ImageView>(R.id.iv_image)
-        instance!!.displayImage(mContext!!, item.url!!, imageView, 0)
+        instance.displayImage(item.url!!, imageView, 0)
     }
 
 }
