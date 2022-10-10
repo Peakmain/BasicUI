@@ -30,7 +30,7 @@ class MultiTypeRecyclerAdapter(context: Context?, data: MutableList<String>) : C
                 holder.setText(R.id.tv_title,item)
             }
             position%3==0 -> {
-                ImageLoader.instance?.displayImage(mContext!!,item,holder.getView(R.id.iv_image))
+                ImageLoader.instance.displayImage(item,holder.getView(R.id.iv_image))
             }
             else -> {
                 holder.setText(R.id.tv_label,item)
