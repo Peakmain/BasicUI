@@ -42,80 +42,73 @@ class ImageLoader private constructor() {
     /**
      * 加载网络图片
      *
-     * @param context 上下文
      * @param url     图片地址
      * @param view    显示图片的View
      */
-    fun displayImage(context: Context, url: String, view: ImageView?) {
-        loader!!.displayImage(context, url, view, 0)
+    fun displayImage(url: String, view: ImageView?) {
+        loader!!.displayImage(view?.context, url, view, 0)
     }
 
     /**
      * 设置UserAgent
      */
     fun userAgent(userAgent: String?) {
-      loader!!.userAgent(userAgent)
+        loader!!.userAgent(userAgent)
     }
 
     /**
      * 加载网络图片
      *
-     * @param context 上下文
      * @param url     图片地址
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayImage(context: Context, url: String, view: ImageView?, desId: Int) {
-        loader!!.displayImage(context, url, view, desId)
+    fun displayImage(url: String, view: ImageView?, desId: Int) {
+        loader!!.displayImage(view?.context, url, view, desId)
     }
 
     /**
      * 加载URL图片，设置是否跳过缓存
      *
-     * @param context     上下文
      * @param url         url
      * @param view        显示图片的view
      * @param desId       默认的图片
      * @param isSkipCache 是否跳过缓存， 默认是false
      */
     fun displayImage(
-        context: Context,
         url: String,
-        view: ImageView,
+        view: ImageView?,
         desId: Int,
         isSkipCache: Boolean
     ) {
-        loader!!.displayImage(context, url, view, desId, isSkipCache)
+        loader!!.displayImage(view?.context, url, view, desId, isSkipCache)
     }
 
     /**
      * 加载网络图片 圆角
      *
-     * @param context 上下文
      * @param url     图片地址
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayImageRound(context: Context, url: String, view: ImageView, corner: Int, desId: Int) {
-        loader!!.displayImageRound(context, url, view, corner, desId)
+    fun displayImageRound(url: String, view: ImageView?, corner: Int, desId: Int) {
+        loader!!.displayImageRound(view?.context, url, view, corner, desId)
     }
 
     /**
      * 加载Uri图片
      *
-     * @param context 上下文
      * @param url     图片地址
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayImage(context: Context, url: Uri, view: ImageView, desId: Int) {
-        loader!!.displayImage(context, url, view, desId)
+    fun displayImage(url: Uri, view: ImageView?, desId: Int) {
+        loader!!.displayImage(view?.context, url, view, desId)
     }
 
     /**
      * 指定图片大小加载
      *
-     * @param context 上下文
      * @param url     图片地址
      * @param view    显示图片的View
      * @param height  指定图片高度
@@ -123,41 +116,38 @@ class ImageLoader private constructor() {
      * @param desId   默认图片Id
      */
     fun displayImage(
-        context: Context,
         url: String,
-        view: ImageView,
+        view: ImageView?,
         height: Int,
         width: Int,
         desId: Int
     ) {
-        loader!!.displayImage(context, url, view, height, width, desId)
+        loader!!.displayImage(view?.context, url, view, height, width, desId)
     }
 
     /**
      * 按照指定大小的缩略图形式加载
      */
     fun displayImage(
-        context: Context,
         url: String,
-        view: ImageView,
+        view: ImageView?,
         height: Int,
         width: Int,
         sizeMultiplier: Float,
         desId: Int
     ) {
-        loader!!.displayImage(context, url, view, height, width, sizeMultiplier, desId)
+        loader!!.displayImage(view?.context, url, view, height, width, sizeMultiplier, desId)
     }
 
     /**
      * 加载本地图片
      *
-     * @param context 上下文
      * @param url     图片地址
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayLocalImage(context: Context, url: String, view: ImageView, desId: Int) {
-        loader!!.displayLocalImage(context, url, view, desId)
+    fun displayLocalImage(url: String, view: ImageView?, desId: Int) {
+        loader!!.displayLocalImage(view?.context, url, view, desId)
     }
 
     /**
@@ -165,7 +155,7 @@ class ImageLoader private constructor() {
      *
      * @param context 上下文
      */
-    fun displayImage(context: Context, url: Uri, simpleTarget: CustomTarget<Bitmap>) {
+    fun displayImage(context: Context?, url: Uri, simpleTarget: CustomTarget<Bitmap>) {
         loader!!.displayImage(context, url, simpleTarget)
     }
 
@@ -174,9 +164,14 @@ class ImageLoader private constructor() {
      *
      * @param context 上下文
      */
-    fun clearImageCache(context: Context) {
+    fun clearImageCache(context: Context?) {
         loader!!.clearMemory(context)
         loader!!.clearDiskCache(context)
+    }
+
+    fun clearImageCache(view: ImageView?) {
+        loader!!.clearMemory(view?.context)
+        loader!!.clearDiskCache(view?.context)
     }
 
     /**
@@ -189,13 +184,21 @@ class ImageLoader private constructor() {
         loader!!.trimMemory(context, level)
     }
 
+    fun trimMemory(view: ImageView?, level: Int) {
+        loader!!.trimMemory(view?.context, level)
+    }
+
     /**
      * 低内存的时候执行
      *
      * @param context
      */
-    fun clearAllMemoryCaches(context: Context) {
+    fun clearAllMemoryCaches(context: Context?) {
         loader!!.clearAllMemoryCaches(context)
+    }
+
+    fun clearAllMemoryCaches(view: ImageView?) {
+        loader!!.clearAllMemoryCaches(view?.context)
     }
 
     /**
@@ -204,9 +207,11 @@ class ImageLoader private constructor() {
      * @param context
      */
     fun resumeRequest(context: Context?) {
-        if (context != null) {
-            loader!!.resumeRequest(context)
-        }
+        loader!!.resumeRequest(context)
+    }
+
+    fun resumeRequest(view: ImageView?) {
+        loader!!.resumeRequest(view?.context)
     }
 
     /**
@@ -215,9 +220,7 @@ class ImageLoader private constructor() {
      * @param context
      */
     fun pauseRequest(context: Context?) {
-        if (context != null) {
-            loader!!.pauseRequest(context)
-        }
+        loader!!.pauseRequest(context)
     }
 
     companion object {
