@@ -21,7 +21,7 @@ class GroupLinearAdapter(context: Context?, data: MutableList<GroupBean>) : Base
 
     override fun convert(holder: ViewHolder, item: GroupBean) {
         val imageView = holder.getView<ImageView>(R.id.iv_image)
-        instance!!.displayImage(mContext!!, item.url!!, imageView, 0)
+        instance.displayImage( item.url!!, imageView, 0)
     }
 
 }
