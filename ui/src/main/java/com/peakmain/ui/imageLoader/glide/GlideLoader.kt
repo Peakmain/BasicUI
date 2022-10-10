@@ -116,7 +116,7 @@ class GlideLoader : ILoader {
     }
 
     override fun displayImage(context: Context?, url: Uri?, simpleTarget: CustomTarget<Bitmap>) {
-        if(context==null)return
+        if (context == null) return
         try {
             Glide.with(context).asBitmap().load(url).into(simpleTarget)
         } catch (e: Exception) {
@@ -136,16 +136,16 @@ class GlideLoader : ILoader {
         }
     }
 
-    private fun displayImage(url: String, imageView: ImageView,options: RequestOptions) {
+    private fun displayImage(url: String, imageView: ImageView, options: RequestOptions) {
         var url1: URL? = null
         try {
             url1 = URL(url)
         } catch (e: MalformedURLException) {
             e.printStackTrace()
         }
-        if (url1 != null) {
+        url1?.let {
             val glideUrl =
-                GlideUrl(url1, LazyHeaders.Builder().addHeader("User-Agent", userAgent!!).build())
+                GlideUrl(it, LazyHeaders.Builder().addHeader("User-Agent", userAgent!!).build())
             Glide.with(imageView.context.applicationContext).asDrawable().load(glideUrl)
                 .apply(options)
                 .into(imageView)
@@ -153,41 +153,51 @@ class GlideLoader : ILoader {
     }
 
     override fun clearMemory(context: Context?) {
-        Glide.get(context!!).clearMemory()
+        if (context == null) return
+        Glide.get(context).clearMemory()
     }
 
     override fun clearDiskCache(context: Context?) {
-        Glide.get(context!!).clearDiskCache()
+        if (context == null) return
+        Glide.get(context).clearDiskCache()
     }
 
     /**
      * 程序在内存清理的时候执行
      */
     override fun trimMemory(context: Context?, level: Int) {
-        Glide.get(context!!).trimMemory(level)
+        context?.let {
+            Glide.get(it).trimMemory(level)
+        }
     }
 
     override fun clearAllMemoryCaches(context: Context?) {
-        Glide.get(context!!).onLowMemory()
+        context?.let {
+            Glide.get(it).onLowMemory()
+        }
     }
 
     /**
      * 恢复请求
      */
     override fun resumeRequest(context: Context?) {
-        Glide.with(context!!).resumeRequests()
+        context?.let {
+            Glide.with(it).resumeRequests()
+        }
     }
 
     override fun pauseRequest(context: Context?) {
-        Glide.with(context!!).pauseRequests()
+        context?.let {
+            Glide.with(it).pauseRequests()
+        }
     }
 
     private fun loadImage(context: Context?, url: Any?, view: ImageView?, options: RequestOptions) {
         if (context == null || view == null) return
         try {
             if (url is String && !TextUtils.isEmpty(userAgent)) {
-                displayImage(url, view,options)
-            }else{
+                displayImage(url, view, options)
+            } else {
                 Glide.with(context).load(url).apply(options).into(view)
             }
         } catch (e: Exception) {
