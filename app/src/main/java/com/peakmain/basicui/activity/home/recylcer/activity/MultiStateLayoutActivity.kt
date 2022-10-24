@@ -47,7 +47,7 @@ class MultiStateLayoutActivity : BaseActivity() {
     }
 
     private val data: List<String>
-        private get() {
+        get() {
             list = ArrayList()
             for (i in 0..19) {
                 list.add("数据:$i")
@@ -56,7 +56,7 @@ class MultiStateLayoutActivity : BaseActivity() {
         }
 
     private val moreData: List<String>
-        private get() {
+        get() {
             list = ArrayList()
             while (index < lastIndex) {
                 list.add("新数据:$index")

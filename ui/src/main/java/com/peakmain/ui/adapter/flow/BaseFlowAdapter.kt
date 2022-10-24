@@ -12,7 +12,7 @@ abstract class BaseFlowAdapter : BaseAdapter() {
     private var mObserver: FlowObserver? = null
 
     //3.观察者模式及时更新
-    fun unregisterDataSetObserver(observer: FlowObserver?) {
+    fun unregisterDataSetObserver() {
         mObserver = null
     }
 
