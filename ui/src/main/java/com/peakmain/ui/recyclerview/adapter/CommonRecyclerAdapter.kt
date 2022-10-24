@@ -17,7 +17,8 @@ import com.peakmain.ui.recyclerview.listener.OnLongClickListener
  * describe：
  */
 abstract class CommonRecyclerAdapter<T>(//上下文
-        open var mContext: Context?, data: List<T>, layoutId: Int) : RecyclerView.Adapter<ViewHolder>() {
+    var mContext: Context?, data: List<T>, layoutId: Int
+) : RecyclerView.Adapter<ViewHolder>() {
     protected var mInflater: LayoutInflater
     protected var mData //数据
             : MutableList<T>
@@ -30,10 +31,13 @@ abstract class CommonRecyclerAdapter<T>(//上下文
     /**
      * 多布局支持
      */
-    constructor(context: Context?, data: MutableList<T>, multiTypeSupport: MultiTypeSupport<T>) : this(context, data, -1) {
+    constructor(
+        context: Context?,
+        data: MutableList<T>,
+        multiTypeSupport: MultiTypeSupport<T>
+    ) : this(context, data, -1) {
         mMultiTypeSupport = multiTypeSupport
     }
-
 
 
     /**
@@ -125,7 +129,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
             mData.clear()
             mData.addAll(newData)
         }
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, mData.size)
     }
 
     /**
@@ -144,7 +148,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
 
     fun setData(data: MutableList<T>) {
         mData = data
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, mData.size)
     }
 
     init {
