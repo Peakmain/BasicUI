@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.util.AttributeSet
@@ -15,7 +16,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.peakmain.ui.R
 import com.peakmain.ui.dialog.AlertDialog
-import com.peakmain.ui.loading.ShapeView
 import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
 import com.peakmain.ui.utils.SizeUtils.Companion.screenHeight
 import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
@@ -71,9 +71,9 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         }
         // 动画作用在谁的身上
         // 下落位移动画
-        val translationAnimator = ObjectAnimator.ofFloat(mShapeView, "translationY", 0f, mTranslationDistance.toFloat())
+        val translationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.translationY), 0f, mTranslationDistance.toFloat())
         // 配合中间阴影缩小
-        val scaleAnimator = ObjectAnimator.ofFloat(mShadowView, "scaleX", 1f, 0.3f)
+        val scaleAnimator = ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.scaleX), 1f, 0.3f)
         val animatorSet = AnimatorSet()
         animatorSet.duration = ANIMATOR_DURATION
         // 下落的速度应该是越来越快
@@ -102,9 +102,9 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         }
         // 动画作用在谁的身上
         // 下落位移动画
-        val translationAnimator = ObjectAnimator.ofFloat(mShapeView, "translationY", mTranslationDistance.toFloat(), 0f)
+        val translationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.translationY), mTranslationDistance.toFloat(), 0f)
         // 配合中间阴影缩小
-        val scaleAnimator = ObjectAnimator.ofFloat(mShadowView, "scaleX", 0.3f, 1f)
+        val scaleAnimator = ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.scaleX), 0.3f, 1f)
         val animatorSet = AnimatorSet()
         animatorSet.duration = ANIMATOR_DURATION
         animatorSet.interpolator = DecelerateInterpolator()
@@ -131,9 +131,9 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         var rotationAnimator: ObjectAnimator? = null
         when (mShapeView!!.currentShape) {
             ShapeView.Shape.Circle, ShapeView.Shape.Square ->                 // 180
-                rotationAnimator = ObjectAnimator.ofFloat(mShapeView, "rotation", 0f, 180f)
+                rotationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.rotation), 0f, 180f)
             ShapeView.Shape.Triangle ->                 // 120
-                rotationAnimator = ObjectAnimator.ofFloat(mShapeView, "rotation", 0f, -120f)
+                rotationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.rotation), 0f, -120f)
             else -> {
             }
         }

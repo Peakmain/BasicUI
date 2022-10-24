@@ -162,7 +162,7 @@ class FlowLayout : ViewGroup {
             return
         }
         if (mAdapter != null && mObserver != null) {
-            adapter.unregisterDataSetObserver(mObserver)
+            adapter.unregisterDataSetObserver()
         }
         // 清空所有子View
         removeAllViews()
