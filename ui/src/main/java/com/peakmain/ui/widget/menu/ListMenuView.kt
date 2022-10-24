@@ -3,23 +3,27 @@ package com.peakmain.ui.widget.menu
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import com.peakmain.ui.R
 import com.peakmain.ui.adapter.menu.BaseMenuAdapter
 import com.peakmain.ui.adapter.menu.MenuObserver
 
 /**
- * author ：Peakmain
+ * author: Peakmain
  * createTime：2020/3/4
  * mail:2726449200@qq.com
  * describe：
  */
-class ListMenuView @JvmOverloads constructor(private val mContext: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(mContext, attrs, defStyleAttr), View.OnClickListener {
+class ListMenuView @JvmOverloads constructor(
+    private val mContext: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayout(mContext, attrs, defStyleAttr), View.OnClickListener {
 
     // 1.1 创建头部用来存放 Tab
     private var mMenuTabView: LinearLayout? = null
@@ -37,7 +41,7 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
     private val mShadowColor = -0x77777778
     private var mAdapter: BaseMenuAdapter? = null
     private var mMenuContainerHeight = 0
-    private val DURATION_TIME = 350
+    private val mDurationTime = 350
     private var mCurrentPosition = -1 //当前位置
 
     // 动画是否在执行
@@ -51,8 +55,10 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
         orientation = VERTICAL
         //创建头部用来存放Tab
         mMenuTabView = LinearLayout(mContext)
-        mMenuTabView!!.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.WRAP_CONTENT)
+        mMenuTabView!!.layoutParams = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.WRAP_CONTENT
+        )
         addView(mMenuTabView)
         // 1.2 创建 FrameLayout 用来存放 = 阴影（View） + 菜单内容布局(FrameLayout)
         mMenuMiddleView = FrameLayout(mContext)
@@ -156,13 +162,19 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
         val menuView = mMenuContainerView!!.getChildAt(mCurrentPosition)
         menuView.visibility = View.GONE
         //位移动画
-        val translationAnimation = ObjectAnimator.ofFloat(mMenuContainerView, "translationY", 0f, -mMenuContainerHeight.toFloat())
-        translationAnimation.duration = DURATION_TIME.toLong()
+        val translationAnimation = ObjectAnimator.ofFloat(
+            mMenuContainerView,
+            context.getString(R.string.translationY),
+            0f,
+            -mMenuContainerHeight.toFloat()
+        )
+        translationAnimation.duration = mDurationTime.toLong()
         translationAnimation.start()
         //阴影的透明度变化
-        val rotationAniamtion = ObjectAnimator.ofFloat(mShadowView, "alpha", 1f, 0f)
-        rotationAniamtion.duration = DURATION_TIME.toLong()
-        rotationAniamtion.addListener(object : AnimatorListenerAdapter() {
+        val rotationAnimation =
+            ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.alpha), 1f, 0f)
+        rotationAnimation.duration = mDurationTime.toLong()
+        rotationAnimation.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 mCurrentPosition = -1
                 mAnimatorExecute = false
@@ -174,14 +186,13 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
                 mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
             }
         })
-        rotationAniamtion.start()
+        rotationAnimation.start()
     }
 
     /**
      * 打开菜单
      */
-    @SuppressLint("ObjectAnimatorBinding")
-    private fun openMenu(tabView: View?, postition: Int) {
+    private fun openMenu(tabView: View?, position: Int) {
         if (mAnimatorExecute) {
             return
         }
@@ -189,19 +200,25 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
         mShadowView!!.visibility = View.VISIBLE
 
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
-        val menuView = mMenuContainerView!!.getChildAt(postition)
+        val menuView = mMenuContainerView!!.getChildAt(position)
         menuView.visibility = View.VISIBLE
         //位移动画
-        val translationAnimation = ObjectAnimator.ofFloat(mMenuContainerView, "translationY", -mMenuContainerHeight.toFloat(), 0f)
-        translationAnimation.duration = DURATION_TIME.toLong()
+        val translationAnimation = ObjectAnimator.ofFloat(
+            mMenuContainerView,
+            context.getString(R.string.translationY),
+            -mMenuContainerHeight.toFloat(),
+            0f
+        )
+        translationAnimation.duration = mDurationTime.toLong()
         translationAnimation.start()
         //阴影的透明度变化
-        val rotationAniamtion = ObjectAnimator.ofFloat(mShadowView, "alpha", 0f, 1f)
-        rotationAniamtion.duration = DURATION_TIME.toLong()
-        rotationAniamtion.addListener(object : AnimatorListenerAdapter() {
+        val rotationAnimation =
+            ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.alpha), 0f, 1f)
+        rotationAnimation.duration = mDurationTime.toLong()
+        rotationAnimation.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
-                mCurrentPosition = postition
+                mCurrentPosition = position
                 mAnimatorExecute = false
             }
 
@@ -211,7 +228,7 @@ class ListMenuView @JvmOverloads constructor(private val mContext: Context, attr
                 mAdapter!!.openMenu(tabView!!)
             }
         })
-        rotationAniamtion.start()
+        rotationAnimation.start()
     }
 
     override fun onClick(v: View) {
