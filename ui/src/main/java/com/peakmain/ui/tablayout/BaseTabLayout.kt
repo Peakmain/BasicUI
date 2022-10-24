@@ -177,7 +177,7 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
         val nextWidth = nextChild?.width ?: 0
         val scrollBase = selectedChild!!.left + selectedWidth / 2 - this.width / 2
         val scrollOffset = ((selectedWidth + nextWidth).toFloat() * 0.5f * positionOffset).toInt()
-        return if (ViewCompat.getLayoutDirection(this) == 0) scrollBase + scrollOffset else scrollBase - scrollOffset
+        return if (ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_LTR) scrollBase + scrollOffset else scrollBase - scrollOffset
     }
 
     private fun scrollToChild(position: Int) {
