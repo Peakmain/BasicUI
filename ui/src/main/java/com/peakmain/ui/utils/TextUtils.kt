@@ -27,12 +27,12 @@ class TextUtils private constructor() {
          */
         @JvmStatic
         fun clipTextColor(
-                text: String,
-                @ColorInt color: Int,
-                start: Int,
-                end: Int,
-                flags: Int = Spanned.SPAN_INCLUSIVE_EXCLUSIVE,
-                vararg styleSpan: StyleSpan = arrayOf(StyleSpan(Typeface.NORMAL))
+            text: String,
+            @ColorInt color: Int,
+            start: Int,
+            end: Int,
+            flags: Int = Spanned.SPAN_INCLUSIVE_EXCLUSIVE,
+            vararg styleSpan: StyleSpan = arrayOf(StyleSpan(Typeface.NORMAL))
         ): SpannableString {
             val foregroundColorSpan = ForegroundColorSpan(color)
             val spannableString = SpannableString(text)
@@ -245,7 +245,7 @@ class TextUtils private constructor() {
             return object : ClickableSpan() {
                 override fun onClick(widget: View) {
                     val onClickableSpan = mClickableSpanList.get(dataBean.start)
-                    onClickableSpan.onClickableSpan(widget)
+                    onClickableSpan?.onClickableSpan(widget)
                 }
 
                 override fun updateDrawState(ds: TextPaint) {
