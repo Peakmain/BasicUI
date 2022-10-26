@@ -26,7 +26,7 @@ class HomeFragment : BaseFragmnet() {
     private lateinit var mHomeDataBean: MutableList<String>
     private var mAdapter: BaseRecyclerStringAdapter? = null
     override val layoutId: Int
-        protected get() = R.layout.fragment_home
+         get() = R.layout.fragment_home
 
     override fun initView(view: View?) {
         mRecyclerView = view?.findViewById(R.id.recycler_view)

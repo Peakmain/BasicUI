@@ -149,7 +149,7 @@ class CustomPopupWindow private constructor(private val mContext: Context) : Pop
             //如果设置的值在0 - 1的范围内，则用设置的值，否则用默认值
             val alpha = if (mBackgroundDrakValue > 0 && mBackgroundDrakValue < 1) mBackgroundDrakValue else DEFAULT_ALPHA
             mWindow = activity.window
-            val params = mWindow?.getAttributes()
+            val params = mWindow?.attributes
             params?.alpha = alpha
             mWindow?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             mWindow?.attributes = params
@@ -270,7 +270,7 @@ class CustomPopupWindow private constructor(private val mContext: Context) : Pop
 
         fun setOnClickListener(id: Int, onClickListener: View.OnClickListener?): PopupWindowBuilder {
             mCustomPopupWindow.popupWindow
-                    ?.getContentView()
+                    ?.contentView
                     ?.findViewById<View>(id)
                     ?.setOnClickListener(onClickListener)
             return this

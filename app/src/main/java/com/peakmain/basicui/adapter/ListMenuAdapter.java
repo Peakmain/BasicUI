@@ -17,12 +17,13 @@ import java.util.List;
  * describe：
  */
 public class ListMenuAdapter extends BaseListMenuAdapater {
-    private List<String> mTitles;
-    private Context mContext;
+    private final List<String> mTitles;
+    private final Context mContext;
+
     public ListMenuAdapter(Context context, List<String> titles) {
         super(context, titles);
-        this.mTitles=titles;
-        this.mContext=context;
+        this.mTitles = titles;
+        this.mContext = context;
     }
 
     @Override
@@ -32,10 +33,11 @@ public class ListMenuAdapter extends BaseListMenuAdapater {
 
     @Override
     protected void setMenuContent(View menuView, final int position) {
+        if (menuView == null) return;
         TextView tv = menuView.findViewById(R.id.tv_menu_tab_content);
         tv.setText(mTitles.get(position));
         tv.setOnClickListener(v -> {
-            Toast.makeText(mContext,mTitles.get(position),Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mTitles.get(position), Toast.LENGTH_LONG).show();
             closeMenu();
         });
     }

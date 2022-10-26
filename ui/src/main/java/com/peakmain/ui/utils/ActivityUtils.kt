@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.provider.Settings
 import com.peakmain.ui.constants.BasicUIUtils
 import java.lang.ref.WeakReference
-import kotlin.math.acos
 
 /**
  * author ：Peakmain
@@ -70,7 +69,7 @@ class ActivityUtils {
         override fun onActivityDestroyed(p0: Activity) {
             for (activityRef in mActivityLists) {
                 if (activityRef.get() == p0) {
-                    mActivityLists.remove(activityRef);
+                    mActivityLists.remove(activityRef)
                     break
                 }
             }
@@ -108,7 +107,7 @@ class ActivityUtils {
     }
 
     fun removeFrontBackCallback(callback: FrontBackCallback) {
-        mFrontBackCallbacks.remove(callback);
+        mFrontBackCallbacks.remove(callback)
     }
 
     interface FrontBackCallback {

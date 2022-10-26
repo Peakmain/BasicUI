@@ -1,18 +1,14 @@
 package com.peakmain.ui.wheelview.view
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
 import com.peakmain.ui.dialog.AlertDialog
-import com.peakmain.ui.utils.SizeUtils
 import com.peakmain.ui.wheelview.adapter.ArrayWheelAdapter
 
 /**
@@ -56,15 +52,19 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
         mTvConfirm = mView.findViewById(R.id.ui_tv_confirm)
         mTvConfirm.setOnClickListener(this)
         mTvCancel.setOnClickListener(this)
-        if (mViewType == ViewType.ONE) {
-            mWheelView1.visibility = View.VISIBLE
-        } else if (mViewType == ViewType.TWO) {
-            mWheelView1.visibility = View.VISIBLE
-            mWheelView2.visibility = View.VISIBLE
-        } else if (mViewType == ViewType.ALL) {
-            mWheelView1.visibility = View.VISIBLE
-            mWheelView2.visibility = View.VISIBLE
-            mWheelView3.visibility = View.VISIBLE
+        when (mViewType) {
+            ViewType.ONE -> {
+                mWheelView1.visibility = View.VISIBLE
+            }
+            ViewType.TWO -> {
+                mWheelView1.visibility = View.VISIBLE
+                mWheelView2.visibility = View.VISIBLE
+            }
+            ViewType.ALL -> {
+                mWheelView1.visibility = View.VISIBLE
+                mWheelView2.visibility = View.VISIBLE
+                mWheelView3.visibility = View.VISIBLE
+            }
         }
         intDefaultOption()
     }

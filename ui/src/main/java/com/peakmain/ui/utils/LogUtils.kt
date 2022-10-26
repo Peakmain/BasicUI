@@ -28,7 +28,7 @@ class LogUtils private constructor() {
     @IntDef(V, D, I, W, E, A)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     private annotation class TYPE
-    private class TagHead internal constructor(var tag: String?, var consoleHead: Array<String?>?, var fileHead: String)
+    private class TagHead(var tag: String?, var consoleHead: Array<String?>?, var fileHead: String)
 
     companion object {
         const val V = Log.VERBOSE
@@ -226,7 +226,7 @@ class LogUtils private constructor() {
                     return if (sStackDeep <= 1) {
                         TagHead(tag, arrayOf(head), fileHead)
                     } else {
-                        val consoleHead = arrayOfNulls<String>(Math.min(sStackDeep, stackTrace.size - 3))
+                        val consoleHead = arrayOfNulls<String>(sStackDeep.coerceAtMost(stackTrace.size - 3))
                         consoleHead[0] = head
                         val spaceLen = tName.length + 2
                         val space = Formatter().format("%" + spaceLen + "s", "").toString()
@@ -272,7 +272,7 @@ class LogUtils private constructor() {
                                 .append(i)
                                 .append("]")
                                 .append(" = ")
-                                .append(content.toString() ?: NULL)
+                                .append(content.toString())
                                 .append(LINE_SEP)
                         ++i
                     }

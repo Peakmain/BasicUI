@@ -116,7 +116,7 @@ class WheelTimeUtil(
                 } else {
                     mWheelViewMonth.currentItem = mWheelViewMonth.currentItem
                 }
-                var maxItem = 29
+                val maxItem: Int
                 if (DateUtils.leapMonth(yearNumber) != 0 && mWheelViewMonth.currentItem > DateUtils.leapMonth(
                         yearNumber
                     ) - 1
@@ -494,34 +494,32 @@ class WheelTimeUtil(
         list_big: List<String>,
         list_little: List<String>
     ) {
-        var endD = endD
+        var end = endD
         var currentItem = mWheelViewDay.currentItem
         //        int maxItem;
         if (list_big.contains(monthNum.toString())) {
-            if (endD > 31) {
-                endD = 31
+            if (end > 31) {
+                end = 31
             }
-            mWheelViewDay.adapter = NumericWheelAdapter(startD, endD)
-            //            maxItem = endD;
+            mWheelViewDay.adapter = NumericWheelAdapter(startD, end)
         } else if (list_little.contains(monthNum.toString())) {
-            if (endD > 30) {
-                endD = 30
+            if (end > 30) {
+                end = 30
             }
-            mWheelViewDay.adapter = NumericWheelAdapter(startD, endD)
-            //            maxItem = endD;
+            mWheelViewDay.adapter = NumericWheelAdapter(startD, end)
         } else {
             if (yearNumber % 4 == 0 && yearNumber % 100 != 0
                 || yearNumber % 400 == 0
             ) {
-                if (endD > 29) {
-                    endD = 29
+                if (end > 29) {
+                    end = 29
                 }
-                mWheelViewDay.adapter = NumericWheelAdapter(startD, endD)
+                mWheelViewDay.adapter = NumericWheelAdapter(startD, end)
             } else {
-                if (endD > 28) {
-                    endD = 28
+                if (end > 28) {
+                    end = 28
                 }
-                mWheelViewDay.adapter = NumericWheelAdapter(startD, endD)
+                mWheelViewDay.adapter = NumericWheelAdapter(startD, end)
             }
         }
         if (currentItem > mWheelViewDay.adapter.itemsCount - 1) {
@@ -531,7 +529,7 @@ class WheelTimeUtil(
     }
 
     //如果是农历 返回对应的公历时间
-    val time: String?
+    val time: String
         get() {
             if (isLunarMode) {
                 //如果是农历 返回对应的公历时间
@@ -591,7 +589,7 @@ class WheelTimeUtil(
      * @return
      */
     private val lunarTime: String
-        private get() {
+        get() {
             val sb = StringBuilder()
             val year = mWheelViewYear.currentItem + startYear
             var month = 1

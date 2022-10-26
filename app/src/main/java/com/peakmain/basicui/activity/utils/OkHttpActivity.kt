@@ -46,7 +46,7 @@ class OkHttpActivity : BaseActivity() {
                 .create()
         mProgressBar = findViewById(R.id.progressbar)
         mTvResult = findViewById(R.id.tv_result)
-        mTvResult.setVisibility(View.VISIBLE)
+        mTvResult.visibility = View.VISIBLE
     }
 
     override fun initData() {

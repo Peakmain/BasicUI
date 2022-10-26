@@ -8,9 +8,7 @@ import com.peakmain.basicui.activity.home.recylcer.data.PesudoImageData
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.imageLoader.ImageLoader
-import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
-import java.util.*
 
 /**
  * author ：Peakmain

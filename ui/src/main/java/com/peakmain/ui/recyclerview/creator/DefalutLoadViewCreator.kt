@@ -26,8 +26,8 @@ class DefalutLoadViewCreator : LoadViewCreator() {
         mTvStatus = refreshView.findViewById(R.id.tv_refresh_status)
         mTvRefreshTime = refreshView.findViewById(R.id.tv_refresh_time)
         mIvArrow = refreshView.findViewById(R.id.iv_arrow_downward)
-        mTvStatus.setText("上拉加载更多")
-        mTvRefreshTime.setVisibility(View.GONE)
+        mTvStatus.text = "上拉加载更多"
+        mTvRefreshTime.visibility = View.GONE
         return refreshView
     }
 

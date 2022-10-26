@@ -1,11 +1,9 @@
 package com.peakmain.ui.imageLoader.glide
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.text.TextUtils
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
