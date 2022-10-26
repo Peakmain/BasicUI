@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.TextUtils
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.peakmain.ui.imageLoader.ILoader
+import com.peakmain.ui.imageLoader.transform.CornerTransform
 import com.peakmain.ui.utils.LogUtils
 import java.io.File
 import java.net.MalformedURLException
@@ -33,12 +35,12 @@ class GlideLoader : ILoader {
     /**
      * 返回一个请求的配置
      */
-    private fun getRequestOptions(resId: Int): RequestOptions {
+    private fun getRequestOptions(@DrawableRes resId: Int): RequestOptions {
         return getRequestOptions(resId, false)
     }
 
     @SuppressLint("CheckResult")
-    private fun getRequestOptions(resId: Int, isSkipCache: Boolean): RequestOptions {
+    private fun getRequestOptions(@DrawableRes resId: Int, isSkipCache: Boolean): RequestOptions {
         val options = RequestOptions()
         if (isSkipCache) {
             options.skipMemoryCache(true)
@@ -53,7 +55,12 @@ class GlideLoader : ILoader {
         this.userAgent = userAgent
     }
 
-    override fun displayImage(context: Context?, url: String?, view: ImageView?, desId: Int) {
+    override fun displayImage(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        @DrawableRes desId: Int
+    ) {
         val options = getRequestOptions(desId)
         loadImage(context, url, view, options)
     }
@@ -62,7 +69,7 @@ class GlideLoader : ILoader {
         context: Context?,
         url: String?,
         view: ImageView?,
-        desId: Int,
+        @DrawableRes desId: Int,
         isSkipCache: Boolean
     ) {
         val options = getRequestOptions(desId, isSkipCache)
@@ -74,13 +81,19 @@ class GlideLoader : ILoader {
         url: String?,
         view: ImageView?,
         corner: Int,
-        desId: Int
+        @DrawableRes desId: Int
     ) {
         val options = getRequestOptions(desId).transform(RoundedCorners(corner))
         loadImage(context, url, view, options)
     }
 
-    override fun displayImage(context: Context?, url: Uri?, view: ImageView?, desId: Int) {
+
+    override fun displayImage(
+        context: Context?,
+        url: Uri?,
+        view: ImageView?,
+        @DrawableRes desId: Int
+    ) {
         val options = getRequestOptions(desId)
         loadImage(context, url, view, options)
     }
@@ -92,7 +105,7 @@ class GlideLoader : ILoader {
         view: ImageView?,
         height: Int,
         width: Int,
-        desId: Int
+        @DrawableRes desId: Int
     ) {
         val options = getRequestOptions(desId)
         options.override(width, height)
@@ -107,7 +120,7 @@ class GlideLoader : ILoader {
         height: Int,
         width: Int,
         sizeMultiplier: Float,
-        desId: Int
+        @DrawableRes desId: Int
     ) {
         val options = getRequestOptions(desId)
         options.sizeMultiplier(sizeMultiplier)
@@ -124,8 +137,23 @@ class GlideLoader : ILoader {
         }
     }
 
+    override fun displayImage(
+        context: Context?,
+        url: String?,
+        imageView: ImageView?,
+        requestOptions: RequestOptions
+    ) {
+        if (context == null || imageView == null || TextUtils.isEmpty(url)) return
+        displayImage(url!!, imageView, requestOptions)
+    }
 
-    override fun displayLocalImage(context: Context?, url: String?, view: ImageView?, desId: Int) {
+
+    override fun displayLocalImage(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        @DrawableRes desId: Int
+    ) {
         if (TextUtils.isEmpty(url)) {
             return
         }
@@ -136,7 +164,11 @@ class GlideLoader : ILoader {
         }
     }
 
-    private fun displayImage(url: String, imageView: ImageView, options: RequestOptions) {
+    private fun displayImage(
+        url: String,
+        imageView: ImageView,
+        options: RequestOptions
+    ) {
         var url1: URL? = null
         try {
             url1 = URL(url)
@@ -146,7 +178,9 @@ class GlideLoader : ILoader {
         url1?.let {
             val glideUrl =
                 GlideUrl(it, LazyHeaders.Builder().addHeader("User-Agent", userAgent!!).build())
-            Glide.with(imageView.context.applicationContext).asDrawable().load(glideUrl)
+            Glide.with(imageView.context.applicationContext)
+                .asDrawable()
+                .load(glideUrl)
                 .apply(options)
                 .into(imageView)
         }
@@ -190,6 +224,28 @@ class GlideLoader : ILoader {
         context?.let {
             Glide.with(it).pauseRequests()
         }
+    }
+
+    /**
+     * 设置图片的四周圆角
+     */
+    override fun displayImageRound(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        @DrawableRes desId: Int,
+        leftTop: Boolean,
+        rightTop: Boolean,
+        leftBottom: Boolean,
+        rightBottom: Boolean,
+        roundRadius: Float
+    ) {
+        if (context == null || TextUtils.isEmpty(url) || view == null) return
+        val cornerTransform = CornerTransform(context, roundRadius)
+        cornerTransform.setCorner(leftTop, rightTop, leftBottom, rightBottom)
+        val options = RequestOptions().placeholder(desId)
+            .transform(cornerTransform)
+        displayImage(url!!, view, options)
     }
 
     private fun loadImage(context: Context?, url: Any?, view: ImageView?, options: RequestOptions) {
