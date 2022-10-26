@@ -11,8 +11,8 @@ import com.peakmain.ui.recyclerview.itemdecoration.BaseSuspenisonItemDecoration
  * describe：
  */
 class SuspenisonItemDecoration : BaseSuspenisonItemDecoration<GroupBean?> {
-    constructor(builder: BaseSuspenisonItemDecoration.Builder<GroupBean?>) : super(builder) {}
-    constructor(context: Context?, data: List<GroupBean?>?) : super(context, data!!) {}
+    constructor(builder: BaseSuspenisonItemDecoration.Builder<GroupBean?>) : super(builder)
+    constructor(context: Context?, data: List<GroupBean?>?) : super(context, data!!)
 
     override fun getTopText(data: List<GroupBean?>?, position: Int): String? {
         return data!![position]?.time

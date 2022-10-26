@@ -14,7 +14,6 @@ import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.lang.StringBuilder
 import java.net.URLConnection
 
 /**
@@ -23,7 +22,7 @@ import java.net.URLConnection
  * mail:2726449200@qq.com
  * describe：okhttp的网络引擎
  */
-class OkHttpEngine : IHttpEngine {
+open class OkHttpEngine : IHttpEngine {
     private var mOkHttpClient: OkHttpClient? = null
     private var mUrl: String = ""
     fun setOkHttpClient(okHttpClient: OkHttpClient?) {
@@ -174,28 +173,32 @@ class OkHttpEngine : IHttpEngine {
             for (key in params.keys) {
                 //builder.addFormDataPart(key, params[key].toString() + "")
                 val value = params[key]
-                if (value is File) {
-                    // 处理文件 --> Object File
-                    builder.addFormDataPart(key, value.name, RequestBody
+                when (value) {
+                    is File -> {
+                        // 处理文件 --> Object File
+                        builder.addFormDataPart(key, value.name, RequestBody
                             .create(MediaType.parse(guessMimeType(value
-                                    .absolutePath)), value))
-                } else if (value is List<*>) {
-                    // 代表提交的是 List集合
-                    try {
-                        val listFiles = value as List<File>
-                        for (i in listFiles.indices) {
-                            // 获取文件
-                            val file = listFiles[i]
-                            builder.addFormDataPart(key + i, file.name, RequestBody
-                                    .create(MediaType.parse(guessMimeType(file
-                                            .absolutePath)), file))
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                                .absolutePath)), value))
                     }
-                } else {
-                    builder.addFormDataPart(key, value.toString() + "")
-                    sb.append("[$key=$value],")
+                    is List<*> -> {
+                        // 代表提交的是 List集合
+                        try {
+                            val listFiles = value as List<File>
+                            for (i in listFiles.indices) {
+                                // 获取文件
+                                val file = listFiles[i]
+                                builder.addFormDataPart(key + i, file.name, RequestBody
+                                    .create(MediaType.parse(guessMimeType(file
+                                        .absolutePath)), file))
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    else -> {
+                        builder.addFormDataPart(key, value.toString() + "")
+                        sb.append("[$key=$value],")
+                    }
                 }
             }
         }

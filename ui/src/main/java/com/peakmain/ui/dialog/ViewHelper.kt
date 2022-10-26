@@ -17,7 +17,7 @@ internal class ViewHelper() {
     var contentView: View? = null
 
     //The reduce findViewById
-    private val mViews: SparseArray<WeakReference<View>>
+    private val mViews: SparseArray<WeakReference<View>> = SparseArray()
 
     constructor(context: Context?, viewLayoutResId: Int) : this() {
         contentView = LayoutInflater.from(context).inflate(viewLayoutResId, null)
@@ -50,7 +50,4 @@ internal class ViewHelper() {
         return view as T?
     }
 
-    init {
-        mViews = SparseArray()
-    }
 }

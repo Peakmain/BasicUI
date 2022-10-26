@@ -33,13 +33,13 @@ class MultiStateLayoutActivity : BaseActivity() {
         val data = data
         mAdapter = BaseRecyclerStringAdapter(this, data)
         mRecyclerView!!.adapter = mAdapter
-        findViewById<View>(R.id.button1).setOnClickListener { v: View? -> mRecyclerView!!.showNoNetwork() }
-        findViewById<View>(R.id.button2).setOnClickListener { v: View? ->
+        findViewById<View>(R.id.button1).setOnClickListener { mRecyclerView!!.showNoNetwork() }
+        findViewById<View>(R.id.button2).setOnClickListener {
             list = ArrayList()
             mAdapter!!.setData(list)
             mRecyclerView!!.showEmptyView()
         }
-        findViewById<View>(R.id.button3).setOnClickListener { v: View? -> mRecyclerView!!.showLoading() }
+        findViewById<View>(R.id.button3).setOnClickListener { v -> mRecyclerView!!.showLoading() }
         findViewById<View>(R.id.button4).setOnClickListener { v: View? -> mRecyclerView!!.showError() }
         findViewById<View>(R.id.button5).setOnClickListener { v: View? -> mRecyclerView!!.showContentView() }
         findViewById<View>(R.id.button6).setOnClickListener { v: View? -> mRecyclerView!!.hideLoading() }

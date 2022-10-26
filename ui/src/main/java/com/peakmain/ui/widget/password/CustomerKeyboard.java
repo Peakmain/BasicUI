@@ -96,8 +96,6 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
                         if (mListener != null) {
                             mListener.click(number);
                         }
-                    } else {
-                        return;
                     }
                 } else{
                     if (mListener != null) {

@@ -743,7 +743,7 @@ public class WheelView extends View {
     /**
      * 设置未选中文字的颜色
      *
-     * @param textColorOut
+     * @param textColorOut 下划线颜色
      */
     public void setUnSelectTextColor(int textColorOut) {
         if (textColorOut != 0) {
@@ -773,7 +773,7 @@ public class WheelView extends View {
     /**
      * 设置线条颜色
      *
-     * @param dividerColor
+     * @param dividerColor 线条颜色
      */
     public void setDividerColor(int dividerColor) {
         if (dividerColor != 0) {
@@ -785,7 +785,7 @@ public class WheelView extends View {
     /**
      * 设置线条样式  FILL 充满  WRAP 包裹内容
      *
-     * @param dividerType
+     * @param dividerType 线条样式
      */
     public void setDividerType(DividerType dividerType) {
         this.dividerType = dividerType;

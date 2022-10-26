@@ -13,10 +13,10 @@ import com.peakmain.ui.navigationbar.DefaultNavigationBar
  */
 class MineFragment : BaseFragmnet() {
     override val layoutId: Int
-        protected get() = R.layout.fragment_mine
+         get() = R.layout.fragment_mine
 
     override fun initView(view: View?) {
-        DefaultNavigationBar.Builder(context, view!!.findViewById(R.id.view_root))
+        DefaultNavigationBar.Builder(context, view?.findViewById(R.id.view_root))
                 .hideLeftText()
                 .hideRightView()
                 .setTitleText("我的")

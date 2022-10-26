@@ -10,20 +10,11 @@ import androidx.appcompat.widget.AppCompatImageView
  * mail:2726449200@qq.com
  * describe：正方形图片
  */
-class SquareImageView : AppCompatImageView {
-    constructor(context: Context?) : super(context!!) {}
-    constructor(context: Context?, attrs: AttributeSet?) : super(
-        context!!,
-        attrs
-    ) {
-    }
-
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int
-    ) : super(context!!, attrs, defStyleAttr) {
-    }
+class SquareImageView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : AppCompatImageView(context, attrs, defStyleAttr) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)

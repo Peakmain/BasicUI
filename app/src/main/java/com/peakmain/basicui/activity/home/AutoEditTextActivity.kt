@@ -1,6 +1,5 @@
 package com.peakmain.basicui.activity.home
 
-import android.widget.EditText
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.widget.AutoDeleteEditText
