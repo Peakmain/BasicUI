@@ -24,14 +24,14 @@ object DispatcherExecutor {
      */
     var iOExecutor: ExecutorService? = null
     private val CPU_COUNT = Runtime.getRuntime().availableProcessors()
-    val CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 5))
+    val CORE_POOL_SIZE = 2.coerceAtLeast((CPU_COUNT - 1).coerceAtMost(5))
     private val MAXIMUM_POOL_SIZE = CORE_POOL_SIZE
     private const val KEEP_ALIVE_SECONDS = 5
     private val sPoolWorkQueue: BlockingQueue<Runnable> = LinkedBlockingQueue()
     private val sThreadFactory = DefaultThreadFactory()
     private val sHandler = RejectedExecutionHandler { r, executor -> Executors.newCachedThreadPool().execute(r) }
 
-    private class DefaultThreadFactory internal constructor() : ThreadFactory {
+    private class DefaultThreadFactory() : ThreadFactory {
         private val group: ThreadGroup
         private val threadNumber = AtomicInteger(1)
         private val namePrefix: String

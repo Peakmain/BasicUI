@@ -1,6 +1,8 @@
 package com.peakmain.ui.utils.launcher.dispatcher
 
 import android.content.Context
+import android.os.Build
+import android.os.Debug
 import android.os.Looper
 import androidx.annotation.UiThread
 import com.peakmain.ui.utils.HandlerUtils.isMainProcess
@@ -212,13 +214,11 @@ class TaskDispatcher private constructor() {
      * 查看被依赖的信息
      */
     private fun printDependedMsg() {
-        if (false) {
-            LogUtils.i("needWait size : " + mNeedWaitCount.get())
-            for (cls in mDependedHashMap.keys) {
-                LogUtils.i("cls " + cls!!.simpleName + "   " + mDependedHashMap[cls]!!.size)
-                for (task in mDependedHashMap[cls]!!) {
-                    LogUtils.i("cls       " + task.javaClass.simpleName)
-                }
+        LogUtils.i("needWait size : " + mNeedWaitCount.get())
+        for (cls in mDependedHashMap.keys) {
+            LogUtils.i("cls " + cls!!.simpleName + "   " + mDependedHashMap[cls]!!.size)
+            for (task in mDependedHashMap[cls]!!) {
+                LogUtils.i("cls       " + task.javaClass.simpleName)
             }
         }
     }

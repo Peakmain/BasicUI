@@ -173,8 +173,7 @@ class LoggerInterceptor @JvmOverloads constructor(private val logger: Logger = L
             }
         }
         val startNs = System.nanoTime()
-        val response: Response
-        response = try {
+        val response: Response = try {
             chain.proceed(request)
         } catch (e: Exception) {
             logger.log("<-- HTTP FAILED: $e")

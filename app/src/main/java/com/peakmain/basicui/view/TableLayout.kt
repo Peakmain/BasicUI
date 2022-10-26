@@ -10,11 +10,11 @@ import com.peakmain.ui.tablayout.BaseTabLayout
  * mail:2726449200@qq.com
  * describe：
  */
-class TableLayout : BaseTabLayout<String> {
-    constructor(context: Context?) : super(context!!) {}
-    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {}
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context!!, attrs, defStyleAttr) {}
-
+class TableLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : BaseTabLayout<String>(context, attrs, defStyleAttr) {
     override fun setTableTitle(bean: List<String>?, position: Int): String {
         return bean!![position]
     }

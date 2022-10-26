@@ -67,10 +67,6 @@ class InertiaTimerTask(
             .sendEmptyMessage(MessageHandler.WHAT_INVALIDATE_LOOP_VIEW)
     }
 
-    /**
-     * @param wheelView 滚轮对象
-     * @param velocityY Y轴滑行速度
-     */
     init {
         mCurrentVelocityY = Int.MAX_VALUE.toFloat()
     }

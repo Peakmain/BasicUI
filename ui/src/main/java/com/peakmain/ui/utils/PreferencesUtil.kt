@@ -30,8 +30,7 @@ class PreferencesUtil private constructor() {
     fun saveParam(key: String?, `object`: Any) {
         if (editor == null) editor = preferences!!.edit()
         // 得到object的类型
-        val type = `object`.javaClass.simpleName
-        when (type) {
+        when (`object`.javaClass.simpleName) {
             "String" -> {
                 // 保存String 类型
                 editor!!.putString(key, `object` as String)
