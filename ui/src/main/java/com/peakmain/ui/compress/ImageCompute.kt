@@ -2,6 +2,7 @@ package com.peakmain.ui.compress
 
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import kotlin.math.ceil
 
 /**
  * author ：Peakmain
@@ -17,8 +18,8 @@ object ImageCompute {
         srcWidth = if (srcWidth % 2 == 1) srcWidth + 1 else srcWidth
         srcHeight = if (srcHeight % 2 == 1) srcHeight + 1 else srcHeight
         //拿到最大边和最小边
-        val longSide = Math.max(srcWidth, srcHeight)
-        val shortSide = Math.min(srcWidth, srcHeight)
+        val longSide = srcWidth.coerceAtLeast(srcHeight)
+        val shortSide = srcWidth.coerceAtMost(srcHeight)
         val scale = shortSide.toFloat() / longSide
         return if (scale <= 1 && scale > 0.5625) {
             if (longSide < 1664) {
@@ -33,7 +34,7 @@ object ImageCompute {
         } else if (scale <= 0.5625 && scale > 0.5) {
             if (longSide / 1280 == 0) 1 else longSide / 1280
         } else {
-            Math.ceil(longSide / (1280.0 / scale)).toInt()
+            ceil(longSide / (1280.0 / scale)).toInt()
         }
     }
 

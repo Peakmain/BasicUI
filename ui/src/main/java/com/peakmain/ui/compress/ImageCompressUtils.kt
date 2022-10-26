@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.UiThread
 import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.FileUtils.getFileByPath
@@ -15,7 +14,6 @@ import com.peakmain.ui.utils.LogUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.util.*
 
 /**
  * author ：Peakmain

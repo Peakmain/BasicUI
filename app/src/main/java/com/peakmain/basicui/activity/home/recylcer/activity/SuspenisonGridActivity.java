@@ -14,22 +14,27 @@ import com.peakmain.ui.recyclerview.itemdecoration.BaseSuspenisonItemDecoration;
  * describe：
  */
 public class SuspenisonGridActivity extends BaseRecyclerAcitvity {
-    private GroupGridAdapter mGroupAdapter;
+
     @Override
     protected int getLayoutId() {
         return R.layout.basic_grid_recycler_view;
     }
 
 
-
     @Override
     protected void initData() {
-        mNavigationBuilder.setTitleText("GridLayoutManager实现悬浮", Typeface.DEFAULT).create();
-        BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration.Builder(this, mGroupBeans)
+        if (mNavigationBuilder != null)
+            mNavigationBuilder.setTitleText("GridLayoutManager实现悬浮", Typeface.DEFAULT).create();
+        BaseSuspenisonItemDecoration itemDecoration = new SuspenisonItemDecoration
+                .Builder(this, mGroupBeans)
                 .setTextCenter(true).create();
-        mRecyclerView.addItemDecoration(itemDecoration);
-        mGroupAdapter=new GroupGridAdapter(this,mGroupBeans);
-        mRecyclerView.setAdapter(mGroupAdapter);
-       mGroupAdapter.adjustSpanSize(mRecyclerView);
+        if (mRecyclerView != null) {
+            if (itemDecoration != null)
+                mRecyclerView.addItemDecoration(itemDecoration);
+            GroupGridAdapter mGroupAdapter = new GroupGridAdapter(this, mGroupBeans);
+            mRecyclerView.setAdapter(mGroupAdapter);
+            mGroupAdapter.adjustSpanSize(mRecyclerView);
+        }
+
     }
 }

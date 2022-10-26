@@ -484,8 +484,7 @@ class DateUtils {
             if (two == 1) a = "十"
             if (two == 2) a = "廿"
             if (two == 3) a = "三"
-            val one = day % 10
-            when (one) {
+            when (day % 10) {
                 1 -> a += "一"
                 2 -> a += "二"
                 3 -> a += "三"

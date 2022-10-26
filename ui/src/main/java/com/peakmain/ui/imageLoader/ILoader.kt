@@ -4,12 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
-import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
-import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.SimpleTarget
 
 /**
  * author ：Peakmain

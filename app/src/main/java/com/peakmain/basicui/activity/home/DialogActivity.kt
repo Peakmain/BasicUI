@@ -75,8 +75,8 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
                 + radioSetFromBottomChecked + "," + radioSetCanCancelChecked)
         val builder = AlertDialog.Builder(this)
                 .setContentView(R.layout.dialog_show)
-                .setOnClickListener(R.id.tv_save_image, View.OnClickListener { v1: View? -> ToastUtils.showShort("保存图片成功") })
-                .setOnClickListener(R.id.tv_forword, View.OnClickListener { v13: View? -> ToastUtils.showShort("转发") })
+                .setOnClickListener(R.id.tv_save_image, View.OnClickListener { ToastUtils.showShort("保存图片成功") })
+                .setOnClickListener(R.id.tv_forword, View.OnClickListener { ToastUtils.showShort("转发") })
         builder.setCancelable(radioSetCanCancelChecked)
         if (radioSetWidthFullChecked) {
             builder.setFullWidth()
@@ -88,6 +88,6 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
             builder.fromButtom(radioSetFromBottomChecked)
         }
         val dialog = builder.show()
-        dialog.setOnClickListener(R.id.tv_cancel, View.OnClickListener { v12: View? -> dialog.dismiss() })
+        dialog.setOnClickListener(R.id.tv_cancel, View.OnClickListener { dialog.dismiss() })
     }
 }

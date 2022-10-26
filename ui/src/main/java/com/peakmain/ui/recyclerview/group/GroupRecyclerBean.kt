@@ -14,7 +14,7 @@ open class GroupRecyclerBean<T> : Serializable {
     @JvmField
     var header: String? = null
 
-    constructor() {}
+    constructor()
     constructor(isHeader: Boolean, header: String?) {
         this.isHeader = isHeader
         this.header = header

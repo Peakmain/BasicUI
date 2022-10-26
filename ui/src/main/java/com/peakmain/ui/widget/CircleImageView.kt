@@ -17,6 +17,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import com.peakmain.ui.R
+import kotlin.math.pow
 
 class CircleImageView : AppCompatImageView {
     private val mDrawableRect = RectF()
@@ -211,8 +212,7 @@ class CircleImageView : AppCompatImageView {
         return if (drawable is BitmapDrawable) {
             drawable.bitmap
         } else try {
-            val bitmap: Bitmap
-            bitmap = if (drawable is ColorDrawable) {
+            val bitmap: Bitmap = if (drawable is ColorDrawable) {
                 Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG)
             } else {
                 Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, BITMAP_CONFIG)
@@ -261,12 +261,13 @@ class CircleImageView : AppCompatImageView {
         mBitmapHeight = mBitmap!!.height
         mBitmapWidth = mBitmap!!.width
         mBorderRect.set(calculateBounds())
-        mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f)
+        mBorderRadius =
+            ((mBorderRect.height() - mBorderWidth) / 2.0f).coerceAtMost((mBorderRect.width() - mBorderWidth) / 2.0f)
         mDrawableRect.set(mBorderRect)
         if (!mBorderOverlay && mBorderWidth > 0) {
             mDrawableRect.inset(mBorderWidth - 1.0f, mBorderWidth - 1.0f)
         }
-        mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f)
+        mDrawableRadius = (mDrawableRect.height() / 2.0f).coerceAtMost(mDrawableRect.width() / 2.0f)
         applyColorFilter()
         updateShaderMatrix()
         invalidate()
@@ -275,7 +276,7 @@ class CircleImageView : AppCompatImageView {
     private fun calculateBounds(): RectF {
         val availableWidth = width - paddingLeft - paddingRight
         val availableHeight = height - paddingTop - paddingBottom
-        val sideLength = Math.min(availableWidth, availableHeight)
+        val sideLength = availableWidth.coerceAtMost(availableHeight)
         val left = paddingLeft + (availableWidth - sideLength) / 2f
         val top = paddingTop + (availableHeight - sideLength) / 2f
         return RectF(left, top, left + sideLength, top + sideLength)
@@ -304,7 +305,8 @@ class CircleImageView : AppCompatImageView {
     }
 
     private fun inTouchableArea(x: Float, y: Float): Boolean {
-        return Math.pow(x - mBorderRect.centerX().toDouble(), 2.0) + Math.pow(y - mBorderRect.centerY().toDouble(), 2.0) <= Math.pow(mBorderRadius.toDouble(), 2.0)
+        return (x - mBorderRect.centerX().toDouble()).pow(2.0) + (y - mBorderRect.centerY()
+            .toDouble()).pow(2.0) <= mBorderRadius.toDouble().pow(2.0)
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

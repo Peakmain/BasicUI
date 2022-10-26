@@ -12,7 +12,7 @@ class GroupBean : GroupRecyclerBean<GroupBean> {
     var url: String? = null
     var time: String? = null
 
-    constructor(isHeader: Boolean, header: String?) : super(isHeader, header) {}
+    constructor(isHeader: Boolean, header: String?) : super(isHeader, header)
     constructor(url: String?, time: String?) {
         this.url = url
         this.time = time

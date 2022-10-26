@@ -50,7 +50,8 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public final void destroyItem(ViewGroup container, int position, Object object) {
+    public final void destroyItem(@Nullable ViewGroup container, int position, @Nullable Object object) {
+        if (object == null || container == null) return;
         View view = (View) object;
         container.removeView(view);
         int viewType = getItemViewType(position);
@@ -70,7 +71,7 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
     public abstract View getView(int position, View convertView, ViewGroup container);
 
     @Override
-    public final boolean isViewFromObject(@Nullable View view,@Nullable Object object) {
+    public final boolean isViewFromObject(@Nullable View view, @Nullable Object object) {
         return view == object;
     }
 
@@ -100,7 +101,7 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
             //noinspection unchecked
             SparseArray<View>[] scrapViews = new SparseArray[viewTypeCount];
             for (int i = 0; i < viewTypeCount; i++) {
-                scrapViews[i] = new SparseArray<View>();
+                scrapViews[i] = new SparseArray<>();
             }
             this.viewTypeCount = viewTypeCount;
             currentScrapViews = scrapViews[0];

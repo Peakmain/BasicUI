@@ -15,20 +15,19 @@ import java.lang.reflect.ParameterizedType
  * mail:2726449200@qq.com
  * describe：网络请求的工具类
  */
-class HttpUtils {
+class HttpUtils//不允许外部去调用
+private constructor(context: Context) {
     //url
     private lateinit var mUrl: String
 
     //请求方式
     private var mType = GET_TYPE
-    private var mContext: Context
+    private var mContext: Context = context
     private var mParams: LinkedHashMap<String, Any>
     private var mFile: File? = null
 
 
-    //不允许外部去调用
-    private constructor(context: Context) {
-        mContext = context
+    init {
         mParams = LinkedHashMap()
     }
 
@@ -147,12 +146,16 @@ class HttpUtils {
         if (callBack == null) {
             callBack = EngineCallBack.DEFAULT_CALL_BACK
         }
-        if (mType == GET_TYPE) {
-            get(mUrl, mParams, callBack)
-        } else if (mType == POST_TYPE) {
-            post(mUrl, mParams, callBack)
-        } else if (mType == UPLOAD_TYPE) {
-            uploadFile(mUrl, mFile!!, callBack)
+        when (mType) {
+            GET_TYPE -> {
+                get(mUrl, mParams, callBack)
+            }
+            POST_TYPE -> {
+                post(mUrl, mParams, callBack)
+            }
+            UPLOAD_TYPE -> {
+                uploadFile(mUrl, mFile!!, callBack)
+            }
         }
     }
 
@@ -243,12 +246,11 @@ class HttpUtils {
                 }
             }
             for ((key, value) in params) {
-                if (mParamsType == PARAMS_KEY_EQUAL_VALUE)
-                    stringBuffer.append("$key=$value&")
-                else if(mParamsType== PARAMS_KEY_BACKSPLASH_VALUE)
-                    stringBuffer.append("$key/$value/")
-                else
-                    stringBuffer.append("$value/")
+                when (mParamsType) {
+                    PARAMS_KEY_EQUAL_VALUE -> stringBuffer.append("$key=$value&")
+                    PARAMS_KEY_BACKSPLASH_VALUE -> stringBuffer.append("$key/$value/")
+                    else -> stringBuffer.append("$value/")
+                }
             }
             stringBuffer.deleteCharAt(stringBuffer.length - 1)
             return stringBuffer.toString()

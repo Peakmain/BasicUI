@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
     // 用来存放子View减少findViewById的次数
-    private val mViews: SparseArray<View?>
+    private val mViews: SparseArray<View?> = SparseArray()
 
     /**
      * 通过id获取view
@@ -133,7 +133,4 @@ class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
     }
 
-    init {
-        mViews = SparseArray()
-    }
 }

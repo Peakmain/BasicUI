@@ -12,7 +12,7 @@ import android.view.ViewGroup
  */
 class NavigationBar internal constructor(builder: Builder?) : AbsNavigationBar<NavigationBar.Builder?>(builder) {
     class Builder(context: Context?, layoutId: Int, parent: ViewGroup?) : AbsNavigationBar.Builder<Builder?>(context!!, layoutId, parent!!) {
-        override fun create(): NavigationBar? {
+        override fun create(): NavigationBar {
             return NavigationBar(this)
         }
     }
