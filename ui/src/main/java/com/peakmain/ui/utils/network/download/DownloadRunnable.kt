@@ -25,8 +25,7 @@ internal class DownloadRunnable(private val mUrl: String, private val mFile: Fil
         }
         val request = Request.Builder()
                 .url(mUrl).addHeader("Range", "btyes=$mStart-$mEnd").build()
-        val response: Response
-        response = try {
+        val response: Response = try {
             OkHttpClient().newCall(request).execute()
         } catch (e: IOException) {
             e.printStackTrace()

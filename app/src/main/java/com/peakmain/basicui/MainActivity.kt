@@ -2,7 +2,6 @@ package com.peakmain.basicui
 
 import android.view.MenuItem
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.peakmain.basicui.base.BaseActivity
@@ -10,7 +9,6 @@ import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment
 import com.peakmain.basicui.fragment.UtilsFragment
 import com.peakmain.ui.utils.SizeUtils
-import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.utils.fps.FpsMonitorUtils
 import com.peakmain.ui.widget.SuspensionView
 
@@ -47,7 +45,7 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         showFragment(FRAGMENT_HOME)
-        mBottomNavigation!!.setOnNavigationItemSelectedListener { item: MenuItem ->
+        mBottomNavigation!!.setOnItemSelectedListener { item: MenuItem ->
             onOptionsItemSelected(
                 item
             )
@@ -57,8 +55,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        when (itemId) {
+        when (item.itemId) {
             R.id.menu_home -> {
                 showFragment(FRAGMENT_HOME)
                 return true

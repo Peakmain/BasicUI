@@ -8,7 +8,7 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class ArrayWheelAdapter<T> implements WheelAdapter {
+public class ArrayWheelAdapter<T> implements WheelAdapter<Object> {
 
 	private final List<T> items;
 

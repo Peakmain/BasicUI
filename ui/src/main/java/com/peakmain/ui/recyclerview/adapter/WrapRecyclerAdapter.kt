@@ -27,7 +27,7 @@ class WrapRecyclerAdapter(
      * auto-boxing keys and its data structure doesn't rely on an extra entry object
      * for each mapping.
      */
-    private val mHeaderViews: SparseArray<View>
+    private val mHeaderViews: SparseArray<View> = SparseArray()
     private val mFooterViews: SparseArray<View>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -192,7 +192,6 @@ class WrapRecyclerAdapter(
     }
 
     init {
-        mHeaderViews = SparseArray()
         mFooterViews = SparseArray()
     }
 }

@@ -10,11 +10,8 @@ import androidx.appcompat.widget.AppCompatRadioButton
  * mail:2726449200@qq.com
  * describe：
  */
-class RadioCancelButton : AppCompatRadioButton {
-    constructor(context: Context?) : super(context) {}
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
-
+class RadioCancelButton @JvmOverloads constructor(context: Context?, attrs: AttributeSet?=null, defStyleAttr: Int=0) :
+    AppCompatRadioButton(context,attrs, defStyleAttr){
     override fun toggle() {
         isChecked = !isChecked
     }

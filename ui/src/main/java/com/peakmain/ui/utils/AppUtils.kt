@@ -37,11 +37,11 @@ object AppUtils {
         activity.startActivityForResult(getInstallAppIntent(file!!), requestCode)
     }
 
-    private fun getInstallAppIntent(file: File): Intent? {
+    private fun getInstallAppIntent(file: File): Intent {
         return getInstallAppIntent(file, false)
     }
 
-    private fun getInstallAppIntent(file: File, isNewTask: Boolean): Intent? {
+    private fun getInstallAppIntent(file: File, isNewTask: Boolean): Intent {
 
         val intent = Intent(Intent.ACTION_VIEW)
         val data: Uri

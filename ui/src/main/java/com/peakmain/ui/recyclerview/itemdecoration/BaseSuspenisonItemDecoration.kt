@@ -47,7 +47,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
 
     constructor(context: Context?, data: List<T>) {
         mData = data
-        mBgColor = ContextCompat.getColor(context!!, android.R.color.white)
+        mBgColor = ContextCompat.getColor(context!!, R.color.white)
         mSectionHeight = dp2px(30f)
         topHeight = dp2px(10f)
         mTextSize = dp2px(10f)

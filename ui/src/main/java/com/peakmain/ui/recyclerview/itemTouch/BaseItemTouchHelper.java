@@ -35,7 +35,7 @@ public abstract class BaseItemTouchHelper<T> {
         public int getMovementFlags(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder) {
             if (recyclerView == null) return 0;
             //不做处理的时候默认都是0
-            int dragFlags = 0;
+            int dragFlags;
             //左划删除和右滑删除
             int swipeFlags = mSwipeFlags;
             if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
@@ -55,8 +55,8 @@ public abstract class BaseItemTouchHelper<T> {
         }
 
         @Override
-        public boolean onMove(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            if (viewHolder == null) return false;
+        public boolean onMove(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder, @Nullable RecyclerView.ViewHolder target) {
+            if (viewHolder == null || target == null) return false;
             //获取原来的位置
             int fromPosition = viewHolder.getBindingAdapterPosition();
             //获取目标的位置

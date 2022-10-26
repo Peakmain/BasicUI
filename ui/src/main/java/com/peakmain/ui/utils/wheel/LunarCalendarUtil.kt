@@ -323,26 +323,21 @@ object LunarCalendarUtil {
         isLeapMonth: Boolean
     ): IntArray {
         var year = year
-        var dayOffset: Int
-        val leapMonth: Int
-        var i: Int
         require(!(year < MIN_YEAR || year > MAX_YEAR || month < 1 || month > 12 || monthDay < 1 || monthDay > 30)) {
             """Illegal lunar date, must be like that:
 	year : 1900~2099
 	month : 1~12
 	day : 1~30"""
         }
-        dayOffset =
-            (LUNAR_INFO[year - MIN_YEAR] and 0x001F) - 1
+        var dayOffset: Int = (LUNAR_INFO[year - MIN_YEAR] and 0x001F) - 1
         if (LUNAR_INFO[year - MIN_YEAR] and 0x0060 shr 5 == 2) dayOffset += 31
-        i = 1
+        var i = 1
         while (i < month) {
             dayOffset += if (LUNAR_INFO[year - MIN_YEAR] and (0x80000 shr i - 1) == 0) 29 else 30
             i++
         }
         dayOffset += monthDay
-        leapMonth =
-            LUNAR_INFO[year - MIN_YEAR] and 0xf00000 shr 20
+        val leapMonth: Int = LUNAR_INFO[year - MIN_YEAR] and 0xf00000 shr 20
 
         // 这一年有闰月
         if (leapMonth != 0) {
@@ -452,9 +447,8 @@ object LunarCalendarUtil {
 
         // 用offset减去每农历年的天数计算当天是农历第几天
         // iYear最终结果是农历的年份, offset是当年的第几天
-        var iYear: Int
         var daysOfYear = 0
-        iYear = MIN_YEAR
+        var iYear: Int = MIN_YEAR
         while (iYear <= MAX_YEAR && offset > 0) {
             daysOfYear = daysInLunarYear(iYear)
             offset -= daysOfYear
@@ -470,9 +464,8 @@ object LunarCalendarUtil {
         val leapMonth = leapMonth(iYear) // 闰哪个月,1-12
         var isLeap = false
         // 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
-        var iMonth: Int
-        var daysOfMonth = 0
-        iMonth = 1
+                                                         var daysOfMonth = 0
+        var iMonth: Int = 1
         while (iMonth <= 13 && offset > 0) {
             daysOfMonth = daysInLunarMonth(iYear, iMonth)
             offset -= daysOfMonth
@@ -501,14 +494,6 @@ object LunarCalendarUtil {
         //Log.i("----------->",year+"-"+month+"-"+monthDay+"====>"+lunarDate[0]+"-"+lunarDate[1]+"-"+lunarDate[2]+"-"+lunarDate[3]);
         return lunarDate
     }
-    /**
-     * 传回农历year年month月的总天数
-     *
-     * @param year  要计算的年份
-     * @param month 要计算的月
-     * @param leap  当月是否是闰月
-     * @return 传回天数，如果闰月是错误的，返回0.
-     */
     /**
      * 传回农历year年month月的总天数
      *
@@ -589,7 +574,7 @@ object LunarCalendarUtil {
         var y = y
         var m = m
         m = (m + 9) % 12
-        y = y - m / 10
+        y -= m / 10
         return (365 * y + y / 4 - y / 100 + y / 400 + (m * 306 + 5) / 10 + (d - 1)).toLong()
     }
 }
