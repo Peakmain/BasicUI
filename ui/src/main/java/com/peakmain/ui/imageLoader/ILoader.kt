@@ -4,6 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
+import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
+import com.bumptech.glide.request.Request
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.SimpleTarget
 
@@ -15,9 +19,9 @@ import com.bumptech.glide.request.target.SimpleTarget
  */
 interface ILoader {
     /**
-     *
+     *设置userAgent
      */
-    fun userAgent(userAgent:String?)
+    fun userAgent(userAgent: String?)
 
 
     /**
@@ -28,7 +32,7 @@ interface ILoader {
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayImage(context: Context?, url: String?, view: ImageView?, desId: Int)
+    fun displayImage(context: Context?, url: String?, view: ImageView?, @DrawableRes desId: Int)
 
     /**
      * 加载网路图片
@@ -44,7 +48,7 @@ interface ILoader {
         url: String?,
         view: ImageView?,
         corner: Int,
-        desId: Int
+        @DrawableRes desId: Int
     )
 
     /**
@@ -55,7 +59,7 @@ interface ILoader {
      * @param view    显示图片的view
      * @param desId   默认的图片
      */
-    fun displayImage(context: Context?, url: Uri?, view: ImageView?, desId: Int)
+    fun displayImage(context: Context?, url: Uri?, view: ImageView?, @DrawableRes desId: Int)
 
     /**
      * 加载URL图片，设置是否跳过缓存
@@ -70,7 +74,7 @@ interface ILoader {
         context: Context?,
         url: String?,
         view: ImageView?,
-        desId: Int,
+        @DrawableRes desId: Int,
         isSkipCache: Boolean
     )
 
@@ -90,7 +94,7 @@ interface ILoader {
         view: ImageView?,
         height: Int,
         width: Int,
-        desId: Int
+        @DrawableRes desId: Int
     )
 
     /**
@@ -110,7 +114,7 @@ interface ILoader {
         height: Int,
         width: Int,
         sizeMultiplier: Float,
-        desId: Int
+        @DrawableRes desId: Int
     )
 
     /**
@@ -121,12 +125,42 @@ interface ILoader {
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayLocalImage(context: Context?, url: String?, view: ImageView?, desId: Int)
+    fun displayLocalImage(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        @DrawableRes desId: Int
+    )
 
     /**
      * 加载图片 使用SimpleTarget
      */
     fun displayImage(context: Context?, url: Uri?, simpleTarget: CustomTarget<Bitmap>)
+
+    /**
+     * 加载图片
+     */
+    fun displayImage(
+        context: Context?,
+        url: String?,
+        imageView: ImageView?,
+        requestOptions: RequestOptions
+    )
+
+    /**
+     * 设置图片的四周圆角
+     */
+    fun displayImageRound(
+        context: Context?,
+        url: String?,
+        view: ImageView?,
+        @DrawableRes desId: Int,
+        leftTop: Boolean = true,
+        rightTop: Boolean = true,
+        leftBottom: Boolean = true,
+        rightBottom: Boolean = true,
+        roundRadius: Float
+    )
 
     /**
      * 清除内存缓存
