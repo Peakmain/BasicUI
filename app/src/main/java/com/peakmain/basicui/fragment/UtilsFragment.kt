@@ -15,9 +15,6 @@ import com.peakmain.ui.dialog.AlertDialog
 import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.BitmapUtils
-import com.peakmain.ui.utils.LogUtils
-import java.io.File
-import java.util.*
 
 /**
  * author ：Peakmain
@@ -33,13 +30,13 @@ open class UtilsFragment : BaseFragmnet() {
         protected get() = R.layout.fragment_utils
 
     override fun initView(view: View?) {
-        DefaultNavigationBar.Builder(context, view!!.findViewById(R.id.view_root))
+        DefaultNavigationBar.Builder(context, view?.findViewById(R.id.view_root))
                 .hideLeftText()
                 .hideRightView()
                 .setTitleText("工具类")
                 .setToolbarBackgroundColor(R.color.ui_color_01a8e3)
                 .create()
-        mRecyclerView = view.findViewById(R.id.recycler_view)
+        mRecyclerView = view?.findViewById(R.id.recycler_view)
     }
 
     override fun initData() {
@@ -65,7 +62,7 @@ open class UtilsFragment : BaseFragmnet() {
                                 .show()
                         val imageView = dialog.getView<ImageView>(R.id.iv_bitmap)
                         val bitmap = BitmapUtils.createBitmapFromView(getRootView())
-                        imageView.setImageBitmap(bitmap)
+                        imageView?.setImageBitmap(bitmap)
                     }
                     else -> {
                     }

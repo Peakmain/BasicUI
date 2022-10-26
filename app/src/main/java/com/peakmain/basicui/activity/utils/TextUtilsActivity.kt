@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.utils.OnClickableSpan
 import com.peakmain.ui.utils.TextUtils
 import com.peakmain.ui.utils.ToastUtils

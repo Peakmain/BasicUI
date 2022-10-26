@@ -3,7 +3,6 @@ package com.peakmain.ui.imageLoader
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.text.TextUtils
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.request.RequestOptions
@@ -34,7 +33,7 @@ class ImageLoader private constructor() {
     /**
      * 切换图片的ImageLoader
      *
-     * @param loader 默认是glideLoader
+     * @param loaderFactory 默认是glideLoader
      */
     fun exchangeImageLoaderFactory(loaderFactory: AbstractLoaderFactory): ImageLoader {
         this.loaderFactory = loaderFactory

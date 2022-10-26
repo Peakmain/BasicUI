@@ -33,7 +33,7 @@ class TableLayoutActivity : BaseActivity() {
 
     override fun initData() {
         mData = ArrayList()
-        mData = Arrays.asList(*arr)
+        mData = listOf(*arr)
         mViewPager!!.adapter = object : FragmentPagerAdapter(this.supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return ItemFragment.newInstance(arr[position])

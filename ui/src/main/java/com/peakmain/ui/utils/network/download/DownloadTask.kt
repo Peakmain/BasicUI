@@ -3,11 +3,12 @@ package com.peakmain.ui.utils.network.download
 import com.peakmain.ui.utils.HandlerUtils.runOnUiThread
 import com.peakmain.ui.utils.HandlerUtils.runOnUiThreadDelay
 import com.peakmain.ui.utils.network.callback.DownloadCallback
-import com.peakmain.ui.utils.network.download.DownloadDispatcher
 import com.peakmain.ui.utils.network.model.DownloadProgress
 import java.io.File
-import java.util.*
-import java.util.concurrent.*
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.SynchronousQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 class DownloadTask(private val mUrl: String, file: File, private val mContentLength: Long, callback: DownloadCallback) {
     private val mFile: File
@@ -24,11 +25,12 @@ class DownloadTask(private val mUrl: String, file: File, private val mContentLen
     fun executorService(): ExecutorService {
         if (executorService == null) {
             executorService = ThreadPoolExecutor(0, Int.MAX_VALUE, 60, TimeUnit.SECONDS,
-                    SynchronousQueue(), ThreadFactory { runnable ->
+                    SynchronousQueue()
+            ) { runnable ->
                 val thread = Thread(runnable, "peakmain-okHttp")
                 thread.isDaemon = false //无守护线程
                 thread
-            })
+            }
         }
         return executorService!!
     }
@@ -81,7 +83,7 @@ class DownloadTask(private val mUrl: String, file: File, private val mContentLen
         private val CPU_COUNT = Runtime.getRuntime().availableProcessors()
 
         //有四个线程下载
-        private val THREAD_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4))
+        private val THREAD_SIZE = 2.coerceAtLeast((CPU_COUNT - 1).coerceAtMost(4))
     }
 
     init {

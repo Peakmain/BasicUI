@@ -12,7 +12,7 @@ import com.peakmain.ui.recyclerview.adapter.ViewHolder
  * mail:2726449200@qq.com
  * describe：分组的recycleview适配器
  */
-abstract class BaseGroupRecyclerAdapter<T : GroupRecyclerBean<T>?>(context: Context?, data: MutableList<T>, layoutResId: Int, var GROUP_HEADER_VIEW: Int) : CommonRecyclerAdapter<T>(context, data, GroupMultiType<T>(layoutResId, GROUP_HEADER_VIEW)) {
+abstract class BaseGroupRecyclerAdapter<T : GroupRecyclerBean<T>?>(context: Context?, data: MutableList<T>, layoutResId: Int, var GROUP_HEADER_VIEW: Int) : CommonRecyclerAdapter<T>(context, data, GroupMultiType(layoutResId, GROUP_HEADER_VIEW)) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (holder.itemViewType == GROUP_HEADER_VIEW) {
             convertHead(holder, getItem(position))
