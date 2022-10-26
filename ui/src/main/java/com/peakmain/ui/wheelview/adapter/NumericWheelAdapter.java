@@ -7,7 +7,7 @@ package com.peakmain.ui.wheelview.adapter;
  * mail:2726449200@qq.com
  * describe：
  */
-public class NumericWheelAdapter implements WheelAdapter {
+public class NumericWheelAdapter implements WheelAdapter<Object> {
 
 	private final int minValue;
 	private final int maxValue;

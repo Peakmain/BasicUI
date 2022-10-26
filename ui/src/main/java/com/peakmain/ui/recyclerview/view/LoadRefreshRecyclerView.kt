@@ -16,7 +16,11 @@ import com.peakmain.ui.recyclerview.creator.LoadViewCreator
  * mail : 2726449200@qq.com
  * describe ：下拉刷新上拉加载更多的RecyclerView
  */
-class LoadRefreshRecyclerView : RefreshRecyclerView {
+class LoadRefreshRecyclerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : RefreshRecyclerView(context, attrs, defStyle) {
     // 上拉加载更多的辅助类
     private var mLoadCreator: LoadViewCreator? = null
 
@@ -40,10 +44,6 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
 
     // 正在加载更多状态
     var LOAD_STATUS_LOADING = 0x0044
-
-    constructor(context: Context) : super(context) {}
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {}
 
     // 辅助类——加载列表的不同风格样式
     fun addLoadViewCreator(loadCreator: LoadViewCreator?) {
@@ -99,7 +99,9 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
             val distance = currentBottomMargin - finalBottomMargin
 
             // 回弹到指定位置
-            val animator = ObjectAnimator.ofFloat(currentBottomMargin.toFloat(), finalBottomMargin.toFloat()).setDuration(distance.toLong())
+            val animator =
+                ObjectAnimator.ofFloat(currentBottomMargin.toFloat(), finalBottomMargin.toFloat())
+                    .setDuration(distance.toLong())
             animator.addUpdateListener { animation ->
                 val currentTopMargin = animation.animatedValue as Float
                 setLoadViewMarginBottom(currentTopMargin.toInt())

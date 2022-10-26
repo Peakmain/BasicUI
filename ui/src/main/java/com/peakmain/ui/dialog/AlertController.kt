@@ -25,7 +25,7 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
         mViewHelper.setOnClickListener(viewId, listener)
     }
 
-    fun <T : View> getView(viewId: Int): T {
+    fun <T : View> getView(viewId: Int): T? {
         return mViewHelper.getView(viewId)
     }
 

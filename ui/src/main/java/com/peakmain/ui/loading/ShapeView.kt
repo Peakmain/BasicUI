@@ -8,6 +8,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import com.peakmain.ui.R
+import kotlin.math.sqrt
 
 /**
  * author ：Peakmain
@@ -15,7 +16,11 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：仿老版58同城加载loading
  */
-class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+class ShapeView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) :
     View(context, attrs, defStyleAttr) {
     private var mPaint: Paint? = null
     var currentShape = Shape.Circle
@@ -28,10 +33,6 @@ class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     enum class Shape {
         //三种形状
         Circle, Square, Triangle
-    }
-
-    @JvmOverloads
-    constructor(context: Context, attrs: AttributeSet? = null) : this(context, attrs, 0) {
     }
 
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
@@ -49,7 +50,7 @@ class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         //保证是正方形
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
-        setMeasuredDimension(Math.min(width, height), Math.min(width, height))
+        setMeasuredDimension(width.coerceAtMost(height), width.coerceAtMost(height))
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -74,8 +75,8 @@ class ShapeView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
                 if (mPath == null) {
                     mPath = Path()
                     mPath!!.moveTo(center.toFloat(), 0f)
-                    mPath!!.lineTo(0f, (center * Math.sqrt(3.0)).toFloat())
-                    mPath!!.lineTo(width.toFloat(), (center * Math.sqrt(3.0)).toFloat())
+                    mPath!!.lineTo(0f, (center * sqrt(3.0)).toFloat())
+                    mPath!!.lineTo(width.toFloat(), (center * sqrt(3.0)).toFloat())
                     mPath!!.close()
                 }
                 if (mPath != null && mPaint != null) {

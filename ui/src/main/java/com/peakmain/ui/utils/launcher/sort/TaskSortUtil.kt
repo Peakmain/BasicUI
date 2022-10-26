@@ -3,8 +3,6 @@ package com.peakmain.ui.utils.launcher.sort
 import androidx.collection.ArraySet
 import com.peakmain.ui.utils.LogUtils
 import com.peakmain.ui.utils.launcher.task.Task
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * author ：Peakmain

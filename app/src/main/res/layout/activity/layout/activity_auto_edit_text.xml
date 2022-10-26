@@ -33,7 +33,7 @@
         android:layout_weight="3"
         android:background="@drawable/check_bg"
         android:inputType="numberPassword"
-        android:paddingStart="@dimen/space_20"
+        android:paddingLeft="@dimen/space_20"
         app:adet_hint="请输入密码"
         app:adet_hint_color="#9B9B9B"
         app:adet_text_color="#4A4A4A"

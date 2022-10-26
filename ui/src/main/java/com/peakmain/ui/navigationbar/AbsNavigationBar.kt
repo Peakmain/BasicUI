@@ -32,9 +32,9 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
 
     //The reduce findViewById
     private var mViews: SparseArray<WeakReference<View>>? = null
-    override fun createNavigationBar() {
+    final override fun createNavigationBar() {
         mNavigationBarView = LayoutInflater.from(builder!!.mContext)
-                .inflate(builder.mLayoutId, builder.mParent, false)
+            .inflate(builder.mLayoutId, builder.mParent, false)
         val parent = builder.mParent
         //RelativeLayout
         if (parent is RelativeLayout) {
@@ -45,20 +45,23 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
         if (parent is FrameLayout) {
             val childView = parent.getChildAt(0)
             val params = childView.layoutParams as FrameLayout.LayoutParams
-            mNavigationBarView?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> params.topMargin = mNavigationBarView!!.getHeight() }
+            mNavigationBarView?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                params.topMargin = mNavigationBarView!!.height
+            }
         }
         if (parent is LinearLayout) {
-            val linearLayout = parent
-            val direction = linearLayout.orientation
+            val direction = parent.orientation
             if (direction == LinearLayout.HORIZONTAL) {
                 //强制转成垂直布局
-                linearLayout.orientation = LinearLayout.VERTICAL
+                parent.orientation = LinearLayout.VERTICAL
             }
         }
         if (parent is ConstraintLayout) {
             val childView = parent.getChildAt(0)
             val params = childView.layoutParams as ConstraintLayout.LayoutParams
-            mNavigationBarView?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> params.topMargin = mNavigationBarView!!.getHeight() }
+            mNavigationBarView?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                params.topMargin = mNavigationBarView!!.height
+            }
         }
         mViews = SparseArray()
         //添加
@@ -123,9 +126,13 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
      * Build构建类
      * 构建Navigationbar和存储参数
      */
-    abstract class Builder<B : Builder<B>?> internal constructor(var mContext: Context, var mLayoutId: Int, var mParent: ViewGroup) {
-        var mNavigationParameterMaps: HashMap<Int, NavigationParameter?>
-        var mNavigationParameter: NavigationParameter? = null
+    abstract class Builder<B : Builder<B>?> internal constructor(
+        var mContext: Context,
+        var mLayoutId: Int,
+        var mParent: ViewGroup
+    ) {
+        var mNavigationParameterMaps: HashMap<Int, NavigationParameter?> = HashMap()
+        private var mNavigationParameter: NavigationParameter? = null
 
         /**
          * 用来创建Navigationbar
@@ -162,9 +169,6 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
             }
         }
 
-        init {
-            mNavigationParameterMaps = HashMap()
-        }
     }
 
     init {

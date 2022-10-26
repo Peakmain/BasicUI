@@ -69,6 +69,7 @@ public class Graph {
         Vector<Integer> result = new Vector<>();
         while (!queue.isEmpty()) {
             Integer u = queue.poll();
+            if (u == null) continue;
             result.add(u);
             //0的所有领接表
             for (Integer node : adj[u]) {

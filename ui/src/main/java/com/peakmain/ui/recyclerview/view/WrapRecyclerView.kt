@@ -158,12 +158,12 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
         return false
     }
 
-    public fun getChildBindingAdapterPosition(@NonNull child: View?): Int {
+    private fun getChildBindingAdapterPosition(@NonNull child: View?): Int {
         if (child == null) {
             return -1
         }
         val holder = getChildViewHolder(child)
-        return holder.adapterPosition
+        return holder.bindingAdapterPosition
     }
 
     override fun setAdapter(adapter: Adapter<ViewHolder>?) {
@@ -542,8 +542,7 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
         private val DEFAULT_LAYOUT_PARAMS = LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT)
 
-        private class RecyclerViewContextMenuInfo(val position: Int, val id: Long) : ContextMenu.ContextMenuInfo {
-        }
+        private class RecyclerViewContextMenuInfo(val position: Int, val id: Long) : ContextMenu.ContextMenuInfo
     }
 
     init {

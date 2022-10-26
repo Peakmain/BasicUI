@@ -167,14 +167,19 @@ class ShapeTextView @JvmOverloads constructor(
                     GradientDrawable.Orientation.TOP_BOTTOM
             mGradientDrawable.colors = intArrayOf(mStartColor, mEndColor)
         }
-        if (mShape == 0) {
-            mGradientDrawable.shape = GradientDrawable.RECTANGLE
-        } else if (mShape == 1) {
-            mGradientDrawable.shape = GradientDrawable.OVAL
-        } else if (mShape == 2) {
-            mGradientDrawable.shape = GradientDrawable.LINE
-        } else if (mShape == 3) {
-            mGradientDrawable.shape = GradientDrawable.RING
+        when (mShape) {
+            0 -> {
+                mGradientDrawable.shape = GradientDrawable.RECTANGLE
+            }
+            1 -> {
+                mGradientDrawable.shape = GradientDrawable.OVAL
+            }
+            2 -> {
+                mGradientDrawable.shape = GradientDrawable.LINE
+            }
+            3 -> {
+                mGradientDrawable.shape = GradientDrawable.RING
+            }
         }
         // 是否开启点击动效
         if (isActiveMotion) {
