@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewConfiguration
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -59,48 +58,52 @@ class SuspensionView @JvmOverloads constructor(context: Context, resId: Int = R.
         val x = ev!!.x
         val y = ev.y
         val action = ev.action
-        if (action == MotionEvent.ACTION_DOWN) {
-            isTouchDownInImageView = isDownInImageView(x, y)
-            mTouchDownX = x
-            mLastTouchX = mTouchDownX
-            mLastTouchY = y
-            mTouchDownY = mLastTouchY
-        } else if (action == MotionEvent.ACTION_MOVE) {
-            if (!isDragging && isTouchDownInImageView) {
-                val dx = x - mTouchDownX
-                val dy = y - mTouchDownY
-                if (sqrt(dx * dx + dy * dy.toDouble()) > mTouchSlop) {
-                    isDragging = true
-                }
+        when (action) {
+            MotionEvent.ACTION_DOWN -> {
+                isTouchDownInImageView = isDownInImageView(x, y)
+                mTouchDownX = x
+                mLastTouchX = mTouchDownX
+                mLastTouchY = y
+                mTouchDownY = mLastTouchY
             }
-            if (isDragging) {
-                var dx = (x - mLastTouchX).toInt()
-                var dy = (y - mLastTouchY).toInt()
-                val gx = mImageView.left
-                val gy = mImageView.top
-                val gw = mImageView.width
-                val w = width
-                val gh = mImageView.height
-                val h = height
-                /*界限处理*/
-                if (gx + dx < 0) {
-                    dx = -gx
-                } else if (gx + dx + gw > w) {
-                    dx = w - gw - gx
+            MotionEvent.ACTION_MOVE -> {
+                if (!isDragging && isTouchDownInImageView) {
+                    val dx = x - mTouchDownX
+                    val dy = y - mTouchDownY
+                    if (sqrt(dx * dx + dy * dy.toDouble()) > mTouchSlop) {
+                        isDragging = true
+                    }
                 }
-                if (gy + dy < 0) {
-                    dy = -gy
-                } else if (gy + dy + gh > h) {
-                    dy = h - gh - gy
+                if (isDragging) {
+                    var dx = (x - mLastTouchX).toInt()
+                    var dy = (y - mLastTouchY).toInt()
+                    val gx = mImageView.left
+                    val gy = mImageView.top
+                    val gw = mImageView.width
+                    val w = width
+                    val gh = mImageView.height
+                    val h = height
+                    /*界限处理*/
+                    if (gx + dx < 0) {
+                        dx = -gx
+                    } else if (gx + dx + gw > w) {
+                        dx = w - gw - gx
+                    }
+                    if (gy + dy < 0) {
+                        dy = -gy
+                    } else if (gy + dy + gh > h) {
+                        dy = h - gh - gy
+                    }
+                    mViewOffsetUtils.setLeftAndRightOffset(mViewOffsetUtils.getLeftAndRightOffset() + dx)
+                    mViewOffsetUtils.setTopAndBottomOffset(mViewOffsetUtils.getTopAndBottomOffset() + dy)
                 }
-                mViewOffsetUtils.setLeftAndRightOffset(mViewOffsetUtils.getLeftAndRightOffset() + dx)
-                mViewOffsetUtils.setTopAndBottomOffset(mViewOffsetUtils.getTopAndBottomOffset() + dy)
+                mLastTouchX = x
+                mLastTouchY = y
             }
-            mLastTouchX = x
-            mLastTouchY = y
-        } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
-            isDragging = false
-            isTouchDownInImageView = false
+            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
+                isDragging = false
+                isTouchDownInImageView = false
+            }
         }
         return isDragging
     }
@@ -109,47 +112,51 @@ class SuspensionView @JvmOverloads constructor(context: Context, resId: Int = R.
         val x = event!!.x
         val y = event.y
         val action = event.action
-        if (action == MotionEvent.ACTION_DOWN) {
-            isTouchDownInImageView = isDownInImageView(x, y)
-            mLastTouchX = x
-            mTouchDownX = mLastTouchX
-            mLastTouchY = y
-            mTouchDownY = mLastTouchY
-        } else if (action == MotionEvent.ACTION_MOVE) {
-            if (!isDragging && isTouchDownInImageView) {
-                val dx = (x - mTouchDownX).toInt()
-                val dy = (y - mTouchDownY).toInt()
-                if (sqrt(dx * dx + dy * dy.toDouble()) > mTouchSlop) {
-                    isDragging = true
-                }
+        when (action) {
+            MotionEvent.ACTION_DOWN -> {
+                isTouchDownInImageView = isDownInImageView(x, y)
+                mLastTouchX = x
+                mTouchDownX = mLastTouchX
+                mLastTouchY = y
+                mTouchDownY = mLastTouchY
             }
-            if (isDragging) {
-                var dx = (x - mLastTouchX).toInt()
-                var dy = (y - mLastTouchY).toInt()
-                val gx = mImageView.left
-                val gy = mImageView.top
-                val gw = mImageView.width
-                val w = width
-                val gh = mImageView.height
-                val h = height
-                if (gx + dx < 0) {
-                    dx = -gx
-                } else if (gx + dx + gw > w) {
-                    dx = w - gw - gx
+            MotionEvent.ACTION_MOVE -> {
+                if (!isDragging && isTouchDownInImageView) {
+                    val dx = (x - mTouchDownX).toInt()
+                    val dy = (y - mTouchDownY).toInt()
+                    if (sqrt(dx * dx + dy * dy.toDouble()) > mTouchSlop) {
+                        isDragging = true
+                    }
                 }
-                if (gy + dy < 0) {
-                    dy = -gy
-                } else if (gy + dy + gh > h) {
-                    dy = h - gh - gy
+                if (isDragging) {
+                    var dx = (x - mLastTouchX).toInt()
+                    var dy = (y - mLastTouchY).toInt()
+                    val gx = mImageView.left
+                    val gy = mImageView.top
+                    val gw = mImageView.width
+                    val w = width
+                    val gh = mImageView.height
+                    val h = height
+                    if (gx + dx < 0) {
+                        dx = -gx
+                    } else if (gx + dx + gw > w) {
+                        dx = w - gw - gx
+                    }
+                    if (gy + dy < 0) {
+                        dy = -gy
+                    } else if (gy + dy + gh > h) {
+                        dy = h - gh - gy
+                    }
+                    mViewOffsetUtils.setLeftAndRightOffset(mViewOffsetUtils.getLeftAndRightOffset() + dx)
+                    mViewOffsetUtils.setTopAndBottomOffset(mViewOffsetUtils.getTopAndBottomOffset() + dy)
                 }
-                mViewOffsetUtils.setLeftAndRightOffset(mViewOffsetUtils.getLeftAndRightOffset() + dx)
-                mViewOffsetUtils.setTopAndBottomOffset(mViewOffsetUtils.getTopAndBottomOffset() + dy)
+                mLastTouchX = x
+                mLastTouchY = y
             }
-            mLastTouchX = x
-            mLastTouchY = y
-        } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
-            isDragging = false
-            isTouchDownInImageView = false
+            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
+                isDragging = false
+                isTouchDownInImageView = false
+            }
         }
         return isDragging || super.onTouchEvent(event)
     }

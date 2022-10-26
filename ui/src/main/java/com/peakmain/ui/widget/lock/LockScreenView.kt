@@ -11,6 +11,7 @@ import com.peakmain.ui.R
 import com.peakmain.ui.utils.MathUtils.checkInRound
 import com.peakmain.ui.utils.MathUtils.distance
 import java.util.*
+import kotlin.math.tan
 
 /**
  * author ：Peakmain
@@ -236,7 +237,7 @@ class LockScreenView @JvmOverloads constructor(
      * 获取点
      */
     private val getPoint: Point?
-        private get() {
+        get() {
             for (i in 0..2) {
                 for (point in mPoints[i]) {
                     if (checkInRound(point!!.centerX.toFloat(), point.centerY.toFloat(),
@@ -268,7 +269,7 @@ class LockScreenView @JvmOverloads constructor(
             end.centerY.toDouble())
         val sinB = ((end.centerX - start.centerX) / d).toFloat()
         val cosB = ((end.centerY - start.centerY) / d).toFloat()
-        val tanA = Math.tan(Math.toRadians(angle.toDouble())).toFloat()
+        val tanA = tan(Math.toRadians(angle.toDouble())).toFloat()
         val h = (d - arrowHeight - mDotRadius * 1.1).toFloat()
         val l = arrowHeight * tanA
         val a = l * sinB

@@ -17,6 +17,7 @@ import kotlin.experimental.and
  */
 internal class Checker private constructor() {
     companion object {
+        private  val TAG = Checker::class.java.simpleName
         private val format: MutableList<String> = ArrayList()
         private const val JPG = "jpg"
         private const val JPEG = "jpeg"
@@ -65,7 +66,7 @@ internal class Checker private constructor() {
         }
     }
 
-    private val TAG = Checker::class.java.simpleName
+
     private val JPEG_SIGNATURE = byteArrayOf(0xFF.toByte(), 0xD8.toByte(), 0xFF.toByte())
 
     private object Holder {
@@ -89,7 +90,7 @@ internal class Checker private constructor() {
             return false
         }
         val signatureB = byteArrayOf(data[0], data[1], data[2])
-        return Arrays.equals(JPEG_SIGNATURE, signatureB)
+        return JPEG_SIGNATURE.contentEquals(signatureB)
     }
 
     fun getOrientation(`is`: InputStream?): Int {
@@ -166,8 +167,7 @@ internal class Checker private constructor() {
                 // Get the tag and check if it is orientation.
                 tag = pack(jpeg, offset, 2, littleEndian)
                 if (tag == 0x0112) {
-                    val orientation = pack(jpeg, offset + 8, 2, littleEndian)
-                    when (orientation) {
+                    when (pack(jpeg, offset + 8, 2, littleEndian)) {
                         1 -> return 0
                         3 -> return 180
                         6 -> return 90

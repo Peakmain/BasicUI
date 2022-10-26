@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager
 import com.peakmain.ui.R
 import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
 import java.util.*
+import kotlin.math.roundToInt
 
 /**
  * author ：Peakmain
@@ -161,7 +162,7 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
     }
 
     protected fun setScrollPosition(position: Int, positionOffset: Float) {
-        val roundedPosition = Math.round(position.toFloat() + positionOffset)
+        val roundedPosition = (position.toFloat() + positionOffset).roundToInt()
         if (roundedPosition >= 0 && roundedPosition < mLinearLayout!!.childCount) {
             if (scrollAnimator != null && scrollAnimator.isRunning) {
                 scrollAnimator.cancel()

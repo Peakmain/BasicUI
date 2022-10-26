@@ -2,6 +2,7 @@ package com.peakmain.ui.wheelview.timer
 
 import com.peakmain.ui.wheelview.view.WheelView
 import java.util.*
+import kotlin.math.abs
 
 /**
  * author:Peakmain
@@ -27,7 +28,7 @@ class SmoothScrollTimerTask(private val wheelView: WheelView, private val offset
                 1
             }
         }
-        if (Math.abs(realTotalOffset) <= 1) {
+        if (abs(realTotalOffset) <= 1) {
             wheelView.cancelFuture()
             wheelView.handler
                 .sendEmptyMessage(MessageHandler.WHAT_ITEM_SELECTED)

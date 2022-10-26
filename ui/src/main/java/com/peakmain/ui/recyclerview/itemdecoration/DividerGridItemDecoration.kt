@@ -78,11 +78,7 @@ class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration(
      */
     fun isLastColumn(itemPosition: Int, parent: RecyclerView): Boolean {
         val spanCount = getSpanCount(parent)
-        return if ((itemPosition + 1) % spanCount == 0) {
-            true
-        } else {
-            false
-        }
+        return (itemPosition + 1) % spanCount == 0
     }
 
     /**

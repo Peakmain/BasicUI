@@ -32,7 +32,7 @@ class AlertDialog : Dialog {
     /**
      * reduce findViewById times
      */
-    fun <T : View> getView(viewId: Int): T {
+    fun <T : View> getView(viewId: Int): T? {
         return mAlert.getView(viewId)
     }
 
@@ -45,7 +45,7 @@ class AlertDialog : Dialog {
     }
 
     fun setVisibility(isShow: Boolean, id: Int) {
-        getView<View>(id).visibility = if (isShow) View.VISIBLE else View.GONE
+        getView<View>(id)?.visibility = if (isShow) View.VISIBLE else View.GONE
     }
 
     fun setVisibility(isShow: Boolean, vararg ids: Int) {

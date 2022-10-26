@@ -6,11 +6,8 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.LinearInterpolator
-import android.widget.Scroller
 import androidx.core.view.ViewCompat
 import com.peakmain.ui.recyclerview.creator.RefreshViewCreator
-import com.peakmain.ui.utils.LogUtils
 
 /**
  * @author ：Peakmain

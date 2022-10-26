@@ -12,7 +12,7 @@ import java.util.*
  * describe：
  */
 class JPushTask : Task() {
-    override fun dependsOn(): List<Class<out Task?>?>? {
+    override fun dependsOn(): List<Class<out Task?>?> {
         val tasks: MutableList<Class<out Task?>?> = ArrayList()
         tasks.add(DeviceIdTask::class.java)
         return tasks
