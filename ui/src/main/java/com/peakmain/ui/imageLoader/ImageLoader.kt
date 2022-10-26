@@ -3,7 +3,10 @@ package com.peakmain.ui.imageLoader
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.text.TextUtils
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.peakmain.ui.imageLoader.factory.AbstractLoaderFactory
 import com.peakmain.ui.imageLoader.factory.GlideLoaderFactory
@@ -85,13 +88,28 @@ class ImageLoader private constructor() {
     }
 
     /**
+     * 加载URL图片
+     *
+     * @param url         url
+     * @param imageView        显示图片的view
+     * @param requestOptions       RequestOptions
+     */
+    fun displayImage(
+        url: String?,
+        imageView: ImageView?,
+        requestOptions: RequestOptions
+    ) {
+        loader!!.displayImage(imageView?.context, url, imageView, requestOptions)
+    }
+
+    /**
      * 加载网络图片 圆角
      *
      * @param url     图片地址
      * @param view    显示图片的View
      * @param desId   默认图片的Id
      */
-    fun displayImageRound(url: String, view: ImageView?, corner: Int, desId: Int) {
+    fun displayImageRound(url: String, view: ImageView?, corner: Int, @DrawableRes desId: Int) {
         loader!!.displayImageRound(view?.context, url, view, corner, desId)
     }
 
@@ -157,6 +175,32 @@ class ImageLoader private constructor() {
      */
     fun displayImage(context: Context?, url: Uri, simpleTarget: CustomTarget<Bitmap>) {
         loader!!.displayImage(context, url, simpleTarget)
+    }
+
+    /**
+     * 设置ImageView的圆角
+     */
+    fun displayImageRound(
+        url: String?,
+        view: ImageView?,
+        @DrawableRes desId: Int,
+        leftTop: Boolean,
+        rightTop: Boolean,
+        leftBottom: Boolean,
+        rightBottom: Boolean,
+        roundRadius: Float
+    ) {
+        loader!!.displayImageRound(
+            view?.context,
+            url,
+            view,
+            desId,
+            leftTop,
+            rightTop,
+            leftBottom,
+            rightBottom,
+            roundRadius
+        )
     }
 
     /**
