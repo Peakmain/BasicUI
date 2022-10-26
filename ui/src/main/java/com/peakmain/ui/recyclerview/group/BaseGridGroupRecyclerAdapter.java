@@ -2,6 +2,8 @@ package com.peakmain.ui.recyclerview.group;
 
 import android.content.Context;
 
+import androidx.annotation.Nullable;
+
 import com.peakmain.ui.R;
 import com.peakmain.ui.recyclerview.adapter.ViewHolder;
 
@@ -19,7 +21,7 @@ public abstract class BaseGridGroupRecyclerAdapter<T extends GroupRecyclerBean<T
     }
 
     @Override
-    protected void convertHead(ViewHolder holder, T item) {
+    protected void convertHead(@Nullable ViewHolder holder, T item) {
 
     }
 }

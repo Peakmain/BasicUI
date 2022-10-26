@@ -35,7 +35,7 @@ internal class ViewHelper() {
         view?.setOnClickListener(listener)
     }
 
-    fun <T : View> getView(viewId: Int): T {
+    fun <T : View> getView(viewId: Int): T? {
         val weakReference = mViews[viewId]
         var view: View? = null
         if (weakReference != null) {
@@ -47,7 +47,7 @@ internal class ViewHelper() {
                 mViews.put(viewId, WeakReference(view))
             }
         }
-        return view as T
+        return view as T?
     }
 
     init {
