@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.Editable;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 
@@ -96,7 +97,9 @@ public class PasswordEditText extends AppCompatEditText {
     private void drawPassWord(Canvas canvas) {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(mPasswordColor);
-        String password = getText().toString().trim();
+        Editable text = getText();
+        if (text == null) return;
+        String password = text.toString().trim();
         int len = password.length();
         for (int i = 0; i < len; i++) {
             int cy = getHeight() / 2;
@@ -112,9 +115,8 @@ public class PasswordEditText extends AppCompatEditText {
         for (int i = 0; i < mPasswordNumber - 1; i++) {
             float startX = (i + 1) * mPasswordItemWidth + mBgSize + mDivisionLineSize;
             float startY = mBgSize;
-            float endX = startX;
             float endY = getHeight() - mBgSize;
-            canvas.drawLine(startX, startY, endX, endY, mPaint);
+            canvas.drawLine(startX, startY, startX, endY, mPaint);
         }
     }
 
@@ -136,7 +138,9 @@ public class PasswordEditText extends AppCompatEditText {
      * 添加密码
      */
     public void addPasswordNumber(String number) {
-        String passWord = getText().toString().trim();
+        Editable text = getText();
+        if(text==null)return;
+        String passWord = text.toString().trim();
         if (passWord.length() >= mPasswordNumber) {//当前密码的长度大于当前密码数量return
             return;
         }
@@ -154,7 +158,9 @@ public class PasswordEditText extends AppCompatEditText {
      * 删除密码
      */
     public void deletePassWord() {
-        String passWord = getText().toString().trim();
+        Editable text = getText();
+        if(text==null)return;
+        String passWord = text.toString().trim();
         if (passWord.length() <= 0) {
             return;
         }
@@ -176,6 +182,6 @@ public class PasswordEditText extends AppCompatEditText {
      * 密码已经全部完成
      */
     public interface PasswordCompleteListener {
-        public void passwordComplete(String password);
+        void passwordComplete(String password);
     }
 }

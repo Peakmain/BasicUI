@@ -269,7 +269,7 @@ object FileUtils {
      * @param fileSize 文件的大小
      * @return 文件大小的字符串
      */
-    fun FormetFileSize(fileSize: Long): String {
+    fun formetFileSize(fileSize: Long): String {
         val df = DecimalFormat("#.0")
         var fileSizeString = ""
         val wrongSize = "0B"

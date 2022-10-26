@@ -14,9 +14,9 @@ import java.util.Vector;
  */
 public class Graph {
     //顶点数量
-    private int mVerticeCount;
+    private final int mVerticeCount;
     //领接表
-    private List<Integer>[] adj;
+    private final List<Integer>[] adj;
 
     //边的数量
     private int mEdgeCount;

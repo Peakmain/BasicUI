@@ -81,7 +81,7 @@ class LockScreenView @JvmOverloads constructor(
         for (i in 0..2) {
             for (point in mPoints[i]) {
                 val status: Int = point!!.status
-                if (status == point!!.STATUS_NORMAL) {
+                if (status == point.STATUS_NORMAL) {
                     //先绘制外圆
                     mNormalPaint.color = mOuterNormalColor
                     canvas.drawCircle(point.centerX.toFloat(),
