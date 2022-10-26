@@ -17,7 +17,7 @@ class DateUtils {
      * @param m 月
      * @return 传出农历
      */
-    private fun Lunar(y: Int, m: Int): LongArray {
+    private fun lunar(y: Int, m: Int): LongArray {
         val nongDate = LongArray(7)
         var temp = 0
         val leap: Int
@@ -376,7 +376,7 @@ class DateUtils {
          * @param y 年的生肖
          * @return
          */
-        fun AnimalsYear(y: Int): String {
+        fun animalsYear(y: Int): String {
             return Animals[(y - 4) % 12]
         }
 
@@ -513,7 +513,7 @@ class DateUtils {
                 sToday.append(" 农历")
                 sToday.append(cyclical(year))
                 sToday.append('(')
-                sToday.append(AnimalsYear(year))
+                sToday.append(animalsYear(year))
                 sToday.append(")年")
                 sToday.append(nStr1[l[1].toInt()])
                 sToday.append("月")
@@ -534,7 +534,7 @@ class DateUtils {
                 sToday!!.append(" 农历")
                 sToday.append(cyclical(year))
                 sToday.append('(')
-                sToday.append(AnimalsYear(year))
+                sToday.append(animalsYear(year))
                 sToday.append(")年")
                 sToday.append(nStr1[l[1].toInt()])
                 sToday.append("月")

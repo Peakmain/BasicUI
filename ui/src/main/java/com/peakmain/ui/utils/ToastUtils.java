@@ -253,7 +253,7 @@ public final class ToastUtils {
                 sToast = Toast.makeText(BasicUIUtils.getApplication(), text, duration);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                     View view = sToast.getView();
-                    if(view==null)return;
+                    if (view == null) return;
                     final TextView tvMessage = view.findViewById(android.R.id.message);
                     if (sMsgColor != COLOR_DEFAULT) {
                         tvMessage.setTextColor(sMsgColor);
@@ -277,10 +277,10 @@ public final class ToastUtils {
             public void run() {
                 cancel();
                 sToast = new Toast(BasicUIUtils.getApplication());
-               if(Build.VERSION.SDK_INT<Build.VERSION_CODES.R){
-                   sToast.setView(view);
-                   setBg();
-               }
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    sToast.setView(view);
+                    setBg();
+                }
                 sToast.setDuration(duration);
                 if (sGravity != -1 || sXOffset != -1 || sYOffset != -1) {
                     sToast.setGravity(sGravity, sXOffset, sYOffset);
@@ -343,8 +343,12 @@ public final class ToastUtils {
     }
 
     private static View getView(@LayoutRes final int layoutId) {
-        LayoutInflater inflate =
-                (LayoutInflater) BasicUIUtils.getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflate = null;
+        if (BasicUIUtils.getApplication() != null) {
+            inflate = (LayoutInflater) BasicUIUtils.getApplication()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
         return inflate != null ? inflate.inflate(layoutId, null) : null;
     }
 
