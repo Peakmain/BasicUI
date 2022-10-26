@@ -2,6 +2,7 @@ package com.peakmain.ui.recyclerview.itemTouch;
 
 import android.graphics.Color;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +29,11 @@ public abstract class BaseItemTouchHelper<T> {
         mDatas = data == null ? new ArrayList<T>() : data;
     }
 
-    private ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+    private final ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
 
         @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        public int getMovementFlags(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder) {
+            if (recyclerView == null) return 0;
             //不做处理的时候默认都是0
             int dragFlags = 0;
             //左划删除和右滑删除
@@ -53,12 +55,12 @@ public abstract class BaseItemTouchHelper<T> {
         }
 
         @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-
+        public boolean onMove(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            if (viewHolder == null) return false;
             //获取原来的位置
-            int fromPosition = viewHolder.getAdapterPosition();
+            int fromPosition = viewHolder.getBindingAdapterPosition();
             //获取目标的位置
-            int targetPosition = target.getAdapterPosition();
+            int targetPosition = target.getBindingAdapterPosition();
             //替换
             mAdapter.notifyItemMoved(fromPosition, targetPosition);
             //数据没有发生变化(mDatas中数据)
@@ -77,17 +79,19 @@ public abstract class BaseItemTouchHelper<T> {
         }
 
         @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            int currentSwipePosition = viewHolder.getAdapterPosition();
+        public void onSwiped(@Nullable RecyclerView.ViewHolder viewHolder, int direction) {
+            if (viewHolder == null) return;
+            int currentSwipePosition = viewHolder.getBindingAdapterPosition();
             mAdapter.notifyItemRemoved(currentSwipePosition);
             mDatas.remove(currentSwipePosition);
 
         }
 
         @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        public void clearView(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder) {
+            if (recyclerView == null || viewHolder == null) return;
             if (recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE && !recyclerView.isComputingLayout()) {
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemRangeChanged(0, mDatas.size());
             }
             //动画执行完毕，恢复
             viewHolder.itemView.setBackgroundColor(Color.parseColor("#ECECEC"));
@@ -122,44 +126,47 @@ public abstract class BaseItemTouchHelper<T> {
      * @param gridDragFlags 默认是 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
      * @return BaseItemTouchHelper
      */
-    public BaseItemTouchHelper setGridDragFlags(int gridDragFlags) {
+    public BaseItemTouchHelper<T> setGridDragFlags(int gridDragFlags) {
         mGridDragFlags = gridDragFlags;
         return this;
     }
+
     /**
      * 设置LinearLayoutManager 的拖拽flags
      *
      * @param linearDragFlags 默认是 ItemTouchHelper.LEFT  | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
      * @return BaseItemTouchHelper
      */
-    public BaseItemTouchHelper setLinearDragFlags(int linearDragFlags) {
+    public BaseItemTouchHelper<T> setLinearDragFlags(int linearDragFlags) {
         mLinearDragFlags = linearDragFlags;
         return this;
     }
+
     /**
      * 设置滑动删除的flags
      *
      * @param swipeFlags 默认是 ItemTouchHelper.LEFT  | ItemTouchHelper.RIGHT;
      * @return BaseItemTouchHelper
      */
-    public BaseItemTouchHelper setSwipeFlags(int swipeFlags) {
+    public BaseItemTouchHelper<T> setSwipeFlags(int swipeFlags) {
         mSwipeFlags = swipeFlags;
         return this;
     }
 
     /**
      * 设置数据
-     * @param datas  List<T> datas
+     *
+     * @param data List<T> datas
      * @return BaseItemTouchHelper
      */
-    public BaseItemTouchHelper setDatas(List<T> datas) {
-        mDatas = datas;
+    public BaseItemTouchHelper<T> setData(List<T> data) {
+        mDatas = data;
         return this;
     }
 
 
     /**
-     *  通知外部数据更新
+     * 通知外部数据更新
      */
     public interface OnDataUpdatedListener<T> {
         void onDataUpdated(List<T> datas);
@@ -167,7 +174,7 @@ public abstract class BaseItemTouchHelper<T> {
 
     private OnDataUpdatedListener<T> mOnDataUpdatedListener;
 
-    public BaseItemTouchHelper setOnDataUpdatedListener(OnDataUpdatedListener<T> onDataUpdatedListener) {
+    public BaseItemTouchHelper<T> setOnDataUpdatedListener(OnDataUpdatedListener<T> onDataUpdatedListener) {
         mOnDataUpdatedListener = onDataUpdatedListener;
         return this;
     }

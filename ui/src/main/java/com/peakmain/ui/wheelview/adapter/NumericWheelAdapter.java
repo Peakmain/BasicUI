@@ -9,8 +9,8 @@ package com.peakmain.ui.wheelview.adapter;
  */
 public class NumericWheelAdapter implements WheelAdapter {
 
-	private int minValue;
-	private int maxValue;
+	private final int minValue;
+	private final int maxValue;
 
 	/**
 	 * Constructor
@@ -25,8 +25,7 @@ public class NumericWheelAdapter implements WheelAdapter {
 	@Override
 	public Object getItem(int index) {
 		if (index >= 0 && index < getItemsCount()) {
-			int value = minValue + index;
-			return value;
+			return minValue + index;
 		}
 		return 0;
 	}
