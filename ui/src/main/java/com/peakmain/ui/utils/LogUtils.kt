@@ -255,7 +255,7 @@ class LogUtils private constructor() {
             if (contents != null) {
                 if (contents.size == 1) {
                     val `object` = contents[0]
-                    body = `object`?.toString() ?: NULL
+                    body = `object`.toString()
                     if (type == JSON) {
                         body = formatJson(body)
                     } else if (type == XML) {
@@ -272,7 +272,7 @@ class LogUtils private constructor() {
                                 .append(i)
                                 .append("]")
                                 .append(" = ")
-                                .append(content?.toString() ?: NULL)
+                                .append(content.toString() ?: NULL)
                                 .append(LINE_SEP)
                         ++i
                     }

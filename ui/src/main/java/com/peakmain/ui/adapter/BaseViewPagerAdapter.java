@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 
 /**
@@ -15,31 +17,38 @@ import androidx.viewpager.widget.PagerAdapter;
  * describe：基本的ViewPager适配器
  */
 public abstract class BaseViewPagerAdapter extends PagerAdapter {
-    static final int IGNORE_ITEM_VIEW_TYPE= AdapterView.ITEM_VIEW_TYPE_IGNORE;
-    private RecycleBin recycleBin;
+    static final int IGNORE_ITEM_VIEW_TYPE = AdapterView.ITEM_VIEW_TYPE_IGNORE;
+    private final RecycleBin recycleBin;
+
     public BaseViewPagerAdapter() {
         this(new RecycleBin());
     }
+
     BaseViewPagerAdapter(RecycleBin recycleBin) {
         this.recycleBin = recycleBin;
         recycleBin.setViewTypeCount(getViewTypeCount());
     }
+
     @Override
     public void notifyDataSetChanged() {
         recycleBin.scrapActiveViews();
         super.notifyDataSetChanged();
     }
+
+    @NonNull
     @Override
-    public final Object instantiateItem(ViewGroup container, int position) {
+    public final Object instantiateItem(@Nullable ViewGroup container, int position) {
         int viewType = getItemViewType(position);
         View view = null;
         if (viewType != IGNORE_ITEM_VIEW_TYPE) {
             view = recycleBin.getScrapView(position, viewType);
         }
         view = getView(position, view, container);
-        container.addView(view);
+        if (container != null)
+            container.addView(view);
         return view;
     }
+
     @Override
     public final void destroyItem(ViewGroup container, int position, Object object) {
         View view = (View) object;
@@ -49,15 +58,19 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
             recycleBin.addScrapView(view, position, viewType);
         }
     }
+
     public int getViewTypeCount() {
         return 1;
     }
+
     public int getItemViewType(int position) {
         return 0;
     }
+
     public abstract View getView(int position, View convertView, ViewGroup container);
+
     @Override
-    public final boolean isViewFromObject(View view, Object object) {
+    public final boolean isViewFromObject(@Nullable View view,@Nullable Object object) {
         return view == object;
     }
 
@@ -68,10 +81,12 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
          * Views in activeViews represent a contiguous range of Views, with position of the first
          * view store in mFirstActivePosition.
          */
-        private View[] activeViews = new View[0];
-        private int[] activeViewTypes = new int[0];
+        private final View[] activeViews = new View[0];
+        private final int[] activeViewTypes = new int[0];
 
-        /** Unsorted views that can be used by the adapter as a convert view. */
+        /**
+         * Unsorted views that can be used by the adapter as a convert view.
+         */
         private SparseArray<View>[] scrapViews;
 
         private int viewTypeCount;
@@ -96,7 +111,9 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
             return viewType >= 0;
         }
 
-        /** @return A view from the ScrapViews collection. These are unordered. */
+        /**
+         * @return A view from the ScrapViews collection. These are unordered.
+         */
         View getScrapView(int position, int viewType) {
             if (viewTypeCount == 1) {
                 return retrieveFromScrap(currentScrapViews, position);
@@ -123,7 +140,9 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
             }
         }
 
-        /** Move all views remaining in activeViews to scrapViews. */
+        /**
+         * Move all views remaining in activeViews to scrapViews.
+         */
         void scrapActiveViews() {
             final View[] activeViews = this.activeViews;
             final int[] activeViewTypes = this.activeViewTypes;

@@ -47,7 +47,7 @@ class DefaultRefreshViewCreator : RefreshViewCreator() {
      */
     override fun onPull(currentDragHeight: Int, refreshViewHeight: Int, currentRefreshStatus: Int) {
         /*mTvRefreshTime.setText("刷新时间:2020年");*/
-        mTvRefreshTime!!.text = instance!!.refreshTime
+        mTvRefreshTime!!.text = instance.refreshTime
         if (currentRefreshStatus == LoadRefreshRecyclerView.LOAD_STATUS_PULL_DOWN_REFRESH) {
             mTvStatus!!.text = "下拉可以刷新"
             mIvArrow!!.setImageResource(R.drawable.ic_keyboard_arrow_down)
@@ -67,7 +67,7 @@ class DefaultRefreshViewCreator : RefreshViewCreator() {
         animation.repeatCount = -1
         animation.duration = 1000
         mIvArrow!!.startAnimation(animation)
-        instance!!.saveRefreshTime()
+        instance.saveRefreshTime()
     }
 
     override fun onStopRefresh() {
