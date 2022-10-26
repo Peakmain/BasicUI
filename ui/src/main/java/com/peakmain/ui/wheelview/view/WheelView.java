@@ -60,7 +60,7 @@ public class WheelView extends View {
     private boolean isCenterLabel = true;
 
     // Timer mTimer;
-    private ScheduledExecutorService mExecutor = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService mExecutor = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> mFuture;
 
     private Paint paintOuterText;
@@ -102,11 +102,9 @@ public class WheelView extends View {
     //选中的Item是第几个
     private int selectedItem;
     private int preCurrentIndex;
-    //滚动偏移值,用于记录滚动了多少个item
-    private int change;
 
     // 绘制几个条目，实际上第一项和最后一项Y轴压缩成0%了，所以可见的数目实际为9
-    private int itemsVisible = 9;
+    private final int itemsVisible = 9;
 
     private int measuredHeight;// WheelView 控件高度
     private int measuredWidth;// WheelView 控件宽度
@@ -128,8 +126,6 @@ public class WheelView extends View {
     private static final float SCALE_CONTENT = 0.8F;//非中间文字则用此控制高度，压扁形成3d错觉
     private float CENTER_CONTENT_OFFSET;//偏移量
 
-    private final float DEFAULT_TEXT_TARGET_SKEWX = 0.5f;
-
     public WheelView(Context context) {
         this(context, null);
     }
@@ -144,8 +140,6 @@ public class WheelView extends View {
 
         if (density < 1) {//根据密度不同进行适配
             CENTER_CONTENT_OFFSET = 2.4F;
-        } else if (1 <= density && density < 2) {
-            CENTER_CONTENT_OFFSET = 3.6F;
         } else if (1 <= density && density < 2) {
             CENTER_CONTENT_OFFSET = 4.5F;
         } else if (2 <= density && density < 3) {
@@ -365,7 +359,8 @@ public class WheelView extends View {
         @SuppressLint("DrawAllocation")
         Object[] visibles = new Object[itemsVisible];
         //滚动的Y值高度除去每行Item的高度，得到滚动了多少个item，即change数
-        change = (int) (totalScrollY / itemHeight);
+        //滚动偏移值,用于记录滚动了多少个item
+        int change = (int) (totalScrollY / itemHeight);
 
         try {
             //滚动中实际的预选中的item(即经过了中间位置的item) ＝ 滑动前的位置 ＋ 滑动相对位置
@@ -427,12 +422,8 @@ public class WheelView extends View {
                 startX = 10;
             }
             endX = measuredWidth - startX;
-//            canvas.drawLine(startX, firstLineY, endX, firstLineY, paintIndicator);
-//            canvas.drawLine(startX, secondLineY, endX, secondLineY, paintIndicator);
             canvas.drawRect(startX, firstLineY, endX, secondLineY, paintIndicator);
         } else {
-//            canvas.drawLine(0.0F, firstLineY, measuredWidth, firstLineY, paintIndicator);
-//            canvas.drawLine(0.0F, secondLineY, measuredWidth, secondLineY, paintIndicator);
             canvas.drawRect(0.0F, firstLineY, measuredWidth, secondLineY, paintIndicator);
         }
 
@@ -508,9 +499,7 @@ public class WheelView extends View {
                     float Y = maxTextHeight - CENTER_CONTENT_OFFSET;//因为圆弧角换算的向下取值，导致角度稍微有点偏差，加上画笔的基线会偏上，因此需要偏移量修正一下
                     canvas.drawText(contentText, drawCenterContentStart, Y, paintCenterText);
 
-                    int preSelectedItem = adapter.indexOf(visibles[counter]);
-
-                    selectedItem = preSelectedItem;
+                    selectedItem = adapter.indexOf(visibles[counter]);
 
                 } else {
                     // 其他条目
@@ -518,6 +507,7 @@ public class WheelView extends View {
                     canvas.clipRect(0, 0, measuredWidth, (int) (itemHeight));
                     canvas.scale(1.0F, (float) Math.sin(radian) * SCALE_CONTENT);
                     // 控制文字倾斜角度
+                    float DEFAULT_TEXT_TARGET_SKEWX = 0.5f;
                     paintOuterText.setTextSkewX((textXOffset == 0 ? 0 : (textXOffset > 0 ? 1 : -1)) * (angle > 0 ? -1 : 1) * DEFAULT_TEXT_TARGET_SKEWX * offsetCoefficient);
                     // 控制透明度
                     paintOuterText.setAlpha((int) ((1 - offsetCoefficient) * 255));
