@@ -13,7 +13,7 @@ public class GifHelper {
         System.loadLibrary("compress-lib");
     }
 
-    private long mGifHelper;
+    private final long mGifHelper;
 
     public int getWidth() {
         return getWidth(mGifHelper);
