@@ -23,7 +23,7 @@ class CrumbView : HorizontalScrollView {
     private val ARROW_LIGHT_COLOR = ContextCompat.getColor(context, R.color.ui_color_01a8e3)
     private val ARROW_DARK_COLOR = ContextCompat.getColor(context, R.color.ui_color_7F7F7F)
     private lateinit var mContainer: LinearLayout
-    private var rootView: LinearLayout
+    private var rootView: LinearLayout = LinearLayout(context)
     private var mFragmentManager: FragmentManager? = null
 
     constructor(context: Context) : super(context)
@@ -36,8 +36,6 @@ class CrumbView : HorizontalScrollView {
     }
 
     init {
-
-        rootView = LinearLayout(context)
         rootView.orientation = LinearLayout.HORIZONTAL
         rootView.gravity = Gravity.CENTER_VERTICAL
         addView(rootView)
