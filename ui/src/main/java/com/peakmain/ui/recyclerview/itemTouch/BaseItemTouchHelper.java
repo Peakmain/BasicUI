@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.peakmain.ui.recyclerview.adapter.ViewHolder;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,13 +20,13 @@ import java.util.List;
  * describe：
  */
 public abstract class BaseItemTouchHelper<T> {
-    private final RecyclerView.Adapter mAdapter;
+    private final RecyclerView.Adapter<ViewHolder> mAdapter;
     private List<T> mDatas;
     private int mSwipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
     private int mGridDragFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
     private int mLinearDragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT;
 
-    public BaseItemTouchHelper(RecyclerView.Adapter adapter, List<T> data) {
+    public BaseItemTouchHelper(RecyclerView.Adapter<ViewHolder> adapter, List<T> data) {
         this.mAdapter = adapter;
         mDatas = data == null ? new ArrayList<T>() : data;
     }

@@ -12,7 +12,11 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：自定义LinearLayout
  */
-class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
+class ShapeLinearLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr) {
     private var mRadius = 0f
 
     //线条的颜色、宽度
@@ -36,28 +40,37 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
      */
     private fun init(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ShapeLinearLayout)
-        mNormalBackgroundColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlBackgroundColor, 0)
+        mNormalBackgroundColor =
+            ta.getColor(R.styleable.ShapeLinearLayout_shapeLlBackgroundColor, 0)
         mGradientDrawable = GradientDrawable()
         mRadius = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlRadius, 0).toFloat()
         mNormalStrokeColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStrokeColor, 0)
-        mNormalStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlStrokeWidth, 0)
+        mNormalStrokeWidth =
+            ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlStrokeWidth, 0)
         mStartColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStartColor, 0)
         mEndColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlEndColor, 0)
         val topLeftRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_shapeLlTopLeftRadius, mRadius.toInt())
+            R.styleable.ShapeLinearLayout_shapeLlTopLeftRadius, mRadius.toInt()
+        )
         val topRightRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_shapeLlTopRightRadius, mRadius.toInt())
+            R.styleable.ShapeLinearLayout_shapeLlTopRightRadius, mRadius.toInt()
+        )
         val bottomLeftRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_shapeLlBottomLeftRadius, mRadius.toInt())
+            R.styleable.ShapeLinearLayout_shapeLlBottomLeftRadius, mRadius.toInt()
+        )
         val bottomRightRadius: Int = ta.getDimensionPixelSize(
-                R.styleable.ShapeLinearLayout_shapeLlBottomRightRadius, mRadius.toInt())
+            R.styleable.ShapeLinearLayout_shapeLlBottomRightRadius, mRadius.toInt()
+        )
         if (topLeftRadius != mRadius.toInt() || topRightRadius != mRadius.toInt() || bottomLeftRadius != mRadius.toInt() || bottomRightRadius != mRadius.toInt()) {
-            setCornerRadii(floatArrayOf(
+            setCornerRadii(
+                floatArrayOf(
                     topLeftRadius.toFloat(), topLeftRadius.toFloat(),
                     topRightRadius.toFloat(), topRightRadius.toFloat(),
                     bottomRightRadius.toFloat(), bottomRightRadius.toFloat(),
                     bottomLeftRadius.toFloat(), bottomLeftRadius
-                    .toFloat()))
+                        .toFloat()
+                )
+            )
         }
         ta.recycle()
         background = mGradientDrawable

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.R
 import com.peakmain.ui.recyclerview.creator.LoadViewCreator
 
 /**
@@ -19,7 +20,7 @@ import com.peakmain.ui.recyclerview.creator.LoadViewCreator
 class LoadRefreshRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyle: Int = 0
+    defStyle: Int = R.attr.recyclerViewStyle
 ) : RefreshRecyclerView(context, attrs, defStyle) {
     // 上拉加载更多的辅助类
     private var mLoadCreator: LoadViewCreator? = null

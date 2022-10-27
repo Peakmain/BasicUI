@@ -17,7 +17,7 @@ import kotlin.experimental.and
  */
 internal class Checker private constructor() {
     companion object {
-        private  val TAG = Checker::class.java.simpleName
+        private val TAG = Checker::class.java.simpleName
         private val format: MutableList<String> = ArrayList()
         private const val JPG = "jpg"
         private const val JPEG = "jpeg"
@@ -30,13 +30,14 @@ internal class Checker private constructor() {
                 return false
             }
             val suffix = path.substring(path.lastIndexOf(".") + 1, path.length)
-            return format.contains(suffix.toLowerCase())
+            return format.contains(suffix.toLowerCase(Locale.getDefault()))
         }
 
         val instance: Checker
             get() = Holder.instance
 
         fun isNeedCompress(leastCompressSize: Int, path: String?): Boolean {
+            if (path == null) return false
             if (leastCompressSize > 0) {
                 val source = File(path)
                 if (!source.exists()) {
@@ -77,7 +78,7 @@ internal class Checker private constructor() {
         if (TextUtils.isEmpty(path)) {
             return false
         }
-        val suffix = path.substring(path.lastIndexOf("."), path.length).toLowerCase()
+        val suffix = path.substring(path.lastIndexOf("."), path.length).toLowerCase(Locale.getDefault())
         return suffix.contains(JPG) || suffix.contains(JPEG)
     }
 
@@ -105,7 +106,7 @@ internal class Checker private constructor() {
         var length = 0
 
         // ISO/IEC 10918-1:1993(E)
-        while (offset + 3 < jpeg.size && (jpeg[offset++] and  0xFF.toByte()) == 0xFF.toByte()) {
+        while (offset + 3 < jpeg.size && (jpeg[offset++] and 0xFF.toByte()) == 0xFF.toByte()) {
             val marker: Int = (jpeg[offset] and 0xFF.toByte()).toInt()
 
             // Check if the marker is a padding.
@@ -131,7 +132,13 @@ internal class Checker private constructor() {
             }
 
             // Break if the marker is EXIF in APP1.
-            if (marker == 0xE1 && length >= 8 && pack(jpeg, offset + 2, 4, false) == 0x45786966 && pack(jpeg, offset + 6, 2, false) == 0) {
+            if (marker == 0xE1 && length >= 8 && pack(
+                    jpeg,
+                    offset + 2,
+                    4,
+                    false
+                ) == 0x45786966 && pack(jpeg, offset + 6, 2, false) == 0
+            ) {
                 offset += 8
                 length -= 8
                 break
@@ -194,7 +201,7 @@ internal class Checker private constructor() {
         }
         var value = 0
         while (length-- > 0) {
-            value =( value shl 8) or ((bytes[offset] and 0xFF.toByte()).toInt())
+            value = (value shl 8) or ((bytes[offset] and 0xFF.toByte()).toInt())
             offset += step
         }
         return value

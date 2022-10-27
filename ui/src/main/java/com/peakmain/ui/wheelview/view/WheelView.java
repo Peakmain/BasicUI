@@ -67,7 +67,7 @@ public class WheelView extends View {
     private Paint paintCenterText;
     private Paint paintIndicator;
 
-    private WheelAdapter adapter;
+    private WheelAdapter<Object> adapter;
 
     private String label;//附加单位
     private int textSize;//选项的文字大小
@@ -322,13 +322,13 @@ public class WheelView extends View {
         this.onItemSelectedListener = OnItemSelectedListener;
     }
 
-    public final void setAdapter(WheelAdapter adapter) {
+    public final void setAdapter(WheelAdapter<Object> adapter) {
         this.adapter = adapter;
         remeasure();
         invalidate();
     }
 
-    public final WheelAdapter getAdapter() {
+    public final WheelAdapter<Object> getAdapter() {
         return adapter;
     }
 
@@ -413,9 +413,9 @@ public class WheelView extends View {
             float endX;
 
             if (TextUtils.isEmpty(label)) {//隐藏Label的情况
-                startX = (measuredWidth - maxTextWidth) / 2 - 12;
+                startX = ((measuredWidth - maxTextWidth) >> 1) - 12;
             } else {
-                startX = (measuredWidth - maxTextWidth) / 4 - 12;
+                startX = ((measuredWidth - maxTextWidth) >> 2) - 12;
             }
 
             if (startX <= 0) {//如果超过了WheelView的边缘
@@ -477,14 +477,14 @@ public class WheelView extends View {
                     canvas.restore();
                     canvas.save();
                     canvas.clipRect(0, firstLineY - translateY, measuredWidth, (int) (itemHeight));
-                    canvas.scale(1.0F, (float) Math.sin(radian) * 1.0F);
+                    canvas.scale(1.0F, (float) Math.sin(radian));
                     canvas.drawText(contentText, drawCenterContentStart, maxTextHeight - CENTER_CONTENT_OFFSET, paintCenterText);
                     canvas.restore();
                 } else if (translateY <= secondLineY && maxTextHeight + translateY >= secondLineY) {
                     // 条目经过第二条线
                     canvas.save();
                     canvas.clipRect(0, 0, measuredWidth, secondLineY - translateY);
-                    canvas.scale(1.0F, (float) Math.sin(radian) * 1.0F);
+                    canvas.scale(1.0F, (float) Math.sin(radian));
                     canvas.drawText(contentText, drawCenterContentStart, maxTextHeight - CENTER_CONTENT_OFFSET, paintCenterText);
                     canvas.restore();
                     canvas.save();
@@ -508,7 +508,7 @@ public class WheelView extends View {
                     canvas.scale(1.0F, (float) Math.sin(radian) * SCALE_CONTENT);
                     // 控制文字倾斜角度
                     float DEFAULT_TEXT_TARGET_SKEWX = 0.5f;
-                    paintOuterText.setTextSkewX((textXOffset == 0 ? 0 : (textXOffset > 0 ? 1 : -1)) * (angle > 0 ? -1 : 1) * DEFAULT_TEXT_TARGET_SKEWX * offsetCoefficient);
+                    paintOuterText.setTextSkewX((Integer.compare(textXOffset, 0)) * (angle > 0 ? -1 : 1) * DEFAULT_TEXT_TARGET_SKEWX * offsetCoefficient);
                     // 控制透明度
                     paintOuterText.setAlpha((int) ((1 - offsetCoefficient) * 255));
                     // 控制文字水平偏移距离
@@ -567,7 +567,7 @@ public class WheelView extends View {
             return ((IPickerViewData) item).getPickerViewText();
         } else if (item instanceof Integer) {
             //如果为整形则最少保留两位数.
-            return String.format(Locale.getDefault(), "%02d", (int) item);
+            return String.format(Locale.getDefault(), "%02d", item);
         }
         return item.toString();
     }
@@ -661,18 +661,6 @@ public class WheelView extends View {
             case MotionEvent.ACTION_UP:
             default:
                 if (!eventConsumed) {//未消费掉事件
-
-                    /**
-                     *@describe <关于弧长的计算>
-                     *
-                     * 弧长公式： L = α*R
-                     * 反余弦公式：arccos(cosα) = α
-                     * 由于之前是有顺时针偏移90度，
-                     * 所以实际弧度范围α2的值 ：α2 = π/2-α    （α=[0,π] α2 = [-π/2,π/2]）
-                     * 根据正弦余弦转换公式 cosα = sin(π/2-α)
-                     * 代入，得： cosα = sin(π/2-α) = sinα2 = (R - y) / R
-                     * 所以弧长 L = arccos(cosα)*R = arccos((R - y) / R)*R
-                     */
 
                     float y = event.getY();
                     double L = Math.acos((radius - y) / radius) * radius;

@@ -15,7 +15,11 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：
  */
-class RoundCheckBox @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.radioButtonStyle) : AppCompatCheckBox(context, attrs, defStyleAttr) {
+class RoundCheckBox @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.radioButtonStyle
+) : AppCompatCheckBox(context, attrs, defStyleAttr) {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)

@@ -5,7 +5,7 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.provider.Settings
 import android.view.Gravity
-import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import com.peakmain.ui.R
@@ -26,7 +26,7 @@ object FpsMonitorUtils {
         mFpsView.toggle()
     }
 
-    fun addCallback(callback: FpsCallback):FpsMonitorUtils {
+    fun addCallback(callback: FpsCallback): FpsMonitorUtils {
         mFpsView.addCallback(callback)
         return this
     }
@@ -34,7 +34,8 @@ object FpsMonitorUtils {
     fun reset() {
         mFpsView.reset()
     }
-    fun printMessage(isPrint:Boolean):FpsMonitorUtils{
+
+    fun printMessage(isPrint: Boolean): FpsMonitorUtils {
         mFpsView.printMessage(isPrint)
         return this
     }
@@ -47,7 +48,7 @@ object FpsMonitorUtils {
         private var mParams = WindowManager.LayoutParams()
         private var isPlaying = false
         private val mApplication = BasicUIUtils.application
-        private var mView = LayoutInflater.from(mApplication).inflate(R.layout.ui_fps_view, null, false) as TextView
+        private var mView = View.inflate(mApplication, R.layout.ui_fps_view, null) as TextView
         private val mDecimalFormat = DecimalFormat("#.0 fps")
         private var windowManager: WindowManager? = null
         private val mFrameMonitor = FrameMonitor()
@@ -56,7 +57,8 @@ object FpsMonitorUtils {
             windowManager = mApplication!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             mParams.width = WindowManager.LayoutParams.WRAP_CONTENT
             mParams.height = WindowManager.LayoutParams.WRAP_CONTENT
-            mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+            mParams.flags =
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
 
             mParams.format = PixelFormat.TRANSLUCENT
             mParams.gravity = Gravity.TOP or Gravity.RIGHT
@@ -125,6 +127,7 @@ object FpsMonitorUtils {
         }
 
     }
+
     fun hasOverLaysPermission(): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(
             BasicUIUtils.application

@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
  * mail:2726449200@qq.com
  * describe：仿今日头条自定义的TabLayout
  */
-abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
+abstract class BaseTabLayout<T> : HorizontalScrollView {
     //容器
     private var mLinearLayout: LinearLayout? = null
 
@@ -50,12 +50,29 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
 
     //是否显示下划线，默认是不显示
     private var mIsShowUnderLine = false
+
+    constructor(context: Context) : super(context){
+        init(context,null)
+    }
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
+        init(context,attrs)
+    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ){
+        init(context,attrs)
+    }
+
     private fun init(context: Context, attrs: AttributeSet?) {
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.BaseTabLayout)
-        mOriginColor = ta.getColor(R.styleable.BaseTabLayout_originColor, Color.BLUE)
-        mChangeColor = ta.getColor(R.styleable.BaseTabLayout_changeColor, Color.RED)
-        mIsShowUnderLine = ta.getBoolean(R.styleable.BaseTabLayout_isShowUnderLine, false)
-        ta.recycle()
+        if(attrs!=null){
+            val ta = context.obtainStyledAttributes(attrs, R.styleable.BaseTabLayout)
+            mOriginColor = ta.getColor(R.styleable.BaseTabLayout_originColor, Color.BLUE)
+            mChangeColor = ta.getColor(R.styleable.BaseTabLayout_changeColor, Color.RED)
+            mIsShowUnderLine = ta.getBoolean(R.styleable.BaseTabLayout_isShowUnderLine, false)
+            ta.recycle()
+        }
         //消除边界反光
         overScrollMode = View.OVER_SCROLL_NEVER
         //垂直方向的水平滚动条是否显示
@@ -78,7 +95,8 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
         for (i in bean.indices) {
             // 动态添加颜色跟踪的TextView
             val params = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             //不可用具体的数字，目的主要是为了适配
             params.leftMargin = screenWidth / 25
             val colorTrackTextView = ColorTrackTextView(context)
@@ -105,13 +123,17 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
     }
 
     protected fun setViewPagerListener(bean: List<T>?) {
-        if (null == bean || bean.size == 0) {
+        if (null == bean || bean.isEmpty()) {
             return
         }
         mViewPager!!.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             private var previousScrollState = 0
             private var scrollState = 0
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
                 currIndex = position
                 if (!isTabClick) {
                     //获取左边
@@ -173,7 +195,8 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
 
     private fun calculateScrollxForTab(position: Int, positionOffset: Float): Int {
         val selectedChild = mLinearLayout!!.getChildAt(position)
-        val nextChild = if (position + 1 < mLinearLayout!!.childCount) mLinearLayout!!.getChildAt(position + 1) else null
+        val nextChild =
+            if (position + 1 < mLinearLayout!!.childCount) mLinearLayout!!.getChildAt(position + 1) else null
         val selectedWidth = selectedChild?.width ?: 0
         val nextWidth = nextChild?.width ?: 0
         val scrollBase = selectedChild!!.left + selectedWidth / 2 - this.width / 2
@@ -214,12 +237,11 @@ abstract class BaseTabLayout<T> @JvmOverloads constructor(context: Context, attr
     private fun initLinearLayout() {
         mLinearLayout = LinearLayout(context)
         mLinearLayout!!.orientation = LinearLayout.HORIZONTAL
-        val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val params = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         mLinearLayout!!.layoutParams = params
         addView(mLinearLayout)
-    }
-
-    init {
-        init(context, attrs)
     }
 }
