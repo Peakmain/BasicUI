@@ -5,10 +5,8 @@ import com.peakmain.ui.utils.wheel.LunarCalendarUtil.lunarToSolar
 import com.peakmain.ui.utils.wheel.LunarCalendarUtil.solarToLunar
 import com.peakmain.ui.wheelview.adapter.ArrayWheelAdapter
 import com.peakmain.ui.wheelview.adapter.NumericWheelAdapter
-import com.peakmain.ui.wheelview.view.WheelView
 import com.peakmain.ui.wheelview.listener.OnItemSelectedListener
-import java.text.DateFormat
-import java.text.SimpleDateFormat
+import com.peakmain.ui.wheelview.view.WheelView
 import java.util.*
 
 /**
@@ -700,7 +698,6 @@ class WheelTimeUtil(
     }
 
     companion object {
-        var dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         private const val DEFAULT_START_YEAR = 1900
         private const val DEFAULT_END_YEAR = 2100
         private const val DEFAULT_START_MONTH = 1

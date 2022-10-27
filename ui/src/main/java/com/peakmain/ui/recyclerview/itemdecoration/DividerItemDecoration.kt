@@ -1,6 +1,5 @@
 package com.peakmain.ui.recyclerview.itemdecoration
 
-import android.R
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -95,7 +94,7 @@ class DividerItemDecoration(context: Context, orientation: Int) : RecyclerView.I
     }
 
     companion object {
-        private val ATTRS = intArrayOf(R.attr.listDivider)
+        private val ATTRS = intArrayOf(android.R.attr.listDivider)
         const val HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL
         const val VERTICAL_LIST = LinearLayoutManager.VERTICAL
     }

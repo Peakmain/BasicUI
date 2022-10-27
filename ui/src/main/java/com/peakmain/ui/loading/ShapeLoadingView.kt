@@ -25,7 +25,11 @@ import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
  * mail:2726449200@qq.com
  * describe：
  */
-class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
+class ShapeLoadingView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr) {
     // 上面的形状
     private var mShapeView: ShapeView? = null
 
@@ -70,9 +74,15 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         }
         // 动画作用在谁的身上
         // 下落位移动画
-        val translationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.translationY), 0f, mTranslationDistance.toFloat())
+        val translationAnimator = ObjectAnimator.ofFloat(
+            mShapeView,
+            context.getString(R.string.translationY),
+            0f,
+            mTranslationDistance.toFloat()
+        )
         // 配合中间阴影缩小
-        val scaleAnimator = ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.scaleX), 1f, 0.3f)
+        val scaleAnimator =
+            ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.scaleX), 1f, 0.3f)
         val animatorSet = AnimatorSet()
         animatorSet.duration = ANIMATOR_DURATION
         // 下落的速度应该是越来越快
@@ -101,9 +111,15 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         }
         // 动画作用在谁的身上
         // 下落位移动画
-        val translationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.translationY), mTranslationDistance.toFloat(), 0f)
+        val translationAnimator = ObjectAnimator.ofFloat(
+            mShapeView,
+            context.getString(R.string.translationY),
+            mTranslationDistance.toFloat(),
+            0f
+        )
         // 配合中间阴影缩小
-        val scaleAnimator = ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.scaleX), 0.3f, 1f)
+        val scaleAnimator =
+            ObjectAnimator.ofFloat(mShadowView, context.getString(R.string.scaleX), 0.3f, 1f)
         val animatorSet = AnimatorSet()
         animatorSet.duration = ANIMATOR_DURATION
         animatorSet.interpolator = DecelerateInterpolator()
@@ -130,9 +146,19 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
         var rotationAnimator: ObjectAnimator? = null
         when (mShapeView!!.currentShape) {
             ShapeView.Shape.Circle, ShapeView.Shape.Square ->                 // 180
-                rotationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.rotation), 0f, 180f)
+                rotationAnimator = ObjectAnimator.ofFloat(
+                    mShapeView,
+                    context.getString(R.string.rotation),
+                    0f,
+                    180f
+                )
             ShapeView.Shape.Triangle ->                 // 120
-                rotationAnimator = ObjectAnimator.ofFloat(mShapeView, context.getString(R.string.rotation), 0f, -120f)
+                rotationAnimator = ObjectAnimator.ofFloat(
+                    mShapeView,
+                    context.getString(R.string.rotation),
+                    0f,
+                    -120f
+                )
             else -> {
             }
         }
@@ -147,10 +173,12 @@ class ShapeLoadingView @JvmOverloads constructor(context: Context?, attrs: Attri
     fun show() {
         if (mBuilder == null) {
             mBuilder = AlertDialog.Builder(context)
-                    .setContentView(this)
-                    .setOnCancelListener(DialogInterface.OnCancelListener { visibility = View.INVISIBLE })
-                    .setCancelable(false)
-                    .setWidthAndHeight(screenWidth * 2 / 3, screenHeight / 3)
+                .setContentView(this)
+                .setOnCancelListener(DialogInterface.OnCancelListener {
+                    visibility = View.INVISIBLE
+                })
+                .setCancelable(false)
+                .setWidthAndHeight(screenWidth * 2 / 3, screenHeight / 3)
         }
         mDialog = mBuilder!!.show()
     }
