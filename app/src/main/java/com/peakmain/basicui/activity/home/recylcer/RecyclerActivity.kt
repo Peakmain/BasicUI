@@ -40,21 +40,60 @@ class RecyclerActivity : BaseActivity() {
         mData.add("Recycleriew封装的下拉刷新和加载更多2")
         mData.add("多状态布局")
         mData.add("多类型布局")
+        mData.add("添加头部和尾部")
         mAdapter = BaseRecyclerStringAdapter(this, mData)
-        mRecyclerView!!.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        mRecyclerView!!.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         mRecyclerView!!.adapter = mAdapter
         mAdapter!!.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 when (position) {
-                    0 -> ActivityUtil.gotoActivity(this@RecyclerActivity, GridGroupingActivity::class.java)
-                    1 -> ActivityUtil.gotoActivity(this@RecyclerActivity, LinearGroupingActivity::class.java)
-                    2 -> ActivityUtil.gotoActivity(this@RecyclerActivity, SuspenisonLinearActivity::class.java)
-                    3 -> ActivityUtil.gotoActivity(this@RecyclerActivity, SuspenisonGridActivity::class.java)
-                    4 -> ActivityUtil.gotoActivity(this@RecyclerActivity, ItemTouchActivity::class.java)
-                    5 -> ActivityUtil.gotoActivity(this@RecyclerActivity, PullDownActivity1::class.java)
-                    6 -> ActivityUtil.gotoActivity(this@RecyclerActivity, PullDownActivity2::class.java)
-                    7 -> ActivityUtil.gotoActivity(this@RecyclerActivity, MultiStateLayoutActivity::class.java)
-                    8->ActivityUtil.gotoActivity(this@RecyclerActivity, MultiTypeLayoutActivity::class.java)
+                    0 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        GridGroupingActivity::class.java
+                    )
+                    1 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        LinearGroupingActivity::class.java
+                    )
+                    2 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        SuspenisonLinearActivity::class.java
+                    )
+                    3 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        SuspenisonGridActivity::class.java
+                    )
+                    4 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        ItemTouchActivity::class.java
+                    )
+                    5 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        PullDownActivity1::class.java
+                    )
+                    6 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        PullDownActivity2::class.java
+                    )
+                    7 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        MultiStateLayoutActivity::class.java
+                    )
+                    8 -> ActivityUtil.gotoActivity(
+                        this@RecyclerActivity,
+                        MultiTypeLayoutActivity::class.java
+                    )
+                    9 -> {
+                        ActivityUtil.gotoActivity(
+                            this@RecyclerActivity,
+                            RecyclerViewHeadFooterActivity::class.java
+                        )
+                    }
                     else -> {
                     }
                 }

@@ -1,6 +1,7 @@
 package com.peakmain.basicui.activity.home.recylcer.activity
 
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.home.recylcer.refreshload.BestMissRefreshCreator
@@ -53,7 +54,7 @@ class PullDownActivity2 : BaseActivity(), OnLoadMoreListener, RefreshRecyclerVie
         }
 
     override fun onLoad() {
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             val moreData = moreData
             mAdapter!!.addData(moreData)
             mRecyclerView!!.onStopLoad()
@@ -67,7 +68,7 @@ class PullDownActivity2 : BaseActivity(), OnLoadMoreListener, RefreshRecyclerVie
         }
 
     private val moreData: List<String>
-        private get() {
+        get() {
             list = ArrayList()
             while (index < lastIndex) {
                 list.add("新数据:$index")
@@ -78,7 +79,7 @@ class PullDownActivity2 : BaseActivity(), OnLoadMoreListener, RefreshRecyclerVie
         }
 
     override fun onRefresh() {
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             val data = data
             mAdapter!!.setData(data)
             mRecyclerView!!.onStopRefresh()
