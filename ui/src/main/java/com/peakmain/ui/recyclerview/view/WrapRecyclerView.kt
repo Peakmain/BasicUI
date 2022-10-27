@@ -214,11 +214,10 @@ open class WrapRecyclerView @JvmOverloads constructor(
 
     // 添加头部
     fun addHeaderView(view: View?) {
+        if (view == null) return
         // 如果没有Adapter那么就不添加，也可以选择抛异常提示
         // 让他必须先设置Adapter然后才能添加，这里是仿照ListView的处理方式
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter!!.addHeaderView(view!!)
-        }
+        mWrapRecyclerAdapter?.addHeaderView(view)
     }
 
     // 添加底部
