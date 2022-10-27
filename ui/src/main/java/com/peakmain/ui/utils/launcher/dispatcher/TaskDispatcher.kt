@@ -1,8 +1,6 @@
 package com.peakmain.ui.utils.launcher.dispatcher
 
 import android.content.Context
-import android.os.Build
-import android.os.Debug
 import android.os.Looper
 import androidx.annotation.UiThread
 import com.peakmain.ui.utils.HandlerUtils.isMainProcess
@@ -12,12 +10,10 @@ import com.peakmain.ui.utils.launcher.stat.TaskStat.markTaskDone
 import com.peakmain.ui.utils.launcher.task.DispatchRunnable
 import com.peakmain.ui.utils.launcher.task.Task
 import com.peakmain.ui.utils.launcher.task.TaskCallBack
-import java.util.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.collections.ArrayList
 
 /**
  * author ：Peakmain
@@ -157,7 +153,7 @@ class TaskDispatcher private constructor() {
      * @param task 当前task
      */
     private fun collectDepends(task: Task) {
-        if (task.dependsOn() != null && task.dependsOn()!!.size > 0) {
+        if (task.dependsOn() != null && task.dependsOn()!!.isNotEmpty()) {
             for (cls in task.dependsOn()!!) {
                 if (mDependedHashMap[cls] == null) {
                     mDependedHashMap[cls] = ArrayList()

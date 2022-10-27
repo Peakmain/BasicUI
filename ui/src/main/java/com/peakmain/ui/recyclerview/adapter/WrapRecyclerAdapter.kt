@@ -28,7 +28,7 @@ class WrapRecyclerAdapter(
      * for each mapping.
      */
     private val mHeaderViews: SparseArray<View> = SparseArray()
-    private val mFooterViews: SparseArray<View>
+    private val mFooterViews: SparseArray<View> = SparseArray()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         // viewType 可能就是 SparseArray 的key
@@ -191,7 +191,4 @@ class WrapRecyclerAdapter(
         private var BASE_ITEM_TYPE_FOOTER = 20000000
     }
 
-    init {
-        mFooterViews = SparseArray()
-    }
 }

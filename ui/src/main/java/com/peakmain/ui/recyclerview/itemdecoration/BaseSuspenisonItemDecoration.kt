@@ -7,12 +7,11 @@ import android.graphics.Rect
 import android.text.TextPaint
 import android.text.TextUtils
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
-import android.R
 import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.ui.recyclerview.group.GroupRecyclerBean
 import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
 
@@ -47,7 +46,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
 
     constructor(context: Context?, data: List<T>) {
         mData = data
-        mBgColor = ContextCompat.getColor(context!!, R.color.white)
+        mBgColor = ContextCompat.getColor(context!!, android.R.color.white)
         mSectionHeight = dp2px(30f)
         topHeight = dp2px(10f)
         mTextSize = dp2px(10f)
@@ -64,7 +63,7 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
         mData = builder.mData
         mBgColor =
             if (builder.mBgColor != 0) builder.mBgColor else ContextCompat.getColor(builder.mContext,
-                R.color.white)
+                android.R.color.white)
         mSectionHeight = if (builder.mSectionHeight != 0) builder.mSectionHeight else dp2px(30f)
         topHeight = if (builder.topHeight != 0) builder.topHeight else dp2px(10f)
         mTextSize = if (builder.mTextSize != 0) builder.mTextSize else dp2px(10f)

@@ -14,7 +14,11 @@ import com.peakmain.ui.R
  * mail: 2726449200@qq.com
  * desiption:
  */
-class ColorTrackTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
+class ColorTrackTextView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = android.R.attr.textViewStyle
+) : AppCompatTextView(context, attrs, defStyleAttr) {
     // 1. 实现一个文字两种颜色 - 绘制不变色字体的画笔,原始的颜色
     private var mOriginPaint: Paint? = null
 
@@ -38,8 +42,10 @@ class ColorTrackTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
     private fun init(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ColorTrackTextView)
-        val changeColor = ta.getColor(R.styleable.ColorTrackTextView_changeTextColor, textColors.defaultColor)
-        val originColor = ta.getColor(R.styleable.ColorTrackTextView_originTextColor, textColors.defaultColor)
+        val changeColor =
+            ta.getColor(R.styleable.ColorTrackTextView_changeTextColor, textColors.defaultColor)
+        val originColor =
+            ta.getColor(R.styleable.ColorTrackTextView_originTextColor, textColors.defaultColor)
         mIsShowUnderLine = ta.getBoolean(R.styleable.ColorTrackTextView_isShowTextUnderLine, false)
         mOriginPaint = getPaintByColor(originColor)
         mChangePaint = getPaintByColor(changeColor)
@@ -100,7 +106,13 @@ class ColorTrackTextView @JvmOverloads constructor(context: Context, attrs: Attr
         val baseLine = dy + height / 2
         canvas.drawText(text, x, baseLine.toFloat(), paint)
         if (mIsShowUnderLine && paint !== mOriginPaint) {
-            canvas.drawLine(start.toFloat(), height.toFloat(), end.toFloat(), height.toFloat(), paint)
+            canvas.drawLine(
+                start.toFloat(),
+                height.toFloat(),
+                end.toFloat(),
+                height.toFloat(),
+                paint
+            )
         }
         canvas.restore()
     }

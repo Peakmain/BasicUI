@@ -22,7 +22,7 @@ class DownloadProgress {
 
     //最后一次刷新的时间
     @Transient
-    private var lastRefreshTime: Long
+    private var lastRefreshTime: Long = SystemClock.elapsedRealtime()
     var priority //任务优先级
             : Int
 
@@ -75,7 +75,6 @@ class DownloadProgress {
     }
 
     init {
-        lastRefreshTime = SystemClock.elapsedRealtime()
         totalSize = -1
         priority = 0
     }

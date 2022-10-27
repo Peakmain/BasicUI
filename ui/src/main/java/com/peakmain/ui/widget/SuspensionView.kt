@@ -18,11 +18,13 @@ import kotlin.math.sqrt
  * mail:2726449200@qq.com
  * describe：悬浮的view
  */
-class SuspensionView @JvmOverloads constructor(context: Context, resId: Int = R.drawable.ui_ic_suspension_setting,
-                                               imageViewSize: Float = 56f,//图标大小
-                                               bottomMargin: Float = 60f,
-                                               rightMargin: Float = 20f,
-                                               attributeSet: AttributeSet? = null, defAttrStyle: Int = 0) : FrameLayout(context, attributeSet, defAttrStyle) {
+class SuspensionView @JvmOverloads constructor(
+    context: Context, resId: Int = R.drawable.ui_ic_suspension_setting,
+    imageViewSize: Float = 56f,//图标大小
+    bottomMargin: Float = 60f,
+    rightMargin: Float = 20f,
+    attributeSet: AttributeSet? = null, defAttrStyle: Int = 0
+) : FrameLayout(context, attributeSet, defAttrStyle) {
     private var mImageViewSize = 0
     private var mViewOffsetUtils: UIViewOffsetUtils
     private var mImageView: ImageView
@@ -57,8 +59,7 @@ class SuspensionView @JvmOverloads constructor(context: Context, resId: Int = R.
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         val x = ev!!.x
         val y = ev.y
-        val action = ev.action
-        when (action) {
+        when (ev.action) {
             MotionEvent.ACTION_DOWN -> {
                 isTouchDownInImageView = isDownInImageView(x, y)
                 mTouchDownX = x
@@ -111,8 +112,7 @@ class SuspensionView @JvmOverloads constructor(context: Context, resId: Int = R.
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val x = event!!.x
         val y = event.y
-        val action = event.action
-        when (action) {
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 isTouchDownInImageView = isDownInImageView(x, y)
                 mLastTouchX = x
