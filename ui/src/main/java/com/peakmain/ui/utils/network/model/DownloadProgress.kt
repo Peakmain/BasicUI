@@ -11,7 +11,7 @@ import android.os.SystemClock
 class DownloadProgress {
     //下载的进度，0-1
     @JvmField
-    var totalSize: Long
+    var totalSize: Long = -1
 
     //总字节长度, byte
     @JvmField
@@ -24,7 +24,7 @@ class DownloadProgress {
     @Transient
     private var lastRefreshTime: Long = SystemClock.elapsedRealtime()
     var priority //任务优先级
-            : Int
+            : Int = 0
 
     //当前状态
     @JvmField
@@ -38,6 +38,23 @@ class DownloadProgress {
 
     override fun hashCode(): Int {
         return if (tag != null) tag.hashCode() else 0
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DownloadProgress
+
+        if (totalSize != other.totalSize) return false
+        if (fraction != other.fraction) return false
+        if (currentSize != other.currentSize) return false
+        if (lastRefreshTime != other.lastRefreshTime) return false
+        if (priority != other.priority) return false
+        if (status != other.status) return false
+        if (tag != other.tag) return false
+
+        return true
     }
 
     companion object {
@@ -74,8 +91,4 @@ class DownloadProgress {
         }
     }
 
-    init {
-        totalSize = -1
-        priority = 0
-    }
 }
