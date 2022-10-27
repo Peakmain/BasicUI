@@ -110,7 +110,7 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 
 extern "C"
 jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
-                                                                jclass thiz, jobject bitmap,
+                                                                jobject thiz, jobject bitmap,
                                                                 jint quality,
                                                                 jstring fileNameStr) {
     // 1. 解析RGB
