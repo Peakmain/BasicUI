@@ -35,7 +35,7 @@ abstract class Task : ITask {
     var mContext = TaskDispatcher.context
 
     // 当前Task依赖的Task数量（需要等待被依赖的Task执行完毕才能执行自己），默认没有依赖
-    private val mDepends = CountDownLatch(if (dependsOn() == null) 0 else dependsOn()!!.size)
+    private val mDepends = CountDownLatch(if (this.dependsOn() == null) 0 else this.dependsOn()!!.size)
 
     /**
      * 当前的Task等待，让依赖的Task先执行
