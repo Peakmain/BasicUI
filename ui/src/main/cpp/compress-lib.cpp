@@ -1,11 +1,11 @@
-#include <string.h>
+#include <cstring>
 #include <android/bitmap.h>
 #include <android/log.h>
-#include <stdio.h>
-#include <setjmp.h>
-#include <math.h>
-#include <stdint.h>
-#include <time.h>
+#include <cstdio>
+#include <csetjmp>
+#include <cmath>
+#include <cstdint>
+#include <ctime>
 
 
 //统一编译方式
