@@ -15,11 +15,12 @@ import com.peakmain.ui.recyclerview.listener.OnLongClickListener
  * describe:添加头部和底部
  */
 class WrapRecyclerAdapter(
-        /**
-         * 获取列表的Adapter
-         */
-        // 列表的Adapter
-        private val adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /**
+     * 获取列表的Adapter
+     */
+    // 列表的Adapter
+    private val adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * SparseArrays map integers to Objects.  Unlike a normal array of Objects,
      * there can be gaps in the indices.  It is intended to be more memory efficient
@@ -56,7 +57,11 @@ class WrapRecyclerAdapter(
             holder.itemView.setOnClickListener { mItemClickListener!!.onItemClick(adapterPosition) }
         }
         if (mLongClickListener != null) {
-            holder.itemView.setOnLongClickListener { mLongClickListener!!.onLongClick(adapterPosition) }
+            holder.itemView.setOnLongClickListener {
+                mLongClickListener!!.onLongClick(
+                    adapterPosition
+                )
+            }
         }
     }
 
@@ -89,19 +94,19 @@ class WrapRecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        var position = position
-        if (isHeaderPosition(position)) {
+        var finalPosition = position
+        if (isHeaderPosition(finalPosition)) {
             // 直接返回position位置的key
-            return mHeaderViews.keyAt(position)
+            return mHeaderViews.keyAt(finalPosition)
         }
-        if (isFooterPosition(position)) {
+        if (isFooterPosition(finalPosition)) {
             // 直接返回position位置的key
-            position = position - mHeaderViews.size() - adapter.itemCount
-            return mFooterViews.keyAt(position)
+            finalPosition = finalPosition - mHeaderViews.size() - adapter.itemCount
+            return mFooterViews.keyAt(finalPosition)
         }
         // 返回列表Adapter的getItemViewType
-        position -= mHeaderViews.size()
-        return adapter.getItemViewType(position)
+        finalPosition -= mHeaderViews.size()
+        return adapter.getItemViewType(finalPosition)
     }
 
     /**
@@ -124,7 +129,7 @@ class WrapRecyclerAdapter(
         if (position < 0) {
             mHeaderViews.put(BASE_ITEM_TYPE_HEADER++, view)
         }
-        notifyDataSetChanged()
+        notifyItemInserted(mHeaderViews.size() - 1)
     }
 
     // 添加底部
@@ -133,7 +138,7 @@ class WrapRecyclerAdapter(
         if (position < 0) {
             mFooterViews.put(BASE_ITEM_TYPE_FOOTER++, view)
         }
-        notifyDataSetChanged()
+        notifyItemInserted(mHeaderViews.size() + adapter.itemCount)
     }
 
     // 移除头部
@@ -141,7 +146,7 @@ class WrapRecyclerAdapter(
         val index = mHeaderViews.indexOfValue(view)
         if (index < 0) return
         mHeaderViews.removeAt(index)
-        notifyDataSetChanged()
+        notifyItemRemoved(index)
     }
 
     // 移除底部
@@ -149,7 +154,7 @@ class WrapRecyclerAdapter(
         val index = mFooterViews.indexOfValue(view)
         if (index < 0) return
         mFooterViews.removeAt(index)
-        notifyDataSetChanged()
+        notifyItemRemoved(mHeaderViews.size() + adapter.itemCount+index)
     }
 
     /**
