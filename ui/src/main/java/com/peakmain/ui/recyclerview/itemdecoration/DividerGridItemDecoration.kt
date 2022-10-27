@@ -1,6 +1,5 @@
 package com.peakmain.ui.recyclerview.itemdecoration
 
-import android.R
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class DividerGridItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable?
     private val attrs = intArrayOf(
-        R.attr.listDivider
+        android.R.attr.listDivider
     )
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

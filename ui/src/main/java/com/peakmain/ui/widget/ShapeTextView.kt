@@ -24,7 +24,7 @@ import com.peakmain.ui.R
 class ShapeTextView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+        defStyleAttr: Int = android.R.attr.textViewStyle
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
     //圆角的角度
     private var mRadius = 0f

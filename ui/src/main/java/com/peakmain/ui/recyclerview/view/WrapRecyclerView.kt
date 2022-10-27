@@ -21,7 +21,11 @@ import java.util.*
  * mail: 2726449200@qq.com
  * desiption:
  */
-open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
+open class WrapRecyclerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = androidx.recyclerview.R.attr.recyclerViewStyle
+) : RecyclerView(context, attrs, defStyle) {
     // 包裹了一层的头部底部Adapter
     private var mWrapRecyclerAdapter: WrapRecyclerAdapter? = null
 
@@ -62,7 +66,9 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
         override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
             if (mAdapter == null) return
             // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyDataSetChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter) mWrapRecyclerAdapter!!.notifyItemRemoved(positionStart)
+            if (mWrapRecyclerAdapter != mAdapter) mWrapRecyclerAdapter!!.notifyItemRemoved(
+                positionStart
+            )
             dataChanged()
         }
 
@@ -129,10 +135,18 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
 
     private fun init(context: Context, attrs: AttributeSet?, defStyle: Int) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.MultipleStatusView, defStyle, 0)
-        mEmptyViewResId = a.getResourceId(R.styleable.MultipleStatusView_emptyView, R.layout.layout_empty_view)
-        mErrorViewResId = a.getResourceId(R.styleable.MultipleStatusView_errorView, R.layout.layout_error_view)
-        mLoadingViewResId = a.getResourceId(R.styleable.MultipleStatusView_loadingView, R.layout.layout_loading_view)
-        mNoNetworkViewResId = a.getResourceId(R.styleable.MultipleStatusView_noNetworkView, R.layout.layout_network_view)
+        mEmptyViewResId =
+            a.getResourceId(R.styleable.MultipleStatusView_emptyView, R.layout.layout_empty_view)
+        mErrorViewResId =
+            a.getResourceId(R.styleable.MultipleStatusView_errorView, R.layout.layout_error_view)
+        mLoadingViewResId = a.getResourceId(
+            R.styleable.MultipleStatusView_loadingView,
+            R.layout.layout_loading_view
+        )
+        mNoNetworkViewResId = a.getResourceId(
+            R.styleable.MultipleStatusView_noNetworkView,
+            R.layout.layout_network_view
+        )
         a.recycle()
         mInflater = LayoutInflater.from(context)
     }
@@ -539,10 +553,13 @@ open class WrapRecyclerView @JvmOverloads constructor(context: Context, attrs: A
         /**
          * 默认设置是全屏
          */
-        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT)
+        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT
+        )
 
-        private class RecyclerViewContextMenuInfo(val position: Int, val id: Long) : ContextMenu.ContextMenuInfo
+        private class RecyclerViewContextMenuInfo(val position: Int, val id: Long) :
+            ContextMenu.ContextMenuInfo
     }
 
     init {

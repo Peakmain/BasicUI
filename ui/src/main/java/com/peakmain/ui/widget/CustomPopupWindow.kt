@@ -16,7 +16,8 @@ import androidx.annotation.RequiresApi
  * mail:2726449200@qq.com
  * describe：popupwindow 的封装
  */
-class CustomPopupWindow private constructor(private val mContext: Context) : PopupWindow.OnDismissListener {
+class CustomPopupWindow private constructor(private val mContext: Context) :
+    PopupWindow.OnDismissListener {
     var width = 0
         private set
     var height = 0
@@ -65,7 +66,8 @@ class CustomPopupWindow private constructor(private val mContext: Context) : Pop
     }
 
     fun setBackgroundDark(): CustomPopupWindow {
-        val alpha = if (mBackgroundDrakValue > 0 && mBackgroundDrakValue < 1) mBackgroundDrakValue else DEFAULT_ALPHA
+        val alpha =
+            if (mBackgroundDrakValue > 0 && mBackgroundDrakValue < 1) mBackgroundDrakValue else DEFAULT_ALPHA
         if (mWindow != null) {
             val params = mWindow!!.attributes
             params.alpha = alpha
@@ -147,24 +149,32 @@ class CustomPopupWindow private constructor(private val mContext: Context) : Pop
         val activity = mContentView!!.context as Activity
         if (mIsBackgroundDark) {
             //如果设置的值在0 - 1的范围内，则用设置的值，否则用默认值
-            val alpha = if (mBackgroundDrakValue > 0 && mBackgroundDrakValue < 1) mBackgroundDrakValue else DEFAULT_ALPHA
+            val alpha =
+                if (mBackgroundDrakValue > 0 && mBackgroundDrakValue < 1) mBackgroundDrakValue else DEFAULT_ALPHA
             mWindow = activity.window
             val params = mWindow?.attributes
             params?.alpha = alpha
             mWindow?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             mWindow?.attributes = params
         }
-        if (width != 0 && height != 0) {
-            popupWindow = PopupWindow(mContentView, width, height)
+        popupWindow = if (width != 0 && height != 0) {
+            PopupWindow(mContentView, width, height)
         } else {
-            popupWindow = PopupWindow(mContentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            PopupWindow(
+                mContentView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
         if (mAnimationStyle != -1) {
             popupWindow!!.animationStyle = mAnimationStyle
         }
         apply(popupWindow!!) //设置一些属性
         if (width == 0 || height == 0) {
-            popupWindow!!.contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            popupWindow!!.contentView.measure(
+                View.MeasureSpec.UNSPECIFIED,
+                View.MeasureSpec.UNSPECIFIED
+            )
             //如果外面没有设置宽高的情况下，计算宽高并赋值
             width = popupWindow!!.contentView.measuredWidth
             height = popupWindow!!.contentView.measuredHeight
@@ -195,9 +205,13 @@ class CustomPopupWindow private constructor(private val mContext: Context) : Pop
                     val x = event.x.toInt()
                     val y = event.y.toInt()
                     if (event.action == MotionEvent.ACTION_DOWN
-                            && (x < 0 || x >= width || y < 0 || y >= height)) {
+                        && (x < 0 || x >= width || y < 0 || y >= height)
+                    ) {
                         Log.e(TAG, "out side ")
-                        Log.e(TAG, "width:" + popupWindow!!.width + "height:" + popupWindow!!.height + " x:" + x + " y  :" + y)
+                        Log.e(
+                            TAG,
+                            "width:" + popupWindow!!.width + "height:" + popupWindow!!.height + " x:" + x + " y  :" + y
+                        )
                         return true
                     } else if (event.action == MotionEvent.ACTION_OUTSIDE) {
                         Log.e(TAG, "out side ...")
@@ -268,11 +282,14 @@ class CustomPopupWindow private constructor(private val mContext: Context) : Pop
             return this
         }
 
-        fun setOnClickListener(id: Int, onClickListener: View.OnClickListener?): PopupWindowBuilder {
+        fun setOnClickListener(
+            id: Int,
+            onClickListener: View.OnClickListener?
+        ): PopupWindowBuilder {
             mCustomPopupWindow.popupWindow
-                    ?.contentView
-                    ?.findViewById<View>(id)
-                    ?.setOnClickListener(onClickListener)
+                ?.contentView
+                ?.findViewById<View>(id)
+                ?.setOnClickListener(onClickListener)
             return this
         }
 

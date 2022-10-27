@@ -8,6 +8,7 @@ import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.fragment.HomeFragment
 import com.peakmain.basicui.fragment.MineFragment
 import com.peakmain.basicui.fragment.UtilsFragment
+import com.peakmain.ui.utils.FileUtils
 import com.peakmain.ui.utils.SizeUtils
 import com.peakmain.ui.utils.fps.FpsMonitorUtils
 import com.peakmain.ui.widget.SuspensionView
@@ -25,6 +26,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
+        FileUtils.getCacheDirectory(this,false)
         val suspensionView = SuspensionView(
             this,
             imageViewSize = SizeUtils.dp2px(12f).toFloat()

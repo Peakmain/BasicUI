@@ -26,7 +26,7 @@ object ImageCompute {
                 1
             } else if (longSide < 4990) {
                 2
-            } else if (longSide > 4990 && longSide < 10240) {
+            } else if (longSide in 4991..10239) {
                 4
             } else {
                 longSide / 1280

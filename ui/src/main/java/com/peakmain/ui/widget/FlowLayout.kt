@@ -15,7 +15,11 @@ import java.util.*
  * mail:2726449200@qq.com
  * describe：自定义view之流式布局
  */
-class FlowLayout : ViewGroup {
+class FlowLayout @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ViewGroup(context, attrs, defStyleAttr) {
     private val mChildViews: MutableList<List<View>> = ArrayList()
     private var mAdapter: BaseFlowAdapter? = null
 
@@ -39,10 +43,6 @@ class FlowLayout : ViewGroup {
 
     // 在ACTION_MOVE中，视第一次触发为手指按下，从第二次触发开始计入正式滑动
     private var mPointerDown = false
-
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     // 2.1 onMeasure() 指定宽高
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

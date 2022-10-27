@@ -156,7 +156,7 @@ class AutoDeleteEditText @JvmOverloads constructor(
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     override fun afterTextChanged(s: Editable) {
         if (hasFocus) {
-            if (s.toString().length > 0) {
+            if (s.toString().isNotEmpty()) {
                 mIvDelete.visibility = View.VISIBLE
             } else {
                 mIvDelete.visibility = View.INVISIBLE
