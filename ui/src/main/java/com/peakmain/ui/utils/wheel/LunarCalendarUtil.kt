@@ -465,7 +465,7 @@ object LunarCalendarUtil {
         var isLeap = false
         // 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
                                                          var daysOfMonth = 0
-        var iMonth: Int = 1
+        var iMonth = 1
         while (iMonth <= 13 && offset > 0) {
             daysOfMonth = daysInLunarMonth(iYear, iMonth)
             offset -= daysOfMonth

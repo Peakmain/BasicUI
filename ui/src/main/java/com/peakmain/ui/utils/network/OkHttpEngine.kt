@@ -172,8 +172,7 @@ open class OkHttpEngine : IHttpEngine {
         if (params != null && params.isNotEmpty()) {
             for (key in params.keys) {
                 //builder.addFormDataPart(key, params[key].toString() + "")
-                val value = params[key]
-                when (value) {
+                when (val value = params[key]) {
                     is File -> {
                         // 处理文件 --> Object File
                         builder.addFormDataPart(key, value.name, RequestBody

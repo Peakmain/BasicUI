@@ -26,7 +26,11 @@ import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
  * mail:2726449200@qq.com
  * describe：圆形加载的loading
  */
-class CircleLoadingView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+class CircleLoadingView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr) {
     //三个view
     private val mLeftView: CircleView
     private val mMiddleView: CircleView
@@ -50,9 +54,11 @@ class CircleLoadingView @JvmOverloads constructor(context: Context?, attrs: Attr
             return
         }
         //开启左边位移动画
-        val leftTranslationAnimator = ObjectAnimator.ofFloat(mLeftView, "translationX", 0f, -mTranslationDistance.toFloat())
+        val leftTranslationAnimator =
+            ObjectAnimator.ofFloat(mLeftView, "translationX", 0f, -mTranslationDistance.toFloat())
         //开启右边位移动画
-        val rightTranslatioAnimation = ObjectAnimator.ofFloat(mRightView, "translationX", 0f, mTranslationDistance.toFloat())
+        val rightTranslatioAnimation =
+            ObjectAnimator.ofFloat(mRightView, "translationX", 0f, mTranslationDistance.toFloat())
         //两个动画一起
         val set = AnimatorSet()
         set.duration = ANIMATION_DRUATION
@@ -72,9 +78,11 @@ class CircleLoadingView @JvmOverloads constructor(context: Context?, attrs: Attr
             return
         }
         //开启左边位移动画
-        val leftTranslationAnimator = ObjectAnimator.ofFloat(mLeftView, "translationX", -mTranslationDistance.toFloat(), 0f)
+        val leftTranslationAnimator =
+            ObjectAnimator.ofFloat(mLeftView, "translationX", -mTranslationDistance.toFloat(), 0f)
         //开启右边位移动画
-        val rightTranslatioAnimation = ObjectAnimator.ofFloat(mRightView, "translationX", mTranslationDistance.toFloat(), 0f)
+        val rightTranslatioAnimation =
+            ObjectAnimator.ofFloat(mRightView, "translationX", mTranslationDistance.toFloat(), 0f)
         //两个动画一起
         val set = AnimatorSet()
         set.duration = ANIMATION_DRUATION
@@ -127,10 +135,12 @@ class CircleLoadingView @JvmOverloads constructor(context: Context?, attrs: Attr
     fun show() {
         if (mBuilder == null) {
             mBuilder = AlertDialog.Builder(context)
-                    .setContentView(this)
-                    .setOnCancelListener(DialogInterface.OnCancelListener { visibility = View.INVISIBLE })
-                    .setCancelable(false)
-                    .setWidthAndHeight(screenWidth / 2, screenHeight / 5)
+                .setContentView(this)
+                .setOnCancelListener(DialogInterface.OnCancelListener {
+                    visibility = View.INVISIBLE
+                })
+                .setCancelable(false)
+                .setWidthAndHeight(screenWidth / 2, screenHeight / 5)
         }
         mDialog = mBuilder!!.show()
     }
@@ -161,10 +171,12 @@ class CircleLoadingView @JvmOverloads constructor(context: Context?, attrs: Attr
     fun setWidthAndHeight(width: Int, height: Int): CircleLoadingView {
         if (mBuilder == null) {
             mBuilder = AlertDialog.Builder(context)
-                    .setContentView(this)
-                    .setOnCancelListener(DialogInterface.OnCancelListener { visibility = View.INVISIBLE })
-                    .setCancelable(false)
-                    .setWidthAndHeight(width, height)
+                .setContentView(this)
+                .setOnCancelListener(DialogInterface.OnCancelListener {
+                    visibility = View.INVISIBLE
+                })
+                .setCancelable(false)
+                .setWidthAndHeight(width, height)
         } else {
             Log.e(BuildConfig.TAG, "Please call Method before show Method")
         }

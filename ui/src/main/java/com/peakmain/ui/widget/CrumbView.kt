@@ -3,7 +3,6 @@ package com.peakmain.ui.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
@@ -20,15 +19,24 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：
  */
-class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : HorizontalScrollView(context, attrs, defStyle) {
+class CrumbView : HorizontalScrollView {
     private val ARROW_LIGHT_COLOR = ContextCompat.getColor(context, R.color.ui_color_01a8e3)
     private val ARROW_DARK_COLOR = ContextCompat.getColor(context, R.color.ui_color_7F7F7F)
     private lateinit var mContainer: LinearLayout
     private var rootView: LinearLayout
     private var mFragmentManager: FragmentManager? = null
 
-    init {
+    constructor(context: Context) : super(context)
+    constructor(context: Context,attrs: AttributeSet?) : super(context,attrs){
         initAttrs(context, attrs)
+    }
+
+    constructor(context: Context,attrs: AttributeSet?,defStyle: Int) : super(context,attrs,defStyle){
+        initAttrs(context, attrs)
+    }
+
+    init {
+
         rootView = LinearLayout(context)
         rootView.orientation = LinearLayout.HORIZONTAL
         rootView.gravity = Gravity.CENTER_VERTICAL
@@ -41,9 +49,11 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         ta.getColor(R.styleable.CrumbView_dark_color, ARROW_DARK_COLOR)
         ta.recycle()
     }
-   fun setActivity(activity: FragmentActivity){
-       setActivity(activity,"")
-   }
+
+    fun setActivity(activity: FragmentActivity) {
+        setActivity(activity, "")
+    }
+
     fun setActivity(activity: FragmentActivity, label: String) {
         mFragmentManager = activity.supportFragmentManager
         mFragmentManager?.addOnBackStackChangedListener {
@@ -65,13 +75,18 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         if (!useLab) {
             left = context.resources.getDimensionPixelOffset(R.dimen.dimen_12)
         }
-        mContainer.setPadding(left, 0, context.resources.getDimensionPixelOffset(R.dimen.dimen_12), 0)
+        mContainer.setPadding(
+            left,
+            0,
+            context.resources.getDimensionPixelOffset(R.dimen.dimen_12),
+            0
+        )
         mContainer.gravity = Gravity.CENTER_VERTICAL
         rootView.addView(mContainer)
     }
 
     private fun setLab(activity: FragmentActivity, label: String) {
-        val itemView: View = LayoutInflater.from(this.context).inflate(R.layout.ui_crumb_item_header, null)
+        val itemView: View = View.inflate(this.context, R.layout.ui_crumb_item_header, null)
         val tvName: TextView = itemView.findViewById(R.id.ui_tv_name)
         tvName.apply {
             text = label
@@ -102,7 +117,8 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             }
             //新增一个item
             if (i >= numCrumbs) {
-                itemView = LayoutInflater.from(this.context).inflate(R.layout.ui_crumb_item_layout, null)
+                itemView =
+                    View.inflate(context, R.layout.ui_crumb_item_layout, null)
                 val tvName: TextView = itemView.findViewById(R.id.ui_tv_name)
                 tvName.text = backStackEntryAt?.breadCrumbTitle
                 itemView.tag = backStackEntryAt
@@ -128,7 +144,7 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             numCrumbs--
             mContainer.removeViewAt(numCrumbs - 1)
         }
-        for (i in 0..numCrumbs){
+        for (i in 0..numCrumbs) {
             val child = mContainer.getChildAt(i)
             highLightIndex(child, i >= numCrumbs - 1)
         }
@@ -136,6 +152,7 @@ class CrumbView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             fullScroll(View.FOCUS_RIGHT)
         }
     }
+
     private fun highLightIndex(view: View, highLight: Boolean) {
         val text = view.findViewById<TextView>(R.id.ui_tv_name)
         val image = view.findViewById<ImageView>(R.id.ui_arrow_right)

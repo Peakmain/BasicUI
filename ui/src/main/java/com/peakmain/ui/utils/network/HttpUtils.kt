@@ -23,13 +23,9 @@ private constructor(context: Context) {
     //请求方式
     private var mType = GET_TYPE
     private var mContext: Context = context
-    private var mParams: LinkedHashMap<String, Any>
+    private var mParams: LinkedHashMap<String, Any> = LinkedHashMap()
     private var mFile: File? = null
 
-
-    init {
-        mParams = LinkedHashMap()
-    }
 
     //url
     fun url(url: String): HttpUtils {
