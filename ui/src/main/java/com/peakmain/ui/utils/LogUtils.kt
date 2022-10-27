@@ -200,7 +200,7 @@ class LogUtils private constructor() {
                 if (fileName == null) { // 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
                     className = targetElement.className
                     val classNameInfo = className.split("\\.".toRegex()).toTypedArray()
-                    if (classNameInfo.size > 0) {
+                    if (classNameInfo.isNotEmpty()) {
                         className = classNameInfo[classNameInfo.size - 1]
                     }
                     val index = className.indexOf('$')

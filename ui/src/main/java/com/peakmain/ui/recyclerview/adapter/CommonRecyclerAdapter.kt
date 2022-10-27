@@ -148,7 +148,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
 
     fun setData(data: MutableList<T>) {
         mData = data
-        notifyItemRangeChanged(0, mData.size)
+        notifyDataSetChanged()
     }
 
     init {

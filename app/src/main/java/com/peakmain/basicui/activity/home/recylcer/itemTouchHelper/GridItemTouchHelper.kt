@@ -2,6 +2,7 @@ package com.peakmain.basicui.activity.home.recylcer.itemTouchHelper
 
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.activity.home.recylcer.bean.GroupBean
+import com.peakmain.ui.recyclerview.adapter.ViewHolder
 import com.peakmain.ui.recyclerview.itemTouch.BaseItemTouchHelper
 
 /**
@@ -10,4 +11,4 @@ import com.peakmain.ui.recyclerview.itemTouch.BaseItemTouchHelper
  * mail:2726449200@qq.com
  * describe：
  */
-class GridItemTouchHelper(adapter: RecyclerView.Adapter<*>?, data: List<GroupBean?>?) : BaseItemTouchHelper<GroupBean?>(adapter, data)
+class GridItemTouchHelper(adapter: RecyclerView.Adapter<ViewHolder>?, data: List<GroupBean?>?) : BaseItemTouchHelper<GroupBean?>(adapter, data)

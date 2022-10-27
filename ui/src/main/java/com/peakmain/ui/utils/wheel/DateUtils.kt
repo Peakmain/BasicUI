@@ -1,6 +1,6 @@
 package com.peakmain.ui.utils.wheel
 
-import java.text.SimpleDateFormat
+import java.text.DateFormat
 import java.util.*
 
 /**
@@ -543,9 +543,7 @@ class DateUtils {
                 sToday = null
             }
         }
-
-        private val sdf = SimpleDateFormat("yyyy年M月d日 EEEEE")
-
+        private val sdf = DateFormat.getDateInstance()//xx年xx月xx日
         /**
          * @param lunarYear 农历年份
          * @return String of Ganzhi: 甲子年

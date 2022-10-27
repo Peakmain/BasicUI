@@ -31,7 +31,7 @@ object DispatcherExecutor {
     private val sThreadFactory = DefaultThreadFactory()
     private val sHandler = RejectedExecutionHandler { r, executor -> Executors.newCachedThreadPool().execute(r) }
 
-    private class DefaultThreadFactory() : ThreadFactory {
+    private class DefaultThreadFactory : ThreadFactory {
         private val group: ThreadGroup
         private val threadNumber = AtomicInteger(1)
         private val namePrefix: String

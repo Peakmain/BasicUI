@@ -3,7 +3,6 @@ package com.peakmain.ui.wheelview.view
 import android.content.Context
 import android.text.TextUtils
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -41,9 +40,7 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      * 初始化View
      */
     private fun initView() {
-        val inflater =
-                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mView = inflater.inflate(R.layout.ui_item_base_wheelview, null)
+        mView=View.inflate(mContext,R.layout.ui_item_base_wheelview,null)
         mWheelView1 = mView.findViewById(R.id.ui_wheel_view1)
         mWheelView2 = mView.findViewById(R.id.ui_wheel_view2)
         mWheelView3 = mView.findViewById(R.id.ui_wheel_view3)
@@ -67,6 +64,7 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
             }
         }
         intDefaultOption()
+        init()
     }
 
     /**
@@ -262,7 +260,6 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
      * 初始化
      */
     abstract fun init()
-
     /**
      * 取消
      */
@@ -276,6 +273,5 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
     init {
         initView()
         createDialog()
-        init()
     }
 }

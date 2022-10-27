@@ -3,9 +3,9 @@ package com.peakmain.ui.utils
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.media.ExifInterface
 import android.os.Environment
 import android.text.TextUtils
+import androidx.exifinterface.media.ExifInterface
 import java.io.*
 import java.text.DecimalFormat
 
@@ -19,12 +19,13 @@ object FileUtils {
     private const val JPEG_FILE_PREFIX = "IMG_"
     private const val JPEG_FILE_SUFFIX = ".jpg"
     private const val EXTERNAL_STORAGE_PERMISSION =
-            "android.permission.WRITE_EXTERNAL_STORAGE"
+        "android.permission.WRITE_EXTERNAL_STORAGE"
 
 
-
-    fun copyDir(srcDirPath: String?,
-                destDirPath: String?): Boolean {
+    fun copyDir(
+        srcDirPath: String?,
+        destDirPath: String?
+    ): Boolean {
         return copyDir(getFileByPath(srcDirPath), getFileByPath(destDirPath))
     }
 
@@ -46,14 +47,18 @@ object FileUtils {
         return true
     }
 
-    private fun copyDir(srcDir: File?,
-                        destDir: File?): Boolean {
+    private fun copyDir(
+        srcDir: File?,
+        destDir: File?
+    ): Boolean {
         return copyOrMoveDir(srcDir, destDir, false)
     }
 
-    private fun copyOrMoveDir(srcDir: File?,
-                              destDir: File?,
-                              isMove: Boolean): Boolean {
+    private fun copyOrMoveDir(
+        srcDir: File?,
+        destDir: File?,
+        isMove: Boolean
+    ): Boolean {
         return copyOrMoveDir(srcDir, destDir, object : OnReplaceListener {
             override fun onReplace(): Boolean {
                 return true
@@ -61,10 +66,12 @@ object FileUtils {
         }, isMove)
     }
 
-    private fun copyOrMoveDir(srcDir: File?,
-                              destDir: File?,
-                              listener: OnReplaceListener?,
-                              isMove: Boolean): Boolean {
+    private fun copyOrMoveDir(
+        srcDir: File?,
+        destDir: File?,
+        listener: OnReplaceListener?,
+        isMove: Boolean
+    ): Boolean {
         if (srcDir == null || destDir == null) return false
         // destDir's path locate in srcDir's path then return false
         val srcPath = srcDir.path + File.separator
@@ -93,9 +100,11 @@ object FileUtils {
         return !isMove || deleteDir(srcDir)
     }
 
-    private fun copyOrMoveFile(srcFile: File,
-                               destFile: File,
-                               isMove: Boolean): Boolean {
+    private fun copyOrMoveFile(
+        srcFile: File,
+        destFile: File,
+        isMove: Boolean
+    ): Boolean {
         return copyOrMoveFile(srcFile, destFile, object : OnReplaceListener {
             override fun onReplace(): Boolean {
                 return true
@@ -103,10 +112,12 @@ object FileUtils {
         }, isMove)
     }
 
-    private fun copyOrMoveFile(srcFile: File?,
-                               destFile: File?,
-                               listener: OnReplaceListener?,
-                               isMove: Boolean): Boolean {
+    private fun copyOrMoveFile(
+        srcFile: File?,
+        destFile: File?,
+        listener: OnReplaceListener?,
+        isMove: Boolean
+    ): Boolean {
         if (srcFile == null || destFile == null) return false
         // srcFile equals destFile then return false
         if (srcFile == destFile) return false
@@ -131,8 +142,10 @@ object FileUtils {
     }
 
     @JvmStatic
-    fun writeFileFromIS(file: File?,
-                        `is`: InputStream): Boolean {
+    fun writeFileFromIS(
+        file: File?,
+        `is`: InputStream
+    ): Boolean {
         var os: OutputStream? = null
         return try {
             os = BufferedOutputStream(FileOutputStream(file))
@@ -178,7 +191,7 @@ object FileUtils {
         // dir isn't a directory then return false
         if (!dir.isDirectory) return false
         val files = dir.listFiles()
-        if (files != null && files.size != 0) {
+        if (files != null && files.isNotEmpty()) {
             for (file in files) {
                 if (filter.accept(file)) {
                     if (file.isFile) {
@@ -199,7 +212,7 @@ object FileUtils {
         // dir isn't a directory then return false
         if (!dir.isDirectory) return false
         val files = dir.listFiles()
-        if (files != null && files.size != 0) {
+        if (files != null && files.isNotEmpty()) {
             for (file in files) {
                 if (file.isFile) {
                     if (!file.delete()) return false
@@ -358,7 +371,10 @@ object FileUtils {
         var degree = 0
         try {
             val exifInterface = ExifInterface(path)
-            when (exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
+            when (exifInterface.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL
+            )) {
                 ExifInterface.ORIENTATION_ROTATE_90 -> degree = 90
                 ExifInterface.ORIENTATION_ROTATE_180 -> degree = 180
                 ExifInterface.ORIENTATION_ROTATE_270 -> degree = 270
@@ -410,20 +426,20 @@ object FileUtils {
     fun createTmpFile(context: Context): File {
         var dir: File? = null
         if (TextUtils.equals(
-                        Environment.getExternalStorageState(),
-                        Environment.MEDIA_MOUNTED
-                )
+                Environment.getExternalStorageState(),
+                Environment.MEDIA_MOUNTED
+            )
         ) {
             // 获取手机的图片路径
             dir =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
             // 如果不存在
             if (!dir.exists()) {
                 dir.createNewFile()
             }
             if (dir.exists()) {
                 dir =
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
                 if (!dir.exists()) {
                     dir.createNewFile()
                 }
@@ -435,8 +451,8 @@ object FileUtils {
             dir = getCacheDirectory(context)
         }
         return File(
-                dir,
-                JPEG_FILE_PREFIX + System.currentTimeMillis() + JPEG_FILE_SUFFIX
+            dir,
+            JPEG_FILE_PREFIX + System.currentTimeMillis() + JPEG_FILE_SUFFIX
         )
     }
 
@@ -446,13 +462,13 @@ object FileUtils {
 
     private fun getExternalCacheDir(context: Context): File? {
         val dataDir = File(
-                File(
-                        Environment.getExternalStorageDirectory(),
-                        "Android"
-                ), "data"
+            File(
+                Environment.getExternalStorageDirectory(),
+                "Android"
+            ), "data"
         )
         val appCacheDir =
-                File(File(dataDir, context.packageName), "cache")
+            File(File(dataDir, context.packageName), "cache")
         if (!appCacheDir.exists()) {
             if (!appCacheDir.mkdirs()) {
                 return null
@@ -467,13 +483,13 @@ object FileUtils {
 
     private fun hasExternalStoragePermission(context: Context): Boolean {
         val perm =
-                context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION)
+            context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION)
         return perm == PackageManager.PERMISSION_GRANTED
     }
 
     fun getCacheDirectory(
-            context: Context,
-            preferExternal: Boolean
+        context: Context,
+        preferExternal: Boolean
     ): File {
         var appCacheDir: File? = null
         val externalStorageState: String = try {
@@ -484,8 +500,8 @@ object FileUtils {
             ""
         }
         if (preferExternal && Environment.MEDIA_MOUNTED == externalStorageState && hasExternalStoragePermission(
-                        context
-                )
+                context
+            )
         ) {
             appCacheDir = getExternalCacheDir(context)
         }
@@ -493,7 +509,7 @@ object FileUtils {
             appCacheDir = context.cacheDir
         }
         if (appCacheDir == null) {
-            val cacheDirPath = "/data/data/" + context.packageName + "/cache/"
+            val cacheDirPath = context.filesDir.path + "/cache/"
             appCacheDir = File(cacheDirPath)
         }
         return appCacheDir
