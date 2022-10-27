@@ -53,6 +53,7 @@
         <activity android:name=".activity.utils.TextUtilsActivity" />
         <activity android:name=".activity.home.WheelViewSelectorActivity" />
         <activity android:name=".activity.home.recylcer.activity.MultiTypeLayoutActivity" />
+        <activity android:name=".activity.home.recylcer.activity.RecyclerViewHeadFooterActivity" />
     </application>
 
 </manifest>

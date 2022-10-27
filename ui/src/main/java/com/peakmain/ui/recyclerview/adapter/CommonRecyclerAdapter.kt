@@ -99,7 +99,21 @@ abstract class CommonRecyclerAdapter<T>(//上下文
             null
         }
     }
+    /**
+     * 返回数据
+     */
+    val data: List<T>
+        get() = mData
 
+    fun setData(data: MutableList<T>) {
+        mData = data
+        notifyDataSetChanged()
+    }
+
+    fun setData(index: Int, data: T) {
+        mData[index] = data
+        notifyItemChanged(index)
+    }
     /**
      * 添加数据
      */
@@ -129,7 +143,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
             mData.clear()
             mData.addAll(newData)
         }
-        notifyItemRangeChanged(0, mData.size)
+        notifyDataSetChanged()
     }
 
     /**
@@ -140,16 +154,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
         notifyItemRemoved(position)
     }
 
-    /**
-     * 返回数据
-     */
-    val data: List<T>
-        get() = mData
 
-    fun setData(data: MutableList<T>) {
-        mData = data
-        notifyDataSetChanged()
-    }
 
     init {
         mInflater = LayoutInflater.from(mContext)

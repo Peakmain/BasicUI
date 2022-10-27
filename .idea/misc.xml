@@ -25,6 +25,8 @@
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_dialog_demo.xml" value="0.14130434782608695" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/activity_shape_text_view.xml" value="0.14130434782608695" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/basic_head_foot_recycler_view.xml" value="0.1408514492753623" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/basic_linear_recycler_view.xml" value="0.1408514492753623" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/basic_load_refresh_recycler_view.xml" value="0.1408514492753623" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog/layout/dialog_bitmap_utils.xml" value="0.129981884057971" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/dialog/layout/dialog_constraintlayout.xml" value="0.129981884057971" />
@@ -35,13 +37,20 @@
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/fragment/layout/fragment_utils.xml" value="0.129981884057971" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/fragment_home.xml" value="0.14130434782608695" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/fragment_mine.xml" value="0.22" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/item_group_head.xml" value="0.1408514492753623" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/item_recycler_group.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/item_recyclerview_home.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/layout__bestmiss_refresh_header_view.xml" value="0.1408514492753623" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/view_head_footer.xml" value="0.1408514492753623" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/layout/view_header_footer.xml" value="0.1408514492753623" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/app/src/main/res/menu/bottom_navigation_main.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/drawable/ic_keyboard_hide.xml" value="0.1" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/layout/ui_activity_file_read.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/layout/ui_crumb_item_header.xml" value="0.1408514492753623" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/layout/ui_custom_keyboard.xml" value="0.1" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/layout/ui_default_refresh_view.xml" value="0.1" />
         <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/layout/ui_fps_view.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/Peakmain/BasicUI/ui/src/main/res/layout/ui_item_recycle_group_head.xml" value="0.1408514492753623" />
         <entry key="app/src/main/res/layout/activity_auto_edit_text.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/activity_image_compress.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12436676798378926" />
