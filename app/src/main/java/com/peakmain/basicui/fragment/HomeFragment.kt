@@ -85,7 +85,7 @@ class HomeFragment : BaseFragmnet() {
         AlertDialog.Builder(context)
             .setContentView(R.layout.dialog_constraintlayout)
             .setFullWidth()
-            .fromButtom(true)
+            .fromBottom(true)
             .show()
     }
 }

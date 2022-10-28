@@ -74,7 +74,7 @@ abstract class BaseWheelView<T>(private val mContext: Context, private val mView
         mDialog = AlertDialog.Builder(mContext)
                 .setContentView(mView)
                 .setCancelable(true)
-                .fromButtom(true)
+                .fromBottom(true)
                 .setFullWidth()
                 .create()
     }
