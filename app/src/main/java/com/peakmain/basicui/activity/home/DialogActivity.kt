@@ -85,7 +85,7 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
             builder.addDefaultAnimation()
         }
         if (radioSetFromBottomChecked) {
-            builder.fromButtom(radioSetFromBottomChecked)
+            builder.fromBottom(radioSetFromBottomChecked)
         }
         val dialog = builder.show()
         dialog.setOnClickListener(R.id.tv_cancel, View.OnClickListener { dialog.dismiss() })

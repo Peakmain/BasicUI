@@ -135,17 +135,17 @@ class AlertDialog : Dialog {
          */
         fun setWidthAndHeight(
                 width: Int,
-                heigth: Int
+                height: Int
         ): Builder {
             P.mWidth = width
-            P.mHeigth = heigth
+            P.mHeigth = height
             return this
         }
 
         /**
          * Settings pop up from the bottom
          */
-        fun fromButtom(isAnimation: Boolean): Builder {
+        fun fromBottom(isAnimation: Boolean): Builder {
             if (isAnimation) {
                 P.mAnimation = R.style.dialog_from_bottom_anim
             }
