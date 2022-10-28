@@ -35,7 +35,7 @@ class CustomPointKeyboardActivity : BaseActivity() {
 
     private fun showDialog() {
         val dialog = AlertDialog.Builder(this)
-                .fromButtom(true)
+                .fromBottom(true)
                 .setContentView(R.layout.dialog_custom_keyboard_point)
                 .setFullWidth()
                 .show()
