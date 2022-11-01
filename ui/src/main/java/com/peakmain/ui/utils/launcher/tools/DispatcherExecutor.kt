@@ -29,7 +29,7 @@ object DispatcherExecutor {
     private const val KEEP_ALIVE_SECONDS = 5
     private val sPoolWorkQueue: BlockingQueue<Runnable> = LinkedBlockingQueue()
     private val sThreadFactory = DefaultThreadFactory()
-    private val sHandler = RejectedExecutionHandler { r, executor -> Executors.newCachedThreadPool().execute(r) }
+    private val sHandler = RejectedExecutionHandler { r, _ -> Executors.newCachedThreadPool().execute(r) }
 
     private class DefaultThreadFactory : ThreadFactory {
         private val group: ThreadGroup
@@ -50,7 +50,7 @@ object DispatcherExecutor {
 
         init {
             val s = System.getSecurityManager()
-            group = if (s != null) s.threadGroup else Thread.currentThread().threadGroup
+            (if (s != null) s.threadGroup else Thread.currentThread().threadGroup).also { group = it }
             namePrefix = "TaskDispatcherPool-" +
                     poolNumber.getAndIncrement() +
                     "-Thread-"
