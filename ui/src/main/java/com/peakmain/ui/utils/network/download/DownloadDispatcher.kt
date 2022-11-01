@@ -34,7 +34,7 @@ class DownloadDispatcher {
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-                val contentLength = response.body()!!.contentLength()
+                val contentLength = response.body!!.contentLength()
                 if (contentLength <= -1) {
                     return
                 }
