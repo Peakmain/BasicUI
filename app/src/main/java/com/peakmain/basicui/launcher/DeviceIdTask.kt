@@ -18,13 +18,13 @@ class DeviceIdTask : Task() {
     private var mDeviceId: String? = null
     override fun run() {
         // 真正自己的代码
-        val tManager = mContext!!.getSystemService(
+        val tManager = mContext?.getSystemService(
                 Context.TELEPHONY_SERVICE) as TelephonyManager
         if (ActivityCompat.checkSelfPermission(mContext!!, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return
         }
         mDeviceId = tManager.deviceId
-        val app = mContext as App
-        app.deviceId = mDeviceId
+        val app = mContext as App?
+        app?.deviceId = mDeviceId
     }
 }
