@@ -33,19 +33,19 @@ internal class DownloadRunnable(private val mUrl: String, private val mFile: Fil
             postFailure(e)
             return
         }
-        val code = response.code()
+        val code = response.code
         if (code == 404 || code > 500) {
             postFailure(IllegalStateException("Server exception"))
             return
         }
-        val body = response.body()
+        val body = response.body
         if (body == null) {
             postFailure(NullPointerException("body be empty"))
             return
         }
         var inputStream: InputStream? = null
         inputStream = body.byteStream()
-        download(inputStream, response.body())
+        download(inputStream, response.body)
     }
 
     private fun download(inputStream: InputStream?, body: ResponseBody?) {

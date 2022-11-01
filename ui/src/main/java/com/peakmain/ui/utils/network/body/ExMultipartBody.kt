@@ -5,10 +5,7 @@ import com.peakmain.ui.utils.network.callback.UploadProgressListener
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okio.Buffer
-import okio.BufferedSink
-import okio.ForwardingSink
-import okio.Okio
+import okio.*
 import java.io.IOException
 
 /**
@@ -44,7 +41,7 @@ class ExMultipartBody(body: MultipartBody, uploadProgressListener: UploadProgres
                 super.write(source, byteCount)
             }
         }
-        val bufferedSink = Okio.buffer(forwardingSink)
+        val bufferedSink = forwardingSink.buffer()
         mRequestBody.writeTo(bufferedSink)
         bufferedSink.flush()
     }
