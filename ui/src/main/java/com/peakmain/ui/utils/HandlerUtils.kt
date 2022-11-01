@@ -19,8 +19,10 @@ import java.io.InputStreamReader
 object HandlerUtils {
     private val HANDLER = Handler(Looper.getMainLooper())
     private var sCurProcessName: String? = null
+
     @JvmStatic
-    fun isMainProcess(context: Context): Boolean {
+    fun isMainProcess(context: Context?): Boolean {
+        if (context == null) return false
         val processName = getCurProcessName(context)
         return if (processName != null && processName.contains(":")) {
             false
@@ -39,7 +41,8 @@ object HandlerUtils {
         }
         try {
             val pid = Process.myPid()
-            val mActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val mActivityManager =
+                context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             for (appProcess in mActivityManager.runningAppProcesses) {
                 if (appProcess.pid == pid) {
                     sCurProcessName = appProcess.processName
@@ -58,10 +61,14 @@ object HandlerUtils {
         get() {
             var cmdlineReader: BufferedReader? = null
             try {
-                cmdlineReader = BufferedReader(InputStreamReader(
+                cmdlineReader = BufferedReader(
+                    InputStreamReader(
                         FileInputStream(
-                                "/proc/" + Process.myPid() + "/cmdline"),
-                        "iso-8859-1"))
+                            "/proc/" + Process.myPid() + "/cmdline"
+                        ),
+                        "iso-8859-1"
+                    )
+                )
                 var c: Int
                 val processName = StringBuilder()
                 while (cmdlineReader.read().also { c = it } > 0) {
@@ -112,7 +119,7 @@ object HandlerUtils {
      *
      * @param runnable
      */
-    fun removeRunable(runnable: Runnable) {
+    fun removeRunnable(runnable: Runnable) {
         HANDLER.removeCallbacks(runnable)
     }
 }
