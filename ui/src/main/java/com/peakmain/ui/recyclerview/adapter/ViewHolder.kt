@@ -46,7 +46,7 @@ class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
     }
 
     /**
-     * 设置view的Visibilty
+     * 设置view的Visibility
      */
     fun setViewVisibility(viewId: Int, visibility: Int): ViewHolder {
         getView<View>(viewId)!!.visibility = visibility

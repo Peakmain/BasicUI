@@ -68,7 +68,7 @@ class OkHttpActivity : BaseActivity() {
                             .addParams("oxwlxojflwblxbsapi", "jandan.get_pic_comments")
                             .addParams("page", "1")
                             .paramsType(PARAMS_KEY_EQUAL_VALUE)
-                            .execture(object : EngineCallBack {
+                            .execute(object : EngineCallBack {
                                 override fun onError(e: Exception?) {
                                     LogUtils.e(e!!.message)
                                 }
@@ -84,7 +84,7 @@ class OkHttpActivity : BaseActivity() {
                                 .addParams("count","10")
                                 .addParams("page","1")
                                 .paramsType(PARAMS_KEY_BACKSPLASH_VALUE)
-                                .execture(object :EngineCallBack{
+                                .execute(object :EngineCallBack{
                                     override fun onError(e: Exception?) {
                                         LogUtils.e(e!!.message)
                                     }
@@ -101,7 +101,7 @@ class OkHttpActivity : BaseActivity() {
                                 .addParams("count",1)
                                 .addParams("page",1)
                                 .paramsType(PARAMS_KEY_NOKEY_VALUE)
-                                .execture(object :EngineCallBack{
+                                .execute(object :EngineCallBack{
                                     override fun onError(e: Exception?) {
                                         LogUtils.e(e!!.message)
                                     }
@@ -117,7 +117,7 @@ class OkHttpActivity : BaseActivity() {
                             .addParams("username", "peakmain123")
                             .addParams("password", 123456)
                             .post()
-                            .execture(object : EngineCallBack {
+                            .execute(object : EngineCallBack {
                                 override fun onError(e: Exception?) {
                                     LogUtils.e(e!!.message)
                                 }
