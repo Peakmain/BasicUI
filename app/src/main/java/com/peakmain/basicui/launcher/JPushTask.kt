@@ -21,7 +21,7 @@ class JPushTask : Task() {
     override fun run() {
         //模拟极光推送
         LogUtils.e("极光推送开始")
-        val app = mContext as App
-        LogUtils.e("极光推送获取id:", app.deviceId)
+        val app = mContext as App?
+        LogUtils.e("极光推送获取id:", app?.deviceId)
     }
 }

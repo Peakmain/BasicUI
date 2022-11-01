@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.peakmain.ui.R
 import com.peakmain.ui.constants.BasicUIUtils
 import com.peakmain.ui.utils.ActivityUtils
+import java.lang.ref.WeakReference
 import java.text.DecimalFormat
 
 /**
@@ -48,7 +49,7 @@ object FpsMonitorUtils {
         private var mParams = WindowManager.LayoutParams()
         private var isPlaying = false
         private val mApplication = BasicUIUtils.application
-        private var mView = View.inflate(mApplication, R.layout.ui_fps_view, null) as TextView
+        private var mView = WeakReference(View.inflate(mApplication, R.layout.ui_fps_view, null) as TextView)
         private val mDecimalFormat = DecimalFormat("#.0 fps")
         private var windowManager: WindowManager? = null
         private val mFrameMonitor = FrameMonitor()
@@ -61,7 +62,7 @@ object FpsMonitorUtils {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
 
             mParams.format = PixelFormat.TRANSLUCENT
-            mParams.gravity = Gravity.TOP or Gravity.RIGHT
+            mParams.gravity = Gravity.TOP or Gravity.END
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
             } else {
@@ -69,7 +70,7 @@ object FpsMonitorUtils {
             }
             mFrameMonitor.addCallback(object : FpsCallback {
                 override fun onFrame(fps: Double) {
-                    mView.text = mDecimalFormat.format(fps)
+                    mView.get()?.text = mDecimalFormat.format(fps)
                 }
 
             })
@@ -90,7 +91,7 @@ object FpsMonitorUtils {
             mFrameMonitor.stop()
             if (isPlaying) {
                 isPlaying = false
-                windowManager?.removeView(mView)
+                windowManager?.removeView(mView.get())
             }
         }
 
@@ -102,7 +103,7 @@ object FpsMonitorUtils {
             mFrameMonitor.start()
             if (!isPlaying) {
                 isPlaying = true
-                windowManager?.addView(mView, mParams)
+                windowManager?.addView(mView.get(), mParams)
             }
         }
 
