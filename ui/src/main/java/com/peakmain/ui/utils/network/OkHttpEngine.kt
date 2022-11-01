@@ -11,6 +11,8 @@ import com.peakmain.ui.utils.network.callback.ProgressEngineCallBack
 import com.peakmain.ui.utils.network.callback.UploadProgressListener
 import com.peakmain.ui.utils.network.download.DownloadDispatcher
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -43,7 +45,7 @@ open class OkHttpEngine : IHttpEngine {
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-                val resultJson = response.body()!!.string()
+                val resultJson = response.body!!.string()
                 LogUtils.e("Get返回结果：$resultJson")
                 runOnUiThread(Runnable { callBack.onSuccess(resultJson) })
             }
@@ -68,7 +70,7 @@ open class OkHttpEngine : IHttpEngine {
                     @Throws(IOException::class)
                     override fun onResponse(call: Call, response: Response) {
                         // 这个 两个回掉方法都不是在主线程中
-                        val result = response.body()!!.string()
+                        val result = response.body!!.string()
                         LogUtils.e("Post返回结果：$result")
                         runOnUiThread(Runnable { callBack.onSuccess(result) })
                     }
@@ -88,8 +90,9 @@ open class OkHttpEngine : IHttpEngine {
         LogUtils.e("Upload请求的路径:$url")
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         builder.addFormDataPart("platform", "android")
-        builder.addFormDataPart("file", file.name, RequestBody
-                .create(MediaType.parse(guessMimeType(file.absolutePath)), file))
+        builder.addFormDataPart("file", file.name,
+            file.asRequestBody(guessMimeType(file.absolutePath).toMediaTypeOrNull())
+        )
         val body = ExMultipartBody(builder.build(), object : UploadProgressListener {
             override fun onProgress(total: Long, current: Long) {
                 runOnUiThread(Runnable { callBack.onProgress(total, current) })
@@ -105,7 +108,7 @@ open class OkHttpEngine : IHttpEngine {
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-                val result = response.body()!!.string()
+                val result = response.body!!.string()
                 LogUtils.e("Upload返回结果：$result")
                 runOnUiThread(Runnable { callBack.onSuccess(result) })
             }
@@ -130,14 +133,11 @@ open class OkHttpEngine : IHttpEngine {
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
-                if (outFile == null) {
-                    throw NullPointerException("File cannot be empty")
-                }
-                val inputStream = response.body()!!.byteStream()
+                val inputStream = response.body!!.byteStream()
                 val outputStream = FileOutputStream(outFile)
                 var len = 0
                 val buffer = ByteArray(1024 * 1024)
-                val contentLength = response.body()!!.contentLength()
+                val contentLength = response.body!!.contentLength()
                 var currentSize = 0
                 while (inputStream.read(buffer).also { len = it } != -1) {
                     outputStream.write(buffer, 0, len)
@@ -175,9 +175,11 @@ open class OkHttpEngine : IHttpEngine {
                 when (val value = params[key]) {
                     is File -> {
                         // 处理文件 --> Object File
-                        builder.addFormDataPart(key, value.name, RequestBody
-                            .create(MediaType.parse(guessMimeType(value
-                                .absolutePath)), value))
+                        builder.addFormDataPart(key, value.name, value.asRequestBody(
+                            guessMimeType(value
+                                .absolutePath).toMediaTypeOrNull()
+                        )
+                        )
                     }
                     is List<*> -> {
                         // 代表提交的是 List集合
@@ -186,9 +188,11 @@ open class OkHttpEngine : IHttpEngine {
                             for (i in listFiles.indices) {
                                 // 获取文件
                                 val file = listFiles[i]
-                                builder.addFormDataPart(key + i, file.name, RequestBody
-                                    .create(MediaType.parse(guessMimeType(file
-                                        .absolutePath)), file))
+                                builder.addFormDataPart(key + i, file.name, file.asRequestBody(
+                                    guessMimeType(file
+                                        .absolutePath).toMediaTypeOrNull()
+                                )
+                                )
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
