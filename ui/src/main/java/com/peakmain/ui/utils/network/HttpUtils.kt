@@ -119,7 +119,7 @@ private constructor(context: Context) {
     }
 
     /**
-     * 自定义okhttpClinet
+     * 自定义okhttpClient
      *
      * @param okHttpClient okHttpClient
      */
@@ -136,21 +136,20 @@ private constructor(context: Context) {
      *
      * @param callBack 回掉
      */
-    @JvmOverloads
-    fun execture(callBack: EngineCallBack?) {
-        var callBack = callBack
-        if (callBack == null) {
-            callBack = EngineCallBack.DEFAULT_CALL_BACK
+    fun execute(callBack: EngineCallBack?) {
+        var finalCallBack = callBack
+        if (finalCallBack == null) {
+            finalCallBack = EngineCallBack.DEFAULT_CALL_BACK
         }
         when (mType) {
             GET_TYPE -> {
-                get(mUrl, mParams, callBack)
+                get(mUrl, mParams, finalCallBack)
             }
             POST_TYPE -> {
-                post(mUrl, mParams, callBack)
+                post(mUrl, mParams, finalCallBack)
             }
             UPLOAD_TYPE -> {
-                uploadFile(mUrl, mFile!!, callBack)
+                uploadFile(mUrl, mFile!!, finalCallBack)
             }
         }
     }
