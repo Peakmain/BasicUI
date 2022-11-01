@@ -10,6 +10,7 @@ import com.peakmain.ui.utils.launcher.stat.TaskStat.markTaskDone
 import com.peakmain.ui.utils.launcher.task.DispatchRunnable
 import com.peakmain.ui.utils.launcher.task.Task
 import com.peakmain.ui.utils.launcher.task.TaskCallBack
+import java.lang.ref.WeakReference
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
@@ -107,7 +108,7 @@ class TaskDispatcher private constructor() {
 
     //执行
     private fun sendAndExecuteAsyncTasks() {
-        val isMainProcess = if (context != null) isMainProcess(context!!) else false
+        val isMainProcess = if (context?.get() != null) isMainProcess(context?.get()) else false
         for (task in mAllTasks) {
             if (task.onlyInMainProcess() && !isMainProcess) {
                 markTaskDone(task)
@@ -221,7 +222,7 @@ class TaskDispatcher private constructor() {
 
     companion object {
         private const val WAITTIME: Long = 10000
-        var context: Context? = null
+        var context: WeakReference<Context>? = null
             private set
 
         @Volatile
@@ -230,7 +231,7 @@ class TaskDispatcher private constructor() {
         @JvmStatic
         fun init(context: Context?) {
             if (context != null) {
-                this.context = context.applicationContext
+                this.context = WeakReference(context.applicationContext)
                 sHasInit = true
             }
         }
