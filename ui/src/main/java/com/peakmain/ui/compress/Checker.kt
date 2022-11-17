@@ -30,7 +30,7 @@ internal class Checker private constructor() {
                 return false
             }
             val suffix = path.substring(path.lastIndexOf(".") + 1, path.length)
-            return format.contains(suffix.toLowerCase(Locale.getDefault()))
+            return format.contains(suffix.lowercase(Locale.getDefault()))
         }
 
         val instance: Checker
@@ -78,7 +78,8 @@ internal class Checker private constructor() {
         if (TextUtils.isEmpty(path)) {
             return false
         }
-        val suffix = path.substring(path.lastIndexOf("."), path.length).toLowerCase(Locale.getDefault())
+        val suffix = path.substring(path.lastIndexOf("."), path.length)
+            .lowercase(Locale.getDefault())
         return suffix.contains(JPG) || suffix.contains(JPEG)
     }
 
