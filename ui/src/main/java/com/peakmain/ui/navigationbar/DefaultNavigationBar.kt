@@ -24,7 +24,8 @@ import com.peakmain.ui.R
  * mail : 2726449200@qq.com
  * describe ：
  */
-class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigationBar<DefaultNavigationBar.Builder?>(builder) {
+class DefaultNavigationBar internal constructor(builder: Builder?) :
+    AbsNavigationBar<DefaultNavigationBar.Builder?>(builder) {
     private var mActionBar: ActionBar? = null
     private var mToolbar: Toolbar? = null
     override fun attachNavigationParams() {
@@ -43,7 +44,12 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
             context.setSupportActionBar(mToolbar)
             mToolbar!!.setNavigationOnClickListener(builder.mNavigationOnClickListener)
             try {
-                mToolbar!!.setBackgroundColor(ContextCompat.getColor(builder.mContext, builder.mToolbarBackgroundColor))
+                mToolbar!!.setBackgroundColor(
+                    ContextCompat.getColor(
+                        builder.mContext,
+                        builder.mToolbarBackgroundColor
+                    )
+                )
             } catch (e: Exception) {
                 mToolbar!!.setBackgroundColor(builder.mToolbarBackgroundColor)
             }
@@ -54,9 +60,9 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
             if (mActionBar == null) {
                 return
             }
-            if(builder.mHomeAsUpIndicator!=null){
+            if (builder.mHomeAsUpIndicator != null) {
                 mActionBar!!.setHomeAsUpIndicator(builder.mHomeAsUpIndicator!!)
-            }else if(builder.mHomeAsUpIndicatorDrawable!=null){
+            } else if (builder.mHomeAsUpIndicatorDrawable != null) {
                 mActionBar!!.setHomeAsUpIndicator(builder.mHomeAsUpIndicatorDrawable!!)
             }
             mActionBar!!.setDisplayShowTitleEnabled(builder.mShowTitle)
@@ -166,7 +172,12 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
      * 设置左边文字颜色
      */
     fun setLeftTextColor(@ColorRes colorRes: Int): DefaultNavigationBar {
-        (findViewById<View>(R.id.tv_left) as TextView?)!!.setTextColor(ContextCompat.getColor(builder!!.mContext, colorRes))
+        (findViewById<View>(R.id.tv_left) as TextView?)!!.setTextColor(
+            ContextCompat.getColor(
+                builder!!.mContext,
+                colorRes
+            )
+        )
         return this
     }
 
@@ -195,6 +206,14 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
     }
 
     /**
+     * 设置标题字体大小
+     */
+    fun setTitleTextSize(size: Float): DefaultNavigationBar {
+        (findViewById<View>(R.id.tv_title) as TextView?)!!.textSize = size
+        return this
+    }
+
+    /**
      * 设置标题事件
      */
     fun setTitleClickListener(onClickListener: View.OnClickListener?): DefaultNavigationBar {
@@ -206,7 +225,12 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
      * 设置标题颜色
      */
     fun setTitleTextColor(@ColorRes colorRes: Int): DefaultNavigationBar {
-        (findViewById<View>(R.id.tv_title) as TextView?)!!.setTextColor(ContextCompat.getColor(builder!!.mContext, colorRes))
+        (findViewById<View>(R.id.tv_title) as TextView?)!!.setTextColor(
+            ContextCompat.getColor(
+                builder!!.mContext,
+                colorRes
+            )
+        )
         return this
     }
 
@@ -236,14 +260,20 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         return this
     }
 
-    open class Builder(val context: Context?, parent: ViewGroup?) : AbsNavigationBar.Builder<Builder?>(context!!, R.layout.ui_defualt_navigation_bar, parent!!) {
+    open class Builder(val context: Context?, parent: ViewGroup?) :
+        AbsNavigationBar.Builder<Builder?>(
+            context!!,
+            R.layout.ui_defualt_navigation_bar,
+            parent!!
+        ) {
         var mLeftVisible = View.VISIBLE
         private var mDefaultNavigationBar: DefaultNavigationBar? = null
         var mTitleVisible = View.VISIBLE
 
         //返回按钮的点击事件
         var mNavigationOnClickListener: View.OnClickListener? = null
-        var mToolbarBackgroundColor = if (context != null) ContextCompat.getColor(context, R.color.ui_color_01a8e3) else 0
+        var mToolbarBackgroundColor =
+            if (context != null) ContextCompat.getColor(context, R.color.ui_color_01a8e3) else 0
         var mShowHomeAsUp = false
         var mShowTitle = false
         var mRightViewVisible = View.VISIBLE
@@ -265,7 +295,12 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
          * Set the icon to use for the toolbar's navigation button
          */
         fun setNavigationIcon(@DrawableRes resId: Int): Builder {
-            setNavigationIcon(if (context != null) AppCompatResources.getDrawable(context, resId) else null)
+            setNavigationIcon(
+                if (context != null) AppCompatResources.getDrawable(
+                    context,
+                    resId
+                ) else null
+            )
             return this
         }
 
@@ -273,10 +308,12 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
             mToolbarBackIcon = icon
             return this
         }
+
         fun setHomeAsUpIndicator(@Nullable indicator: Drawable): Builder {
-             mHomeAsUpIndicatorDrawable = indicator
+            mHomeAsUpIndicatorDrawable = indicator
             return this
         }
+
         /**
          * 自定义左边返回键按钮
          */
@@ -320,7 +357,7 @@ class DefaultNavigationBar internal constructor(builder: Builder?) : AbsNavigati
         /**
          * 设置标题文字
          */
-        fun setTitleText(text: CharSequence?, typeface: Typeface= Typeface.DEFAULT): Builder {
+        fun setTitleText(text: CharSequence?, typeface: Typeface = Typeface.DEFAULT): Builder {
             setText(R.id.tv_title, text, typeface)
             return this
         }
