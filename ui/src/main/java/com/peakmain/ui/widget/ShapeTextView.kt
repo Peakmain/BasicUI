@@ -160,7 +160,9 @@ class ShapeTextView @JvmOverloads constructor(
         //设置背景颜色
         mGradientDrawable.setColor(mNormalBackgroundColor)
         //设置弧度
-        mGradientDrawable.cornerRadius = mRadius
+        if(mRadius!=0f){
+            mGradientDrawable.cornerRadius = mRadius
+        }
         if (mStartColor != 0 && mEndColor != 0) {
             if (mOrientation == 0) mGradientDrawable.orientation =
                     GradientDrawable.Orientation.LEFT_RIGHT else mGradientDrawable.orientation =
