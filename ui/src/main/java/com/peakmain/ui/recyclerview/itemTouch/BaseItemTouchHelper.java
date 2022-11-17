@@ -171,6 +171,10 @@ public abstract class BaseItemTouchHelper<T> {
      * 通知外部数据更新
      */
     public interface OnDataUpdatedListener<T> {
+        /**
+         * 通知外部数据更新
+         * @param datas 数据
+         */
         void onDataUpdated(List<T> datas);
     }
 
