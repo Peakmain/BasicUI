@@ -12,7 +12,7 @@
         android:adjustViewBounds="true"
         android:maxHeight="@dimen/space_88"
         android:scaleType="fitXY"
-        tools:src="#F8E6EC" />
+        tools:src="@color/ui_color_F5F5F5" />
 
 
 </RelativeLayout>
