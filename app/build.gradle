@@ -17,6 +17,7 @@ android {
         targetSdkVersion 33
         versionCode 2
         versionName "1.1"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk{
             abiFilters "armeabi-v7a","arm64-v8a","x86"
@@ -61,7 +62,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     implementation project(path: ':ui')
-
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
