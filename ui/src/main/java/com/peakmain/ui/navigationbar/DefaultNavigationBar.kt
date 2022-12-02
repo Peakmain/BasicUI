@@ -1,8 +1,11 @@
 package com.peakmain.ui.navigationbar
 
+import android.animation.ObjectAnimator
+import android.animation.StateListAnimator
 import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,11 +13,13 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.Nullable
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import com.google.android.material.appbar.AppBarLayout
 import com.peakmain.ui.R
 
 /**
@@ -232,6 +237,41 @@ class DefaultNavigationBar internal constructor(builder: Builder?) :
             )
         )
         return this
+    }
+
+    /**
+     * 设置阴影
+     * @param elevation 0代表取消阴影
+     */
+    fun setElevation(elevation: Float) {
+        if (Build.VERSION.SDK_INT >= 21 && elevation >= 0) {
+            setDefaultAppBarLayoutStateListAnimator(
+                findViewById<AppBarLayout>(R.id.navigation_header_container),
+                elevation
+            )
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    fun setDefaultAppBarLayoutStateListAnimator(
+        view: View?, elevation: Float
+    ) {
+        if (view == null) return
+        val dur = view.resources.getInteger(R.integer.app_bar_elevation_anim_duration)
+        val sla = StateListAnimator()
+
+        sla.addState(
+            intArrayOf(android.R.attr.state_enabled, R.attr.state_liftable, -R.attr.state_lifted),
+            ObjectAnimator.ofFloat(view, "elevation", 0f).setDuration(dur.toLong())
+        )
+
+        sla.addState(
+            intArrayOf(android.R.attr.state_enabled),
+            ObjectAnimator.ofFloat(view, "elevation", elevation).setDuration(dur.toLong())
+        )
+
+        sla.addState(IntArray(0), ObjectAnimator.ofFloat(view, "elevation", 0f).setDuration(0))
+        view.stateListAnimator = sla
     }
 
     /**
