@@ -11,29 +11,30 @@ import androidx.fragment.app.FragmentManager
  * describe：Fragment的帮助类
  */
 class FragmentManagerHelper constructor(
-        private var mFragementManager: FragmentManager,
-        private var mContainerViewId: Int
+    private var mFragmentManager: FragmentManager,
+    private var mContainerViewId: Int
 ) {
     /**
      * 添加fragment
      */
     fun addFragment(fragment: Fragment) {
-        val fragmentTransaction = mFragementManager.beginTransaction()
+        val fragmentTransaction = mFragmentManager.beginTransaction()
         fragmentTransaction.add(mContainerViewId, fragment)
         fragmentTransaction.commitAllowingStateLoss()
     }
+
     /**
      * 切换fragment
      */
-    fun switchFragment(fragment: Fragment){
-        val fragmentTransaction = mFragementManager.beginTransaction()
-        val fragments = mFragementManager.fragments
-        fragments.forEach { fragment ->
-            fragmentTransaction.hide(fragment)
+    fun switchFragment(fragment: Fragment) {
+        val fragmentTransaction = mFragmentManager.beginTransaction()
+        val fragments = mFragmentManager.fragments
+        fragments.forEach {
+            fragmentTransaction.hide(it)
         }
-        if(!fragments.contains(fragment)){
-            fragmentTransaction.add(mContainerViewId,fragment)
-        }else{
+        if (!fragments.contains(fragment)) {
+            fragmentTransaction.add(mContainerViewId, fragment)
+        } else {
             fragmentTransaction.show(fragment)
         }
         fragmentTransaction.commitAllowingStateLoss()
