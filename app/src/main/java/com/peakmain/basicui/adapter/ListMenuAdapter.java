@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.peakmain.basicui.R;
-import com.peakmain.ui.adapter.menu.BaseListMenuAdapater;
+import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class ListMenuAdapter extends BaseListMenuAdapater {
+public class ListMenuAdapter extends BaseListMenuAdapter {
     private final List<String> mTitles;
     private final Context mContext;
 
@@ -42,10 +42,12 @@ public class ListMenuAdapter extends BaseListMenuAdapater {
         });
     }
 
+
     @Override
-    protected int getMenuLayoutId() {
-        return R.layout.ui_list_data_screen_menu;
+    protected int getMenuLayoutId(int position) {
+        if (position == 0)
+            return R.layout.ui_list_data_screen_menu;
+        else
+            return R.layout.ui_list_data_screen_menu_100;
     }
-
-
 }
