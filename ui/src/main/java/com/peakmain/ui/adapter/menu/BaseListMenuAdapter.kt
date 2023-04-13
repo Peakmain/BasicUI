@@ -14,7 +14,7 @@ import com.peakmain.ui.R
  * mail:2726449200@qq.com
  * describe：基本条目的适配器
  */
-abstract class BaseListMenuAdapater(//上下文
+abstract class BaseListMenuAdapter(//上下文
         private val mContext: Context, //标题的集合
         private val mTitles: List<String>) : BaseMenuAdapter() {
 
@@ -30,13 +30,13 @@ abstract class BaseListMenuAdapater(//上下文
         get() = mTitles.size
 
     override fun getMenuView(position: Int, parent: ViewGroup): View {
-        val view = LayoutInflater.from(mContext).inflate(menuLayoutId, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(getMenuLayoutId(position), parent, false)
         setMenuContent(view, position)
         return view
     }
 
     protected abstract fun setMenuContent(menuView: View?, position: Int)
-    protected abstract val menuLayoutId: Int
+    protected abstract fun getMenuLayoutId(position: Int): Int
     override fun openMenu(tabView: View) {
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
         textView.setTextColor(Color.parseColor("#01a8e3"))
