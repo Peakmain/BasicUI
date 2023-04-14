@@ -152,9 +152,9 @@ class ListMenuView @JvmOverloads constructor(
             //切换显示
             var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.GONE
-            mOldMenuHeight = if(currentMenu.layoutParams.height==-2){
+            mOldMenuHeight = if (currentMenu.layoutParams.height == -2) {
                 currentMenu.measuredHeight.toFloat()
-            }else
+            } else
                 currentMenu.layoutParams.height.toFloat()
             mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
             mCurrentPosition = position
@@ -215,6 +215,21 @@ class ListMenuView @JvmOverloads constructor(
         if (height == -2) {
             height = menuView.measuredHeight
         }
+        if (height == 0) {
+            menuView.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    menuView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    height = menuView.measuredHeight
+                    closeMenuAnimator(height, menuView)
+                }
+            })
+            return
+        }
+        closeMenuAnimator(height, menuView)
+    }
+
+    private fun closeMenuAnimator(height: Int, menuView: View) {
         //位移动画
         val translationAnimation = ObjectAnimator.ofFloat(
             mMenuContainerView,
@@ -232,7 +247,7 @@ class ListMenuView @JvmOverloads constructor(
             override fun onAnimationEnd(animation: Animator) {
                 mCurrentPosition = -1
                 mAnimatorExecute = false
-                menuView.visibility = View.GONE
+                menuView.visibility = GONE
             }
 
             override fun onAnimationStart(animation: Animator) {
@@ -261,6 +276,27 @@ class ListMenuView @JvmOverloads constructor(
         if (height == -2) {
             height = menuView.measuredHeight
         }
+        if (height == 0) {
+            menuView.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    menuView.viewTreeObserver
+                        .removeOnGlobalLayoutListener(this)
+                    height = menuView.measuredHeight
+                    openMenuAnimator(height, position, tabView)
+                }
+
+            })
+            return
+        }
+        openMenuAnimator(height, position, tabView)
+    }
+
+    private fun openMenuAnimator(
+        height: Int,
+        position: Int,
+        tabView: View?
+    ) {
         //位移动画
         val translationAnimation = ObjectAnimator.ofFloat(
             mMenuContainerView,
