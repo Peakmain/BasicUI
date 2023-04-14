@@ -26,13 +26,16 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     private final Context mContext;
     private List<String> mRecommendSortList;
     private List<String> mBrandList;
+    private List<String> mCityList;
 
-    public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList,List<String>brandList) {
+    public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList
+            , List<String> brandList, List<String> cityList) {
         super(context, titles);
         this.mTitles = titles;
         this.mContext = context;
         this.mRecommendSortList = recommendSortList;
-        this.mBrandList=brandList;
+        this.mBrandList = brandList;
+        this.mCityList = cityList;
     }
 
     @Override
@@ -48,10 +51,18 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             recyclerView.setAdapter(new MenuRecommendSortAdapter(mContext, mRecommendSortList));
         } else if (position == 1) {
+            TextView tvBrandTitle = menuView.findViewById(R.id.tv_brand_title);
+            tvBrandTitle.setText("品牌偏好");
             RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
             recyclerView.setAdapter(new MenuBrandAdapter(mContext, mBrandList));
-        } else {
+        } else if(position==2){
+            TextView tvBrandTitle = menuView.findViewById(R.id.tv_brand_title);
+            tvBrandTitle.setText("热门住宿地");
+            RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+            recyclerView.setAdapter(new MenuHotCityAdapter(mContext, mCityList));
+        }else {
             TextView tv = menuView.findViewById(R.id.tv_menu_tab_content);
             tv.setText(mTitles.get(position));
             tv.setOnClickListener(v -> {
@@ -66,7 +77,7 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     protected int getMenuLayoutId(int position) {
         if (position == 0)
             return R.layout.layout_menu_recommend_sort;
-        else if (position == 1)
+        else if (position == 1||position==2)
             return R.layout.layout_menu_brand;
         else
             return R.layout.ui_list_data_screen_menu_100;

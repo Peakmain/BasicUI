@@ -30,7 +30,7 @@ class MenuRecommendSortAdapter(context: Context?, data: MutableList<String>) :
         if (holder.absoluteAdapterPosition == mSelectPosition) {
             mOldSelectPosition=mSelectPosition
             tvRecommendSort?.apply {
-                setTextColor(ContextCompat.getColor(context, R.color.color_6CBD9B))
+                setTextColor(ContextCompat.getColor(context, R.color.color_01a8e3))
             }
             roundCheckBox?.visibility = View.VISIBLE
         } else {
