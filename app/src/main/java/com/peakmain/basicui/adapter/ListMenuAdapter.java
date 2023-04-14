@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.peakmain.basicui.R;
 import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
 
@@ -34,19 +36,26 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     @Override
     protected void setMenuContent(View menuView, final int position) {
         if (menuView == null) return;
-        TextView tv = menuView.findViewById(R.id.tv_menu_tab_content);
-        tv.setText(mTitles.get(position));
-        tv.setOnClickListener(v -> {
-            Toast.makeText(mContext, mTitles.get(position), Toast.LENGTH_LONG).show();
-            closeMenu();
-        });
+        if (position == 0) {
+
+        } else if (position == 1) {
+        } else {
+            TextView tv = menuView.findViewById(R.id.tv_menu_tab_content);
+            tv.setText(mTitles.get(position));
+            tv.setOnClickListener(v -> {
+                Toast.makeText(mContext, mTitles.get(position), Toast.LENGTH_LONG).show();
+                closeMenu();
+            });
+        }
     }
 
 
     @Override
     protected int getMenuLayoutId(int position) {
         if (position == 0)
-            return R.layout.ui_list_data_screen_menu;
+            return R.layout.layout_menu_recommend_sort;
+        else if (position == 1)
+            return R.layout.layout_menu_brand;
         else
             return R.layout.ui_list_data_screen_menu_100;
     }
