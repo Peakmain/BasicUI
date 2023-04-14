@@ -211,10 +211,14 @@ class ListMenuView @JvmOverloads constructor(
         mShadowView!!.visibility = View.GONE
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
         val menuView = mMenuContainerView!!.getChildAt(mCurrentPosition)
+        mMenuContainerView?.apply {
+            layoutParams.height=ViewGroup.LayoutParams.WRAP_CONTENT
+        }
         var height = menuView?.layoutParams?.height ?: 0
         if (height == -2) {
             height = menuView.measuredHeight
         }
+
         if (height == 0) {
             menuView.viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
@@ -272,6 +276,7 @@ class ListMenuView @JvmOverloads constructor(
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
         val menuView = mMenuContainerView!!.getChildAt(position)
         menuView.visibility = View.VISIBLE
+
         var height = menuView?.layoutParams?.height ?: 0
         if (height == -2) {
             height = menuView.measuredHeight
