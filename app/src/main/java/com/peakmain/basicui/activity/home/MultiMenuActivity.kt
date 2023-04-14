@@ -45,8 +45,12 @@ class MultiMenuActivity : BaseActivity() {
             "高品质非标酒店品牌", "高品质商旅酒店品牌", "豪华生活方式品牌", "专注青年商旅酒店品牌", "Z时代生活方式品牌"
         ).toMutableList()
 
-
-        mAdapter = ListMenuAdapter(this, mData, recommendSortList,brandList)
+        //热门城市
+        val cityList = arrayListOf<String>(
+            "上海站", "上海南站", "上海西站", "上海南站(B1西北进站口)", "虹桥国际机场", "张江", "陆家嘴", "洋泾", "徐家汇",
+            "华漕","口袋公园","上海四行仓库抗战纪念馆","城市金融文化广场","四行仓库抗战纪念馆","等觉堂"
+        )
+        mAdapter = ListMenuAdapter(this, mData, recommendSortList, brandList, cityList)
         mMenuView!!.setAdapter(mAdapter)
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_recommend_sort"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginRight="@dimen/dimen_7"
+    android:paddingBottom="@dimen/dimen_7">
+
+    <com.peakmain.ui.widget.ShapeTextView
+        android:id="@+id/tv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="城市"
+        app:shapeTvRadius="@dimen/dimen_4"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:background="@color/color_f1f4f6"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_8"
+        android:textSize="@dimen/font_size_12"
+        android:textColor="@color/color_272A2B" />
+</LinearLayout>
+
+
+
