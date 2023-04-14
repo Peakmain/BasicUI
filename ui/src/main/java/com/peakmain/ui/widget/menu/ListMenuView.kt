@@ -152,8 +152,11 @@ class ListMenuView @JvmOverloads constructor(
             //切换显示
             var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.GONE
-            mOldMenuHeight = if (currentMenu.layoutParams.height == -2) {
+            var height = currentMenu.layoutParams.height
+            mOldMenuHeight = if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
                 currentMenu.measuredHeight.toFloat()
+            } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
+                mMenuContainerHeight.toFloat()
             } else
                 currentMenu.layoutParams.height.toFloat()
             mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
@@ -161,9 +164,11 @@ class ListMenuView @JvmOverloads constructor(
             currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.VISIBLE
             mAdapter!!.openMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
-
-            var endHeight = if (currentMenu.layoutParams.height == -2) {
+            height = currentMenu.layoutParams.height
+            var endHeight = if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
                 currentMenu.measuredHeight
+            } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
+                mMenuContainerHeight
             } else {
                 currentMenu.layoutParams.height
             }
@@ -211,12 +216,11 @@ class ListMenuView @JvmOverloads constructor(
         mShadowView!!.visibility = View.GONE
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
         val menuView = mMenuContainerView!!.getChildAt(mCurrentPosition)
-        mMenuContainerView?.apply {
-            layoutParams.height=ViewGroup.LayoutParams.WRAP_CONTENT
-        }
-        var height = menuView?.layoutParams?.height ?: 0
-        if (height == -2) {
+        var height = menuView?.layoutParams?.height
+        if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             height = menuView.measuredHeight
+        } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
+            height = mMenuContainerHeight
         }
 
         if (height == 0) {
@@ -225,12 +229,12 @@ class ListMenuView @JvmOverloads constructor(
                 override fun onGlobalLayout() {
                     menuView.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     height = menuView.measuredHeight
-                    closeMenuAnimator(height, menuView)
+                    closeMenuAnimator(height ?: 0, menuView)
                 }
             })
             return
         }
-        closeMenuAnimator(height, menuView)
+        closeMenuAnimator(height ?: 0, menuView)
     }
 
     private fun closeMenuAnimator(height: Int, menuView: View) {
@@ -252,6 +256,9 @@ class ListMenuView @JvmOverloads constructor(
                 mCurrentPosition = -1
                 mAnimatorExecute = false
                 menuView.visibility = GONE
+                mMenuContainerView?.apply {
+                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                }
             }
 
             override fun onAnimationStart(animation: Animator) {
@@ -278,8 +285,11 @@ class ListMenuView @JvmOverloads constructor(
         menuView.visibility = View.VISIBLE
 
         var height = menuView?.layoutParams?.height ?: 0
-        if (height == -2) {
+        if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             height = menuView.measuredHeight
+        } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
+            height = mMenuContainerHeight
+            mMenuContainerView?.layoutParams?.height = height
         }
         if (height == 0) {
             menuView.viewTreeObserver.addOnGlobalLayoutListener(object :
