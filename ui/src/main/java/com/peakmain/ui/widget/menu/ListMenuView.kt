@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.peakmain.ui.R
@@ -141,32 +142,62 @@ class ListMenuView @JvmOverloads constructor(
         tabView!!.setOnClickListener {
             if (mCurrentPosition == -1) {
                 openMenu(tabView, position)
-            } else {
-                //已经打开了
-                if (mCurrentPosition == position) { //如果点击的是同一个位置则关闭
-                    closeMenu()
-                } else {
-                    //切换显示
-                    var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
-                    currentMenu.visibility = View.GONE
-                    mOldMenuHeight = currentMenu.layoutParams.height.toFloat()
-                    mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
-                    mCurrentPosition = position
-                    currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
-                    currentMenu.visibility = View.VISIBLE
-                    mAdapter!!.openMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
-                    translationMenu(mMenuContainerView,mOldMenuHeight.toInt(),currentMenu.layoutParams.height)
-
-                }
+                return@setOnClickListener
             }
+            //已经打开了
+            if (mCurrentPosition == position) { //如果点击的是同一个位置则关闭
+                closeMenu()
+                return@setOnClickListener
+            }
+            //切换显示
+            var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
+            currentMenu.visibility = View.GONE
+            mOldMenuHeight = if(currentMenu.layoutParams.height==-2){
+                currentMenu.measuredHeight.toFloat()
+            }else
+                currentMenu.layoutParams.height.toFloat()
+            mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
+            mCurrentPosition = position
+            currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
+            currentMenu.visibility = View.VISIBLE
+            mAdapter!!.openMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
+
+            var endHeight = if (currentMenu.layoutParams.height == -2) {
+                currentMenu.measuredHeight
+            } else {
+                currentMenu.layoutParams.height
+            }
+            if (endHeight == 0) {
+                currentMenu.viewTreeObserver
+                    .addOnGlobalLayoutListener(object :
+                        ViewTreeObserver.OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            currentMenu.viewTreeObserver
+                                .removeOnGlobalLayoutListener(this)
+                            endHeight = currentMenu.measuredHeight
+                            translationMenu(
+                                mMenuContainerView,
+                                mOldMenuHeight.toInt(),
+                                endHeight
+                            )
+                        }
+
+                    })
+                return@setOnClickListener
+            }
+            translationMenu(
+                mMenuContainerView,
+                mOldMenuHeight.toInt(),
+                endHeight
+            )
         }
     }
 
-    private fun translationMenu(view:FrameLayout?, startHeight:Int, endHeight: Int) {
+    private fun translationMenu(view: FrameLayout?, startHeight: Int, endHeight: Int) {
         val animator = ValueAnimator.ofInt(startHeight, endHeight)
         animator.addUpdateListener {
             val height = it.animatedValue as Int
-            view?.layoutParams?.height=height
+            view?.layoutParams?.height = height
             view?.requestLayout()
         }
         animator.start()
@@ -180,7 +211,10 @@ class ListMenuView @JvmOverloads constructor(
         mShadowView!!.visibility = View.GONE
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
         val menuView = mMenuContainerView!!.getChildAt(mCurrentPosition)
-        val height = menuView?.layoutParams?.height ?: 0
+        var height = menuView?.layoutParams?.height ?: 0
+        if (height == -2) {
+            height = menuView.measuredHeight
+        }
         //位移动画
         val translationAnimation = ObjectAnimator.ofFloat(
             mMenuContainerView,
@@ -223,8 +257,10 @@ class ListMenuView @JvmOverloads constructor(
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
         val menuView = mMenuContainerView!!.getChildAt(position)
         menuView.visibility = View.VISIBLE
-        val height = menuView?.layoutParams?.height ?: 0
-        mOldMenuHeight=height.toFloat()
+        var height = menuView?.layoutParams?.height ?: 0
+        if (height == -2) {
+            height = menuView.measuredHeight
+        }
         //位移动画
         val translationAnimation = ObjectAnimator.ofFloat(
             mMenuContainerView,
