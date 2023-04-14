@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingTop="@dimen/dimen_14"
+        android:textColor="#272A2B"
+        android:paddingBottom="@dimen/dimen_14"
+        android:text="推荐排序1"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingTop="@dimen/dimen_14"
+        android:textColor="#272A2B"
+        android:paddingBottom="@dimen/dimen_14"
+        android:text="距离优先2" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingTop="@dimen/dimen_14"
+        android:textColor="#272A2B"
+        android:paddingBottom="@dimen/dimen_14"
+        android:text="好评优先3" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingTop="@dimen/dimen_14"
+        android:textColor="#272A2B"
+        android:paddingBottom="@dimen/dimen_14"
+        android:text="推荐排序4"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingTop="@dimen/dimen_14"
+        android:textColor="#272A2B"
+        android:paddingBottom="@dimen/dimen_14"
+        android:text="距离优先5" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingTop="@dimen/dimen_14"
+        android:textColor="#272A2B"
+        android:paddingBottom="@dimen/dimen_14"
+        android:text="好评优先6" />
+</androidx.appcompat.widget.LinearLayoutCompat>
+
