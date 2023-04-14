@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import com.peakmain.ui.R
 import com.peakmain.ui.adapter.menu.BaseMenuAdapter
 import com.peakmain.ui.adapter.menu.MenuObserver
+import com.peakmain.ui.utils.SizeUtils
 import java.util.concurrent.TimeUnit
 
 /**
@@ -82,22 +83,11 @@ class ListMenuView @JvmOverloads constructor(
         mMenuContainerView = FrameLayout(mContext)
         mMenuContainerView!!.setBackgroundColor(Color.WHITE)
         mMenuMiddleView!!.addView(mMenuContainerView)
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        if (mMenuContainerHeight == 0 && heightSize > 0) {
-            val params = mMenuContainerView!!.layoutParams
-            mMenuContainerHeight = (heightSize * 75f / 100).toInt()
-            /*   mMenuContainerHeight = (heightSize * 75f / 100).toInt()
-               params.height = mMenuContainerHeight*/
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            mMenuContainerView!!.layoutParams = params
-            // 进来的时候阴影不显示 ，内容也是不显示的（把它移上去）
-            //mMenuContainerView!!.translationY = -mMenuContainerHeight.toFloat()
-            mMenuContainerView!!.translationY = -params.height.toFloat()
-        }
+        val mMenuParams = mMenuContainerView!!.layoutParams
+        mMenuContainerHeight = (SizeUtils.screenHeight * 75f / 100).toInt()
+        mMenuParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        mMenuContainerView!!.layoutParams = mMenuParams
+        mMenuContainerView!!.translationY = -mMenuParams.height.toFloat()
     }
 
     /**
@@ -153,12 +143,15 @@ class ListMenuView @JvmOverloads constructor(
             var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.GONE
             var height = currentMenu.layoutParams.height
-            mOldMenuHeight = if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-                currentMenu.measuredHeight.toFloat()
-            } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
-                mMenuContainerHeight.toFloat()
-            } else
-                currentMenu.layoutParams.height.toFloat()
+            mOldMenuHeight = when (height) {
+                ViewGroup.LayoutParams.WRAP_CONTENT -> {
+                    currentMenu.measuredHeight.toFloat()
+                }
+                ViewGroup.LayoutParams.MATCH_PARENT -> {
+                    mMenuContainerHeight.toFloat()
+                }
+                else -> currentMenu.layoutParams.height.toFloat()
+            }
             mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
             mCurrentPosition = position
             currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
@@ -171,6 +164,10 @@ class ListMenuView @JvmOverloads constructor(
                 mMenuContainerHeight
             } else {
                 currentMenu.layoutParams.height
+            }
+            if (endHeight > mMenuContainerHeight) {
+                endHeight = mMenuContainerHeight
+                mMenuContainerView?.layoutParams?.height = endHeight
             }
             if (endHeight == 0) {
                 currentMenu.viewTreeObserver
@@ -229,6 +226,13 @@ class ListMenuView @JvmOverloads constructor(
                 override fun onGlobalLayout() {
                     menuView.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     height = menuView.measuredHeight
+                    height?.also {
+                        if (it > mMenuContainerHeight) {
+                            height = mMenuContainerHeight
+                            mMenuContainerView?.layoutParams?.height = height
+                            mMenuContainerView?.requestLayout()
+                        }
+                    }
                     closeMenuAnimator(height ?: 0, menuView)
                 }
             })
@@ -298,11 +302,21 @@ class ListMenuView @JvmOverloads constructor(
                     menuView.viewTreeObserver
                         .removeOnGlobalLayoutListener(this)
                     height = menuView.measuredHeight
+                    if (height >= mMenuContainerHeight) {
+                        height = mMenuContainerHeight
+                        mMenuContainerView?.layoutParams?.height = height
+                        mMenuContainerView?.requestLayout()
+                    }
                     openMenuAnimator(height, position, tabView)
                 }
 
             })
             return
+        }
+        if (height >= mMenuContainerHeight) {
+            height = mMenuContainerHeight
+            mMenuContainerView?.layoutParams?.height = mMenuContainerHeight
+
         }
         openMenuAnimator(height, position, tabView)
     }

@@ -24,8 +24,43 @@
         android:paddingLeft="@dimen/dimen_10"
         android:paddingRight="@dimen/dimen_10"
         android:layout_width="match_parent"
+        tools:itemCount="99"
         android:paddingTop="@dimen/dimen_8"
-        android:layout_height="wrap_content"/>
-<include layout="@layout/include_menu_choose"/>
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12"
+        android:paddingLeft="@dimen/dimen_17"
+        android:paddingRight="@dimen/dimen_17"
+        android:paddingBottom="@dimen/dimen_16">
+
+        <com.peakmain.ui.widget.ShapeTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_10"
+            android:text="清空选项"
+            android:textSize="@dimen/font_14"
+            app:shapeTvRadius="@dimen/dimen_4"
+            app:shapeTvStrokeColor="@color/color_d4d4d5"
+            app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
+
+        <com.peakmain.ui.widget.ShapeTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8"
+            android:layout_weight="2"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_10"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_14"
+            app:shapeTvBackgroundColor="@color/color_003A40"
+            app:shapeTvRadius="@dimen/dimen_4" />
+    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
 
