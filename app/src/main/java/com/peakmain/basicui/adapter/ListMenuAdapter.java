@@ -6,6 +6,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.peakmain.basicui.R;
 import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
@@ -21,11 +24,15 @@ import java.util.List;
 public class ListMenuAdapter extends BaseListMenuAdapter {
     private final List<String> mTitles;
     private final Context mContext;
+    private List<String> mRecommendSortList;
+    private List<String> mBrandList;
 
-    public ListMenuAdapter(Context context, List<String> titles) {
+    public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList,List<String>brandList) {
         super(context, titles);
         this.mTitles = titles;
         this.mContext = context;
+        this.mRecommendSortList = recommendSortList;
+        this.mBrandList=brandList;
     }
 
     @Override
@@ -37,8 +44,13 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     protected void setMenuContent(View menuView, final int position) {
         if (menuView == null) return;
         if (position == 0) {
-
+            RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            recyclerView.setAdapter(new MenuRecommendSortAdapter(mContext, mRecommendSortList));
         } else if (position == 1) {
+            RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+            recyclerView.setAdapter(new MenuBrandAdapter(mContext, mBrandList));
         } else {
             TextView tv = menuView.findViewById(R.id.tv_menu_tab_content);
             tv.setText(mTitles.get(position));
