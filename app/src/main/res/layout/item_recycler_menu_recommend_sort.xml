@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="推荐排序"
-        android:textColor="@color/color_6CBD9B" />
+        android:textColor="@color/color_01a8e3" />
 
     <Space
         android:layout_width="0dp"
