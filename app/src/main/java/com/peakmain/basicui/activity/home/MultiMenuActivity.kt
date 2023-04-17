@@ -3,9 +3,9 @@ package com.peakmain.basicui.activity.home
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.ListMenuAdapter
 import com.peakmain.basicui.base.BaseActivity
+import com.peakmain.basicui.bean.CategoryRightBean
+import com.peakmain.basicui.bean.CategoryRightSubBean
 import com.peakmain.ui.widget.menu.ListMenuView
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * author ：Peakmain
@@ -23,7 +23,7 @@ class MultiMenuActivity : BaseActivity() {
 
     override fun initView() {
         mMenuView = findViewById(R.id.list_data_screen_view)
-        mNavigationBuilder!!.setTitleText("仿58同城多条目菜单删选").create()
+        mNavigationBuilder!!.setTitleText("多条目菜单删选").create()
     }
 
     override fun initData() {
@@ -62,7 +62,6 @@ class MultiMenuActivity : BaseActivity() {
             "城市金融文化广场",
             "四行仓库抗战纪念馆",
             "等觉堂",
-            // TODO: 需要删除
             "上海站",
             "上海南站",
             "上海西站",
@@ -94,7 +93,70 @@ class MultiMenuActivity : BaseActivity() {
             "四行仓库抗战纪念馆11",
             "等觉堂11"
         )
-        mAdapter = ListMenuAdapter(this, mData, recommendSortList, brandList, cityList)
+
+        //左边
+        val leftMenuList = arrayOf("优惠活动", "房间类型", "点评分数", "设施服务").toMutableList()
+        val categoryRightBeans = ArrayList<CategoryRightBean>()
+        var categoryRightSubBeans = ArrayList<CategoryRightSubBean>()
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "酒店活动",
+                arrayOf("积分换房", "3倍积分", "新店8折", "连住优惠", "注册会员专享").toMutableList()
+            )
+        )
+        categoryRightBeans.add(CategoryRightBean("优惠活动",categoryRightSubBeans))
+        categoryRightSubBeans = ArrayList()
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "特色主题",
+                arrayOf("虎扑", "QQ会员", "上海美影", "网易云音乐", "网易严选", "知乎").toMutableList()
+            )
+        )
+        categoryRightBeans.add(CategoryRightBean("特色主题",categoryRightSubBeans))
+        categoryRightSubBeans = ArrayList()
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "点评分",
+                arrayOf("4分以下", "4-4.5分", "4.5分以上").toMutableList()
+            )
+        )
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "点评数",
+                arrayOf("50条以上", "200条以上", "500条以上", "1千条以上", "1万以上").toMutableList()
+            )
+        )
+        categoryRightBeans.add(CategoryRightBean("点评分数",categoryRightSubBeans))
+        categoryRightSubBeans = ArrayList()
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "酒店设施",
+                arrayOf("早餐", "停车场", "会议室","健身房","接收机","洗衣房").toMutableList()
+            )
+        )
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "客房设施",
+                arrayOf("直播投屏", "浴缸", "迷你吧","自动窗帘","有窗").toMutableList()
+            )
+        )
+        categoryRightSubBeans.add(
+            CategoryRightSubBean(
+                "特色服务",
+                arrayOf("安心酒店", "无接触入住", "深睡配方","智能机器人","30s入住","在线选房").toMutableList()
+            )
+        )
+        categoryRightBeans.add(CategoryRightBean("设施服务",categoryRightSubBeans))
+        mAdapter =
+            ListMenuAdapter(
+                this,
+                mData,
+                recommendSortList,
+                brandList,
+                cityList,
+                leftMenuList,
+                categoryRightBeans
+            )
         mMenuView!!.setAdapter(mAdapter)
     }
 }
