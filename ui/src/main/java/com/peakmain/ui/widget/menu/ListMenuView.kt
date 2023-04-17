@@ -7,16 +7,16 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.peakmain.ui.R
 import com.peakmain.ui.adapter.menu.BaseMenuAdapter
 import com.peakmain.ui.adapter.menu.MenuObserver
+import com.peakmain.ui.ext.addOnGlobalLayoutListener
 import com.peakmain.ui.utils.SizeUtils
-import java.util.concurrent.TimeUnit
 
 /**
  * author: Peakmain
@@ -76,6 +76,7 @@ class ListMenuView @JvmOverloads constructor(
         mShadowView!!.setBackgroundColor(mShadowColor)
         mShadowView!!.visibility = View.GONE
         mShadowView!!.alpha = 0f
+        mShadowView!!.id = R.id.menu_shadow_view
         mMenuMiddleView!!.addView(mShadowView)
         mShadowView!!.setOnClickListener(this)
 
@@ -88,6 +89,7 @@ class ListMenuView @JvmOverloads constructor(
         mMenuParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
         mMenuContainerView!!.layoutParams = mMenuParams
         mMenuContainerView!!.translationY = -mMenuParams.height.toFloat()
+        mMenuContainerView!!.setOnClickListener(this)
     }
 
     /**
@@ -140,6 +142,7 @@ class ListMenuView @JvmOverloads constructor(
                 return@setOnClickListener
             }
             //切换显示
+            mMenuContainerView?.layoutParams?.height=ViewGroup.LayoutParams.WRAP_CONTENT
             var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.GONE
             var height = currentMenu.layoutParams.height
@@ -158,34 +161,37 @@ class ListMenuView @JvmOverloads constructor(
             currentMenu.visibility = View.VISIBLE
             mAdapter!!.openMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
             height = currentMenu.layoutParams.height
-            var endHeight = if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-                currentMenu.measuredHeight
-            } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
-                mMenuContainerHeight
-            } else {
-                currentMenu.layoutParams.height
-            }
-            if (endHeight > mMenuContainerHeight) {
-                endHeight = mMenuContainerHeight
-                mMenuContainerView?.layoutParams?.height = endHeight
+            var endHeight = when (height) {
+                ViewGroup.LayoutParams.WRAP_CONTENT -> {
+                    currentMenu.measuredHeight
+                }
+                ViewGroup.LayoutParams.MATCH_PARENT -> {
+                    mMenuContainerHeight
+                }
+                else -> {
+                    currentMenu.layoutParams.height
+                }
             }
             if (endHeight == 0) {
-                currentMenu.viewTreeObserver
-                    .addOnGlobalLayoutListener(object :
-                        ViewTreeObserver.OnGlobalLayoutListener {
-                        override fun onGlobalLayout() {
-                            currentMenu.viewTreeObserver
-                                .removeOnGlobalLayoutListener(this)
-                            endHeight = currentMenu.measuredHeight
-                            translationMenu(
-                                mMenuContainerView,
-                                mOldMenuHeight.toInt(),
-                                endHeight
-                            )
-                        }
-
-                    })
+                currentMenu.addOnGlobalLayoutListener {
+                    endHeight = it
+                    if (endHeight >= mMenuContainerHeight) {
+                        endHeight = mMenuContainerHeight
+                        mMenuContainerView?.layoutParams?.height = endHeight
+                        mMenuContainerView?.requestLayout()
+                    }
+                    translationMenu(
+                        mMenuContainerView,
+                        mOldMenuHeight.toInt(),
+                        endHeight
+                    )
+                }
                 return@setOnClickListener
+            }
+            if (endHeight >= mMenuContainerHeight) {
+                endHeight = mMenuContainerHeight
+                mMenuContainerView?.layoutParams?.height = endHeight
+                mMenuContainerView?.requestLayout()
             }
             translationMenu(
                 mMenuContainerView,
@@ -221,21 +227,17 @@ class ListMenuView @JvmOverloads constructor(
         }
 
         if (height == 0) {
-            menuView.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    menuView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    height = menuView.measuredHeight
-                    height?.also {
-                        if (it > mMenuContainerHeight) {
-                            height = mMenuContainerHeight
-                            mMenuContainerView?.layoutParams?.height = height
-                            mMenuContainerView?.requestLayout()
-                        }
+            menuView.addOnGlobalLayoutListener { viewHeight ->
+                height = viewHeight
+                height?.also {
+                    if (it > mMenuContainerHeight) {
+                        height = mMenuContainerHeight
+                        mMenuContainerView?.layoutParams?.height = height
+                        mMenuContainerView?.requestLayout()
                     }
-                    closeMenuAnimator(height ?: 0, menuView)
                 }
-            })
+                closeMenuAnimator(height ?: 0, menuView)
+            }
             return
         }
         closeMenuAnimator(height ?: 0, menuView)
@@ -288,37 +290,32 @@ class ListMenuView @JvmOverloads constructor(
         val menuView = mMenuContainerView!!.getChildAt(position)
         menuView.visibility = View.VISIBLE
 
-        var height = menuView?.layoutParams?.height ?: 0
+        var height = menuView?.layoutParams?.height
         if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             height = menuView.measuredHeight
         } else if (height == ViewGroup.LayoutParams.MATCH_PARENT) {
             height = mMenuContainerHeight
-            mMenuContainerView?.layoutParams?.height = height
         }
+        height = height ?: 0
         if (height == 0) {
-            menuView.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    menuView.viewTreeObserver
-                        .removeOnGlobalLayoutListener(this)
-                    height = menuView.measuredHeight
-                    if (height >= mMenuContainerHeight) {
-                        height = mMenuContainerHeight
-                        mMenuContainerView?.layoutParams?.height = height
-                        mMenuContainerView?.requestLayout()
-                    }
-                    openMenuAnimator(height, position, tabView)
+            menuView.addOnGlobalLayoutListener {
+                height = it
+                if (height!! >= mMenuContainerHeight) {
+                    height = mMenuContainerHeight
+                    mMenuContainerView?.layoutParams?.height = height
+                    mMenuContainerView?.requestLayout()
                 }
-
-            })
+                openMenuAnimator(height ?: 0, position, tabView)
+            }
             return
         }
-        if (height >= mMenuContainerHeight) {
+        if (height!! >= mMenuContainerHeight) {
             height = mMenuContainerHeight
-            mMenuContainerView?.layoutParams?.height = mMenuContainerHeight
-
+            mMenuContainerView?.layoutParams?.height = height
+            mMenuContainerView?.requestLayout()
         }
-        openMenuAnimator(height, position, tabView)
+
+        openMenuAnimator(height!!, position, tabView)
     }
 
     private fun openMenuAnimator(
@@ -356,7 +353,9 @@ class ListMenuView @JvmOverloads constructor(
     }
 
     override fun onClick(v: View) {
-        closeMenu()
+        if (v.id == R.id.menu_shadow_view) {
+            closeMenu()
+        }
     }
 
     init {

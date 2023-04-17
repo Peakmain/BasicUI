@@ -6,4 +6,5 @@
     <item name="error_retry_view" type="id" />
     <item name="no_network_retry_view" type="id" />
 
+    <item name="menu_shadow_view" type="id" />
 </resources>
