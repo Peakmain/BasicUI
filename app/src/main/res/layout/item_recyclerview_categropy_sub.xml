@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.peakmain.ui.widget.ShapeTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tv_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginRight="@dimen/dimen_7"
+    android:padding="@dimen/dimen_8"
+    app:shapeTvBackgroundColor="@color/color_f1f4f6"
+    android:textColor="@color/color_272A2B"
+    android:textSize="@dimen/font_size_12"
+    android:layout_marginTop="@dimen/dimen_8"
+    tools:text="首页" />
