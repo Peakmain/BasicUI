@@ -47,7 +47,7 @@ class HomeFragment : BaseFragmnet() {
         mHomeDataBean.add("ShapeTextView")
         mHomeDataBean.add("仿今日头条的TableLayout")
         mHomeDataBean.add("loading效果")
-        mHomeDataBean.add("仿58同城多条目菜单删选")
+        mHomeDataBean.add("多条目菜单删选")
         mHomeDataBean.add("自定义键盘")
         mHomeDataBean.add("九宫格解锁")
         mHomeDataBean.add("RecyclerView的使用")
