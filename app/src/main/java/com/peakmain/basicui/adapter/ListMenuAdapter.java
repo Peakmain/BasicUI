@@ -3,14 +3,14 @@ package com.peakmain.basicui.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.peakmain.basicui.R;
+import com.peakmain.basicui.bean.CategoryRightBean;
+import com.peakmain.basicui.bean.CategoryRightSubBean;
 import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
 
 import java.util.List;
@@ -24,18 +24,22 @@ import java.util.List;
 public class ListMenuAdapter extends BaseListMenuAdapter {
     private final List<String> mTitles;
     private final Context mContext;
+    private final List<String> mLeftMenuList;
+    private final List<CategoryRightBean> mCategoryRightBeans;
     private List<String> mRecommendSortList;
     private List<String> mBrandList;
     private List<String> mCityList;
 
     public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList
-            , List<String> brandList, List<String> cityList) {
+            , List<String> brandList, List<String> cityList, List<String> leftMenuList, List<CategoryRightBean>categoryRightBeans) {
         super(context, titles);
         this.mTitles = titles;
         this.mContext = context;
         this.mRecommendSortList = recommendSortList;
         this.mBrandList = brandList;
         this.mCityList = cityList;
+        this.mLeftMenuList = leftMenuList;
+        this.mCategoryRightBeans=categoryRightBeans;
     }
 
     @Override
@@ -56,19 +60,20 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
             RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
             recyclerView.setAdapter(new MenuBrandAdapter(mContext, mBrandList));
-        } else if(position==2){
+        } else if (position == 2) {
             TextView tvBrandTitle = menuView.findViewById(R.id.tv_brand_title);
             tvBrandTitle.setText("热门住宿地");
             RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
             recyclerView.setAdapter(new MenuHotCityAdapter(mContext, mCityList));
-        }else {
-            TextView tv = menuView.findViewById(R.id.tv_menu_tab_content);
-            tv.setText(mTitles.get(position));
-            tv.setOnClickListener(v -> {
-                Toast.makeText(mContext, mTitles.get(position), Toast.LENGTH_LONG).show();
-                closeMenu();
-            });
+        } else {
+            RecyclerView rvLeft = menuView.findViewById(R.id.rv_left);
+            rvLeft.setLayoutManager(new LinearLayoutManager(mContext));
+            rvLeft.setAdapter(new MenuLeftRecyclerAdapter(mContext,mLeftMenuList));
+
+            RecyclerView rvRight = menuView.findViewById(R.id.rv_right);
+            rvRight.setLayoutManager(new LinearLayoutManager(mContext));
+            rvRight.setAdapter(new MenuRightRecyclerAdapter(mContext,mCategoryRightBeans));
         }
     }
 
@@ -77,9 +82,9 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     protected int getMenuLayoutId(int position) {
         if (position == 0)
             return R.layout.layout_menu_recommend_sort;
-        else if (position == 1||position==2)
+        else if (position == 1 || position == 2)
             return R.layout.layout_menu_brand;
         else
-            return R.layout.ui_list_data_screen_menu_100;
+            return R.layout.layout_categorize_screen;
     }
 }
