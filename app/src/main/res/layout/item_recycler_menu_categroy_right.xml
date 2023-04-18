@@ -19,7 +19,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sub_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_height="wrap_content"/>
 </LinearLayout>
