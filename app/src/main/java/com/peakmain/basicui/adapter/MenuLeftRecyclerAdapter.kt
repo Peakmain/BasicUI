@@ -1,12 +1,12 @@
 package com.peakmain.basicui.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.util.TypedValue
 import android.widget.TextView
 import com.peakmain.basicui.R
 import com.peakmain.ui.recyclerview.adapter.CommonRecyclerAdapter
 import com.peakmain.ui.recyclerview.adapter.ViewHolder
-import com.peakmain.ui.utils.SizeUtils
 
 /**
  * author ：Peakmain
@@ -16,10 +16,27 @@ import com.peakmain.ui.utils.SizeUtils
  */
 class MenuLeftRecyclerAdapter(context: Context?, data: List<String>) :
     CommonRecyclerAdapter<String>(context, data, R.layout.item_recyclerview_home) {
+    @JvmField
+    var mSelectPosition = 0
+
+    @JvmField
+    var mOldSelectPosition = mSelectPosition
     override fun convert(holder: ViewHolder, item: String) {
         holder.setText(R.id.tv_title, item)
-        holder.getView<TextView>(R.id.tv_title)
-            ?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+        val textView = holder.getView<TextView>(R.id.tv_title)
+        textView
+            ?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+        if (holder.absoluteAdapterPosition == mSelectPosition) {
+            textView?.setTextColor(Color.parseColor("#6CBD9B"))
+        } else {
+            textView?.setTextColor(Color.parseColor("#272A2B"))
+        }
     }
 
+    fun setSelectItem(position: Int) {
+        mSelectPosition = position
+        notifyItemChanged(mSelectPosition)
+        notifyItemChanged(mOldSelectPosition)
+        mOldSelectPosition = position
+    }
 }
