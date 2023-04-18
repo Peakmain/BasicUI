@@ -6,6 +6,7 @@
     android:layout_width="wrap_content"
     android:gravity="center"
     android:padding="10dp"
+    android:textColor="@color/color_272A2B"
     android:layout_height="wrap_content"
     tools:context=".MainActivity"/>
 
