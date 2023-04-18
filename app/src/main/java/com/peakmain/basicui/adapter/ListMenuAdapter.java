@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.peakmain.basicui.R;
 import com.peakmain.basicui.bean.CategoryRightBean;
 import com.peakmain.basicui.bean.CategoryRightSubBean;
 import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
+import com.peakmain.ui.recyclerview.listener.OnItemClickListener;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     private List<String> mCityList;
 
     public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList
-            , List<String> brandList, List<String> cityList, List<String> leftMenuList, List<CategoryRightBean>categoryRightBeans) {
+            , List<String> brandList, List<String> cityList, List<String> leftMenuList, List<CategoryRightBean> categoryRightBeans) {
         super(context, titles);
         this.mTitles = titles;
         this.mContext = context;
@@ -39,7 +41,7 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
         this.mBrandList = brandList;
         this.mCityList = cityList;
         this.mLeftMenuList = leftMenuList;
-        this.mCategoryRightBeans=categoryRightBeans;
+        this.mCategoryRightBeans = categoryRightBeans;
     }
 
     @Override
@@ -69,11 +71,36 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
         } else {
             RecyclerView rvLeft = menuView.findViewById(R.id.rv_left);
             rvLeft.setLayoutManager(new LinearLayoutManager(mContext));
-            rvLeft.setAdapter(new MenuLeftRecyclerAdapter(mContext,mLeftMenuList));
+            MenuLeftRecyclerAdapter leftRecyclerAdapter =
+                    new MenuLeftRecyclerAdapter(mContext, mLeftMenuList);
+            rvLeft.setAdapter(leftRecyclerAdapter);
 
             RecyclerView rvRight = menuView.findViewById(R.id.rv_right);
             rvRight.setLayoutManager(new LinearLayoutManager(mContext));
-            rvRight.setAdapter(new MenuRightRecyclerAdapter(mContext,mCategoryRightBeans));
+            rvRight.setAdapter(new MenuRightRecyclerAdapter(mContext, mCategoryRightBeans));
+            LinearLayoutManager rvRightLayoutManager = (LinearLayoutManager) rvRight.getLayoutManager();
+            leftRecyclerAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    int selectPosition = leftRecyclerAdapter.mSelectPosition;
+                    if (selectPosition == position) return;
+                    leftRecyclerAdapter.setSelectItem(position);
+
+                    rvRightLayoutManager
+                            .scrollToPositionWithOffset(position, 0);
+                }
+            });
+            rvRight.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    int firstVisibleItemPosition = rvRightLayoutManager.findFirstVisibleItemPosition();
+                    if (firstVisibleItemPosition != -1) {
+                        rvLeft.smoothScrollToPosition(firstVisibleItemPosition);
+                        leftRecyclerAdapter.setSelectItem(firstVisibleItemPosition);
+                    }
+                }
+            });
         }
     }
 
