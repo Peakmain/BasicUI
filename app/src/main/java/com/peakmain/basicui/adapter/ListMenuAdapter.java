@@ -1,10 +1,12 @@
 package com.peakmain.basicui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +44,12 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
         this.mCityList = cityList;
         this.mLeftMenuList = leftMenuList;
         this.mCategoryRightBeans = categoryRightBeans;
+    }
+
+    @Override
+    public void closeMenu(@NonNull View tabView) {
+        TextView textView = tabView.findViewById(R.id.tv_menu_tab_title);
+        textView.setTextColor(ContextCompat.getColor(mContext,R.color.color_272A2B));
     }
 
     @Override
