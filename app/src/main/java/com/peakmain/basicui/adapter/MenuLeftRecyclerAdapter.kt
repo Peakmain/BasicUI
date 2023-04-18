@@ -35,8 +35,8 @@ class MenuLeftRecyclerAdapter(context: Context?, data: List<String>) :
 
     fun setSelectItem(position: Int) {
         mSelectPosition = position
-        notifyItemChanged(mSelectPosition)
         notifyItemChanged(mOldSelectPosition)
+        notifyItemChanged(mSelectPosition)
         mOldSelectPosition = position
     }
 }
