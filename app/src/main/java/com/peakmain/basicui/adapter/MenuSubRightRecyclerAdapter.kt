@@ -23,8 +23,15 @@ class MenuSubRightRecyclerAdapter(context: Context?, data: MutableList<CategoryR
     override fun convert(holder: ViewHolder, item: CategoryRightSubBean) {
         holder.setText(R.id.tv_sub_title, item.subTitle)
         val recyclerView = holder.getView<RecyclerView>(R.id.rv_content)
-        recyclerView?.layoutManager = GridLayoutManager(mContext,3)
+        (recyclerView?.layoutManager as GridLayoutManager).spanSizeLookup =
+            ThreeColumnSpanSizeLookup()
         recyclerView?.adapter = MenuSubCategroyRightRecyclerAdapter(mContext, item.activityList)
     }
 
+}
+
+class ThreeColumnSpanSizeLookup : GridLayoutManager.SpanSizeLookup() {
+    override fun getSpanSize(position: Int): Int {
+        return 1
+    }
 }
