@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tv_menu_tab_title"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:gravity="center"
-    android:padding="10dp"
-    android:textColor="@color/color_272A2B"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity"/>
+    android:layout_height="wrap_content">
+
+    <TextView xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/tv_menu_tab_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10"
+        android:textColor="@color/color_272A2B"
+        tools:context=".MainActivity" />
+
+    <ImageView
+        android:id="@+id/iv_down"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_4"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_triangle_down" />
+</LinearLayout>
+
 

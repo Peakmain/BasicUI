@@ -3,6 +3,7 @@ package com.peakmain.basicui.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,9 +48,16 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     }
 
     @Override
+    public void openMenu(@NonNull View tabView) {
+        super.openMenu(tabView);
+        ((ImageView)tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_up);
+    }
+
+    @Override
     public void closeMenu(@NonNull View tabView) {
         TextView textView = tabView.findViewById(R.id.tv_menu_tab_title);
         textView.setTextColor(ContextCompat.getColor(mContext,R.color.color_272A2B));
+        ((ImageView)tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_down);
     }
 
     @Override
