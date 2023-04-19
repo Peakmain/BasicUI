@@ -61,10 +61,9 @@ class ShapeLoadingView @JvmOverloads constructor(
         mShapeView = findViewById(R.id.shape_view)
         mShadowView = findViewById(R.id.shadow_view)
         mTvShapeName = findViewById(R.id.tv_shape_name)
-        post { // onResume 之后View绘制流程执行完毕之后（View的绘制流程源码分析那一章）
+        post {
             startFallAnimator()
         }
-        // onCreate() 方法中执行 ，布局文件解析 反射创建实例
     }
 
     // 开始下落动画
