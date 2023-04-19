@@ -42,7 +42,11 @@ public class PasswordEditText extends AppCompatEditText {
     private int mPasswordColor = mDivisionLineColor;
     // 密码圆点的半径大小
     private int mPasswordRadius = 4;
+    /**
+     * 设置当前密码已完成
+     */
 
+    private PasswordCompleteListener mListener;
     public PasswordEditText(Context context) {
         this(context, null);
     }
@@ -139,7 +143,7 @@ public class PasswordEditText extends AppCompatEditText {
      */
     public void addPasswordNumber(String number) {
         Editable text = getText();
-        if(text==null)return;
+        if (text == null) return;
         String passWord = text.toString().trim();
         if (passWord.length() >= mPasswordNumber) {//当前密码的长度大于当前密码数量return
             return;
@@ -147,10 +151,8 @@ public class PasswordEditText extends AppCompatEditText {
         passWord += number;
         setText(passWord);
         //判断是否添加密码是否添加完成
-        if (mListener != null) {
-            if (passWord.length() >= mPasswordNumber) {
-                mListener.passwordComplete(getText().toString().trim());
-            }
+        if (mListener != null && passWord.length() >= mPasswordNumber) {
+            mListener.passwordComplete(getText().toString().trim());
         }
     }
 
@@ -159,7 +161,7 @@ public class PasswordEditText extends AppCompatEditText {
      */
     public void deletePassWord() {
         Editable text = getText();
-        if(text==null)return;
+        if (text == null) return;
         String passWord = text.toString().trim();
         if (passWord.length() <= 0) {
             return;
@@ -168,11 +170,7 @@ public class PasswordEditText extends AppCompatEditText {
         setText(passWord);
     }
 
-    /**
-     * 设置当前密码已完成
-     */
 
-    private PasswordCompleteListener mListener;
 
     public void setPasswordCompleteListener(PasswordCompleteListener listener) {
         mListener = listener;
