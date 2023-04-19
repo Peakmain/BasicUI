@@ -741,7 +741,6 @@ public class WheelView extends View {
 
     /**
      * 设置选中的文字颜色
-     *
      */
     public void setSelectTextColor(int textColorCenter) {
         if (textColorCenter != 0) {
