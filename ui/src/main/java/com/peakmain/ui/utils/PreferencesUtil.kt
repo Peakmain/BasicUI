@@ -167,7 +167,7 @@ class PreferencesUtil private constructor() {
             `object` = bis.readObject()
             Log.d(this.javaClass.simpleName, "Get object success")
             return `object`
-        } catch (e: Exception) {
+        } catch (_: IOException) {
         }
         Log.e(this.javaClass.simpleName, "Get object is error")
         return null

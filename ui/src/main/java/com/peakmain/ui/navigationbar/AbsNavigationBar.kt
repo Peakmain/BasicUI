@@ -107,6 +107,9 @@ open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : 
         parent?.addView(navigationBarView, 0)
     }
 
+    /**
+     * findViewById 查找View
+     */
     fun <T : View?> findViewById(viewId: Int): T? {
         val weakReference = mViews!![viewId]
         var view: View? = null
