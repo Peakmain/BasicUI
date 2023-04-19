@@ -8,35 +8,35 @@ BasicUI是一些常用的Android UI组件和一些实用工具类封装，提高
 
 **使用文档链接：https://github.com/Peakmain/BasicUI/wiki**
 #### How to
-
-  - Step 1. Add the JitPack repository to your build file
+- Step 1. Add the JitPack repository to your build file
 
 Add it in your root build.gradle at the end of repositories:
-
+```
     allprojects {
         repositories {
             ...
             maven { url 'https://jitpack.io' }
         }
     }
-  - Step 2. Add the dependency
+ ```
+- Step 2. Add the dependency
 ```
 implementation 'com.github.Peakmain:BasicUI:+'
 ```
-  - Step 3.some probleam
+- Step 3.some probleam
 
   如果你的gradle版本比3.5.3高，可能会出现以下几个问题：
 
   1、Entry name 'AndroidManifest.xml' collided
-  
+
   **解决办法：在gradle.properties添加以下代码**
   ```
   android.useNewApkCreator=false
   ```
   2、如果安装失败，用adb install安装报错提示如下
-  
+
   failed to install app-debug.apk: Failure [INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION: Failed to parse /data/app/vmdl1335956833.tmp/base.apk: Corrupt XML binary file]
- 
+
   **解决办法:在添加依赖的build.gradle中添加以下代码**
   ```
     android{
@@ -55,10 +55,11 @@ implementation 'com.github.Peakmain:BasicUI:+'
 
 
 #### 关于我
-  - 简书： [https://www.jianshu.com/u/3ff32f5aea98](https://www.jianshu.com/u/3ff32f5aea98)
-  - 我的GitHub地址：[https://github.com/Peakmain](https://github.com/Peakmain)
+- 简书： [https://www.jianshu.com/u/3ff32f5aea98](https://www.jianshu.com/u/3ff32f5aea98)
+- 我的GitHub地址：[https://github.com/Peakmain](https://github.com/Peakmain)
 
 #### Donations
 如果您觉得我的开源库帮您节省了大量的开发时间，请扫描下方的二维码随意打赏，您的支持将激励我不断前进
 ![微信](https://user-images.githubusercontent.com/26482737/184805287-0561a7e2-da13-4ef4-b367-c5e8672c121d.jpg)
 ![支付宝](https://user-images.githubusercontent.com/26482737/184805306-f44511a7-7660-4fe1-9f07-305005576c2c.jpg)
+````
