@@ -119,7 +119,8 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
                 if (mListener != null) {
                     mListener.delete();
                 }
-            } else if (v.getId() == R.id.iv_keyboard_hide && mListener != null) {
+            } else if (v.getId() == R.id.iv_keyboard_hide
+                    && mListener != null) {
                 mListener.dissmiss();
             }
         }
