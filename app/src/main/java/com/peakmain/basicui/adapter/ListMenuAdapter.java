@@ -1,7 +1,6 @@
 package com.peakmain.basicui.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.peakmain.basicui.R;
 import com.peakmain.basicui.bean.CategoryRightBean;
-import com.peakmain.basicui.bean.CategoryRightSubBean;
 import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener;
 
@@ -27,7 +25,6 @@ import java.util.List;
  * describe：
  */
 public class ListMenuAdapter extends BaseListMenuAdapter {
-    private final List<String> mTitles;
     private final Context mContext;
     private final List<String> mLeftMenuList;
     private final List<CategoryRightBean> mCategoryRightBeans;
@@ -36,9 +33,9 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     private final List<String> mCityList;
 
     public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList
-            , List<String> brandList, List<String> cityList, List<String> leftMenuList, List<CategoryRightBean> categoryRightBeans) {
+            , List<String> brandList, List<String> cityList
+            , List<String> leftMenuList, List<CategoryRightBean> categoryRightBeans) {
         super(context, titles);
-        this.mTitles = titles;
         this.mContext = context;
         this.mRecommendSortList = recommendSortList;
         this.mBrandList = brandList;
@@ -50,14 +47,15 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     @Override
     public void openMenu(@NonNull View tabView) {
         super.openMenu(tabView);
-        ((ImageView)tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_up);
+        ((ImageView) tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_up);
     }
 
     @Override
     public void closeMenu(@NonNull View tabView) {
         TextView textView = tabView.findViewById(R.id.tv_menu_tab_title);
-        textView.setTextColor(ContextCompat.getColor(mContext,R.color.color_272A2B));
-        ((ImageView)tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_down);
+        textView.setTextColor(ContextCompat.getColor(mContext,
+                R.color.color_272A2B));
+        ((ImageView) tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_down);
     }
 
     @Override
