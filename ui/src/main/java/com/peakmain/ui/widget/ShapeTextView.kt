@@ -75,7 +75,7 @@ class ShapeTextView @JvmOverloads constructor(
     private val mStateListDrawable =
             StateListDrawable()
 
-    private fun init(attrs: AttributeSet?) {
+    private fun parseAttrs(attrs: AttributeSet?) {
         mGradientDrawable = GradientDrawable()
         val a: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShapeTextView)
 
@@ -252,7 +252,7 @@ class ShapeTextView @JvmOverloads constructor(
     
     //按压后的shape样式
     init {
-        init(attrs)
+        parseAttrs(attrs)
     }
     
     
