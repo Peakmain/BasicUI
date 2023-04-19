@@ -122,7 +122,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
         notifyItemInserted(mData.size - 1)
     }
 
-    fun addData(@androidx.annotation.IntRange(from = 0) position: Int, data: T) {
+    fun addData(@IntRange(from = 0) position: Int, data: T) {
         mData.add(position, data)
         notifyItemInserted(position)
     }

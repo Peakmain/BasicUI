@@ -26,7 +26,7 @@ import javax.xml.transform.stream.StreamSource
  */
 class LogUtils private constructor() {
     @IntDef(V, D, I, W, E, A)
-    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     private annotation class TYPE
     private class TagHead(var tag: String?, var consoleHead: Array<String?>?, var fileHead: String)
 
