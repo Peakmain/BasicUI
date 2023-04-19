@@ -265,12 +265,19 @@ class CustomPopupWindow private constructor(private val mContext: Context) :
             return this
         }
 
+        /**
+         * 设置布局View
+         * @param resLayoutId 布局Id
+         */
         fun setView(resLayoutId: Int): PopupWindowBuilder {
             mCustomPopupWindow.mResLayoutId = resLayoutId
             mCustomPopupWindow.mContentView = null
             return this
         }
-
+        /**
+         * 设置布局View
+         * @param view View
+         */
         fun setView(view: View?): PopupWindowBuilder {
             mCustomPopupWindow.mContentView = view
             mCustomPopupWindow.mResLayoutId = -1
@@ -371,6 +378,9 @@ class CustomPopupWindow private constructor(private val mContext: Context) :
             return this
         }
 
+        /**
+         * 创建CustomPopupWindow
+         */
         fun create(): CustomPopupWindow {
             //构建PopWindow
             mCustomPopupWindow.build()

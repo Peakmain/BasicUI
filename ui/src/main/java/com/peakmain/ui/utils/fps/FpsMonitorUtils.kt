@@ -36,6 +36,9 @@ object FpsMonitorUtils {
         mFpsView.reset()
     }
 
+    /**
+     * 是否打印信息
+     */
     fun printMessage(isPrint: Boolean): FpsMonitorUtils {
         mFpsView.printMessage(isPrint)
         return this
