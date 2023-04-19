@@ -54,7 +54,7 @@ object FileUtils {
         return copyOrMoveDir(srcDir, destDir, false)
     }
 
-    private fun copyOrMoveDir(
+     fun copyOrMoveDir(
         srcDir: File?,
         destDir: File?,
         isMove: Boolean

@@ -25,7 +25,7 @@ class MenuSubRightRecyclerAdapter(context: Context?, data: MutableList<CategoryR
         val recyclerView = holder.getView<RecyclerView>(R.id.rv_content)
         (recyclerView?.layoutManager as GridLayoutManager).spanSizeLookup =
             ThreeColumnSpanSizeLookup()
-        recyclerView?.adapter = MenuSubCategroyRightRecyclerAdapter(mContext, item.activityList)
+        recyclerView.adapter = MenuSubCategroyRightRecyclerAdapter(mContext, item.activityList)
     }
 
 }
