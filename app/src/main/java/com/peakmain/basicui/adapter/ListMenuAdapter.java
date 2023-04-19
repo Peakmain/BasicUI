@@ -31,9 +31,9 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     private final Context mContext;
     private final List<String> mLeftMenuList;
     private final List<CategoryRightBean> mCategoryRightBeans;
-    private List<String> mRecommendSortList;
-    private List<String> mBrandList;
-    private List<String> mCityList;
+    private final List<String> mRecommendSortList;
+    private final List<String> mBrandList;
+    private final List<String> mCityList;
 
     public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList
             , List<String> brandList, List<String> cityList, List<String> leftMenuList, List<CategoryRightBean> categoryRightBeans) {
