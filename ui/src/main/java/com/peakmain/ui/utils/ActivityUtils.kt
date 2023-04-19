@@ -49,6 +49,9 @@ class ActivityUtils {
         }
     }
 
+    /**
+     * 监听生命周期
+     */
     inner class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         override fun onActivityPaused(p0: Activity) {
 
