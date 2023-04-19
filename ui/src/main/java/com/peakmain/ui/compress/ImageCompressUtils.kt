@@ -118,6 +118,10 @@ class ImageCompressUtils(builder: Builder) : Handler.Callback {
 
         //默认100
         var mQuality = 100
+
+        /**
+         * 压缩图片路径
+         */
         fun load(path: String): Builder {
             mPaths.add(path)
             return this
