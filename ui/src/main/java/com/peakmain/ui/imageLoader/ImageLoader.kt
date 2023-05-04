@@ -9,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.peakmain.ui.imageLoader.factory.AbstractLoaderFactory
 import com.peakmain.ui.imageLoader.factory.GlideLoaderFactory
-import com.peakmain.ui.imageLoader.glide.GlideLoader
 
 /**
  * author ：Peakmain
@@ -24,10 +23,11 @@ class ImageLoader private constructor() {
      * @return Gilde的加载工厂
      */
     private var loader: ILoader? = null
-    private var loaderFactory: AbstractLoaderFactory? = null
 
     init {
-        loaderFactory = GlideLoaderFactory()
+        if (loader == null){
+            loader = GlideLoaderFactory().createLoader()
+        }
     }
 
     /**
@@ -36,7 +36,6 @@ class ImageLoader private constructor() {
      * @param loaderFactory 默认是glideLoader
      */
     fun exchangeImageLoaderFactory(loaderFactory: AbstractLoaderFactory): ImageLoader {
-        this.loaderFactory = loaderFactory
         loader = loaderFactory.createLoader()
         return this
     }
@@ -274,7 +273,4 @@ class ImageLoader private constructor() {
         }
     }
 
-    init {
-        if (loader == null) loader = GlideLoader()
-    }
 }
