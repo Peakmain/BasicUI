@@ -2,7 +2,6 @@ package com.peakmain.basicui.adapter
 
 import android.content.Context
 import android.view.View
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.basicui.R
@@ -27,7 +26,7 @@ class MenuRecommendSortAdapter(context: Context?, data: MutableList<String>) :
         holder.setText(R.id.tv_recommend_sort, item)
         val tvRecommendSort = holder.getView<TextView>(R.id.tv_recommend_sort)
         val roundCheckBox = holder.getView<RoundCheckBox>(R.id.rcb_recommend_sort)
-        if (holder.absoluteAdapterPosition == mSelectPosition) {
+        if (holder.adapterPosition == mSelectPosition) {
             mOldSelectPosition=mSelectPosition
             tvRecommendSort?.apply {
                 setTextColor(ContextCompat.getColor(context, R.color.color_01a8e3))
@@ -39,11 +38,11 @@ class MenuRecommendSortAdapter(context: Context?, data: MutableList<String>) :
             }
             roundCheckBox?.visibility = View.GONE
         }
-        holder.setOnItemClickListener {
-            val position = holder.absoluteAdapterPosition
+       /* holder.setOnItemClickListener {
+            val position = holder.adapterPosition
             mSelectPosition=position
             notifyItemChanged(position)
             notifyItemChanged(mOldSelectPosition)
-        }
+        }*/
     }
 }

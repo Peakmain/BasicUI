@@ -60,9 +60,9 @@ public abstract class BaseItemTouchHelper<T> {
         public boolean onMove(@Nullable RecyclerView recyclerView, @Nullable RecyclerView.ViewHolder viewHolder, @Nullable RecyclerView.ViewHolder target) {
             if (viewHolder == null || target == null) return false;
             //获取原来的位置
-            int fromPosition = viewHolder.getBindingAdapterPosition();
+            int fromPosition = viewHolder.getAdapterPosition();
             //获取目标的位置
-            int targetPosition = target.getBindingAdapterPosition();
+            int targetPosition = target.getAdapterPosition();
             //替换
             mAdapter.notifyItemMoved(fromPosition, targetPosition);
             //数据没有发生变化(mDatas中数据)
@@ -83,7 +83,7 @@ public abstract class BaseItemTouchHelper<T> {
         @Override
         public void onSwiped(@Nullable RecyclerView.ViewHolder viewHolder, int direction) {
             if (viewHolder == null) return;
-            int currentSwipePosition = viewHolder.getBindingAdapterPosition();
+            int currentSwipePosition = viewHolder.getAdapterPosition();
             mAdapter.notifyItemRemoved(currentSwipePosition);
             mDatas.remove(currentSwipePosition);
 

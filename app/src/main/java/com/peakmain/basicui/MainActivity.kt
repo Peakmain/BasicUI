@@ -47,11 +47,11 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         showFragment(FRAGMENT_HOME)
-        mBottomNavigation!!.setOnItemSelectedListener { item: MenuItem ->
+       /* mBottomNavigation!!.setItemOnTouchListener() { item: MenuItem ->
             onOptionsItemSelected(
                 item
             )
-        }
+        }*/
         mBottomNavigation!!.selectedItemId = R.id.menu_home
 
     }

@@ -1,12 +1,10 @@
 package com.peakmain.ui.imageLoader
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.CustomTarget
 import com.peakmain.ui.imageLoader.factory.AbstractLoaderFactory
 import com.peakmain.ui.imageLoader.factory.GlideLoaderFactory
 
@@ -166,14 +164,6 @@ class ImageLoader private constructor() {
         loader!!.displayLocalImage(view?.context, url, view, desId)
     }
 
-    /**
-     * 加载图片
-     *
-     * @param context 上下文
-     */
-    fun displayImage(context: Context?, url: Uri, simpleTarget: CustomTarget<Bitmap>) {
-        loader!!.displayImage(context, url, simpleTarget)
-    }
 
     /**
      * 设置ImageView的圆角

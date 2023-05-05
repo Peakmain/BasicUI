@@ -3,9 +3,9 @@ package com.peakmain.ui.utils
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.ExifInterface
 import android.os.Environment
 import android.text.TextUtils
-import androidx.exifinterface.media.ExifInterface
 import java.io.*
 import java.text.DecimalFormat
 

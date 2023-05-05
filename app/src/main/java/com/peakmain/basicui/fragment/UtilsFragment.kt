@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
 import com.peakmain.basicui.activity.utils.GlideActivity
-import com.peakmain.basicui.activity.utils.OkHttpActivity
 import com.peakmain.basicui.activity.utils.TextUtilsActivity
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseFragmnet
@@ -52,7 +51,7 @@ open class UtilsFragment : BaseFragmnet() {
         mAdapter!!.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 when (position) {
-                    0 -> ActivityUtil.gotoActivity(context, OkHttpActivity::class.java)
+                    0 -> return
                     1 -> ActivityUtil.gotoActivity(context, GlideActivity::class.java)
                     2 -> ActivityUtil.gotoActivity(context, TextUtilsActivity::class.java)
                     3 -> {

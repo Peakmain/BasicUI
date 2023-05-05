@@ -6,14 +6,12 @@ import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.peakmain.ui.R
 import com.peakmain.ui.recyclerview.adapter.WrapRecyclerAdapter
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
-import java.util.*
 
 /**
  * author: peakmain
@@ -172,12 +170,12 @@ open class WrapRecyclerView @JvmOverloads constructor(
         return false
     }
 
-    private fun getChildBindingAdapterPosition(@NonNull child: View?): Int {
+    private fun getChildBindingAdapterPosition(child: View?): Int {
         if (child == null) {
             return -1
         }
         val holder = getChildViewHolder(child)
-        return holder.bindingAdapterPosition
+        return holder.adapterPosition
     }
 
     override fun setAdapter(adapter: Adapter<ViewHolder>?) {

@@ -2,7 +2,6 @@ package com.peakmain.ui.imageLoader.glide
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import android.text.TextUtils
 import android.widget.ImageView
@@ -13,7 +12,6 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.CustomTarget
 import com.peakmain.ui.imageLoader.ILoader
 import com.peakmain.ui.imageLoader.transform.CornerTransform
 import com.peakmain.ui.utils.LogUtils
@@ -124,15 +122,6 @@ class GlideLoader : ILoader {
         options.sizeMultiplier(sizeMultiplier)
         options.override(width, height)
         loadImage(context, url, view, options)
-    }
-
-    override fun displayImage(context: Context?, url: Uri?, simpleTarget: CustomTarget<Bitmap>) {
-        if (context == null) return
-        try {
-            Glide.with(context).asBitmap().load(url).into(simpleTarget)
-        } catch (e: Exception) {
-            LogUtils.d("加载图片出错:" + e.message)
-        }
     }
 
     override fun displayImage(

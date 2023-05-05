@@ -26,7 +26,7 @@ class MenuLeftRecyclerAdapter(context: Context?, data: List<String>) :
         val textView = holder.getView<TextView>(R.id.tv_title)
         textView
             ?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-        if (holder.absoluteAdapterPosition == mSelectPosition) {
+        if (holder.adapterPosition == mSelectPosition) {
             textView?.setTextColor(Color.parseColor("#6CBD9B"))
         } else {
             textView?.setTextColor(Color.parseColor("#272A2B"))

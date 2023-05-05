@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.util.*
 import kotlin.experimental.and
 
 /**
@@ -30,7 +29,7 @@ internal class Checker private constructor() {
                 return false
             }
             val suffix = path.substring(path.lastIndexOf(".") + 1, path.length)
-            return format.contains(suffix.lowercase(Locale.getDefault()))
+            return format.contains(suffix)
         }
 
         val instance: Checker
@@ -79,7 +78,6 @@ internal class Checker private constructor() {
             return false
         }
         val suffix = path.substring(path.lastIndexOf("."), path.length)
-            .lowercase(Locale.getDefault())
         return suffix.contains(JPG) || suffix.contains(JPEG)
     }
 

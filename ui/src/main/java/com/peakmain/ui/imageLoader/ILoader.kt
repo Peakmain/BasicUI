@@ -1,12 +1,10 @@
 package com.peakmain.ui.imageLoader
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.CustomTarget
 
 /**
  * author ：Peakmain
@@ -129,10 +127,6 @@ interface ILoader {
         @DrawableRes desId: Int
     )
 
-    /**
-     * 加载图片 使用SimpleTarget
-     */
-    fun displayImage(context: Context?, url: Uri?, simpleTarget: CustomTarget<Bitmap>)
 
     /**
      * 加载图片
