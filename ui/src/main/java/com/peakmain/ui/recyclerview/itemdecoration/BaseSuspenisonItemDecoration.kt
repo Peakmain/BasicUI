@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.ui.recyclerview.group.GroupRecyclerBean
-import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
+import com.peakmain.ui.utils.SizeUtils.dp2px
 
 /**
  * author ：Peakmain
@@ -62,14 +62,17 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
     constructor(builder: Builder<T>) {
         mData = builder.mData
         mBgColor =
-            if (builder.mBgColor != 0) builder.mBgColor else ContextCompat.getColor(builder.mContext,
-                android.R.color.white)
+            if (builder.mBgColor != 0) builder.mBgColor else ContextCompat.getColor(
+                builder.mContext,
+                android.R.color.white
+            )
         mSectionHeight = if (builder.mSectionHeight != 0) builder.mSectionHeight else dp2px(30f)
         topHeight = if (builder.topHeight != 0) builder.topHeight else dp2px(10f)
         mTextSize = if (builder.mTextSize != 0) builder.mTextSize else dp2px(10f)
         mTextColor = if (builder.mTextColor != 0) builder.mTextColor else ContextCompat.getColor(
             builder.mContext,
-            com.peakmain.ui.R.color.ui_color_4A4A4A)
+            com.peakmain.ui.R.color.ui_color_4A4A4A
+        )
         mPaddingLeft = if (builder.mPaddingLeft != 0) builder.mPaddingLeft else dp2px(10f)
         mPaddingBottom = if (builder.mPaddingBottom != 0) builder.mPaddingBottom else dp2px(5f)
         mPaddingRight = if (builder.mPaddingRight != 0) builder.mPaddingRight else dp2px(10f)
@@ -121,30 +124,38 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
     ) {
         val topText = getTopText(mData, position)
         if (!TextUtils.isEmpty(topText)) {
-            val rect = Rect(left,
+            val rect = Rect(
+                left,
                 child.top - params.topMargin - mSectionHeight,
                 right,
-                child.top - params.topMargin)
+                child.top - params.topMargin
+            )
             c.drawRect(rect, mBgPaint!!)
-            mTextPaint!!.getTextBounds(topText,
+            mTextPaint!!.getTextBounds(
+                topText,
                 0,
                 getTopText(mData, position)!!.length,
-                mBounds)
+                mBounds
+            )
             if (isCenter) {
                 mTextPaint?.apply {
                     textAlign = Paint.Align.CENTER
-                    c.drawText(topText ?: "",
+                    c.drawText(
+                        topText ?: "",
                         rect.centerX().toFloat(),
                         child.top - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2.toFloat(),
-                        this)
+                        this
+                    )
                 }
 
             } else {
                 mTextPaint?.apply {
-                    c.drawText(topText ?: "",
+                    c.drawText(
+                        topText ?: "",
                         child.paddingLeft + mPaddingLeft.toFloat(),
                         child.top - params.topMargin - mSectionHeight / 2 + mBounds.height() / 2.toFloat(),
-                        this)
+                        this
+                    )
                 }
             }
         }
@@ -171,27 +182,33 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
                 }
             }
         }
-        val rect = Rect(parent.paddingLeft,
+        val rect = Rect(
+            parent.paddingLeft,
             parent.paddingTop,
             parent.right - parent.paddingRight,
-            parent.paddingTop + mSectionHeight + mPaddingBottom / 2 + mPaddingTop / 2)
+            parent.paddingTop + mSectionHeight + mPaddingBottom / 2 + mPaddingTop / 2
+        )
         c.drawRect(rect, mBgPaint!!)
         if (!TextUtils.isEmpty(section)) {
             mTextPaint!!.getTextBounds(section, 0, section!!.length, mBounds)
             if (isCenter) {
                 mTextPaint!!.textAlign = Paint.Align.CENTER
                 mTextPaint?.apply {
-                    c.drawText(section ?: "",
+                    c.drawText(
+                        section ?: "",
                         rect.centerX().toFloat(),
                         parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                        this)
+                        this
+                    )
                 }
             } else {
                 mTextPaint?.apply {
-                    c.drawText(section ?: "",
+                    c.drawText(
+                        section ?: "",
                         child!!.paddingLeft + mPaddingLeft.toFloat(),
                         parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                        this)
+                        this
+                    )
                 }
             }
         } else if (pos == 0 || mData[pos]!!.isHeader) {
@@ -200,17 +217,21 @@ abstract class BaseSuspenisonItemDecoration<T : GroupRecyclerBean<*>?> :
                 mTextPaint!!.getTextBounds(section, 0, section!!.length, mBounds)
                 if (isCenter) {
                     mTextPaint?.apply {
-                        c.drawText(section,
+                        c.drawText(
+                            section,
                             rect.centerX().toFloat(),
                             parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                            this)
+                            this
+                        )
                     }
                 } else {
                     mTextPaint?.apply {
-                        c.drawText(section,
+                        c.drawText(
+                            section,
                             child!!.paddingLeft + mPaddingLeft.toFloat(),
                             parent.paddingTop + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2) + mPaddingBottom / 4 + (mPaddingTop / 4).toFloat(),
-                            this)
+                            this
+                        )
                     }
                 }
             }

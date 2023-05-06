@@ -4,11 +4,10 @@ import android.graphics.Typeface
 import android.view.View
 
 /**
- * author: peakmain
- * version: 1.0
- * createTime: 2020-01-10 18:01
+ * author ：Peakmain
+ * createTime：2020-01-10
  * mail:2726449200@qq.com
- * description: 存放一些参数的类
+ * describe：存放参数
  */
 class NavigationParameter {
     //控件的文本

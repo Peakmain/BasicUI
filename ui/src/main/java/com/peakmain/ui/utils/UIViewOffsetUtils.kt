@@ -79,6 +79,7 @@ class UIViewOffsetUtils(var mView: View) {
         }
         return setLeftAndRightOffset(leftOffset)
     }
+
     fun getTopAndBottomOffset(): Int {
         return mOffsetTop
     }

@@ -12,9 +12,9 @@ import kotlin.math.ceil
  */
 object ImageCompute {
     @JvmStatic
-    fun computeSize(srcWidth: Int, srcHeight: Int): Int {
-        var srcWidth = srcWidth
-        var srcHeight = srcHeight
+    fun computeSize(width: Int, height: Int): Int {
+        var srcWidth = width
+        var srcHeight = height
         srcWidth = if (srcWidth % 2 == 1) srcWidth + 1 else srcWidth
         srcHeight = if (srcHeight % 2 == 1) srcHeight + 1 else srcHeight
         //拿到最大边和最小边
@@ -43,7 +43,7 @@ object ImageCompute {
         val matrix = Matrix()
         matrix.postRotate(angle.toFloat())
         return if (bitmap == null) {
-            bitmap
+            null
         } else Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 }

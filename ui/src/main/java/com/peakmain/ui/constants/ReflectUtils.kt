@@ -18,8 +18,9 @@ internal object ReflectUtils {
                 val activityThreadClass = Class.forName("android.app.ActivityThread")
                 //activityThread对象获取
                 val activityThreadStaticField = activityThread
-                val application = activityThreadClass.getMethod("getApplication").invoke(activityThreadStaticField)
-                        ?: return null
+                val application = activityThreadClass.getMethod("getApplication")
+                    .invoke(activityThreadStaticField)
+                    ?: return null
                 return application as Application
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -62,7 +63,8 @@ internal object ReflectUtils {
         get() =//类
             try {
                 val activityThreadClass = Class.forName("android.app.ActivityThread")
-                val sCurrentActivityThread = activityThreadClass.getDeclaredField("sCurrentActivityThread")
+                val sCurrentActivityThread =
+                    activityThreadClass.getDeclaredField("sCurrentActivityThread")
                 sCurrentActivityThread.isAccessible = true
                 sCurrentActivityThread[null]
             } catch (e: Exception) {

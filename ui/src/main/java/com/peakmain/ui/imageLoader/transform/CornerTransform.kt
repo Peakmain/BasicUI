@@ -2,11 +2,11 @@ package com.peakmain.ui.imageLoader.transform
 
 import android.content.Context
 import android.graphics.*
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
-import com.bumptech.glide.load.resource.bitmap.BitmapResource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.engine.Resource
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
+import com.bumptech.glide.load.resource.bitmap.BitmapResource
 import java.security.MessageDigest
 
 /**
@@ -15,9 +15,8 @@ import java.security.MessageDigest
  * mail:2726449200@qq.com
  * describe：图片圆角的Transform
  */
-internal class CornerTransform(context: Context, radius: Float) : Transformation<Bitmap?> {
-    private val mBitmapPool: BitmapPool
-    private var radius: Float
+internal class CornerTransform(context: Context, var radius: Float) : Transformation<Bitmap?> {
+    private val mBitmapPool: BitmapPool=Glide.get(context).bitmapPool
     private var isLeftTop = false
     private var isRightTop = false
     private var isLeftBottom = false
@@ -114,9 +113,4 @@ internal class CornerTransform(context: Context, radius: Float) : Transformation
     }
 
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {}
-
-    init {
-        mBitmapPool = Glide.get(context).bitmapPool
-        this.radius = radius
-    }
 }

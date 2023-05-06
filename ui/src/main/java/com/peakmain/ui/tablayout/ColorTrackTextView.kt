@@ -10,9 +10,9 @@ import com.peakmain.ui.R
 
 /**
  * author: peakmain
- * createdata：2019/7/12
+ * create：2019/7/12
  * mail: 2726449200@qq.com
- * desiption:
+ * description:
  */
 class ColorTrackTextView @JvmOverloads constructor(
     context: Context,

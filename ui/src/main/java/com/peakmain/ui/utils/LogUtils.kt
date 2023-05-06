@@ -2,7 +2,7 @@ package com.peakmain.ui.utils
 
 import android.util.Log
 import androidx.annotation.IntDef
-import com.peakmain.ui.BuildConfig
+import com.peakmain.res.BuildConfig
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -31,6 +31,7 @@ class LogUtils private constructor() {
     private class TagHead(var tag: String?, var consoleHead: Array<String?>?, var fileHead: String)
 
     companion object {
+        private const val TAG = "LogUtils"
         const val V = Log.VERBOSE
         const val D = Log.DEBUG
         const val I = Log.INFO
@@ -49,7 +50,6 @@ class LogUtils private constructor() {
         private val sDir // log存储目录
                 : String? = null
         private const val sFilePrefix = "util" // log文件前缀
-        private const val sLogSwitch = true // log总开关，默认开
         private const val sLog2ConsoleSwitch = true // logcat是否打印，默认打印
         private val sGlobalTag: String? = null // log标签
         private const val sTagIsSpace = true // log标签是否为空白
@@ -59,21 +59,24 @@ class LogUtils private constructor() {
         private const val sConsoleFilter = V // log控制台过滤器
         private const val sFileFilter = V // log文件过滤器
         private const val sStackDeep = 1 // log栈深度
-        private val FILE_SEP = System.getProperty("file.separator")
         private val LINE_SEP = System.getProperty("line.separator")
-        private const val TOP_BORDER = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════"
-        private const val SPLIT_BORDER = "╟───────────────────────────────────────────────────────────────────────────────────────────────────"
+        private const val TOP_BORDER =
+            "╔═══════════════════════════════════════════════════════════════════════════════════════════════════"
+        private const val SPLIT_BORDER =
+            "╟───────────────────────────────────────────────────────────────────────────────────────────────────"
         private const val LEFT_BORDER = "║ "
-        private const val BOTTOM_BORDER = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════"
+        private const val BOTTOM_BORDER =
+            "╚═══════════════════════════════════════════════════════════════════════════════════════════════════"
         private const val MAX_LEN = 4000
         private val FORMAT: Format = SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault())
         private const val NULL_TIPS = "Log with null object."
-        private const val NULL = "null"
         private const val ARGS = "args"
+
         @JvmStatic
         fun v(contents: Any?) {
             log(V, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun v(tag: String?, content: Any?, vararg contents: Any?) {
             log(V, tag, content!!, contents)
@@ -83,90 +86,112 @@ class LogUtils private constructor() {
         fun d(contents: Any?) {
             log(D, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun d(tag: String?, content: Any?, vararg contents: Any?) {
             log(D, tag, content!!, contents)
         }
+
         @JvmStatic
         fun i(contents: Any?) {
             log(I, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun normal(message: String) {
-            Log.i(BuildConfig.TAG, message)
+            Log.i(TAG, message)
         }
+
         @JvmStatic
         fun i(tag: String?, content: Any?, vararg contents: Any?) {
             log(I, tag, content!!, contents)
         }
+
         @JvmStatic
         fun w(contents: Any?) {
             log(W, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun w(tag: String?, content: Any?, vararg contents: Any?) {
             log(W, tag, content!!, contents)
         }
+
         @JvmStatic
         fun e(contents: Any?) {
             log(E, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun e(tag: String?, content: Any?, vararg contents: Any?) {
             log(E, tag, content!!, contents)
         }
+
         @JvmStatic
         fun a(contents: Any?) {
             log(A, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun a(tag: String?, content: Any?, vararg contents: Any?) {
             log(A, tag, content!!, contents)
         }
+
         @JvmStatic
         fun file(contents: Any?) {
             log(FILE or D, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun file(@TYPE type: Int, contents: Any?) {
             log(FILE or type, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun file(tag: String?, contents: Any?) {
             log(FILE or D, tag, contents!!)
         }
+
         @JvmStatic
         fun file(@TYPE type: Int, tag: String?, contents: Any?) {
             log(FILE or type, tag, contents!!)
         }
+
         @JvmStatic
         fun json(contents: String?) {
             log(JSON or D, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun json(@TYPE type: Int, contents: String?) {
             log(JSON or type, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun json(tag: String?, contents: String?) {
             log(JSON or D, tag, contents!!)
         }
+
         @JvmStatic
         fun json(@TYPE type: Int, tag: String?, contents: String?) {
             log(JSON or type, tag, contents!!)
         }
+
         @JvmStatic
         fun xml(contents: String?) {
             log(XML or D, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun xml(@TYPE type: Int, contents: String?) {
             log(XML or type, sGlobalTag, contents!!)
         }
+
         @JvmStatic
         fun xml(tag: String?, contents: String?) {
             log(XML or D, tag, contents!!)
         }
+
         @JvmStatic
         fun xml(@TYPE type: Int, tag: String?, contents: String?) {
             log(XML or type, tag, contents!!)
@@ -216,17 +241,20 @@ class LogUtils private constructor() {
                 if (sLogHeadSwitch) {
                     val tName = Thread.currentThread().name
                     val head = Formatter()
-                            .format("%s, %s(%s:%d)",
-                                    tName,
-                                    targetElement.methodName,
-                                    fileName,
-                                    targetElement.lineNumber)
-                            .toString()
+                        .format(
+                            "%s, %s(%s:%d)",
+                            tName,
+                            targetElement.methodName,
+                            fileName,
+                            targetElement.lineNumber
+                        )
+                        .toString()
                     val fileHead = " [$head]: "
                     return if (sStackDeep <= 1) {
                         TagHead(tag, arrayOf(head), fileHead)
                     } else {
-                        val consoleHead = arrayOfNulls<String>(sStackDeep.coerceAtMost(stackTrace.size - 3))
+                        val consoleHead =
+                            arrayOfNulls<String>(sStackDeep.coerceAtMost(stackTrace.size - 3))
                         consoleHead[0] = head
                         val spaceLen = tName.length + 2
                         val space = Formatter().format("%" + spaceLen + "s", "").toString()
@@ -235,12 +263,14 @@ class LogUtils private constructor() {
                         while (i < len) {
                             targetElement = stackTrace[i + 3]
                             consoleHead[i] = Formatter()
-                                    .format("%s%s(%s:%d)",
-                                            space,
-                                            targetElement.methodName,
-                                            targetElement.fileName,
-                                            targetElement.lineNumber)
-                                    .toString()
+                                .format(
+                                    "%s%s(%s:%d)",
+                                    space,
+                                    targetElement.methodName,
+                                    targetElement.fileName,
+                                    targetElement.lineNumber
+                                )
+                                .toString()
                             ++i
                         }
                         TagHead(tag, consoleHead, fileHead)
@@ -268,12 +298,12 @@ class LogUtils private constructor() {
                     while (i < len) {
                         val content = contents[i]
                         sb.append(ARGS)
-                                .append("[")
-                                .append(i)
-                                .append("]")
-                                .append(" = ")
-                                .append(content.toString())
-                                .append(LINE_SEP)
+                            .append("[")
+                            .append(i)
+                            .append("]")
+                            .append(" = ")
+                            .append(content.toString())
+                            .append(LINE_SEP)
                         ++i
                     }
                     body = sb.toString()
@@ -328,7 +358,11 @@ class LogUtils private constructor() {
         private fun printHead(type: Int, tag: String?, head: Array<String?>?) {
             if (head != null) {
                 for (aHead in head) {
-                    Log.println(type, tag, if (sLogBorderSwitch) LEFT_BORDER + aHead else aHead?:"")
+                    Log.println(
+                        type,
+                        tag,
+                        if (sLogBorderSwitch) LEFT_BORDER + aHead else aHead ?: ""
+                    )
                 }
                 if (sLogBorderSwitch) Log.println(type, tag, SPLIT_BORDER)
             }
@@ -369,18 +403,18 @@ class LogUtils private constructor() {
             val date = format.substring(0, 5)
             val time = format.substring(6)
             val fullPath = (sDir
-                    ?: sDefaultDir) + sFilePrefix + "-" + date + ".txt"
+                ?: sDefaultDir) + sFilePrefix + "-" + date + ".txt"
             if (!createOrExistsFile(fullPath)) {
                 Log.e(tag, "log to $fullPath failed!")
                 return
             }
             val sb = StringBuilder()
             sb.append(time)
-                    .append(T[type - V])
-                    .append("/")
-                    .append(tag)
-                    .append(msg)
-                    .append(LINE_SEP)
+                .append(T[type - V])
+                .append("/")
+                .append(tag)
+                .append(msg)
+                .append(LINE_SEP)
             val content = sb.toString()
             if (sExecutor == null) {
                 sExecutor = Executors.newSingleThreadExecutor()

@@ -6,7 +6,7 @@ import android.util.Log
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity
-import com.peakmain.ui.recyclerview.creator.DefalutLoadViewCreator
+import com.peakmain.ui.recyclerview.creator.DefaultLoadViewCreator
 import com.peakmain.ui.recyclerview.creator.DefaultRefreshViewCreator
 import com.peakmain.ui.recyclerview.view.LoadRefreshRecyclerView
 import com.peakmain.ui.recyclerview.view.LoadRefreshRecyclerView.OnLoadMoreListener
@@ -38,7 +38,7 @@ class PullDownActivity1 : BaseActivity(), OnLoadMoreListener, RefreshRecyclerVie
         val data = data
         mAdapter = BaseRecyclerStringAdapter(this, data)
         mRecyclerView!!.adapter= mAdapter
-        mRecyclerView!!.addLoadViewCreator(DefalutLoadViewCreator())
+        mRecyclerView!!.addLoadViewCreator(DefaultLoadViewCreator())
         mRecyclerView!!.setOnLoadMoreListener(this)
         mRecyclerView!!.addRefreshViewCreator(DefaultRefreshViewCreator())
         mRecyclerView!!.setOnRefreshListener(this)
