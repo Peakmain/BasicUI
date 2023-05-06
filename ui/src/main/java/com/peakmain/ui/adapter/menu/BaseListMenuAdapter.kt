@@ -15,8 +15,9 @@ import com.peakmain.ui.R
  * describe：基本条目的适配器
  */
 abstract class BaseListMenuAdapter(//上下文
-        private val mContext: Context, //标题的集合
-        private val mTitles: List<String>) : BaseMenuAdapter() {
+    private val mContext: Context, //标题的集合
+    private val mTitles: List<String>
+) : BaseMenuAdapter() {
 
     override fun getView(position: Int, parent: ViewGroup?): View? {
         val view = LayoutInflater.from(mContext).inflate(titleLayoutId, parent, false)

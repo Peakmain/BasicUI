@@ -15,9 +15,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.peakmain.ui.R
 import com.peakmain.ui.dialog.AlertDialog
-import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
-import com.peakmain.ui.utils.SizeUtils.Companion.screenHeight
-import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
+import com.peakmain.ui.utils.SizeUtils.dp2px
+import com.peakmain.ui.utils.SizeUtils.screenHeight
+import com.peakmain.ui.utils.SizeUtils.screenWidth
 
 /**
  * author ：Peakmain
@@ -50,13 +50,6 @@ class ShapeLoadingView @JvmOverloads constructor(
      * 初始化加载布局
      */
     private fun initLayout() {
-        // 1. 记载写好的 ui_loading_view
-        // 1.1 实例化View
-        // View loadView = inflate(getContext(),R.layout.ui_loading_view,null);
-        // 1.2 添加到该View
-        // addView(loadView);
-        // 找一下 插件式换肤资源加载的那一节的内容
-        // this 代表把 ui_loading_view 加载到 LoadingView 中
         View.inflate(context, R.layout.ui_shape_view, this)
         mShapeView = findViewById(R.id.shape_view)
         mShadowView = findViewById(R.id.shadow_view)
@@ -158,8 +151,6 @@ class ShapeLoadingView @JvmOverloads constructor(
                     0f,
                     -120f
                 )
-            else -> {
-            }
         }
         rotationAnimator!!.duration = ANIMATOR_DURATION
         rotationAnimator.interpolator = DecelerateInterpolator()

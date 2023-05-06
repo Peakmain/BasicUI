@@ -30,7 +30,8 @@ class DefaultRefreshViewCreator : RefreshViewCreator() {
      * @return view
      */
     override fun getRefreshView(context: Context, parent: ViewGroup): View {
-        val refreshView = LayoutInflater.from(context).inflate(R.layout.ui_default_refresh_view, parent, false)
+        val refreshView =
+            LayoutInflater.from(context).inflate(R.layout.ui_default_refresh_view, parent, false)
         mTvStatus = refreshView.findViewById(R.id.tv_refresh_status)
         mTvRefreshTime = refreshView.findViewById(R.id.tv_refresh_time)
         mIvArrow = refreshView.findViewById(R.id.iv_arrow_downward)
@@ -62,8 +63,10 @@ class DefaultRefreshViewCreator : RefreshViewCreator() {
     override fun onRefreshing() {
         mTvStatus!!.text = "正在刷新...."
         mIvArrow!!.setImageResource(R.drawable.ic_progress_circle)
-        val animation = RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF, 0.5f)
+        val animation = RotateAnimation(
+            0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
         animation.repeatCount = -1
         animation.duration = 1000
         mIvArrow!!.startAnimation(animation)

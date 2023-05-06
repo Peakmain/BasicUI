@@ -52,7 +52,8 @@ object FpsMonitorUtils {
         private var mParams = WindowManager.LayoutParams()
         private var isPlaying = false
         private val mApplication = BasicUIUtils.application
-        private var mView = WeakReference(View.inflate(mApplication, R.layout.ui_fps_view, null) as TextView)
+        private var mView =
+            WeakReference(View.inflate(mApplication, R.layout.ui_fps_view, null) as TextView)
         private val mDecimalFormat = DecimalFormat("#.0 fps")
         private var windowManager: WindowManager? = null
         private val mFrameMonitor = FrameMonitor()

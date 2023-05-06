@@ -22,13 +22,8 @@ class ImageLoader private constructor() {
      *
      * @return Gilde的加载工厂
      */
-    private var loader: ILoader? = null
-
-    init {
-        if (loader == null){
-            loader = GlideLoaderFactory().createLoader()
-        }
-    }
+    private var loader: ILoader = GlideLoaderFactory().createLoader()
+    
 
     /**
      * 切换图片的ImageLoader
@@ -47,14 +42,14 @@ class ImageLoader private constructor() {
      * @param view    显示图片的View
      */
     fun displayImage(url: String, view: ImageView?) {
-        loader!!.displayImage(view?.context, url, view, 0)
+        loader.displayImage(view?.context, url, view, 0)
     }
 
     /**
      * 设置UserAgent
      */
     fun userAgent(userAgent: String?) {
-        loader!!.userAgent(userAgent)
+        loader.userAgent(userAgent)
     }
 
     /**
@@ -65,7 +60,7 @@ class ImageLoader private constructor() {
      * @param desId   默认图片的Id
      */
     fun displayImage(url: String, view: ImageView?, desId: Int) {
-        loader!!.displayImage(view?.context, url, view, desId)
+        loader.displayImage(view?.context, url, view, desId)
     }
 
     /**
@@ -82,7 +77,7 @@ class ImageLoader private constructor() {
         desId: Int,
         isSkipCache: Boolean
     ) {
-        loader!!.displayImage(view?.context, url, view, desId, isSkipCache)
+        loader.displayImage(view?.context, url, view, desId, isSkipCache)
     }
 
     /**
@@ -97,7 +92,7 @@ class ImageLoader private constructor() {
         imageView: ImageView?,
         requestOptions: RequestOptions
     ) {
-        loader!!.displayImage(imageView?.context, url, imageView, requestOptions)
+        loader.displayImage(imageView?.context, url, imageView, requestOptions)
     }
 
     /**
@@ -108,7 +103,7 @@ class ImageLoader private constructor() {
      * @param desId   默认图片的Id
      */
     fun displayImageRound(url: String, view: ImageView?, corner: Int, @DrawableRes desId: Int) {
-        loader!!.displayImageRound(view?.context, url, view, corner, desId)
+        loader.displayImageRound(view?.context, url, view, corner, desId)
     }
 
     /**
@@ -119,7 +114,7 @@ class ImageLoader private constructor() {
      * @param desId   默认图片的Id
      */
     fun displayImage(url: Uri, view: ImageView?, desId: Int) {
-        loader!!.displayImage(view?.context, url, view, desId)
+        loader.displayImage(view?.context, url, view, desId)
     }
 
     /**
@@ -138,7 +133,7 @@ class ImageLoader private constructor() {
         width: Int,
         desId: Int
     ) {
-        loader!!.displayImage(view?.context, url, view, height, width, desId)
+        loader.displayImage(view?.context, url, view, height, width, desId)
     }
 
     /**
@@ -152,7 +147,7 @@ class ImageLoader private constructor() {
         sizeMultiplier: Float,
         desId: Int
     ) {
-        loader!!.displayImage(view?.context, url, view, height, width, sizeMultiplier, desId)
+        loader.displayImage(view?.context, url, view, height, width, sizeMultiplier, desId)
     }
 
     /**
@@ -163,7 +158,7 @@ class ImageLoader private constructor() {
      * @param desId   默认图片的Id
      */
     fun displayLocalImage(url: String, view: ImageView?, desId: Int) {
-        loader!!.displayLocalImage(view?.context, url, view, desId)
+        loader.displayLocalImage(view?.context, url, view, desId)
     }
 
     /**
@@ -172,7 +167,7 @@ class ImageLoader private constructor() {
      * @param context 上下文
      */
     fun displayImage(context: Context?, url: Uri, simpleTarget: CustomTarget<Bitmap>) {
-        loader!!.displayImage(context, url, simpleTarget)
+        loader.displayImage(context, url, simpleTarget)
     }
 
     /**
@@ -188,7 +183,7 @@ class ImageLoader private constructor() {
         rightBottom: Boolean,
         roundRadius: Float
     ) {
-        loader!!.displayImageRound(
+        loader.displayImageRound(
             view?.context,
             url,
             view,
@@ -207,13 +202,13 @@ class ImageLoader private constructor() {
      * @param context 上下文
      */
     fun clearImageCache(context: Context?) {
-        loader!!.clearMemory(context)
-        loader!!.clearDiskCache(context)
+        loader.clearMemory(context)
+        loader.clearDiskCache(context)
     }
 
     fun clearImageCache(view: ImageView?) {
-        loader!!.clearMemory(view?.context)
-        loader!!.clearDiskCache(view?.context)
+        loader.clearMemory(view?.context)
+        loader.clearDiskCache(view?.context)
     }
 
     /**
@@ -223,11 +218,11 @@ class ImageLoader private constructor() {
      * @param level
      */
     fun trimMemory(context: Context, level: Int) {
-        loader!!.trimMemory(context, level)
+        loader.trimMemory(context, level)
     }
 
     fun trimMemory(view: ImageView?, level: Int) {
-        loader!!.trimMemory(view?.context, level)
+        loader.trimMemory(view?.context, level)
     }
 
     /**
@@ -236,11 +231,11 @@ class ImageLoader private constructor() {
      * @param context
      */
     fun clearAllMemoryCaches(context: Context?) {
-        loader!!.clearAllMemoryCaches(context)
+        loader.clearAllMemoryCaches(context)
     }
 
     fun clearAllMemoryCaches(view: ImageView?) {
-        loader!!.clearAllMemoryCaches(view?.context)
+        loader.clearAllMemoryCaches(view?.context)
     }
 
     /**
@@ -249,11 +244,11 @@ class ImageLoader private constructor() {
      * @param context
      */
     fun resumeRequest(context: Context?) {
-        loader!!.resumeRequest(context)
+        loader.resumeRequest(context)
     }
 
     fun resumeRequest(view: ImageView?) {
-        loader!!.resumeRequest(view?.context)
+        loader.resumeRequest(view?.context)
     }
 
     /**
@@ -262,7 +257,7 @@ class ImageLoader private constructor() {
      * @param context
      */
     fun pauseRequest(context: Context?) {
-        loader!!.pauseRequest(context)
+        loader.pauseRequest(context)
     }
 
     companion object {

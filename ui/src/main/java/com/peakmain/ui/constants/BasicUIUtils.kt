@@ -2,11 +2,10 @@ package com.peakmain.ui.constants
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.LayoutRes
-import com.peakmain.ui.BuildConfig
+import com.peakmain.ui.utils.LogUtils
 
 /**
  * author ：Peakmain
@@ -30,7 +29,7 @@ object BasicUIUtils {
             throw NullPointerException("context cannot be null")
         }
         val inflater = context.applicationContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         return inflater.inflate(layoutId, null)
     }//通过反射获取上下文
 
@@ -48,7 +47,7 @@ object BasicUIUtils {
 
     fun init(application: Application?) {
         if (application == null) {
-            Log.e(BuildConfig.TAG, "application is null.")
+            LogUtils.e("application is null.")
             return
         }
         if (application != mApplication) {
