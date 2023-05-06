@@ -27,7 +27,12 @@ object BitmapUtils {
             }
         }
         view.clearFocus()
-        val bitmap = createBitmapSafely((view.width * scale.toInt()), view.height * scale.toInt(), Bitmap.Config.ARGB_8888, 1)
+        val bitmap = createBitmapSafely(
+            (view.width * scale.toInt()),
+            view.height * scale.toInt(),
+            Bitmap.Config.ARGB_8888,
+            1
+        )
         if (bitmap != null) {
             synchronized(mCanvas) {
                 val canvas = mCanvas
@@ -44,7 +49,12 @@ object BitmapUtils {
     }
 
 
-    fun createBitmapSafely(width: Int, height: Int, config: Bitmap.Config, retryCount: Int): Bitmap? {
+    fun createBitmapSafely(
+        width: Int,
+        height: Int,
+        config: Bitmap.Config,
+        retryCount: Int
+    ): Bitmap? {
         try {
             return Bitmap.createBitmap(width, height, config)
         } catch (e: Exception) {

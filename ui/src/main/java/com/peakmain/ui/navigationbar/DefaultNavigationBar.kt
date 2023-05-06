@@ -23,11 +23,10 @@ import com.google.android.material.appbar.AppBarLayout
 import com.peakmain.ui.R
 
 /**
- * @author ：Peakmain
- * version ：1.0
- * createTime ：2018/11/26  下午 12:15
- * mail : 2726449200@qq.com
- * describe ：
+ * author ：Peakmain
+ * createTime：2018/11/26
+ * mail:2726449200@qq.com
+ * describe：
  */
 class DefaultNavigationBar internal constructor(builder: Builder?) :
     AbsNavigationBar<DefaultNavigationBar.Builder?>(builder) {
@@ -96,7 +95,7 @@ class DefaultNavigationBar internal constructor(builder: Builder?) :
         return this
     }
 
-    fun setHomeAsUpIndicator(@Nullable indicator: Drawable): DefaultNavigationBar {
+    fun setHomeAsUpIndicator(indicator: Drawable): DefaultNavigationBar {
         if (mActionBar != null) {
             mActionBar!!.setHomeAsUpIndicator(indicator)
         }
@@ -349,7 +348,7 @@ class DefaultNavigationBar internal constructor(builder: Builder?) :
             return this
         }
 
-        fun setHomeAsUpIndicator(@Nullable indicator: Drawable): Builder {
+        fun setHomeAsUpIndicator(indicator: Drawable): Builder {
             mHomeAsUpIndicatorDrawable = indicator
             return this
         }

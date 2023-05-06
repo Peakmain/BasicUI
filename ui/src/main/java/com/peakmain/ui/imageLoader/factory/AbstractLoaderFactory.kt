@@ -9,5 +9,5 @@ import com.peakmain.ui.imageLoader.ILoader
  * describe：
  */
 abstract class AbstractLoaderFactory {
-    abstract fun createLoader():ILoader
+    abstract fun createLoader(): ILoader
 }
