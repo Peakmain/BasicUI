@@ -6,7 +6,6 @@ import android.content.DialogInterface
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import com.peakmain.ui.R
 
 /**
@@ -18,13 +17,13 @@ import com.peakmain.ui.R
 class AlertDialog : Dialog {
     private var mAlert: AlertController
 
-    private constructor(@NonNull context: Context) : super(context) {
+    private constructor(context: Context) : super(context) {
         mAlert = AlertController(this, window!!)
     }
 
-    private constructor(@NonNull context: Context, themeResId: Int) : super(
-            context,
-            themeResId
+    private constructor(context: Context, themeResId: Int) : super(
+        context,
+        themeResId
     ) {
         mAlert = AlertController(this, window!!)
     }
@@ -55,17 +54,17 @@ class AlertDialog : Dialog {
     }
 
     class Builder @JvmOverloads constructor(
-            context: Context?,
-            themeResId: Int = R.style.dialog
+        context: Context?,
+        themeResId: Int = R.style.dialog
     ) {
         private val P: AlertController.AlertParams
         private var mDialog: AlertDialog? = null
         fun create(): AlertDialog {
             val dialog =
-                    AlertDialog(
-                            P.mContext,
-                            P.themeResId
-                    )
+                AlertDialog(
+                    P.mContext,
+                    P.themeResId
+                )
             P.apply(dialog.mAlert)
             dialog.setCancelable(P.mCancelable)
             if (P.mCancelable) {
@@ -101,8 +100,8 @@ class AlertDialog : Dialog {
          * save text in the custom View
          */
         fun setText(
-                layoutId: Int,
-                text: CharSequence?
+            layoutId: Int,
+            text: CharSequence?
         ): Builder {
             P.mTextArray.put(layoutId, text)
             return this
@@ -112,8 +111,8 @@ class AlertDialog : Dialog {
          * save button click events in the custom View
          */
         fun setOnClickListener(
-                layoutId: Int,
-                listener: View.OnClickListener?
+            layoutId: Int,
+            listener: View.OnClickListener?
         ): Builder {
             P.mClickArray.put(layoutId, listener)
             return this
@@ -123,8 +122,8 @@ class AlertDialog : Dialog {
          * save button click events in the custom View and return dialog for cancel
          */
         fun addOnClickListener(
-                layoutId: Int,
-                listener: (dialog: AlertDialog?) -> Unit
+            layoutId: Int,
+            listener: (dialog: AlertDialog?) -> Unit
         ): Builder {
             P.mClickArray.put(layoutId, View.OnClickListener { listener(mDialog) })
             return this
@@ -134,8 +133,8 @@ class AlertDialog : Dialog {
          * set width and height
          */
         fun setWidthAndHeight(
-                width: Int,
-                height: Int
+            width: Int,
+            height: Int
         ): Builder {
             P.mWidth = width
             P.mHeigth = height
@@ -212,8 +211,8 @@ class AlertDialog : Dialog {
 
         init {
             P = AlertController.AlertParams(
-                    context!!,
-                    themeResId
+                context!!,
+                themeResId
             )
         }
     }

@@ -9,13 +9,11 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.R
 import com.peakmain.ui.recyclerview.creator.LoadViewCreator
-
 /**
- * @author ：Peakmain
- * version ：1.0
- * createTime ：2018/11/21 0021 下午 3:13
- * mail : 2726449200@qq.com
- * describe ：下拉刷新上拉加载更多的RecyclerView
+ * author ：Peakmain
+ * createTime：2018/11/21
+ * mail:2726449200@qq.com
+ * describe：下拉刷新上拉加载更多的RecyclerView
  */
 class LoadRefreshRecyclerView @JvmOverloads constructor(
     context: Context,

@@ -11,6 +11,7 @@ import java.io.Serializable
 open class GroupRecyclerBean<T> : Serializable {
     @JvmField
     var isHeader = false
+
     @JvmField
     var header: String? = null
 

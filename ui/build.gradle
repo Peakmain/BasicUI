@@ -24,11 +24,9 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "TAG", "\"BasicUI\"")
         }
         release {
             minifyEnabled false
-            buildConfigField("String", "TAG", "\"BasicUI\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -59,6 +57,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.google.android.material:material:1.6.1'
     api 'com.github.Peakmain:Common:0.0.2'
+    implementation 'androidx.preference:preference:1.2.0'
 }
 repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }

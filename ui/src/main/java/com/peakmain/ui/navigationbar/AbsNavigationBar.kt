@@ -15,14 +15,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
 import java.lang.ref.WeakReference
-import java.util.*
 
 /**
- * @author ：Peakmain
- * version ：1.0
- * createTime ：2018/11/26  上午 11:45
- * mail : 2726449200@qq.com
- * describe ：
+ * author ：Peakmain
+ * createTime：2018/11/16
+ * mail:2726449200@qq.com
+ * describe：
  */
 open class AbsNavigationBar<B : AbsNavigationBar.Builder<*>?>(val builder: B) : INavigation {
     /**

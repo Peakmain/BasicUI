@@ -2,7 +2,12 @@ package com.peakmain.ui.utils
 
 import android.graphics.PointF
 import kotlin.math.*
-
+/**
+ * author ：Peakmain
+ * createTime：2023/5/6
+ * mail:2726449200@qq.com
+ * describe：
+ */
 object BubbleUtils {
 
     /**
@@ -11,8 +16,10 @@ object BubbleUtils {
      *
      */
     fun getDistanceBetween2Points(p0: PointF, p1: PointF): Float {
-        return sqrt((p0.y - p1.y.toDouble()).pow(2.0)
-                + (p0.x - p1.x.toDouble()).pow(2.0)).toFloat()
+        return sqrt(
+            (p0.y - p1.y.toDouble()).pow(2.0)
+                    + (p0.x - p1.x.toDouble()).pow(2.0)
+        ).toFloat()
     }
 
     /**
@@ -24,8 +31,11 @@ object BubbleUtils {
      * @return PointF
      */
     fun getPointByPercent(p1: PointF, p2: PointF, percent: Float): PointF {
-        return PointF(evaluateValue(percent, p1.x, p2.x), evaluateValue(
-                percent, p1.y, p2.y))
+        return PointF(
+            evaluateValue(percent, p1.x, p2.x), evaluateValue(
+                percent, p1.y, p2.y
+            )
+        )
     }
 
     /**
@@ -43,7 +53,7 @@ object BubbleUtils {
         // start = 10   end = 2
         //fraction = 0.5
         // result = 10 + (-8) * fraction = 6
-        return start.toFloat() + (end.toFloat() - start.toFloat())* fraction
+        return start.toFloat() + (end.toFloat() - start.toFloat()) * fraction
     }
 
     /**
@@ -58,8 +68,10 @@ object BubbleUtils {
      * The slope of line which cross the pMiddle.
      * @return
      */
-    fun getIntersectionPoints(pMiddle: PointF, radius: Float,
-                              lineK: Double?): Array<PointF?> {
+    fun getIntersectionPoints(
+        pMiddle: PointF, radius: Float,
+        lineK: Double?
+    ): Array<PointF?> {
         val points = arrayOfNulls<PointF>(2)
 
         //高中数学：几何

@@ -14,11 +14,11 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.RelativeLayout
-import com.peakmain.ui.BuildConfig
 import com.peakmain.ui.dialog.AlertDialog
-import com.peakmain.ui.utils.SizeUtils.Companion.dp2px
-import com.peakmain.ui.utils.SizeUtils.Companion.screenHeight
-import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
+import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.SizeUtils.dp2px
+import com.peakmain.ui.utils.SizeUtils.screenHeight
+import com.peakmain.ui.utils.SizeUtils.screenWidth
 
 /**
  * author ：Peakmain
@@ -104,7 +104,7 @@ class CircleLoadingView @JvmOverloads constructor(
     }
 
     private val circleView: CircleView
-        private get() {
+        get() {
             val circleView = CircleView(context)
             val params = LayoutParams(dp2px(10f), dp2px(10f))
             params.addRule(CENTER_IN_PARENT)
@@ -178,7 +178,7 @@ class CircleLoadingView @JvmOverloads constructor(
                 .setCancelable(false)
                 .setWidthAndHeight(width, height)
         } else {
-            Log.e(BuildConfig.TAG, "Please call Method before show Method")
+            LogUtils.e("Please call Method before show Method")
         }
         return this
     }

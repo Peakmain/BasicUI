@@ -2,7 +2,9 @@ package com.peakmain.ui.utils
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.text.*
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.*
@@ -10,6 +12,8 @@ import android.util.SparseArray
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.core.util.containsKey
+import androidx.core.util.forEach
 
 
 /**

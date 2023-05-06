@@ -11,8 +11,7 @@ import android.widget.LinearLayout
 import androidx.core.view.ViewCompat
 import androidx.viewpager.widget.ViewPager
 import com.peakmain.ui.R
-import com.peakmain.ui.utils.SizeUtils.Companion.screenWidth
-import java.util.*
+import com.peakmain.ui.utils.SizeUtils.screenWidth
 import kotlin.math.roundToInt
 
 /**

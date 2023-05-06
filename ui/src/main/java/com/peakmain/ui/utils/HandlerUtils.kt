@@ -35,9 +35,9 @@ object HandlerUtils {
         get() = Looper.myLooper() == Looper.getMainLooper()
 
     fun getCurProcessName(context: Context): String? {
-        val procName = sCurProcessName
-        if (!TextUtils.isEmpty(procName)) {
-            return procName
+        val processName = sCurProcessName
+        if (!TextUtils.isEmpty(processName)) {
+            return processName
         }
         try {
             val pid = Process.myPid()
@@ -52,12 +52,12 @@ object HandlerUtils {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        sCurProcessName = curProcessNameFromProc
+        sCurProcessName = curProcessNameFromProcess
         return sCurProcessName
     }// ignore
 
     // ignore
-    private val curProcessNameFromProc: String?
+    private val curProcessNameFromProcess: String?
         get() {
             var cmdlineReader: BufferedReader? = null
             try {

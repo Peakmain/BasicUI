@@ -5,11 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 
 /**
- * @author ：Peakmain
- * version ：1.0
- * createTime ：2018/11/21 0021 下午 2:26
- * mail : 2726449200@qq.com
- * describe ：下拉刷新的辅助类为了匹配所有效果
+ * author ：Peakmain
+ * createTime：2018/11/21
+ * mail:2726449200@qq.com
+ * describe：
  */
 abstract class RefreshViewCreator {
     /**
