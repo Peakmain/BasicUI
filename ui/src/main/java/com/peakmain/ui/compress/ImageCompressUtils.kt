@@ -43,9 +43,9 @@ class ImageCompressUtils(builder: Builder) : Handler.Callback {
         if (TextUtils.isEmpty(mOutFileDir)) {
             compressFile(result, originalPath)
         } else {
-           if( FileUtils.createOrExistsDir(mOutFileDir)){
-               LogUtils.d("文件目录存在或创建成功$mOutFileDir")
-           }
+            if (FileUtils.createOrExistsDir(mOutFileDir)) {
+                LogUtils.d("文件目录存在或创建成功$mOutFileDir")
+            }
             val compressFiles: MutableList<String> = ArrayList()
             for (path in mPaths!!) {
                 val file = getFileByPath(path)
@@ -76,7 +76,7 @@ class ImageCompressUtils(builder: Builder) : Handler.Callback {
                         val compressUtils = CompressUtils()
                         val bitmap = compressUtils.decodeFile(path)
                         /* file = getImageCacheFile(context, Checker.checkSuffix(path));*/compressUtils
-                                .compressImage(bitmap, mQuality, path)
+                            .compressImage(bitmap, mQuality, path)
                     }
                     if (!result.contains(path)) {
                         //添加到已经缓存的集合中

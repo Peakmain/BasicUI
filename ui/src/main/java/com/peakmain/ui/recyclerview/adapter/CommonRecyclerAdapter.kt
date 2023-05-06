@@ -11,7 +11,6 @@ import com.peakmain.ui.recyclerview.listener.OnLongClickListener
 
 /**
  * author ：Peakmain
- * version : 1.0
  * createTime：2019/2/25
  * mail:2726449200@qq.com
  * describe：
@@ -61,10 +60,10 @@ abstract class CommonRecyclerAdapter<T>(//上下文
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // 设置点击和长按事件
         if (mItemClickListener != null) {
-            holder.itemView.setOnClickListener { mItemClickListener!!.onItemClick(holder.adapterPosition) }
+            holder.itemView.setOnClickListener { mItemClickListener!!.onItemClick(holder.bindingAdapterPosition) }
         }
         if (mLongClickListener != null) {
-            holder.itemView.setOnLongClickListener { mLongClickListener!!.onLongClick(holder.adapterPosition) }
+            holder.itemView.setOnLongClickListener { mLongClickListener!!.onLongClick(holder.bindingAdapterPosition) }
         }
         convert(holder, mData[position])
     }
@@ -99,6 +98,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
             null
         }
     }
+
     /**
      * 返回数据
      */
@@ -114,6 +114,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
         mData[index] = data
         notifyItemChanged(index)
     }
+
     /**
      * 添加数据
      */
@@ -153,7 +154,6 @@ abstract class CommonRecyclerAdapter<T>(//上下文
         mData.removeAt(position)
         notifyItemRemoved(position)
     }
-
 
 
     init {
