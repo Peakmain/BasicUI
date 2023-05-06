@@ -8,13 +8,11 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.ViewCompat
 import com.peakmain.ui.recyclerview.creator.RefreshViewCreator
-
 /**
- * @author ：Peakmain
- * version ：1.0
- * createTime ：2018/11/21 0021 下午 2:27
- * mail : 2726449200@qq.com
- * describe ：下拉刷新的RecyclerView
+ * author ：Peakmain
+ * createTime：2018/11/21
+ * mail:2726449200@qq.com
+ * describe：下拉刷新的RecyclerView
  */
 open class RefreshRecyclerView : WrapRecyclerView {
     // 下拉刷新的辅助类

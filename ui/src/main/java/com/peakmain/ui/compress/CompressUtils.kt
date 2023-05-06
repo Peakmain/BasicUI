@@ -18,10 +18,9 @@ import java.io.IOException
  */
 class CompressUtils {
     private external fun compressBitmap(bitmap: Bitmap, quality: Int, fileName: String): Int
+
     companion object {
         private const val TAG = "CompressUtils"
-
-
         init {
             System.loadLibrary("compress-lib")
         }
@@ -49,7 +48,8 @@ class CompressUtils {
         Log.e(TAG, "srcWidth:$srcWidth,srcHeight:$srcHeight")
         try {
             if (Checker.instance.isJPG(FileInputStream(path))) {
-                tagBitmap = rotatingImage(tagBitmap, Checker.instance.getOrientation(FileInputStream(path)))
+                tagBitmap =
+                    rotatingImage(tagBitmap, Checker.instance.getOrientation(FileInputStream(path)))
             }
             tagBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, stream)
         } catch (e: FileNotFoundException) {

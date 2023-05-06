@@ -10,7 +10,6 @@ import android.view.View
 import com.peakmain.ui.R
 import com.peakmain.ui.utils.MathUtils.checkInRound
 import com.peakmain.ui.utils.MathUtils.distance
-import java.util.*
 import kotlin.math.tan
 
 /**
@@ -85,40 +84,52 @@ class LockScreenView @JvmOverloads constructor(
                 if (status == point.STATUS_NORMAL) {
                     //先绘制外圆
                     mNormalPaint.color = mOuterNormalColor
-                    canvas.drawCircle(point.centerX.toFloat(),
+                    canvas.drawCircle(
+                        point.centerX.toFloat(),
                         point.centerY.toFloat(),
                         mDotRadius.toFloat(),
-                        mNormalPaint)
+                        mNormalPaint
+                    )
                     //后绘制内圆
                     mNormalPaint.color = mInnerNormalColor
-                    canvas.drawCircle(point.centerX.toFloat(),
+                    canvas.drawCircle(
+                        point.centerX.toFloat(),
                         point.centerY.toFloat(),
                         mDotRadius.toFloat() / 6.0f,
-                        mNormalPaint)
+                        mNormalPaint
+                    )
                 }
                 if (status == point.STATUS_PRESSED) {
                     mPressedPaint.color = mOuterPressedColor
-                    canvas.drawCircle(point.centerX.toFloat(),
+                    canvas.drawCircle(
+                        point.centerX.toFloat(),
                         point.centerY.toFloat(),
                         mDotRadius.toFloat(),
-                        mPressedPaint)
+                        mPressedPaint
+                    )
                     mPressedPaint.color = mInnerPressedColor
-                    canvas.drawCircle(point.centerX.toFloat(),
+                    canvas.drawCircle(
+                        point.centerX.toFloat(),
                         point.centerY.toFloat(),
                         mDotRadius.toFloat() / 6,
-                        mPressedPaint)
+                        mPressedPaint
+                    )
                 }
                 if (status == point.STATUS_ERROR) {
                     mErrorPaint.color = mOuterErrorColor
-                    canvas.drawCircle(point.centerX.toFloat(),
+                    canvas.drawCircle(
+                        point.centerX.toFloat(),
                         point.centerY.toFloat(),
                         mDotRadius.toFloat(),
-                        mErrorPaint)
+                        mErrorPaint
+                    )
                     mErrorPaint.color = mInnerErrorColor
-                    canvas.drawCircle(point.centerX.toFloat(),
+                    canvas.drawCircle(
+                        point.centerX.toFloat(),
                         point.centerY.toFloat(),
                         mDotRadius.toFloat() / 6,
-                        mErrorPaint)
+                        mErrorPaint
+                    )
                 }
             }
         }
@@ -137,27 +148,33 @@ class LockScreenView @JvmOverloads constructor(
                 drawLine(lastPoint, mSelectPoints[i], canvas, mLinePaint)
                 //两个点之间绘制箭头
                 if (!mIsHideArrow) {
-                    drawArrow(canvas,
+                    drawArrow(
+                        canvas,
                         mArrowPaint,
                         lastPoint,
                         mSelectPoints[i],
                         mDotRadius.toFloat() / 5,
-                        38)
+                        38
+                    )
                 }
                 lastPoint = mSelectPoints[i]
             }
             // 绘制最后一个点到手指当前位置的连线
             // 如果手指在内圆里面就不要绘制
-            val isInnerPoint = checkInRound(lastPoint.centerX.toFloat(),
+            val isInnerPoint = checkInRound(
+                lastPoint.centerX.toFloat(),
                 lastPoint.centerY.toFloat(),
                 (mDotRadius / 4.0).toFloat(),
                 mMovingX,
-                mMovingY)
+                mMovingY
+            )
             if (!isInnerPoint && isTouchPoint) {
-                drawLine(lastPoint,
+                drawLine(
+                    lastPoint,
                     Point(mMovingX.toInt(), mMovingY.toInt(), -1),
                     canvas,
-                    mLinePaint)
+                    mLinePaint
+                )
             }
         }
     }
@@ -240,8 +257,10 @@ class LockScreenView @JvmOverloads constructor(
         get() {
             for (i in 0..2) {
                 for (point in mPoints[i]) {
-                    if (checkInRound(point!!.centerX.toFloat(), point.centerY.toFloat(),
-                            mDotRadius.toFloat(), mMovingX, mMovingY)
+                    if (checkInRound(
+                            point!!.centerX.toFloat(), point.centerY.toFloat(),
+                            mDotRadius.toFloat(), mMovingX, mMovingY
+                        )
                     ) {
                         return point
                     }
@@ -263,10 +282,12 @@ class LockScreenView @JvmOverloads constructor(
     ) {
         if (paint == null) return
         //两点之间的距离
-        val d = distance(start.centerX.toDouble(),
+        val d = distance(
+            start.centerX.toDouble(),
             start.centerY.toDouble(),
             end.centerX.toDouble(),
-            end.centerY.toDouble())
+            end.centerY.toDouble()
+        )
         val sinB = ((end.centerX - start.centerX) / d).toFloat()
         val cosB = ((end.centerY - start.centerY) / d).toFloat()
         val tanA = tan(Math.toRadians(angle.toDouble())).toFloat()
@@ -293,19 +314,23 @@ class LockScreenView @JvmOverloads constructor(
     private fun drawLine(start: Point, end: Point, canvas: Canvas, paint: Paint?) {
         if (paint == null) return
         //两点之间的距离
-        val pointDistance = distance(start.centerX.toDouble(),
+        val pointDistance = distance(
+            start.centerX.toDouble(),
             start.centerY.toDouble(),
             end.centerX.toDouble(),
-            end.centerY.toDouble())
+            end.centerY.toDouble()
+        )
         val dx = end.centerX - start.centerX.toDouble()
         val dy = end.centerY - start.centerY.toDouble()
         val rx = (dx / pointDistance * (mDotRadius / 6.0)).toFloat()
         val ry = (dy / pointDistance * (mDotRadius / 6.0)).toFloat()
-        canvas.drawLine(start.centerX + rx,
+        canvas.drawLine(
+            start.centerX + rx,
             start.centerY + ry,
             end.centerX - rx,
             end.centerY - ry,
-            paint)
+            paint
+        )
     }
 
     /**

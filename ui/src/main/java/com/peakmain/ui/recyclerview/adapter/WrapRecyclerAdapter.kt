@@ -154,7 +154,7 @@ class WrapRecyclerAdapter(
         val index = mFooterViews.indexOfValue(view)
         if (index < 0) return
         mFooterViews.removeAt(index)
-        notifyItemRemoved(mHeaderViews.size() + adapter.itemCount+index)
+        notifyItemRemoved(mHeaderViews.size() + adapter.itemCount + index)
     }
 
     /**
