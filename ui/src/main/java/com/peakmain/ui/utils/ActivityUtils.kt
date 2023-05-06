@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference
  * mail:2726449200@qq.com
  * describe：
  */
-class ActivityUtils {
+class ActivityUtils private constructor() {
 
     private val mActivityLists = ArrayList<WeakReference<Activity>>()
 
@@ -125,10 +125,12 @@ class ActivityUtils {
          */
         fun startOverlaySettingActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mApplication.startActivity(Intent(
+                mApplication.startActivity(
+                    Intent(
                         Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                         Uri.parse("package:" + mApplication.packageName)
-                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
             }
         }
 

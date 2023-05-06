@@ -16,8 +16,10 @@ object MathUtils {
      */
     @JvmStatic
     fun distance(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-        return sqrt(abs(x1 - x2) * abs(x1 - x2)
-                + abs(y1 - y2) * abs(y1 - y2))
+        return sqrt(
+            abs(x1 - x2) * abs(x1 - x2)
+                    + abs(y1 - y2) * abs(y1 - y2)
+        )
     }
 
     /**
@@ -31,8 +33,10 @@ object MathUtils {
      * 是否在圆内
      */
     @JvmStatic
-    fun checkInRound(sx: Float, sy: Float, r: Float, x: Float,
-                     y: Float): Boolean {
+    fun checkInRound(
+        sx: Float, sy: Float, r: Float, x: Float,
+        y: Float
+    ): Boolean {
         // x的平方 + y的平方 开根号 < 半径
         return sqrt((sx - x) * (sx - x) + (sy - y) * (sy - y).toDouble()) < r
     }

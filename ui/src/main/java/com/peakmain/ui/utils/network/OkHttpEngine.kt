@@ -3,7 +3,7 @@ package com.peakmain.ui.utils.network
 import android.content.Context
 import com.peakmain.ui.utils.HandlerUtils.runOnUiThread
 import com.peakmain.ui.utils.LogUtils
-import com.peakmain.ui.utils.OkHttpManager.okHttpClient
+import com.peakmain.ui.utils.OkHttpManager
 import com.peakmain.ui.utils.network.body.ExMultipartBody
 import com.peakmain.ui.utils.network.callback.DownloadCallback
 import com.peakmain.ui.utils.network.callback.EngineCallBack
@@ -25,19 +25,24 @@ import java.net.URLConnection
  * describe：okhttp的网络引擎
  */
 open class OkHttpEngine : IHttpEngine {
-    private var mOkHttpClient: OkHttpClient? = null
+    private var mOkHttpClient: OkHttpClient = OkHttpManager.instance.okHttpClient
     private var mUrl: String = ""
-    fun setOkHttpClient(okHttpClient: OkHttpClient?) {
+    fun setOkHttpClient(okHttpClient: OkHttpClient) {
         mOkHttpClient = okHttpClient
     }
 
-    override fun get(context: Context, url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
+    override fun get(
+        context: Context,
+        url: String,
+        params: LinkedHashMap<String, Any>,
+        callBack: EngineCallBack
+    ) {
         mUrl = HttpUtils.jointParams(url, params)
         LogUtils.e("Get请求路径：$mUrl")
         val requestBuilder = Request.Builder().url(mUrl).tag(context)
         //可以省略，默认是GET请求
         val request = requestBuilder.build()
-        mOkHttpClient!!.newCall(request).enqueue(object : Callback {
+        mOkHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 runOnUiThread(Runnable { callBack.onError(e) })
@@ -52,29 +57,34 @@ open class OkHttpEngine : IHttpEngine {
         })
     }
 
-    override fun post(context: Context, url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
+    override fun post(
+        context: Context,
+        url: String,
+        params: LinkedHashMap<String, Any>,
+        callBack: EngineCallBack
+    ) {
         mUrl = url
         val requestBody = appendBody(params)
         val request = Request.Builder()
-                .url(mUrl)
-                .tag(context)
-                .post(requestBody)
-                .build()
+            .url(mUrl)
+            .tag(context)
+            .post(requestBody)
+            .build()
         mOkHttpClient!!.newCall(request).enqueue(
-                object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        e.printStackTrace()
-                        runOnUiThread(Runnable { callBack.onError(e) })
-                    }
-
-                    @Throws(IOException::class)
-                    override fun onResponse(call: Call, response: Response) {
-                        // 这个 两个回掉方法都不是在主线程中
-                        val result = response.body!!.string()
-                        LogUtils.e("Post返回结果：$result")
-                        runOnUiThread(Runnable { callBack.onSuccess(result) })
-                    }
+            object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                    runOnUiThread(Runnable { callBack.onError(e) })
                 }
+
+                @Throws(IOException::class)
+                override fun onResponse(call: Call, response: Response) {
+                    // 这个 两个回掉方法都不是在主线程中
+                    val result = response.body!!.string()
+                    LogUtils.e("Post返回结果：$result")
+                    runOnUiThread(Runnable { callBack.onSuccess(result) })
+                }
+            }
         )
     }
 
@@ -86,11 +96,17 @@ open class OkHttpEngine : IHttpEngine {
      * @param file     上传的文件
      * @param callBack 回掉
      */
-    override fun uploadFile(context: Context, url: String, file: File, callBack: ProgressEngineCallBack) {
+    override fun uploadFile(
+        context: Context,
+        url: String,
+        file: File,
+        callBack: ProgressEngineCallBack
+    ) {
         LogUtils.e("Upload请求的路径:$url")
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         builder.addFormDataPart("platform", "android")
-        builder.addFormDataPart("file", file.name,
+        builder.addFormDataPart(
+            "file", file.name,
             file.asRequestBody(guessMimeType(file.absolutePath).toMediaTypeOrNull())
         )
         val body = ExMultipartBody(builder.build(), object : UploadProgressListener {
@@ -123,7 +139,12 @@ open class OkHttpEngine : IHttpEngine {
      * @param outFile  保存文件的目录
      * @param callback 下载的回掉
      */
-    override fun downloadSingleManager(context: Context, url: String, outFile: File, callback: DownloadCallback) {
+    override fun downloadSingleManager(
+        context: Context,
+        url: String,
+        outFile: File,
+        callback: DownloadCallback
+    ) {
         val request = Request.Builder().url(url).build()
         val call = mOkHttpClient!!.newCall(request)
         call.enqueue(object : Callback {
@@ -152,7 +173,12 @@ open class OkHttpEngine : IHttpEngine {
         })
     }
 
-    override fun downloadMultiManager(context: Context, url: String, outFile: File, callback: DownloadCallback) {
+    override fun downloadMultiManager(
+        context: Context,
+        url: String,
+        outFile: File,
+        callback: DownloadCallback
+    ) {
         DownloadDispatcher.instance.startDownload(url, outFile, callback)
     }
 
@@ -161,7 +187,7 @@ open class OkHttpEngine : IHttpEngine {
      */
     protected fun appendBody(params: Map<String, Any>?): RequestBody {
         val builder = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
+            .setType(MultipartBody.FORM)
         addParams(builder, params)
         return builder.build()
     }
@@ -175,10 +201,13 @@ open class OkHttpEngine : IHttpEngine {
                 when (val value = params[key]) {
                     is File -> {
                         // 处理文件 --> Object File
-                        builder.addFormDataPart(key, value.name, value.asRequestBody(
-                            guessMimeType(value
-                                .absolutePath).toMediaTypeOrNull()
-                        )
+                        builder.addFormDataPart(
+                            key, value.name, value.asRequestBody(
+                                guessMimeType(
+                                    value
+                                        .absolutePath
+                                ).toMediaTypeOrNull()
+                            )
                         )
                     }
                     is List<*> -> {
@@ -188,10 +217,13 @@ open class OkHttpEngine : IHttpEngine {
                             for (i in listFiles.indices) {
                                 // 获取文件
                                 val file = listFiles[i]
-                                builder.addFormDataPart(key + i, file.name, file.asRequestBody(
-                                    guessMimeType(file
-                                        .absolutePath).toMediaTypeOrNull()
-                                )
+                                builder.addFormDataPart(
+                                    key + i, file.name, file.asRequestBody(
+                                        guessMimeType(
+                                            file
+                                                .absolutePath
+                                        ).toMediaTypeOrNull()
+                                    )
                                 )
                             }
                         } catch (e: Exception) {
@@ -218,12 +250,6 @@ open class OkHttpEngine : IHttpEngine {
             contentTypeFor = "application/octet-stream"
         }
         return contentTypeFor
-    }
-
-    init {
-        if (mOkHttpClient == null) {
-            mOkHttpClient = okHttpClient
-        }
     }
 
 

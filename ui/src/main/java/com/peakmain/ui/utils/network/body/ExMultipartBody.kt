@@ -14,7 +14,8 @@ import java.io.IOException
  * mail:2726449200@qq.com
  * describe：上传的RequestBody
  */
-class ExMultipartBody(body: MultipartBody, uploadProgressListener: UploadProgressListener?) : RequestBody() {
+class ExMultipartBody(body: MultipartBody, uploadProgressListener: UploadProgressListener?) :
+    RequestBody() {
     private val mRequestBody: RequestBody
     private var mCurrentLength: Long = 0
     private val mProgressListener: UploadProgressListener?

@@ -2,9 +2,9 @@ package com.peakmain.ui.utils
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import android.util.Base64
 import android.util.Log
+import androidx.preference.PreferenceManager
 import com.peakmain.ui.constants.BasicUIUtils
 import java.io.*
 import java.text.SimpleDateFormat
@@ -16,7 +16,14 @@ import java.text.SimpleDateFormat
  * describe：SharedPreferences常用封装工具类
  */
 class PreferencesUtil private constructor() {
-    private var preferences: SharedPreferences? = null
+    private val preferences: SharedPreferences? =
+        BasicUIUtils.application?.applicationContext?.let {
+            PreferenceManager.getDefaultSharedPreferences(
+                it
+            )
+        }
+
+
     private var editor: SharedPreferences.Editor? = null
     private var `object`: Any? = null
 
@@ -26,30 +33,29 @@ class PreferencesUtil private constructor() {
      * @param key    key
      * @param object object
      */
-    @Synchronized
     fun saveParam(key: String?, `object`: Any) {
-        if (editor == null) editor = preferences!!.edit()
+        if (editor == null) editor = preferences?.edit()
         // 得到object的类型
         when (`object`.javaClass.simpleName) {
             "String" -> {
                 // 保存String 类型
-                editor!!.putString(key, `object` as String)
+                editor?.putString(key, `object` as String)
             }
             "Integer" -> {
                 // 保存integer 类型
-                editor!!.putInt(key, (`object` as Int))
+                editor?.putInt(key, (`object` as Int))
             }
             "Boolean" -> {
                 // 保存 boolean 类型
-                editor!!.putBoolean(key, (`object` as Boolean))
+                editor?.putBoolean(key, (`object` as Boolean))
             }
             "Float" -> {
                 // 保存float类型
-                editor!!.putFloat(key, (`object` as Float))
+                editor?.putFloat(key, (`object` as Float))
             }
             "Long" -> {
                 // 保存long类型
-                editor!!.putLong(key, (`object` as Long))
+                editor?.putLong(key, (`object` as Long))
             }
             else -> {
                 require(`object` is Serializable) { `object`.javaClass.name + " 必须实现Serializable接口!" }
@@ -60,8 +66,9 @@ class PreferencesUtil private constructor() {
                     val oos = ObjectOutputStream(baos)
                     oos.writeObject(`object`)
                     val productBase64 = Base64.encodeToString(
-                        baos.toByteArray(), Base64.DEFAULT)
-                    editor!!.putString(key, productBase64)
+                        baos.toByteArray(), Base64.DEFAULT
+                    )
+                    editor?.putString(key, productBase64)
                     Log.d(this.javaClass.simpleName, "save object success")
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -69,37 +76,34 @@ class PreferencesUtil private constructor() {
                 }
             }
         }
-        editor!!.apply()
+        editor?.apply()
     }
 
     /**
      * 移除信息
      */
-    @Synchronized
     fun remove(key: String?) {
-        if (editor == null) editor = preferences!!.edit()
-        editor!!.remove(key).apply()
+        if (editor == null) editor = preferences?.edit()
+        editor?.remove(key)?.apply()
     }
 
-    @Synchronized
     fun clear() {
-        if (editor == null) editor = preferences!!.edit()
+        if (editor == null) editor = preferences?.edit()
         editor?.clear()?.apply()
     }
 
     /**
      * 是否已经包含key
      */
-    @Synchronized
     fun contains(key: String?): Boolean {
-        return preferences!!.contains(key)
+        return preferences?.contains(key) ?: false
     }
 
     /**
      * 获取SharedPreferences所有的value
      */
     fun getAll(): Map<String?, *>? {
-        return preferences!!.all
+        return preferences?.all
     }
 
     /**
@@ -115,19 +119,19 @@ class PreferencesUtil private constructor() {
         }
         when (defaultObject.javaClass.simpleName) {
             "String" -> {
-                return preferences!!.getString(key, defaultObject as String?)
+                return preferences?.getString(key, defaultObject as String?)
             }
             "Integer" -> {
-                return preferences!!.getInt(key, (defaultObject as Int?)!!)
+                return preferences?.getInt(key, (defaultObject as Int?) ?: 0)
             }
             "Boolean" -> {
-                return preferences!!.getBoolean(key, (defaultObject as Boolean?)!!)
+                return preferences?.getBoolean(key, (defaultObject as Boolean?) ?: false)
             }
             "Float" -> {
-                return preferences!!.getFloat(key, (defaultObject as Float?)!!)
+                return preferences?.getFloat(key, (defaultObject as Float?) ?: 0f)
             }
             "Long" -> {
-                return preferences!!.getLong(key, (defaultObject as Long?)!!)
+                return preferences?.getLong(key, (defaultObject as Long?) ?: 0L)
             }
             else -> return getObject(key)
         }
@@ -159,7 +163,7 @@ class PreferencesUtil private constructor() {
         get() = getParam("REFRESH_TIME", date) as String?
 
     fun getObject(key: String?): Any? {
-        val wordBase64 = preferences!!.getString(key, "") ?: return null
+        val wordBase64 = preferences?.getString(key, "") ?: return null
         val base64 = Base64.decode(wordBase64.toByteArray(), Base64.DEFAULT)
         val bais = ByteArrayInputStream(base64)
         try {
@@ -177,12 +181,9 @@ class PreferencesUtil private constructor() {
 
         // 使用双重同步锁
         @JvmStatic
-        val instance: PreferencesUtil by lazy(LazyThreadSafetyMode.SYNCHRONIZED){
+        val instance: PreferencesUtil by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             PreferencesUtil()
         }
     }
 
-    init {
-        preferences = PreferenceManager.getDefaultSharedPreferences(BasicUIUtils.application?.applicationContext)
-    }
 }

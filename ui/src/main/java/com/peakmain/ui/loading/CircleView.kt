@@ -22,17 +22,11 @@ class CircleView @JvmOverloads constructor(
      */
     var color = 0
         private set
-    private var mPaint: Paint? = null
-    private fun initPaint() {
-        mPaint = Paint()
-        mPaint!!.isAntiAlias = true
-        //防抖动
-        mPaint!!.isDither = true
-    }
+    private var mPaint: Paint = Paint()
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        mPaint?.apply {
+        mPaint.apply {
             val cx = width / 2
             val cy = height / 2
             canvas.drawCircle(cx.toFloat(), cy.toFloat(), cx.toFloat(), this)
@@ -44,11 +38,13 @@ class CircleView @JvmOverloads constructor(
      */
     fun exchangeColor(color: Int) {
         this.color = color
-        mPaint!!.color = this.color
+        mPaint.color = this.color
         invalidate()
     }
 
     init {
-        initPaint()
+        mPaint.isAntiAlias = true
+        //防抖动
+        mPaint.isDither = true
     }
 }

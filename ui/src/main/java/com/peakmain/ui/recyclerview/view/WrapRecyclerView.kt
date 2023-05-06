@@ -6,20 +6,18 @@ import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.peakmain.ui.R
 import com.peakmain.ui.recyclerview.adapter.WrapRecyclerAdapter
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
-import java.util.*
 
 /**
  * author: peakmain
- * createdata：2019/7/17
+ * create：2019/7/17
  * mail: 2726449200@qq.com
- * desiption:
+ * description:
  */
 open class WrapRecyclerView @JvmOverloads constructor(
     context: Context,
@@ -172,7 +170,7 @@ open class WrapRecyclerView @JvmOverloads constructor(
         return false
     }
 
-    private fun getChildBindingAdapterPosition(@NonNull child: View?): Int {
+    private fun getChildBindingAdapterPosition(child: View?): Int {
         if (child == null) {
             return -1
         }
