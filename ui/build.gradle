@@ -53,12 +53,17 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.google.android.material:material:1.6.1'
     api 'com.github.Peakmain:Common:0.0.2'
     implementation('androidx.preference:preference-ktx:1.2.0') {
         exclude group: "androidx.fragment", module: "fragment-ktx"
+        exclude group: "androidx.slidingpanelayout", module: "slidingpanelayout"
+        exclude group: "androidx.recyclerview", module: "recyclerview"
+        exclude group: "androidx.collection", module: "collection"
+        exclude group: "androidx.core", module: "core-ktx"
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
     }
 }
 repositories {
