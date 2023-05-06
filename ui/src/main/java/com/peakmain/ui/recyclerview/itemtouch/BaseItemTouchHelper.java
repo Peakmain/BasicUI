@@ -1,4 +1,4 @@
-package com.peakmain.ui.recyclerview.itemTouch;
+package com.peakmain.ui.recyclerview.itemtouch;
 
 import android.graphics.Color;
 
@@ -173,6 +173,7 @@ public abstract class BaseItemTouchHelper<T> {
     public interface OnDataUpdatedListener<T> {
         /**
          * 通知外部数据更新
+         *
          * @param datas 数据
          */
         void onDataUpdated(List<T> datas);

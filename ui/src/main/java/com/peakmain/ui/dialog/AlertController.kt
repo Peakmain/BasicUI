@@ -62,12 +62,16 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
         ///save the button click in the custom view
         @JvmField
         var mClickArray = SparseArray<View.OnClickListener>()
+
         @JvmField
         var mWidth = ViewGroup.LayoutParams.WRAP_CONTENT
+
         @JvmField
         var mGravity = Gravity.CENTER
+
         @JvmField
         var mAnimation = 0
+
         @JvmField
         var mHeigth = ViewGroup.LayoutParams.WRAP_CONTENT
 
@@ -98,7 +102,7 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
             for (i in 0 until clickSize) {
                 viewHelper.setOnClickListener(mClickArray.keyAt(i), mClickArray.valueAt(i))
             }
-            mAlert.mViewHelper= viewHelper
+            mAlert.mViewHelper = viewHelper
             //4.Configure custom effects to pop up the default animation from the bottom of the full screen
             val window = mAlert.window
             //set gravity

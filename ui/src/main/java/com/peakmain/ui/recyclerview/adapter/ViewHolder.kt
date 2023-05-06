@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * author ：Peakmain
- * version : 1.0
  * createTime：2019/2/25
  * mail:2726449200@qq.com
  * describe：
@@ -87,24 +86,26 @@ class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
     fun setOnItemLongClickListener(listener: View.OnLongClickListener?) {
         itemView.setOnLongClickListener(listener)
     }
+
     /**
      * 设置view的Visibilty
      */
     fun setVisibility(
-            visibility: Int,
-            viewId: Int
+        visibility: Int,
+        viewId: Int
     ): ViewHolder {
         getView<View>(viewId)!!.visibility = visibility
         return this
     }
 
     fun setVisibility(
-            visible: Int,
-            vararg viewIds: Int
+        visible: Int,
+        vararg viewIds: Int
     ): ViewHolder {
         for (viewId in viewIds) getView<View>(viewId)?.visibility = visible
         return this
     }
+
     /**
      * 设置条目某个view的长按事件
      */

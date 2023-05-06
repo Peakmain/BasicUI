@@ -24,15 +24,19 @@ object AppUtils {
         BasicUIUtils.application!!.startActivity(getInstallAppIntent(file!!, true))
     }
 
-    fun installApp(activity: Activity,
-                   filePath: String?,
-                   requestCode: Int) {
+    fun installApp(
+        activity: Activity,
+        filePath: String?,
+        requestCode: Int
+    ) {
         installApp(activity, FileUtils.getFileByPath(filePath), requestCode)
     }
 
-    fun installApp(activity: Activity,
-                   file: File?,
-                   requestCode: Int) {
+    fun installApp(
+        activity: Activity,
+        file: File?,
+        requestCode: Int
+    ) {
         if (!FileUtils.isFileExists(file)) return
         activity.startActivityForResult(getInstallAppIntent(file!!), requestCode)
     }
@@ -53,7 +57,11 @@ object AppUtils {
             data = FileProvider.getUriForFile(BasicUIUtils.application!!, authority, file)
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         }
-        BasicUIUtils.application!!.grantUriPermission(BasicUIUtils.application?.packageName, data, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        BasicUIUtils.application!!.grantUriPermission(
+            BasicUIUtils.application?.packageName,
+            data,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION
+        )
         intent.setDataAndType(data, type)
         return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
     }
