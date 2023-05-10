@@ -70,7 +70,7 @@ open class OkHttpEngine : IHttpEngine {
             .tag(context)
             .post(requestBody)
             .build()
-        mOkHttpClient!!.newCall(request).enqueue(
+        mOkHttpClient.newCall(request).enqueue(
             object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     e.printStackTrace()
@@ -115,7 +115,7 @@ open class OkHttpEngine : IHttpEngine {
             }
         })
         val request = Request.Builder().url(url).post(body).build()
-        val call = mOkHttpClient!!.newCall(request)
+        val call = mOkHttpClient.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
@@ -146,7 +146,7 @@ open class OkHttpEngine : IHttpEngine {
         callback: DownloadCallback
     ) {
         val request = Request.Builder().url(url).build()
-        val call = mOkHttpClient!!.newCall(request)
+        val call = mOkHttpClient.newCall(request)
         call.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread(Runnable { callback.onFailure(e) })
@@ -185,7 +185,7 @@ open class OkHttpEngine : IHttpEngine {
     /**
      * 组装post请求参数body
      */
-    protected fun appendBody(params: Map<String, Any>?): RequestBody {
+    private fun appendBody(params: Map<String, Any>?): RequestBody {
         val builder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
         addParams(builder, params)
