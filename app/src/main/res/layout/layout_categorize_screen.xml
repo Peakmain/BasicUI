@@ -15,13 +15,13 @@
             android:id="@+id/rv_left"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_weight="7" />
     </LinearLayout>
 
     <LinearLayout
