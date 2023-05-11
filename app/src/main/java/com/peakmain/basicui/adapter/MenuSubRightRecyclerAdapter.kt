@@ -1,6 +1,7 @@
 package com.peakmain.basicui.adapter
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.basicui.R
@@ -26,6 +27,11 @@ class MenuSubRightRecyclerAdapter(context: Context?, data: MutableList<CategoryR
         (recyclerView?.layoutManager as GridLayoutManager).spanSizeLookup =
             ThreeColumnSpanSizeLookup()
         recyclerView.adapter = MenuSubCategroyRightRecyclerAdapter(mContext, item.activityList)
+        if(holder.bindingAdapterPosition==0){
+            holder.setViewVisibility(R.id.view, View.GONE)
+        }else{
+            holder.setViewVisibility(R.id.view, View.VISIBLE)
+        }
     }
 
 }
