@@ -1,6 +1,8 @@
 package com.peakmain.basicui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +48,8 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
 
     @Override
     public void openMenu(@NonNull View tabView) {
-        super.openMenu(tabView);
+        TextView textView = tabView.findViewById(R.id.tv_menu_tab_title);
+        textView.setTextColor(Color.parseColor("#6CBD9B"));
         ((ImageView) tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_up);
     }
 
@@ -91,7 +94,8 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
 
             RecyclerView rvRight = menuView.findViewById(R.id.rv_right);
             rvRight.setLayoutManager(new LinearLayoutManager(mContext));
-            rvRight.setAdapter(new MenuRightRecyclerAdapter(mContext, mCategoryRightBeans));
+            MenuRightRecyclerAdapter rightRecyclerAdapter = new MenuRightRecyclerAdapter(mContext, mCategoryRightBeans);
+            rvRight.setAdapter(rightRecyclerAdapter);
             LinearLayoutManager rvRightLayoutManager = (LinearLayoutManager) rvRight.getLayoutManager();
             leftRecyclerAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
@@ -99,7 +103,7 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
                     int selectPosition = leftRecyclerAdapter.mSelectPosition;
                     if (selectPosition == position) return;
                     leftRecyclerAdapter.setSelectItem(position);
-
+                    rightRecyclerAdapter.setSelectItem(position);
                     rvRightLayoutManager
                             .scrollToPositionWithOffset(position, 0);
                 }
@@ -110,6 +114,7 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
                     super.onScrolled(recyclerView, dx, dy);
                     int firstVisibleItemPosition = rvRightLayoutManager.findFirstVisibleItemPosition();
                     if (firstVisibleItemPosition != -1) {
+                        rightRecyclerAdapter.setSelectItem(firstVisibleItemPosition);
                         rvLeft.smoothScrollToPosition(firstVisibleItemPosition);
                         leftRecyclerAdapter.setSelectItem(firstVisibleItemPosition);
                     }
@@ -118,6 +123,11 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
         }
     }
 
+    @Override
+    public void setTitleContent(TextView textView, int position) {
+        if (textView == null) return;
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f);
+    }
 
     @Override
     protected int getMenuLayoutId(int position) {
