@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
@@ -126,7 +125,7 @@ class CircleLoadingView @JvmOverloads constructor(
             removeAllViews()
         }
         isStopAnimation = true
-        Log.e("TAG", "动画取消")
+        LogUtils.e("TAG", "动画取消")
     }
 
     /**

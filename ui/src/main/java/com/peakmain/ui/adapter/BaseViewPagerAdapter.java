@@ -1,6 +1,5 @@
 package com.peakmain.ui.adapter;
 
-import android.os.Build;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,9 +135,7 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
                 scrapViews[viewType].put(position, scrap);
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                scrap.setAccessibilityDelegate(null);
-            }
+            scrap.setAccessibilityDelegate(null);
         }
 
         /**
@@ -168,9 +165,7 @@ public abstract class BaseViewPagerAdapter extends PagerAdapter {
                     }
                     scrapViews.put(i, victim);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                        victim.setAccessibilityDelegate(null);
-                    }
+                    victim.setAccessibilityDelegate(null);
                 }
             }
 
