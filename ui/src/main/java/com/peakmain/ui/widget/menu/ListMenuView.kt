@@ -7,11 +7,11 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
 import com.peakmain.ui.adapter.menu.BaseMenuAdapter
 import com.peakmain.ui.adapter.menu.MenuObserver
@@ -43,14 +43,20 @@ class ListMenuView @JvmOverloads constructor(
     private var mMenuContainerView: FrameLayout? = null
 
     // 阴影的颜色
-    private val mShadowColor = -0x77777778
+    private var mShadowColor = ContextCompat.getColor(mContext,R.color.black_alpha_40)
     private var mAdapter: BaseMenuAdapter? = null
     private var mMenuContainerHeight = 0
-    private val mDurationTime = 350
+    private var mDurationTime = 350
     private var mCurrentPosition = -1 //当前位置
 
     // 动画是否在执行
     private var mAnimatorExecute = false
+    private fun initAttrs(context: Context, attrs: AttributeSet?) {
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.ListMenuView)
+        mDurationTime = ta.getInt(R.styleable.ListMenuView_duration, mDurationTime)
+        mShadowColor=ta.getColor(R.styleable.ListMenuView_shadowColor, mShadowColor)
+        ta.recycle()
+    }
 
     /**
      * 初始化控件
@@ -142,7 +148,7 @@ class ListMenuView @JvmOverloads constructor(
                 return@setOnClickListener
             }
             //切换显示
-            mMenuContainerView?.layoutParams?.height=ViewGroup.LayoutParams.WRAP_CONTENT
+            mMenuContainerView?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
             var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.GONE
             var height = currentMenu.layoutParams.height
@@ -359,6 +365,9 @@ class ListMenuView @JvmOverloads constructor(
     }
 
     init {
+        initAttrs(mContext, attrs)
         initLayout()
     }
+
+
 }
