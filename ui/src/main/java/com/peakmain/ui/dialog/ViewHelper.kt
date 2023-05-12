@@ -9,9 +9,9 @@ import java.lang.ref.WeakReference
 
 /**
  * author peakmain
- * createdata：2019/7/9
+ * create：2019/7/9
  * mail:2726449200@qq.com
- * desiption:Layout helper classe
+ * description:Layout helper classe
  */
 internal class ViewHelper() {
     var contentView: View? = null

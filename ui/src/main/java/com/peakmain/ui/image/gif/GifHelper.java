@@ -23,7 +23,9 @@ public class GifHelper {
         return getHeight(mGifHelper);
     }
 
-    //渲染图片
+    /**
+     * 渲染图片
+     */
     public int updateFrame(Bitmap bitmap) {
         return updateFrame(mGifHelper, bitmap);
     }
@@ -33,11 +35,11 @@ public class GifHelper {
     }
 
     public static GifHelper load(String path) {
-        long gifHander = loadGif(path);
-        if (gifHander == -1) {
+        long gifHandler = loadGif(path);
+        if (gifHandler == -1) {
             return null;
         }
-        return new GifHelper(gifHander);
+        return new GifHelper(gifHandler);
     }
 
     public static native long loadGif(String path);
