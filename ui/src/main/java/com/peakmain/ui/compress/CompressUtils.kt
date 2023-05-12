@@ -2,9 +2,9 @@ package com.peakmain.ui.compress
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import com.peakmain.ui.compress.ImageCompute.computeSize
 import com.peakmain.ui.compress.ImageCompute.rotatingImage
+import com.peakmain.ui.utils.LogUtils
 import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -21,6 +21,7 @@ class CompressUtils {
 
     companion object {
         private const val TAG = "CompressUtils"
+
         init {
             System.loadLibrary("compress-lib")
         }
@@ -45,7 +46,7 @@ class CompressUtils {
         options.inJustDecodeBounds = false
         var tagBitmap = BitmapFactory.decodeFile(path, options)
         val stream = ByteArrayOutputStream()
-        Log.e(TAG, "srcWidth:$srcWidth,srcHeight:$srcHeight")
+        LogUtils.e(TAG, "srcWidth:$srcWidth,srcHeight:$srcHeight")
         try {
             if (Checker.instance.isJPG(FileInputStream(path))) {
                 tagBitmap =

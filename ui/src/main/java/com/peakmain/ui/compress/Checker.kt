@@ -25,6 +25,7 @@ internal class Checker private constructor() {
         private const val WEBP = "webp"
         private const val GIF = "gif"
         private const val BMP = "bmp"
+        @JvmStatic
         fun isImage(path: String): Boolean {
             if (TextUtils.isEmpty(path)) {
                 return false
@@ -35,7 +36,7 @@ internal class Checker private constructor() {
 
         val instance: Checker
             get() = Holder.instance
-
+        @JvmStatic
         fun isNeedCompress(leastCompressSize: Int, path: String?): Boolean {
             if (path == null) return false
             if (leastCompressSize > 0) {
@@ -50,7 +51,7 @@ internal class Checker private constructor() {
             }
             return true
         }
-
+        @JvmStatic
         fun checkSuffix(path: String): String {
             return if (TextUtils.isEmpty(path)) {
                 ".jpg"

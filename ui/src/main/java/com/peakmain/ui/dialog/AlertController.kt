@@ -10,9 +10,9 @@ import android.view.Window
 
 /**
  * author peakmain
- * createdata：2019/7/9
+ * create：2019/7/9
  * mail:2726449200@qq.com
- * desiption:Special placement parameters
+ * description:Special placement parameters
  */
 class AlertController(val dialog: AlertDialog, val window: Window) {
     private lateinit var mViewHelper: ViewHelper
