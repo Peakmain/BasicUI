@@ -191,4 +191,8 @@
         <attr name="dark_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ListMenuView">
+        <attr name="duration" format="integer" />
+        <attr name="shadowColor" format="color" />
+    </declare-styleable>
 </resources>
