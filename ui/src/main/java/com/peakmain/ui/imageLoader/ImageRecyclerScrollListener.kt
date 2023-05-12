@@ -8,7 +8,7 @@ import com.peakmain.ui.imageLoader.ImageLoader.Companion.instance
  * author ：Peakmain
  * createTime：2020/9/9
  * mail:2726449200@qq.com
- * describe：recylcerview在空闲的时候加载图片
+ * describe：recyclerview在空闲的时候加载图片
  */
 class ImageRecyclerScrollListener(private val mContext: Context) : RecyclerView.OnScrollListener() {
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

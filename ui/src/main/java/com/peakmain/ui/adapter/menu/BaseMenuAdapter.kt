@@ -24,7 +24,7 @@ abstract class BaseMenuAdapter : BaseAdapter() {
     /**
      * 解注册
      */
-    fun unregisterDataSetObserver(observer: MenuObserver) {
+    fun unregisterDataSetObserver() {
         mObserver = null
     }
 
