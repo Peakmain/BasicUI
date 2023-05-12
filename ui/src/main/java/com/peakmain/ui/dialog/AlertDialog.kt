@@ -10,9 +10,9 @@ import com.peakmain.ui.R
 
 /**
  * author peakmain
- * createdata：2019/7/9
+ * create：2019/7/9
  * mail:2726449200@qq.com
- * desiption:Dialog to encapsulate
+ * description:Dialog to encapsulate
  */
 class AlertDialog : Dialog {
     private var mAlert: AlertController

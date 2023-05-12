@@ -110,7 +110,7 @@ class ListMenuView @JvmOverloads constructor(
     private var mObserver: AdapterMenuObserver? = null
     fun setAdapter(adapter: BaseMenuAdapter?) {
         if (mAdapter != null && mObserver != null) {
-            mAdapter!!.unregisterDataSetObserver(mObserver!!)
+            mAdapter!!.unregisterDataSetObserver()
         }
         mAdapter = adapter
         if (adapter == null) {
