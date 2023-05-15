@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
 
-    <TextView xmlns:tools="http://schemas.android.com/tools"
+    <TextView
         android:id="@+id/tv_menu_tab_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,14 +13,13 @@
         android:paddingLeft="@dimen/dimen_10"
         android:paddingTop="@dimen/dimen_10"
         android:paddingBottom="@dimen/dimen_10"
-        android:textColor="@color/color_272A2B"
-        tools:context=".MainActivity" />
+        android:textColor="@color/color_272A2B" />
 
     <ImageView
         android:id="@+id/iv_down"
         android:layout_width="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_4"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dimen_4"
         android:src="@drawable/ic_triangle_down" />
 </LinearLayout>
 
