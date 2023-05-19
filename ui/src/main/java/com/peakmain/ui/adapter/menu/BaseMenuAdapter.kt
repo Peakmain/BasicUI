@@ -48,4 +48,11 @@ abstract class BaseMenuAdapter : BaseAdapter() {
      * 关闭菜单
      */
     abstract fun closeMenu(tabView: View)
+
+    /**
+     * 阴影点击事件
+     */
+    open fun shadowClick(): Boolean {
+        return false
+    }
 }

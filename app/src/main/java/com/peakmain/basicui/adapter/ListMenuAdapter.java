@@ -138,4 +138,9 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
         else
             return R.layout.layout_categorize_screen;
     }
+
+    @Override
+    public boolean shadowClick() {
+        return false;
+    }
 }

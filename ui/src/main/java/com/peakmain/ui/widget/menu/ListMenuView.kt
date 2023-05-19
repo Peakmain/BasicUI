@@ -43,7 +43,7 @@ class ListMenuView @JvmOverloads constructor(
     private var mMenuContainerView: FrameLayout? = null
 
     // 阴影的颜色
-    private var mShadowColor = ContextCompat.getColor(mContext,R.color.black_alpha_40)
+    private var mShadowColor = ContextCompat.getColor(mContext, R.color.black_alpha_40)
     private var mAdapter: BaseMenuAdapter? = null
     private var mMenuContainerHeight = 0
     private var mDurationTime = 350
@@ -54,7 +54,7 @@ class ListMenuView @JvmOverloads constructor(
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ListMenuView)
         mDurationTime = ta.getInt(R.styleable.ListMenuView_duration, mDurationTime)
-        mShadowColor=ta.getColor(R.styleable.ListMenuView_shadowColor, mShadowColor)
+        mShadowColor = ta.getColor(R.styleable.ListMenuView_shadowColor, mShadowColor)
         ta.recycle()
     }
 
@@ -360,7 +360,8 @@ class ListMenuView @JvmOverloads constructor(
 
     override fun onClick(v: View) {
         if (v.id == R.id.menu_shadow_view) {
-            closeMenu()
+            if (mAdapter == null || !mAdapter!!.shadowClick())
+                closeMenu()
         }
     }
 
