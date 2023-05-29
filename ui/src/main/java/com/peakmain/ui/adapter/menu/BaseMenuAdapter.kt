@@ -2,6 +2,7 @@ package com.peakmain.ui.adapter.menu
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.peakmain.ui.adapter.BaseAdapter
 
 /**
@@ -55,4 +56,9 @@ abstract class BaseMenuAdapter : BaseAdapter() {
     open fun shadowClick(): Boolean {
         return false
     }
+
+    /**
+     * 设置内容区域
+     */
+    abstract fun getContentView(mMenuContentView: FrameLayout?):View
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
@@ -37,6 +38,10 @@ abstract class BaseListMenuAdapter(
         return view
     }
 
+    override fun getContentView(mMenuContentView: FrameLayout?): View {
+        return LayoutInflater.from(mContext).inflate(contentViewId, mMenuContentView, false)
+    }
+
 
     override fun openMenu(tabView: View) {
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
@@ -58,6 +63,7 @@ abstract class BaseListMenuAdapter(
     }
 
     protected abstract val titleLayoutId: Int
+    protected abstract  val contentViewId: Int
     protected abstract fun getMenuLayoutId(position: Int): Int
     protected abstract fun setMenuContent(menuView: View?, position: Int)
 }

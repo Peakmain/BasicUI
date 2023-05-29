@@ -62,10 +62,15 @@ public class ListMenuAdapter extends BaseListMenuAdapter {
     }
 
     @Override
+    protected int getContentViewId() {
+        return R.layout.ui_list_menu_content;
+    }
+
+    @Override
     public int getTitleLayoutId() {
         return R.layout.ui_list_data_screen_tab;
     }
-
+   
     @Override
     protected void setMenuContent(View menuView, final int position) {
         if (menuView == null) return;

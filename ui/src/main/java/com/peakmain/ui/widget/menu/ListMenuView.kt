@@ -27,13 +27,13 @@ import com.peakmain.ui.utils.SizeUtils
 class ListMenuView @JvmOverloads constructor(
     private val mContext: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : LinearLayout(mContext, attrs, defStyleAttr), View.OnClickListener {
 
     // 1.1 创建头部用来存放 Tab
     private var mMenuTabView: LinearLayout? = null
 
-    // 1.2 创建 FrameLayout 用来存放 = 阴影（View） + 菜单内容布局(FrameLayout)
+    // 1.2 创建 FrameLayout 用来存放 = 内容区+阴影（View） + 菜单内容布局(FrameLayout)
     private var mMenuMiddleView: FrameLayout? = null
 
     // 阴影
@@ -41,6 +41,7 @@ class ListMenuView @JvmOverloads constructor(
 
     // 创建菜单用来存放菜单内容
     private var mMenuContainerView: FrameLayout? = null
+    private var mMenuContentView: FrameLayout? = null
 
     // 阴影的颜色
     private var mShadowColor = ContextCompat.getColor(mContext, R.color.black_alpha_40)
@@ -77,6 +78,11 @@ class ListMenuView @JvmOverloads constructor(
         params.weight = 1f
         mMenuMiddleView!!.layoutParams = params
         addView(mMenuMiddleView)
+        //创建内容
+        mMenuContentView = FrameLayout(mContext)
+        mMenuContentView?.layoutParams=FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT)
+        mMenuContentView?.visibility = View.VISIBLE
+        mMenuContainerView?.addView(mMenuContentView)
         // 创建阴影 可以不用设置 LayoutParams 默认就是 MATCH_PARENT ，MATCH_PARENT
         mShadowView = View(mContext)
         mShadowView!!.setBackgroundColor(mShadowColor)
@@ -118,6 +124,7 @@ class ListMenuView @JvmOverloads constructor(
         }
         mObserver = AdapterMenuObserver()
         mAdapter!!.registerDataSetObserver(mObserver)
+        mAdapter?.getContentView(mMenuContentView)
         val count = adapter.count
         for (i in 0 until count) {
             // 获取菜单的Tab
@@ -327,7 +334,7 @@ class ListMenuView @JvmOverloads constructor(
     private fun openMenuAnimator(
         height: Int,
         position: Int,
-        tabView: View?
+        tabView: View?,
     ) {
         //位移动画
         val translationAnimation = ObjectAnimator.ofFloat(
