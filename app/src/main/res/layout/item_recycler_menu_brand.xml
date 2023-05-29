@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_recommend_sort"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/dimen_7"
+    android:paddingBottom="@dimen/dimen_24">
+
+    <ImageView
+        android:id="@+id/iv_brand"
+        android:layout_width="@dimen/dimen_109"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:src="@drawable/atour"
+        android:layout_height="@dimen/dimen_74" />
+
+
+    <TextView
+        android:id="@+id/tv_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="酒店"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:textSize="@dimen/font_size_10"
+        android:textColor="@color/color_272A2B" />
+</LinearLayout>
+
+
+

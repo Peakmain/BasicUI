@@ -1,0 +1,4 @@
+jdk:
+  - openjdk8
+before_install:
+  - yes | sdkmanager --install "ndk;21.0.6113669"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dimen_100"
+    android:id="@+id/iv_image"
+    android:scaleType="centerCrop"
+    android:layout_margin="@dimen/dimen_10"
+    android:layout_height="@dimen/dimen_100">
+
+</ImageView>

@@ -12,7 +12,6 @@
     <string name="custom_password_8">8</string>
     <string name="custom_password_9">9</string>
     <string name="custom_password_x">X</string>
-    <string name="custom_password_dot">.</string>
 
     <string name="shape_loading_text_view">玩命加载中&#8230;</string>
     <!--多状态布局-->
@@ -20,4 +19,9 @@
     <string name="data_error">数据获取失败(ㄒoㄒ)~~</string>
     <string name="loading_text">加载中&#8230;</string>
     <string name="no_network">请检查网络后点击重新加载</string>
+    <string name="rotation">rotation</string>
+    <string name="translationY">translationY</string>
+    <string name="scaleX">scaleX</string>
+    <string name="alpha">alpha</string>
+
 </resources>

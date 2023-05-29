@@ -2,7 +2,6 @@ package com.peakmain.ui.widget.password;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.peakmain.ui.R;
 import com.peakmain.ui.widget.listener.SimpleCustomKeyboardListener;
@@ -30,6 +31,8 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
     //是否点击了小数点
     private boolean isSelectDecimalPoint = false;
     private int mDecimalPointCount;
+    // 设置点击回掉监听
+    private SimpleCustomKeyboardListener mListener;
 
     public CustomerKeyboard(Context context) {
         this(context, null);
@@ -95,10 +98,8 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
                         if (mListener != null) {
                             mListener.click(number);
                         }
-                    } else {
-                        return;
                     }
-                } else{
+                } else {
                     if (mListener != null) {
                         mListener.click(number);
                     }
@@ -118,15 +119,13 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
                 if (mListener != null) {
                     mListener.delete();
                 }
-            } else if (v.getId() == R.id.iv_keyboard_hide) {
-                if (mListener != null)
-                    mListener.dissmiss();
+            } else if (v.getId() == R.id.iv_keyboard_hide
+                    && mListener != null) {
+                mListener.dissmiss();
             }
         }
     }
 
-    // 设置点击回掉监听
-    private SimpleCustomKeyboardListener mListener;
 
     public void setOnCustomerKeyboardClickListener(SimpleCustomKeyboardListener listener) {
         this.mListener = listener;

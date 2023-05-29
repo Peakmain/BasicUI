@@ -30,6 +30,11 @@
         <attr name="shapeTvActiveMotion" format="boolean" />
         <!--按下去后文字颜色-->
         <attr name="shapeTvPressedColor" format="color|reference" />
+        <!--四周的圆角-->
+        <attr name="shapeTvTopLeftRadius" format="dimension|reference" />
+        <attr name="shapeTvTopRightRadius" format="dimension|reference" />
+        <attr name="shapeTvBottomLeftRadius" format="dimension|reference" />
+        <attr name="shapeTvBottomRightRadius" format="dimension|reference" />
     </declare-styleable>
 
     <!--自定义CircleImageView 属性-->
@@ -52,6 +57,28 @@
         <attr name="shapeLlRadius" format="dimension|reference" />
         <attr name="shapeLlStartColor" format="color|reference" />
         <attr name="shapeLlEndColor" format="color|reference" />
+        <!--四周的圆角-->
+        <attr name="shapeLlTopLeftRadius" format="dimension|reference" />
+        <attr name="shapeLlTopRightRadius" format="dimension|reference" />
+        <attr name="shapeLlBottomLeftRadius" format="dimension|reference" />
+        <attr name="shapeLlBottomRightRadius" format="dimension|reference" />
+    </declare-styleable>
+    <!--自定义ConstraintLayout-->
+    <declare-styleable name="ShapeConstraintLayout">
+
+        <attr name="shapeClStrokeWidth" format="dimension|reference" />
+        <attr name="shapeClStrokeColor" format="color|reference" />
+        <!--background color-->
+        <attr name="shapeClBackgroundColor" format="color|reference" />
+        <!--background radius-->
+        <attr name="shapeClRadius" format="dimension|reference" />
+        <attr name="shapeClStartColor" format="color|reference" />
+        <attr name="shapeClEndColor" format="color|reference" />
+        <!--四周的圆角-->
+        <attr name="shapeClTopLeftRadius" format="dimension|reference" />
+        <attr name="shapeClTopRightRadius" format="dimension|reference" />
+        <attr name="shapeClBottomLeftRadius" format="dimension|reference" />
+        <attr name="shapeClBottomRightRadius" format="dimension|reference" />
     </declare-styleable>
 
 
@@ -138,25 +165,6 @@
 
     <!--六个圆的默认颜色-->
     <color name="basic_defalut_inspect_color1">#FF9600</color>
-    <color name="basic_defalut_inspect_color2">#02D1AC</color>
-    <color name="basic_defalut_inspect_color3">#FFD200</color>
-    <color name="basic_defalut_inspect_color4">#00C6FF</color>
-    <color name="basic_defalut_inspect_color5">#00E099</color>
-    <color name="basic_defalut_inspect_color6">#FF3891</color>
-    <array name="inspect_circle_color">
-        <item>@color/basic_defalut_inspect_color1</item>
-        <item>@color/basic_defalut_inspect_color2</item>
-        <item>@color/basic_defalut_inspect_color3</item>
-        <item>@color/basic_defalut_inspect_color4</item>
-        <item>@color/basic_defalut_inspect_color5</item>
-        <item>@color/basic_defalut_inspect_color6</item>
-    </array>
-    <array name="rotation_loading_view">
-        <item>@color/basic_defalut_inspect_color1</item>
-        <item>@color/basic_defalut_inspect_color2</item>
-        <item>@color/basic_defalut_inspect_color3</item>
-        <item>@color/basic_defalut_inspect_color6</item>
-    </array>
 
     <!--58同城加载的loading-->
     <declare-styleable name="ShapeView">
@@ -174,49 +182,17 @@
 
     <!--自定义键盘的属性-->
     <declare-styleable name="customKeyboardView">
-        <attr name="ckExtraKey" format="string"/>
-        <attr name="ckDecimalPlaces" format="integer"/>
+        <attr name="ckExtraKey" format="string" />
+        <attr name="ckDecimalPlaces" format="integer" />
     </declare-styleable>
 
-    <!--系统键盘的属性-->
-    <declare-styleable name="System_KeyboardView">
-        <attr name="android:keyBackground"/>
-        <attr name="android:keyTextSize"/>
-        <attr name="android:labelTextSize" />
-        <attr name="android:keyTextColor"/>
-        <attr name="android:keyPreviewLayout" />
-        <attr name="android:keyPreviewOffset" />
-        <attr name="android:keyPreviewHeight" />
-        <attr name="android:verticalCorrection" />
-        <attr name="android:popupLayout" />
-        <attr name="android:shadowColor" />
-        <attr name="android:shadowRadius" />
+    <declare-styleable name="CrumbView">
+        <attr name="light_color" format="color" />
+        <attr name="dark_color" format="color" />
     </declare-styleable>
-    <declare-styleable name="System_Keyboard">
-        <attr name="android:keyWidth" />
-        <attr name="android:keyHeight"  />
-        <attr name="android:horizontalGap" />
-        <attr name="android:verticalGap"/>
-    </declare-styleable>
-    <declare-styleable name="System_Keyboard_Key">
-        <attr name="android:codes"/>
-        <attr name="android:popupKeyboard"/>
-        <attr name="android:popupCharacters" />
-        <attr name="android:keyEdgeFlags"/>
-        <attr name="android:isModifier" />
-        <attr name="android:isSticky" />
-        <attr name="android:isRepeatable" />
-        <attr name="android:iconPreview"/>
-        <attr name="android:keyOutputText" />
-        <attr name="android:keyLabel" />
-        <attr name="android:keyIcon"/>
-        <attr name="android:keyboardMode" />
-    </declare-styleable>
-    <declare-styleable name="System_Keyboard_Row">
-        <attr name="android:rowEdgeFlags"/>
-        <attr name="android:keyboardMode"/>
-    </declare-styleable>
-    <declare-styleable name="System_KeyboardViewPreviewState">
-        <attr name="android:state_long_pressable"/>
+
+    <declare-styleable name="ListMenuView">
+        <attr name="duration" format="integer" />
+        <attr name="shadowColor" format="color" />
     </declare-styleable>
 </resources>

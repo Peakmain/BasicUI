@@ -11,12 +11,18 @@ set(libjpeg_lib_dir ${libjpeg_dir}/so)
 
 #添加头文件目录
 include_directories(${INC_DIR})
+include_directories("src/main/cpp/include/gif")
+
 #指定源文件的目录
-set(SOURCE_FILES src/main/cpp/compress-lib.cpp)
+set(source_dir src/main/cpp/src)
+aux_source_directory(${source_dir} src_list)
+aux_source_directory(${source_dir}/gif src_list)
+
 
 add_library(compress-lib
         SHARED
-        ${SOURCE_FILES})
+        src/main/cpp/compress-lib.cpp
+        ${src_list})
 
 find_library(graphics jnigraphics)
 

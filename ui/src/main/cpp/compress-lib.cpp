@@ -1,12 +1,11 @@
-#include <string.h>
+#include <cstring>
 #include <android/bitmap.h>
 #include <android/log.h>
-#include <stdio.h>
-#include <setjmp.h>
-#include <math.h>
-#include <stdint.h>
-#include <time.h>
-
+#include <cstdio>
+#include <csetjmp>
+#include <cmath>
+#include <cstdint>
+#include <ctime>
 
 
 //统一编译方式
@@ -17,6 +16,7 @@ extern "C" {
 #include "jconfig.h"
 }
 
+#include <gif_lib.h>
 // log打印
 #define LOG_TAG "jni"
 #define LOGW(...)  __android_log_write(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
@@ -110,9 +110,9 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 
 extern "C"
 jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
-                                                                   jclass thiz, jobject bitmap,
-                                                                   jint quality,
-                                                                   jstring fileNameStr) {
+                                                                jobject thiz, jobject bitmap,
+                                                                jint quality,
+                                                                jstring fileNameStr) {
     // 1. 解析RGB
     // 1.1 获取bitmap信息  w，h，format  Android的Native要有了解
     AndroidBitmapInfo info;
@@ -182,11 +182,11 @@ jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
     env->ReleaseStringUTFChars(fileNameStr, file_name);
     // 释放bitmap,调用bitmap的recycle
     // 3.2 获取对象的class
-    jclass obj_clazz = env -> GetObjectClass(bitmap);
+    jclass obj_clazz = env->GetObjectClass(bitmap);
     // 3.3 通过class获取方法id
-    jmethodID method_id = env -> GetMethodID(obj_clazz,"recycle","()V");//()V代表void方法
+    jmethodID method_id = env->GetMethodID(obj_clazz, "recycle", "()V");//()V代表void方法
     // 3.4 调用方法释放Bitmap
-    env->CallVoidMethod(bitmap,method_id);
+    env->CallVoidMethod(bitmap, method_id);
 
     LOGE("result = %d", result);
 
@@ -196,4 +196,102 @@ jint Java_com_peakmain_ui_compress_CompressUtils_compressBitmap(JNIEnv *env,
     }
 
     return 1;
+}
+/*gif*/
+struct GifBean {
+    int current_frame;
+    int total_frame;
+    int *delays;
+};
+#define  argb(a, r, g, b) ( ((a) & 0xff) << 24 ) | ( ((b) & 0xff) << 16 ) | ( ((g) & 0xff) << 8 ) | ((r) & 0xff)
+#define delay(ext) (10 *((ext) -> Bytes[2] << 8 | (ext) ->Bytes[1]))
+extern "C"
+JNIEXPORT jlong JNICALL
+Java_com_peakmain_ui_image_gif_GifHelper_loadGif(JNIEnv *env, jclass clazz, jstring path_) {
+    const char *path = env->GetStringUTFChars(path_, 0);
+    int error;
+    GifFileType *gifFileType = DGifOpenFileName(path, &error);
+    if (error !=0) {
+        return -1;
+    }
+    DGifSlurp(gifFileType);
+    GifBean *gifBean = static_cast<GifBean *>(malloc(sizeof(GifBean)));
+    memset(gifBean, 0, sizeof(gifBean));
+    gifFileType->UserData = gifBean;
+    gifBean->current_frame = 0;
+    gifBean->total_frame = gifFileType->ImageCount;
+    env->ReleaseStringUTFChars(path_, path);
+    return (jlong) gifFileType;
+}
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_peakmain_ui_image_gif_GifHelper_getWidth(JNIEnv *env, jclass clazz, jlong gif_helper) {
+    GifFileType *gifFileType = reinterpret_cast<GifFileType *>(gif_helper);
+    return gifFileType->SWidth;
+}
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_peakmain_ui_image_gif_GifHelper_getHeight(JNIEnv *env, jclass clazz, jlong gif_helper) {
+    GifFileType *gifFileType = reinterpret_cast<GifFileType *>(gif_helper);
+    return gifFileType->SHeight;
+}
+
+//渲染当前帧
+int drawFrame(GifFileType *gifFileType, AndroidBitmapInfo info, void *pixels) {
+    GifBean *gifBean = static_cast<GifBean *>(gifFileType->UserData);
+    SavedImage savedImage = gifFileType->SavedImages[gifBean->current_frame];
+    GifImageDesc frameInfo = savedImage.ImageDesc;
+    ExtensionBlock *ext = 0;
+    int pointPixel;
+    ColorMapObject *colorMapObject;
+    //获取这一帧的颜色表
+    if (frameInfo.ColorMap)
+        colorMapObject = frameInfo.ColorMap;
+    else
+        //没有话获取全局的颜色表
+        colorMapObject = gifFileType->SColorMap;
+    GifByteType gifByteType;
+    GifColorType gifColorType;
+    int *line;
+    int *px = (int *) pixels;
+    for (int j = 0; j < savedImage.ExtensionBlockCount; ++j) {
+        if (savedImage.ExtensionBlocks[j].Function == GRAPHICS_EXT_FUNC_CODE) {
+            ext = &(savedImage.ExtensionBlocks[j]);
+            break;
+        }
+    }
+
+
+    for (int y = frameInfo.Top; y < frameInfo.Top + frameInfo.Height; ++y) {
+        line = px;
+        for (int x = frameInfo.Left; x < frameInfo.Left + frameInfo.Width; ++x) {
+            pointPixel = (y - frameInfo.Top) * frameInfo.Width + x - frameInfo.Left;
+            gifByteType = savedImage.RasterBits[pointPixel];
+            gifColorType = colorMapObject->Colors[gifByteType];
+            //渲染到屏幕
+            line[x] = argb(255, gifColorType.Red, gifColorType.Green, gifColorType.Blue);
+        }
+        //下一行
+        px = (int *) ((char *) px + info.stride);
+    }
+    return delay(ext);
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_peakmain_ui_image_gif_GifHelper_updateFrame(JNIEnv *env, jclass clazz, jlong gif_helper,
+                                                     jobject bitmap) {
+    GifFileType *gifFileType = reinterpret_cast<GifFileType *>(gif_helper);
+    AndroidBitmapInfo info;
+    AndroidBitmap_getInfo(env, bitmap, &info);
+    void *addrPth;
+    AndroidBitmap_lockPixels(env, bitmap, &addrPth);
+    int delayTime = drawFrame(gifFileType, info, addrPth);
+    AndroidBitmap_unlockPixels(env, bitmap);
+    GifBean *gifBean = static_cast<GifBean *>(gifFileType->UserData);
+    gifBean->current_frame++;
+    if (gifBean->current_frame >= gifBean->total_frame) {
+        gifBean->current_frame = 0;
+    }
+    return delayTime;
 }

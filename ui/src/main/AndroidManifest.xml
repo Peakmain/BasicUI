@@ -2,6 +2,7 @@
     package="com.peakmain.ui">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application>
         <provider
             android:name="com.peakmain.ui.BasicUIProvider"
@@ -12,5 +13,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/basic_ui_provider_paths" />
         </provider>
+
     </application>
 </manifest>

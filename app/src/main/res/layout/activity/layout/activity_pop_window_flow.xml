@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/view_root"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/bt_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/ui_color_01a8e3"
+        android:layout_marginTop="@dimen/space_20"
+        android:text="@string/test"
+        android:textColor="@color/white" />
+
+    <com.peakmain.ui.widget.FlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_marginTop="@dimen/space_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

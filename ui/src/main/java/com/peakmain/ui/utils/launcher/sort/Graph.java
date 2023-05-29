@@ -14,9 +14,9 @@ import java.util.Vector;
  */
 public class Graph {
     //顶点数量
-    private int mVerticeCount;
+    private final int mVerticeCount;
     //领接表
-    private List<Integer>[] adj;
+    private final List<Integer>[] adj;
 
     //边的数量
     private int mEdgeCount;
@@ -69,6 +69,7 @@ public class Graph {
         Vector<Integer> result = new Vector<>();
         while (!queue.isEmpty()) {
             Integer u = queue.poll();
+            if (u == null) continue;
             result.add(u);
             //0的所有领接表
             for (Integer node : adj[u]) {

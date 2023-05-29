@@ -6,8 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.Editable;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.peakmain.ui.R;
 import com.peakmain.ui.utils.SizeUtils;
@@ -18,7 +21,7 @@ import com.peakmain.ui.utils.SizeUtils;
  * mail:2726449200@qq.com
  * describe：支付密码的EditText
  */
-public class PasswordEditText extends android.support.v7.widget.AppCompatEditText {
+public class PasswordEditText extends AppCompatEditText {
     // 画笔
     private Paint mPaint;
     // 一个密码所占的宽度
@@ -39,7 +42,11 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
     private int mPasswordColor = mDivisionLineColor;
     // 密码圆点的半径大小
     private int mPasswordRadius = 4;
+    /**
+     * 设置当前密码已完成
+     */
 
+    private PasswordCompleteListener mListener;
     public PasswordEditText(Context context) {
         this(context, null);
     }
@@ -94,7 +101,9 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
     private void drawPassWord(Canvas canvas) {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(mPasswordColor);
-        String password = getText().toString().trim();
+        Editable text = getText();
+        if (text == null) return;
+        String password = text.toString().trim();
         int len = password.length();
         for (int i = 0; i < len; i++) {
             int cy = getHeight() / 2;
@@ -110,9 +119,8 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
         for (int i = 0; i < mPasswordNumber - 1; i++) {
             float startX = (i + 1) * mPasswordItemWidth + mBgSize + mDivisionLineSize;
             float startY = mBgSize;
-            float endX = startX;
             float endY = getHeight() - mBgSize;
-            canvas.drawLine(startX, startY, endX, endY, mPaint);
+            canvas.drawLine(startX, startY, startX, endY, mPaint);
         }
     }
 
@@ -134,17 +142,17 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
      * 添加密码
      */
     public void addPasswordNumber(String number) {
-        String passWord = getText().toString().trim();
+        Editable text = getText();
+        if (text == null) return;
+        String passWord = text.toString().trim();
         if (passWord.length() >= mPasswordNumber) {//当前密码的长度大于当前密码数量return
             return;
         }
         passWord += number;
         setText(passWord);
         //判断是否添加密码是否添加完成
-        if (mListener != null) {
-            if (passWord.length() >= mPasswordNumber) {
-                mListener.passwordComplete(getText().toString().trim());
-            }
+        if (mListener != null && passWord.length() >= mPasswordNumber) {
+            mListener.passwordComplete(getText().toString().trim());
         }
     }
 
@@ -152,7 +160,9 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
      * 删除密码
      */
     public void deletePassWord() {
-        String passWord = getText().toString().trim();
+        Editable text = getText();
+        if (text == null) return;
+        String passWord = text.toString().trim();
         if (passWord.length() <= 0) {
             return;
         }
@@ -160,11 +170,7 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
         setText(passWord);
     }
 
-    /**
-     * 设置当前密码已完成
-     */
 
-    private PasswordCompleteListener mListener;
 
     public void setPasswordCompleteListener(PasswordCompleteListener listener) {
         mListener = listener;
@@ -174,6 +180,6 @@ public class PasswordEditText extends android.support.v7.widget.AppCompatEditTex
      * 密码已经全部完成
      */
     public interface PasswordCompleteListener {
-        public void passwordComplete(String password);
+        void passwordComplete(String password);
     }
 }

@@ -6,8 +6,14 @@
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
     <color name="checkbox_button_tint">#F117D4</color>
-    <color name="button_background">#3A52F0</color>
     <color name="view_line_background">#d1d1d1</color>
-    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="ui_color_F5F5F5">#F5F5F5</color>
     <color name="color_7D7D7D">#7D7D7D</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_272A2B">#272A2B</color>
+    <color name="color_6CBD9B">#6CBD9B</color>
+    <color name="color_003A40">#003A40</color>
+    <color name="color_d4d4d5">#d4d4d5</color>
+    <color name="color_f1f4f6">#f1f4f6</color>
+    <color name="color_01a8e3">#01a8e3</color>
 </resources>

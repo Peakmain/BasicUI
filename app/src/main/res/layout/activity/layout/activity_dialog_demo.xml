@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.peakmain.basicui.view.RadioCancelButton
+        android:id="@+id/radio_set_width_full"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
+        android:buttonTint="@color/ui_color_01a8e3"
+        android:text="@string/is_set_width_full"
+        android:textColor="@color/ui_color_4A4A4A"
+        tools:targetApi="lollipop" />
+
+    <com.peakmain.basicui.view.RadioCancelButton
+        android:id="@+id/radio_set_default_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
+        android:buttonTint="@color/ui_color_01a8e3"
+        android:text="@string/is_set_default_animation"
+        android:textColor="@color/ui_color_4A4A4A"
+        tools:targetApi="lollipop" />
+
+    <com.peakmain.basicui.view.RadioCancelButton
+        android:id="@+id/radio_set_from_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
+        android:buttonTint="@color/ui_color_01a8e3"
+        android:text="@string/is_from_bottom"
+        android:textColor="@color/ui_color_4A4A4A"
+        tools:targetApi="lollipop" />
+
+    <com.peakmain.basicui.view.RadioCancelButton
+        android:id="@+id/radio_set_can_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
+        android:buttonTint="@color/ui_color_01a8e3"
+        android:text="@string/is_cancelable"
+        android:textColor="@color/ui_color_4A4A4A"
+        tools:targetApi="lollipop" />
+
+    <com.peakmain.ui.widget.ShapeTextView
+        android:id="@+id/stv_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:padding="@dimen/space_10"
+        android:text="@string/sure"
+        android:textColor="@color/white"
+        app:shapeTvBackgroundColor="@color/ui_color_01a8e3"
+        app:shapeTvRadius="@dimen/space_50" />
+</LinearLayout>

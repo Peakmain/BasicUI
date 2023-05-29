@@ -22,5 +22,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_et_close"
         android:visibility="invisible"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        android:layout_marginRight="@dimen/dimen_10" />
 </LinearLayout>

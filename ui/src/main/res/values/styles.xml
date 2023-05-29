@@ -14,12 +14,12 @@
         <!--没有标题-->
         <item name="android:windowIsTranslucent">true</item>
         <!--背景透明-->
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <!--模糊-->
         <item name="android:backgroundDimEnabled">true</item>
         <!--没有标题-->
         <item name="android:windowNoTitle">true</item>
-
+        <item name="android:windowContentOverlay">@null</item>
     </style>
     <!--进入时的动画-->
     <style name="dialog_from_bottom_anim">
@@ -41,6 +41,20 @@
         <item name="android:background">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">20dp</item>
-        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:textColor">@color/ui_color_333333</item>
     </style>
+
+    <declare-styleable name="pickerview">
+        <attr name="wheelview_gravity">
+            <enum name="center" value="17"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="wheelview_textSize" format="dimension"/>
+        <attr name="wheelview_textColorOut" format="color"/>
+        <attr name="wheelview_textColorCenter" format="color"/>
+        <attr name="wheelview_dividerColor" format="color"/>
+        <attr name="wheelview_dividerWidth" format="dimension"/>
+        <attr name="wheelview_lineSpacingMultiplier" format="float"/>
+    </declare-styleable>
 </resources>
