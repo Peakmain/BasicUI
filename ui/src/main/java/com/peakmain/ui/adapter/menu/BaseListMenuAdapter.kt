@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
@@ -36,10 +35,6 @@ abstract class BaseListMenuAdapter(
         val view = LayoutInflater.from(mContext).inflate(getMenuLayoutId(position), parent, false)
         setMenuContent(view, position)
         return view
-    }
-
-    override fun getContentView(mMenuContentView: FrameLayout?): View {
-        return LayoutInflater.from(mContext).inflate(contentViewId, mMenuContentView, false)
     }
 
 

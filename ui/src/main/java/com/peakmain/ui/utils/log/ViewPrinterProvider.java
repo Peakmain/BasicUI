@@ -1,11 +1,12 @@
 package com.peakmain.ui.utils.log;
 
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.peakmain.ui.R;
 import com.peakmain.ui.utils.SizeUtils;

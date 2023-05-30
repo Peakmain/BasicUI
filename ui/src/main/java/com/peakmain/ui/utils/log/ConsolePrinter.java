@@ -1,10 +1,11 @@
 package com.peakmain.ui.utils.log;
 
 
-import android.support.annotation.NonNull;
+import static com.peakmain.ui.utils.log.LogConfig.MAX_LEN;
+
 import android.util.Log;
 
-import static com.peakmain.ui.utils.log.LogConfig.MAX_LEN;
+import androidx.annotation.NonNull;
 
 
 /**

@@ -1,7 +1,7 @@
 package com.peakmain.ui.utils.log;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * author ：Peakmain
