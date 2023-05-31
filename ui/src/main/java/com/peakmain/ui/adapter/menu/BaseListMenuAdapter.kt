@@ -39,7 +39,7 @@ abstract class BaseListMenuAdapter(
     }
 
 
-    override fun openMenu(tabView: View) {
+    override fun openMenu(menuTabView: LinearLayout?,tabView: View) {
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
         textView.setTextColor(ContextCompat.getColor(mContext, R.color.ui_color_6CBD9B))
     }

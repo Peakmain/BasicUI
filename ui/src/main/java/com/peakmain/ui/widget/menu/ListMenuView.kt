@@ -173,7 +173,7 @@ class ListMenuView @JvmOverloads constructor(
             mCurrentPosition = position
             currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.VISIBLE
-            mAdapter!!.openMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
+            mAdapter!!.openMenu(mMenuTabView,mMenuTabView!!.getChildAt(mCurrentPosition))
             height = currentMenu.layoutParams.height
             var endHeight = when (height) {
                 ViewGroup.LayoutParams.WRAP_CONTENT -> {
@@ -367,7 +367,7 @@ class ListMenuView @JvmOverloads constructor(
             override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 mAnimatorExecute = true
-                mAdapter!!.openMenu(tabView!!)
+                mAdapter!!.openMenu(mMenuTabView,tabView!!)
             }
         })
         rotationAnimation.start()

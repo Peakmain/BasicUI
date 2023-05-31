@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,20 @@ open class ListMenuAdapter(
     private val mLeftMenuList: MutableList<String>,
     private val mCategoryRightBeans: List<CategoryRightBean>
 ) : BaseListMenuAdapter(mContext, titles) {
-    override fun openMenu(tabView: View) {
+    override fun openMenu(menuTabView: LinearLayout?,tabView: View) {
+        if (menuTabView == null) return
+
+        menuTabView.children.forEach {
+            val textView = it.findViewById<TextView>(R.id.tv_menu_tab_title)
+            val imageView = it.findViewById<ImageView>(R.id.iv_down)
+            imageView.setImageResource(R.drawable.ic_triangle_down)
+            textView.setTextColor(
+                ContextCompat.getColor(
+                    mContext,
+                    R.color.color_272A2B
+                )
+            )
+        }
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
         textView.setTextColor(Color.parseColor("#6CBD9B"))
         (tabView.findViewById<View>(R.id.iv_down) as ImageView).setImageResource(R.drawable.ic_triangle_up)

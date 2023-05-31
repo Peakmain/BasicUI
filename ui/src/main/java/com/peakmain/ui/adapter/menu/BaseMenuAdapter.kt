@@ -43,7 +43,7 @@ abstract class BaseMenuAdapter : BaseAdapter() {
     /**
      * 打开菜单
      */
-    abstract fun openMenu(tabView: View)
+    abstract fun openMenu(menuTabView: LinearLayout?, tabView: View)
 
     /**
      * 关闭菜单
