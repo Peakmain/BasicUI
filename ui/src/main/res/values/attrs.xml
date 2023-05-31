@@ -15,7 +15,7 @@
         <!--设置渐变结束颜色-->
         <attr name="shapeTvEndColor" format="color|reference" />
         <!--设置渐变方向-->
-        <attr name="shapeTvOriention" format="integer">
+        <attr name="shapeTvOrientation" format="integer">
             <enum name="LEFT_RIGHT" value="0" />
             <enum name="TOP_BOTTOM" value="1" />
         </attr>
