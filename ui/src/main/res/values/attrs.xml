@@ -28,7 +28,7 @@
         </attr>
         <!--是否开启点击后动画效果 默认false-->
         <attr name="shapeTvActiveMotion" format="boolean" />
-        <!--按下去后文字颜色-->
+        <!--按下去后背景颜色-->
         <attr name="shapeTvPressedColor" format="color|reference" />
         <!--四周的圆角-->
         <attr name="shapeTvTopLeftRadius" format="dimension|reference" />

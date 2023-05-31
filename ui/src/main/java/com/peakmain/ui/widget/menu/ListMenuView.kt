@@ -51,6 +51,9 @@ class ListMenuView @JvmOverloads constructor(
 
     // 动画是否在执行
     private var mAnimatorExecute = false
+    var isMenuOpen = false
+        private set
+
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ListMenuView)
         mDurationTime = ta.getInt(R.styleable.ListMenuView_duration, mDurationTime)
@@ -161,7 +164,12 @@ class ListMenuView @JvmOverloads constructor(
                 }
                 else -> currentMenu.layoutParams.height.toFloat()
             }
-            mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
+            mAdapter!!.closeMenu(
+                mMenuTabView!!,
+                mMenuTabView!!.getChildAt(mCurrentPosition),
+                mCurrentPosition,
+                true
+            )
             mCurrentPosition = position
             currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.VISIBLE
@@ -221,6 +229,7 @@ class ListMenuView @JvmOverloads constructor(
         if (mAnimatorExecute) {
             return
         }
+        isMenuOpen = false
         //设置阴影不可见
         mShadowView!!.visibility = View.GONE
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
@@ -276,7 +285,12 @@ class ListMenuView @JvmOverloads constructor(
             override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 mAnimatorExecute = true
-                mAdapter!!.closeMenu(mMenuTabView!!.getChildAt(mCurrentPosition))
+                mAdapter!!.closeMenu(
+                    mMenuTabView!!,
+                    mMenuTabView!!.getChildAt(mCurrentPosition),
+                    mCurrentPosition,
+                    false
+                )
             }
         })
         rotationAnimation.start()
@@ -289,6 +303,7 @@ class ListMenuView @JvmOverloads constructor(
         if (mAnimatorExecute) {
             return
         }
+        isMenuOpen = true
         //设置阴影为可见
         mShadowView!!.visibility = View.VISIBLE
 

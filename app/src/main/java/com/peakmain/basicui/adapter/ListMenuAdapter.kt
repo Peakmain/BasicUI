@@ -1,24 +1,20 @@
-package com.peakmain.basicui.adapter;
+package com.peakmain.basicui.adapter
 
-import android.content.Context;
-import android.graphics.Color;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.peakmain.basicui.R;
-import com.peakmain.basicui.bean.CategoryRightBean;
-import com.peakmain.ui.adapter.menu.BaseListMenuAdapter;
-import com.peakmain.ui.recyclerview.listener.OnItemClickListener;
-
-import java.util.List;
+import android.content.Context
+import android.graphics.Color
+import android.util.TypedValue
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.peakmain.basicui.R
+import com.peakmain.basicui.bean.CategoryRightBean
+import com.peakmain.ui.adapter.menu.BaseListMenuAdapter
+import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 
 /**
  * author ：Peakmain
@@ -26,126 +22,115 @@ import java.util.List;
  * mail:2726449200@qq.com
  * describe：
  */
-public class ListMenuAdapter extends BaseListMenuAdapter {
-    private final Context mContext;
-    private final List<String> mLeftMenuList;
-    private final List<CategoryRightBean> mCategoryRightBeans;
-    private final List<String> mRecommendSortList;
-    private final List<String> mBrandList;
-    private final List<String> mCityList;
-
-    public ListMenuAdapter(Context context, List<String> titles, List<String> recommendSortList
-            , List<String> brandList, List<String> cityList
-            , List<String> leftMenuList, List<CategoryRightBean> categoryRightBeans) {
-        super(context, titles);
-        this.mContext = context;
-        this.mRecommendSortList = recommendSortList;
-        this.mBrandList = brandList;
-        this.mCityList = cityList;
-        this.mLeftMenuList = leftMenuList;
-        this.mCategoryRightBeans = categoryRightBeans;
+open class ListMenuAdapter(
+    private val mContext: Context,
+    titles: List<String>,
+    private val mRecommendSortList: List<String>,
+    private val mBrandList: MutableList<String>,
+    private val mCityList: MutableList<String>,
+    private val mLeftMenuList: MutableList<String>,
+    private val mCategoryRightBeans: List<CategoryRightBean>
+) : BaseListMenuAdapter(mContext, titles) {
+    override fun openMenu(tabView: View) {
+        val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
+        textView.setTextColor(Color.parseColor("#6CBD9B"))
+        (tabView.findViewById<View>(R.id.iv_down) as ImageView).setImageResource(R.drawable.ic_triangle_up)
     }
 
-    @Override
-    public void openMenu(@NonNull View tabView) {
-        TextView textView = tabView.findViewById(R.id.tv_menu_tab_title);
-        textView.setTextColor(Color.parseColor("#6CBD9B"));
-        ((ImageView) tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_up);
+    override fun closeMenu(
+        menuTabView: LinearLayout,
+        tabView: View,
+        position: Int,
+        isSwitch: Boolean
+    ) {
+        val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
+        val imageView = tabView.findViewById<ImageView>(R.id.iv_down)
+        imageView.setImageResource(R.drawable.ic_triangle_down)
+        textView.setTextColor(
+            ContextCompat.getColor(
+                mContext,
+                R.color.color_272A2B
+            )
+        )
     }
 
-    @Override
-    public void closeMenu(@NonNull View tabView) {
-        TextView textView = tabView.findViewById(R.id.tv_menu_tab_title);
-        textView.setTextColor(ContextCompat.getColor(mContext,
-                R.color.color_272A2B));
-        ((ImageView) tabView.findViewById(R.id.iv_down)).setImageResource(R.drawable.ic_triangle_down);
-    }
+    override val contentViewId: Int
+        get() = R.layout.ui_list_menu_content
+    override val titleLayoutId: Int
+        get() = R.layout.ui_list_data_screen_tab
 
-    @Override
-    protected int getContentViewId() {
-        return R.layout.ui_list_menu_content;
-    }
-
-    @Override
-    public int getTitleLayoutId() {
-        return R.layout.ui_list_data_screen_tab;
-    }
-   
-    @Override
-    protected void setMenuContent(View menuView, final int position) {
-        if (menuView == null) return;
-        if (position == 0) {
-            RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            recyclerView.setAdapter(new MenuRecommendSortAdapter(mContext, mRecommendSortList));
-        } else if (position == 1) {
-            TextView tvBrandTitle = menuView.findViewById(R.id.tv_brand_title);
-            tvBrandTitle.setText("品牌偏好");
-            RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
-            recyclerView.setAdapter(new MenuBrandAdapter(mContext, mBrandList));
-        } else if (position == 2) {
-            TextView tvBrandTitle = menuView.findViewById(R.id.tv_brand_title);
-            tvBrandTitle.setText("热门住宿地");
-            RecyclerView recyclerView = menuView.findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
-            recyclerView.setAdapter(new MenuHotCityAdapter(mContext, mCityList));
-        } else {
-            RecyclerView rvLeft = menuView.findViewById(R.id.rv_left);
-            rvLeft.setLayoutManager(new LinearLayoutManager(mContext));
-            MenuLeftRecyclerAdapter leftRecyclerAdapter =
-                    new MenuLeftRecyclerAdapter(mContext, mLeftMenuList);
-            rvLeft.setAdapter(leftRecyclerAdapter);
-
-            RecyclerView rvRight = menuView.findViewById(R.id.rv_right);
-            rvRight.setLayoutManager(new LinearLayoutManager(mContext));
-            MenuRightRecyclerAdapter rightRecyclerAdapter = new MenuRightRecyclerAdapter(mContext, mCategoryRightBeans);
-            rvRight.setAdapter(rightRecyclerAdapter);
-            LinearLayoutManager rvRightLayoutManager = (LinearLayoutManager) rvRight.getLayoutManager();
-            leftRecyclerAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    int selectPosition = leftRecyclerAdapter.mSelectPosition;
-                    if (selectPosition == position) return;
-                    leftRecyclerAdapter.setSelectItem(position);
-                    rightRecyclerAdapter.setSelectItem(position);
-                    rvRightLayoutManager
-                            .scrollToPositionWithOffset(position, 0);
-                }
-            });
-            rvRight.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    int firstVisibleItemPosition = rvRightLayoutManager.findFirstVisibleItemPosition();
-                    if (firstVisibleItemPosition != -1) {
-                        rightRecyclerAdapter.setSelectItem(firstVisibleItemPosition);
-                        rvLeft.smoothScrollToPosition(firstVisibleItemPosition);
-                        leftRecyclerAdapter.setSelectItem(firstVisibleItemPosition);
+    override fun setMenuContent(menuView: View?, position: Int) {
+        if (menuView == null) return
+        when (position) {
+            0 -> {
+                val recyclerView = menuView.findViewById<RecyclerView>(R.id.recycler_view)
+                recyclerView.layoutManager = LinearLayoutManager(mContext)
+                recyclerView.adapter = MenuRecommendSortAdapter(mContext, mRecommendSortList.toMutableList())
+            }
+            1 -> {
+                val tvBrandTitle = menuView.findViewById<TextView>(R.id.tv_brand_title)
+                tvBrandTitle.text = "品牌偏好"
+                val recyclerView = menuView.findViewById<RecyclerView>(R.id.recycler_view)
+                recyclerView.layoutManager = GridLayoutManager(mContext, 3)
+                recyclerView.adapter = MenuBrandAdapter(mContext, mBrandList)
+            }
+            2 -> {
+                val tvBrandTitle = menuView.findViewById<TextView>(R.id.tv_brand_title)
+                tvBrandTitle.text = "热门住宿地"
+                val recyclerView = menuView.findViewById<RecyclerView>(R.id.recycler_view)
+                recyclerView.layoutManager = GridLayoutManager(mContext, 3)
+                recyclerView.adapter = MenuHotCityAdapter(mContext, mCityList)
+            }
+            else -> {
+                val rvLeft = menuView.findViewById<RecyclerView>(R.id.rv_left)
+                rvLeft.layoutManager = LinearLayoutManager(mContext)
+                val leftRecyclerAdapter = MenuLeftRecyclerAdapter(mContext, mLeftMenuList)
+                rvLeft.adapter = leftRecyclerAdapter
+                val rvRight = menuView.findViewById<RecyclerView>(R.id.rv_right)
+                rvRight.layoutManager = LinearLayoutManager(mContext)
+                val rightRecyclerAdapter = MenuRightRecyclerAdapter(mContext, mCategoryRightBeans)
+                rvRight.adapter = rightRecyclerAdapter
+                val rvRightLayoutManager = rvRight.layoutManager as LinearLayoutManager?
+                leftRecyclerAdapter.setOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val selectPosition = leftRecyclerAdapter.mSelectPosition
+                        if (selectPosition == position) return
+                        leftRecyclerAdapter.setSelectItem(position)
+                        rightRecyclerAdapter.setSelectItem(position)
+                        rvRightLayoutManager
+                            ?.scrollToPositionWithOffset(position, 0)
                     }
-                }
-            });
+                })
+                rvRight.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        val firstVisibleItemPosition =
+                            rvRightLayoutManager!!.findFirstVisibleItemPosition()
+                        if (firstVisibleItemPosition != -1) {
+                            rightRecyclerAdapter.setSelectItem(firstVisibleItemPosition)
+                            rvLeft.smoothScrollToPosition(firstVisibleItemPosition)
+                            leftRecyclerAdapter.setSelectItem(firstVisibleItemPosition)
+                        }
+                    }
+                })
+            }
         }
     }
 
-    @Override
-    public void setTitleContent(TextView textView, int position) {
-        if (textView == null) return;
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f);
+    override fun setTitleContent(textView: TextView?, position: Int) {
+        if (textView == null) return
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
     }
 
-    @Override
-    protected int getMenuLayoutId(int position) {
-        if (position == 0)
-            return R.layout.layout_menu_recommend_sort;
-        else if (position == 1 || position == 2)
-            return R.layout.layout_menu_brand;
-        else
-            return R.layout.layout_categorize_screen;
+    override fun getMenuLayoutId(position: Int): Int {
+        return when (position) {
+            0 -> R.layout.layout_menu_recommend_sort
+            1, 2 -> R.layout.layout_menu_brand
+            else -> R.layout.layout_categorize_screen
+        }
     }
 
-    @Override
-    public boolean shadowClick() {
-        return false;
+    override fun shadowClick(): Boolean {
+        return false
     }
 }
