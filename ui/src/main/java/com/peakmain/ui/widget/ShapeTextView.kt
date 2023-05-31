@@ -89,7 +89,7 @@ class ShapeTextView @JvmOverloads constructor(
         //结束颜色
         mEndColor = a.getColor(R.styleable.ShapeTextView_shapeTvEndColor, mEndColor)
         //设置渐变方向
-        mOrientation = a.getInt(R.styleable.ShapeTextView_shapeTvOriention, mOrientation)
+        mOrientation = a.getInt(R.styleable.ShapeTextView_shapeTvOrientation, mOrientation)
         //形状，默认是矩形
         mShape = a.getInt(R.styleable.ShapeTextView_shapeTvShape, mShape)
         //是否开启点击后水波纹效果
