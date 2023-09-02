@@ -29,6 +29,7 @@
         android:paddingBottom="@dimen/space_6"
         android:text="@string/shapetextview1"
         android:textColor="@color/ui_color_4A4A4A"
+        app:shapeTvPressedColor="@color/color_f1f4f6"
         app:shapeTvRadius="@dimen/space_20"
         app:shapeTvStrokeColor="@color/colorPrimary"
         app:shapeTvStrokeWidth="2dp" />

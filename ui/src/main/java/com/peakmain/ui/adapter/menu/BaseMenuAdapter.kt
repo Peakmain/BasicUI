@@ -2,6 +2,7 @@ package com.peakmain.ui.adapter.menu
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.peakmain.ui.adapter.BaseAdapter
 
 /**
@@ -42,12 +43,16 @@ abstract class BaseMenuAdapter : BaseAdapter() {
     /**
      * 打开菜单
      */
-    abstract fun openMenu(tabView: View)
+    abstract fun openMenu(menuTabView: LinearLayout?, tabView: View)
 
     /**
      * 关闭菜单
+     * @param menuTabView 所有的Tab View
+     * @param tabView 当前 tabView
+     * @param position 当前tabView的position
+     * @param isSwitch 是否是点击切换
      */
-    abstract fun closeMenu(tabView: View)
+    abstract fun closeMenu(menuTabView: LinearLayout, tabView: View, position: Int, isSwitch: Boolean)
 
     /**
      * 阴影点击事件

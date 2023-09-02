@@ -90,7 +90,8 @@ class ShapeLinearLayout @JvmOverloads constructor(
             mGradientDrawable.cornerRadius = mRadius
         }
         //设置边线
-        mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalBackgroundColor)
+        if (mNormalStrokeWidth != 0 && mNormalStrokeColor != 0)
+            mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
         if (mStartColor != 0 && mEndColor != 0) {
             mGradientDrawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
             mGradientDrawable.colors = intArrayOf(mStartColor, mEndColor)

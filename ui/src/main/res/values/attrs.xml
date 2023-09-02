@@ -15,7 +15,7 @@
         <!--设置渐变结束颜色-->
         <attr name="shapeTvEndColor" format="color|reference" />
         <!--设置渐变方向-->
-        <attr name="shapeTvOriention" format="integer">
+        <attr name="shapeTvOrientation" format="integer">
             <enum name="LEFT_RIGHT" value="0" />
             <enum name="TOP_BOTTOM" value="1" />
         </attr>
@@ -28,7 +28,7 @@
         </attr>
         <!--是否开启点击后动画效果 默认false-->
         <attr name="shapeTvActiveMotion" format="boolean" />
-        <!--按下去后文字颜色-->
+        <!--按下去后背景颜色-->
         <attr name="shapeTvPressedColor" format="color|reference" />
         <!--四周的圆角-->
         <attr name="shapeTvTopLeftRadius" format="dimension|reference" />

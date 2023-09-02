@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_brand_title"
@@ -12,22 +12,22 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dimen_17"
         android:paddingTop="@dimen/dimen_14"
+        android:paddingBottom="@dimen/dimen_8"
+        android:text="品牌爱好"
         android:textColor="#272A2B"
         android:textSize="@dimen/font_size_12"
-        android:paddingBottom="@dimen/dimen_8"
-        android:textStyle="bold"
-        android:text="品牌爱好"
-        />
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:paddingLeft="@dimen/dimen_10"
-        android:paddingRight="@dimen/dimen_10"
         android:layout_width="match_parent"
-        tools:itemCount="99"
-        android:paddingTop="@dimen/dimen_8"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_height="0dp"/>
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_8"
+        android:paddingRight="@dimen/dimen_10"
+        tools:itemCount="99" />
+
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
@@ -45,6 +45,7 @@
             android:paddingBottom="@dimen/dimen_10"
             android:text="清空选项"
             android:textSize="@dimen/font_14"
+            app:shapeTvPressedColor="@color/color_f1f4f6"
             app:shapeTvRadius="@dimen/dimen_4"
             app:shapeTvStrokeColor="@color/color_d4d4d5"
             app:shapeTvStrokeWidth="@dimen/dimen_0_5" />

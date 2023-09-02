@@ -1,11 +1,12 @@
 package com.peakmain.basicui.activity.home
 
+import android.app.KeyguardManager
+import android.content.Context
 import com.google.gson.Gson
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.ListMenuAdapter
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.bean.CategoryRightBean
-import com.peakmain.basicui.bean.CategoryRightSubBean
 import com.peakmain.ui.widget.menu.ListMenuView
 
 /**
@@ -112,5 +113,13 @@ class MultiMenuActivity : BaseActivity() {
                 categoryRightList
             )
         mMenuView!!.setAdapter(mAdapter)
+    }
+    override fun onPause() {
+        super.onPause()
+        val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+        if (!keyguardManager.isKeyguardLocked && mMenuView != null && mMenuView!!.isMenuOpen) {
+            mAdapter?.closeMenu()
+        }
+
     }
 }

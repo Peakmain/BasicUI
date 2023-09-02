@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.peakmain.ui.R
@@ -38,12 +39,15 @@ abstract class BaseListMenuAdapter(
     }
 
 
-    override fun openMenu(tabView: View) {
+    override fun openMenu(menuTabView: LinearLayout?,tabView: View) {
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
         textView.setTextColor(ContextCompat.getColor(mContext, R.color.ui_color_6CBD9B))
     }
 
-    override fun closeMenu(tabView: View) {
+    override fun closeMenu(menuTabView: LinearLayout,
+                           tabView: View,
+                           position: Int,
+                           isSwitch: Boolean) {
         val textView = tabView.findViewById<TextView>(R.id.tv_menu_tab_title)
         textView.setTextColor(
             ContextCompat.getColor(
