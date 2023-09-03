@@ -173,7 +173,7 @@ class OkHttpActivity : BaseActivity() {
                     }
 
                     5 -> {
-                        file = File(Environment.getExternalStorageDirectory(), "test.apk")
+                        val file = File(cacheDir, "update.apk")
                         if (file.exists()) {
                             file.delete()
                         }
