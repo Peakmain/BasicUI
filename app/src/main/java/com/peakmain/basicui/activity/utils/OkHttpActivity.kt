@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -16,9 +17,12 @@ import com.peakmain.basicui.BuildConfig
 import com.peakmain.basicui.R
 import com.peakmain.basicui.adapter.BaseRecyclerStringAdapter
 import com.peakmain.basicui.base.BaseActivity
+import com.peakmain.ui.dialog.AlertDialog
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
 import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.SizeUtils
 import com.peakmain.ui.utils.ToastUtils
+import com.peakmain.ui.utils.network.HttpUtils
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_BACKSPLASH_VALUE
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_EQUAL_VALUE
 import com.peakmain.ui.utils.network.HttpUtils.Companion.PARAMS_KEY_NOKEY_VALUE
@@ -41,6 +45,7 @@ class OkHttpActivity : BaseActivity() {
     private var mRecyclerView: RecyclerView? = null
     private var mProgressBar: ProgressBar? = null
     private lateinit var mTvResult: TextView
+    private lateinit var mDialog: AlertDialog
     override fun getLayoutId(): Int {
         return R.layout.basic_linear_recycler_view
     }
@@ -50,9 +55,15 @@ class OkHttpActivity : BaseActivity() {
         mNavigationBuilder!!
             .setTitleText("okhttp网络引擎切换工具类")
             .create()
-        mProgressBar = findViewById(R.id.progressbar)
         mTvResult = findViewById(R.id.tv_result)
         mTvResult.visibility = View.VISIBLE
+        mDialog = AlertDialog.Builder(this)
+            .setContentView(R.layout.dialog_dowload_progress)
+            .setCancelable(true)
+            .setWidthAndHeight(ViewGroup.LayoutParams.MATCH_PARENT, SizeUtils.screenHeight / 3)
+            .create()
+        mProgressBar = mDialog.findViewById(R.id.progressbar)
+
     }
 
     override fun initData() {
@@ -146,6 +157,11 @@ class OkHttpActivity : BaseActivity() {
                         if (file.exists()) {
                             file.delete()
                         }
+                        mDialog.apply {
+                            setOnCancelListener {
+                                HttpUtils.cancel()
+                            }
+                        }.show()
                         with(this@OkHttpActivity)
                             .url("http://imtt.dd.qq.com/16891/apk/87B3504EE9CE9DC51E9F295976F29724.apk")
                             .downloadSingle()
@@ -153,6 +169,7 @@ class OkHttpActivity : BaseActivity() {
                             .exectureDownload(object : DownloadCallback {
                                 override fun onFailure(e: Exception?) {
                                     LogUtils.e(e!!.message)
+                                    mDialog.dismiss()
                                 }
 
                                 override fun onSucceed(file: File?) {
@@ -161,6 +178,7 @@ class OkHttpActivity : BaseActivity() {
                                     mProgressBar!!.visibility = View.GONE
                                     mProgressBar!!.progress = 0
                                     installApk(file)
+                                    mDialog.dismiss()
 
                                 }
 
@@ -177,6 +195,7 @@ class OkHttpActivity : BaseActivity() {
                         if (file.exists()) {
                             file.delete()
                         }
+                        mDialog.show()
                         with(this@OkHttpActivity)
                             .url("http://imtt.dd.qq.com/16891/apk/87B3504EE9CE9DC51E9F295976F29724.apk")
                             .downloadMutil()
@@ -210,7 +229,7 @@ class OkHttpActivity : BaseActivity() {
         })
     }
 
-    fun installApk(file:File) {
+    fun installApk(file: File) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION).action = Intent.ACTION_VIEW

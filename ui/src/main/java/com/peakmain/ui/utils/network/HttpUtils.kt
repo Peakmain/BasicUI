@@ -145,9 +145,11 @@ private constructor(context: Context) {
             GET_TYPE -> {
                 get(mUrl, mParams, finalCallBack)
             }
+
             POST_TYPE -> {
                 post(mUrl, mParams, finalCallBack)
             }
+
             UPLOAD_TYPE -> {
                 uploadFile(mUrl, mFile!!, finalCallBack)
             }
@@ -173,7 +175,11 @@ private constructor(context: Context) {
         return this
     }
 
-    private operator fun get(url: String, params: LinkedHashMap<String, Any>, callBack: EngineCallBack) {
+    private operator fun get(
+        url: String,
+        params: LinkedHashMap<String, Any>,
+        callBack: EngineCallBack,
+    ) {
         mHttpEngine[mContext, url, params, callBack]
     }
 
@@ -195,7 +201,7 @@ private constructor(context: Context) {
         mHttpEngine.downloadMultiManager(mContext, url, file, callback)
     }
 
-    @StringDef(PARAMS_KEY_EQUAL_VALUE, PARAMS_KEY_BACKSPLASH_VALUE,PARAMS_KEY_NOKEY_VALUE)
+    @StringDef(PARAMS_KEY_EQUAL_VALUE, PARAMS_KEY_BACKSPLASH_VALUE, PARAMS_KEY_NOKEY_VALUE)
     @Retention(AnnotationRetention.SOURCE)
     annotation class ParamsType
     companion object {
@@ -204,10 +210,13 @@ private constructor(context: Context) {
         private const val UPLOAD_TYPE = 0x0012
         private const val DOWNLOAD_SINGLE_TYPE = 0x0013
         private const val DOWNLOAD_MULTI_TYPE = 0x0014
+
         //http://gank.io/api/history/content/2/1
         const val PARAMS_KEY_EQUAL_VALUE: String = "PARAMS_KEY_EQUAL_VALUE"
+
         //http://gank.io/api/search/query/listview/category/Android/count/10/page/1
         const val PARAMS_KEY_BACKSPLASH_VALUE: String = "PARAMS_KEY_BACKSPLASH_VALUE"
+
         //http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_pic_comments&page=1
         const val PARAMS_KEY_NOKEY_VALUE: String = "PARAMS_KEY_NOKEY_VALUE"
         private var mParamsType = PARAMS_KEY_EQUAL_VALUE
@@ -259,5 +268,16 @@ private constructor(context: Context) {
             val params = (genType as ParameterizedType).actualTypeArguments
             return params[0] as Class<*>
         }
+
+        @JvmStatic
+        fun cancelAll() {
+            mHttpEngine.cancelAll()
+        }
+
+        @JvmStatic
+        fun cancel() {
+            mHttpEngine.cancel()
+        }
+
     }
 }

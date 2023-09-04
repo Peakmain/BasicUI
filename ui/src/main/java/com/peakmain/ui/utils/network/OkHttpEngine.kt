@@ -27,6 +27,7 @@ import java.net.URLConnection
 open class OkHttpEngine : IHttpEngine {
     private var mOkHttpClient: OkHttpClient = OkHttpManager.instance.okHttpClient
     private var mUrl: String = ""
+    private var mCall: Call? = null
     fun setOkHttpClient(okHttpClient: OkHttpClient) {
         mOkHttpClient = okHttpClient
     }
@@ -35,14 +36,15 @@ open class OkHttpEngine : IHttpEngine {
         context: Context,
         url: String,
         params: LinkedHashMap<String, Any>,
-        callBack: EngineCallBack
+        callBack: EngineCallBack,
     ) {
         mUrl = HttpUtils.jointParams(url, params)
         LogUtils.e("Get请求路径：$mUrl")
         val requestBuilder = Request.Builder().url(mUrl).tag(context)
         //可以省略，默认是GET请求
         val request = requestBuilder.build()
-        mOkHttpClient.newCall(request).enqueue(object : Callback {
+        mCall = mOkHttpClient.newCall(request)
+        mCall?.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 runOnUiThread(Runnable { callBack.onError(e) })
@@ -61,7 +63,7 @@ open class OkHttpEngine : IHttpEngine {
         context: Context,
         url: String,
         params: LinkedHashMap<String, Any>,
-        callBack: EngineCallBack
+        callBack: EngineCallBack,
     ) {
         mUrl = url
         val requestBody = appendBody(params)
@@ -70,7 +72,8 @@ open class OkHttpEngine : IHttpEngine {
             .tag(context)
             .post(requestBody)
             .build()
-        mOkHttpClient.newCall(request).enqueue(
+        mCall = mOkHttpClient.newCall(request)
+        mCall?.enqueue(
             object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     e.printStackTrace()
@@ -100,7 +103,7 @@ open class OkHttpEngine : IHttpEngine {
         context: Context,
         url: String,
         file: File,
-        callBack: ProgressEngineCallBack
+        callBack: ProgressEngineCallBack,
     ) {
         LogUtils.e("Upload请求的路径:$url")
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -115,8 +118,8 @@ open class OkHttpEngine : IHttpEngine {
             }
         })
         val request = Request.Builder().url(url).post(body).build()
-        val call = mOkHttpClient.newCall(request)
-        call.enqueue(object : Callback {
+        mCall = mOkHttpClient.newCall(request)
+        mCall?.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 runOnUiThread(Runnable { callBack.onError(e) })
@@ -143,11 +146,11 @@ open class OkHttpEngine : IHttpEngine {
         context: Context,
         url: String,
         outFile: File,
-        callback: DownloadCallback
+        callback: DownloadCallback,
     ) {
         val request = Request.Builder().url(url).build()
-        val call = mOkHttpClient.newCall(request)
-        call.enqueue(object : Callback {
+        mCall = mOkHttpClient.newCall(request)
+        mCall?.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread(Runnable { callback.onFailure(e) })
             }
@@ -177,9 +180,17 @@ open class OkHttpEngine : IHttpEngine {
         context: Context,
         url: String,
         outFile: File,
-        callback: DownloadCallback
+        callback: DownloadCallback,
     ) {
         DownloadDispatcher.instance.startDownload(url, outFile, callback)
+    }
+
+    override fun cancelAll() {
+        mOkHttpClient.dispatcher.cancelAll()
+    }
+
+    override fun cancel() {
+        mCall?.cancel()
     }
 
     /**
@@ -195,7 +206,7 @@ open class OkHttpEngine : IHttpEngine {
     // 添加参数
     private fun addParams(builder: MultipartBody.Builder, params: Map<String, Any>?) {
         val sb = StringBuffer("post请求:$mUrl").append("\n参数：")
-        if (params != null && params.isNotEmpty()) {
+        if (!params.isNullOrEmpty()) {
             for (key in params.keys) {
                 //builder.addFormDataPart(key, params[key].toString() + "")
                 when (val value = params[key]) {
@@ -210,6 +221,7 @@ open class OkHttpEngine : IHttpEngine {
                             )
                         )
                     }
+
                     is List<*> -> {
                         // 代表提交的是 List集合
                         try {
@@ -230,6 +242,7 @@ open class OkHttpEngine : IHttpEngine {
                             e.printStackTrace()
                         }
                     }
+
                     else -> {
                         builder.addFormDataPart(key, value.toString() + "")
                         sb.append("[$key=$value],")

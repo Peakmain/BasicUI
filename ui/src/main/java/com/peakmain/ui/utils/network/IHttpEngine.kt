@@ -57,4 +57,8 @@ interface IHttpEngine {
      * @param callback 下载的回掉
      */
     fun downloadMultiManager(context: Context, url: String, outFile: File, callback: DownloadCallback)
+
+    fun cancelAll()
+
+    fun cancel()
 }
