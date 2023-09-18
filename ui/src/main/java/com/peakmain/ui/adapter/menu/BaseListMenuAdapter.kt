@@ -24,7 +24,7 @@ abstract class BaseListMenuAdapter(
         val view = LayoutInflater.from(mContext).inflate(titleLayoutId, parent, false)
         val textView = view.findViewById<TextView>(R.id.tv_menu_tab_title)
         textView.text = mTitles[position]
-        setTitleContent(textView, position)
+        setTitleContent(view,textView, position)
         return view
     }
 
@@ -57,7 +57,7 @@ abstract class BaseListMenuAdapter(
         )
     }
 
-    open fun setTitleContent(textView: TextView?, position: Int) {
+    open fun setTitleContent(view:View,textView: TextView?, position: Int) {
 
     }
 
