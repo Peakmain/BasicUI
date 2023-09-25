@@ -62,7 +62,6 @@ abstract class BaseListMenuAdapter(
     }
 
     protected abstract val titleLayoutId: Int
-    protected abstract  val contentViewId: Int
     protected abstract fun getMenuLayoutId(position: Int): Int
     protected abstract fun setMenuContent(menuView: View?, position: Int)
 }

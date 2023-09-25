@@ -68,8 +68,6 @@ open class ListMenuAdapter(
         )
     }
 
-    override val contentViewId: Int
-        get() = R.layout.ui_list_menu_content
     override val titleLayoutId: Int
         get() = R.layout.ui_list_data_screen_tab
 
@@ -131,11 +129,11 @@ open class ListMenuAdapter(
         }
     }
 
-    override fun setTitleContent(textView: TextView?, position: Int) {
+    override fun setTitleContent(view: View, textView: TextView?, position: Int) {
+        super.setTitleContent(view, textView, position)
         if (textView == null) return
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
     }
-
     override fun getMenuLayoutId(position: Int): Int {
         return when (position) {
             0 -> R.layout.layout_menu_recommend_sort
