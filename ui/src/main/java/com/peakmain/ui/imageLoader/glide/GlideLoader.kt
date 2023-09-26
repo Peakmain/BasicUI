@@ -28,7 +28,7 @@ import java.net.URL
  * describe：Glide的
  */
 class GlideLoader : ILoader {
-    private var userAgent: String? = null
+    private var userAgent: String = "Android"
 
     /**
      * 返回一个请求的配置
@@ -50,7 +50,7 @@ class GlideLoader : ILoader {
     }
 
     override fun userAgent(userAgent: String?) {
-        this.userAgent = userAgent
+        this.userAgent = userAgent?:"Android"
     }
 
     override fun displayImage(
@@ -175,7 +175,7 @@ class GlideLoader : ILoader {
         }
         url1?.let {
             val glideUrl =
-                GlideUrl(it, LazyHeaders.Builder().addHeader("User-Agent", userAgent!!).build())
+                GlideUrl(it, LazyHeaders.Builder().addHeader("User-Agent", userAgent).build())
             Glide.with(imageView.context.applicationContext)
                 .asDrawable()
                 .load(glideUrl)
