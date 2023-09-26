@@ -251,7 +251,7 @@ class ImageLoader private constructor() {
         loader.resumeRequest(view?.context)
     }
 
-A    /**
+    /**
      * 停止请求
      *
      * @param context
