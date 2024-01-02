@@ -90,15 +90,17 @@ class ListMenuView @JvmOverloads constructor(
         mShadowView!!.setOnClickListener(this)
 
         //创建菜单用来存放菜单内容
-        mMenuContainerView = FrameLayout(mContext)
-        mMenuContainerView!!.setBackgroundColor(Color.WHITE)
-        mMenuMiddleView!!.addView(mMenuContainerView)
-        val mMenuParams = mMenuContainerView!!.layoutParams
-        mMenuContainerHeight = (SizeUtils.screenHeight * 75f / 100).toInt()
-        mMenuParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        mMenuContainerView!!.layoutParams = mMenuParams
-        mMenuContainerView!!.translationY = -mMenuParams.height.toFloat()
-        mMenuContainerView!!.setOnClickListener(this)
+        mMenuContainerView = FrameLayout(mContext).apply {
+            setBackgroundColor(Color.WHITE)
+            mMenuMiddleView!!.addView(this)
+            val mMenuParams = layoutParams
+            mMenuContainerHeight = (SizeUtils.screenHeight * 75f / 100).toInt()
+            mMenuParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            layoutParams = mMenuParams
+            translationY = -mMenuParams.height.toFloat()
+            setOnClickListener(this@ListMenuView)
+        }
+
     }
 
     /**
@@ -132,9 +134,12 @@ class ListMenuView @JvmOverloads constructor(
             //设置点击事件
             setTabClick(tabView, i)
             //获取菜单内容
-            val menuView = mAdapter!!.getMenuView(i, mMenuContainerView!!)
-            menuView.visibility = View.GONE
-            mMenuContainerView!!.addView(menuView)
+            mMenuContainerView?.let {
+                val menuView = mAdapter!!.getMenuView(i, it)
+                menuView.visibility = View.GONE
+                it.addView(menuView)
+            }
+
         }
     }
 
@@ -152,6 +157,7 @@ class ListMenuView @JvmOverloads constructor(
             }
             //切换显示
             mMenuContainerView?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            if (mMenuContainerView == null) return@setOnClickListener
             var currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.GONE
             var height = currentMenu.layoutParams.height
@@ -159,9 +165,11 @@ class ListMenuView @JvmOverloads constructor(
                 ViewGroup.LayoutParams.WRAP_CONTENT -> {
                     currentMenu.measuredHeight.toFloat()
                 }
+
                 ViewGroup.LayoutParams.MATCH_PARENT -> {
                     mMenuContainerHeight.toFloat()
                 }
+
                 else -> currentMenu.layoutParams.height.toFloat()
             }
             mAdapter!!.closeMenu(
@@ -173,15 +181,17 @@ class ListMenuView @JvmOverloads constructor(
             mCurrentPosition = position
             currentMenu = mMenuContainerView!!.getChildAt(mCurrentPosition)
             currentMenu.visibility = View.VISIBLE
-            mAdapter!!.openMenu(mMenuTabView,mMenuTabView!!.getChildAt(mCurrentPosition))
+            mAdapter!!.openMenu(mMenuTabView, mMenuTabView!!.getChildAt(mCurrentPosition))
             height = currentMenu.layoutParams.height
             var endHeight = when (height) {
                 ViewGroup.LayoutParams.WRAP_CONTENT -> {
                     currentMenu.measuredHeight
                 }
+
                 ViewGroup.LayoutParams.MATCH_PARENT -> {
                     mMenuContainerHeight
                 }
+
                 else -> {
                     currentMenu.layoutParams.height
                 }
@@ -255,7 +265,9 @@ class ListMenuView @JvmOverloads constructor(
             }
             return
         }
-        closeMenuAnimator(height ?: 0, menuView)
+        menuView?.let {
+            closeMenuAnimator(height ?: 0, it)
+        }
     }
 
     private fun closeMenuAnimator(height: Int, menuView: View) {
@@ -367,7 +379,7 @@ class ListMenuView @JvmOverloads constructor(
             override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 mAnimatorExecute = true
-                mAdapter!!.openMenu(mMenuTabView,tabView!!)
+                mAdapter!!.openMenu(mMenuTabView, tabView!!)
             }
         })
         rotationAnimation.start()
