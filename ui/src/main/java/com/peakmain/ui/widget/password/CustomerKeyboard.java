@@ -52,7 +52,12 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
         TextView tvCustomKeyboard = findViewById(R.id.tv_custom_keyboard_x);
         tvCustomKeyboard.setVisibility(!TextUtils.isEmpty(isExtraKey) ? VISIBLE : GONE);
         tvCustomKeyboard.setText(isExtraKey);
-        findViewById(R.id.iv_keyboard_hide).setVisibility(!isShowKeyBroad ? INVISIBLE : VISIBLE);
+        if(!TextUtils.isEmpty(isExtraKey)){
+            findViewById(R.id.iv_keyboard_hide).setVisibility(GONE);
+        }else{
+            findViewById(R.id.iv_keyboard_hide).setVisibility(!isShowKeyBroad ? INVISIBLE : VISIBLE);
+        }
+
 
     }
 

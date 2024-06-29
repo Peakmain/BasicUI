@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#EBEBEB"
@@ -74,12 +75,17 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:padding="@dimen/dimen_18"
+            tools:visibility="gone"
+
             android:src="@drawable/ic_keyboard_hide" />
+
         <TextView
             android:id="@+id/tv_custom_keyboard_x"
-            android:visibility="gone"
             style="@style/custom_keyboard_text_style"
-            android:text="@string/custom_password_x" />
+            android:text="@string/custom_password_x"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
         <TextView
             style="@style/custom_keyboard_text_style"
             android:text="@string/custom_password_0" />
@@ -91,8 +97,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:scaleType="centerInside"
             android:padding="@dimen/dimen_18"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_customer_keyboard_delete" />
     </LinearLayout>
 </LinearLayout>
