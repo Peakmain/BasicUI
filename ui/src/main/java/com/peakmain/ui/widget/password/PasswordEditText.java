@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.Editable;
 import android.util.AttributeSet;
@@ -31,7 +32,7 @@ public class PasswordEditText extends AppCompatEditText {
     // 背景边框颜色
     private int mBgColor = Color.parseColor("#d1d2d6");
     // 背景边框大小
-    private int mBgSize = 1;
+    private int mBgSize = 0;
     // 背景边框圆角大小
     private int mBgCorner = 0;
     // 分割线的颜色
@@ -42,11 +43,18 @@ public class PasswordEditText extends AppCompatEditText {
     private int mPasswordColor = mDivisionLineColor;
     // 密码圆点的半径大小
     private int mPasswordRadius = 4;
+    int rectSpace = SizeUtils.dp2px(10); // 矩形之间的间距
+
+    // 背景填充颜色
+    private int mBgFillColor = Color.parseColor("#f1f4f6");
+    // 是否显示密码
+    private boolean isPasswordVisible = false;
     /**
      * 设置当前密码已完成
      */
 
     private PasswordCompleteListener mListener;
+
     public PasswordEditText(Context context) {
         this(context, null);
     }
@@ -72,6 +80,7 @@ public class PasswordEditText extends AppCompatEditText {
         mBgCorner = (int) ta.getDimension(R.styleable.PasswordEditText_bgCorner, 0);
         // 获取颜色
         mBgColor = ta.getColor(R.styleable.PasswordEditText_bgColor, mBgColor);
+        mBgFillColor = ta.getColor(R.styleable.PasswordEditText_bgFillColor, mBgFillColor);
         mDivisionLineColor = ta.getColor(R.styleable.PasswordEditText_divisionLineColor, mDivisionLineColor);
         mPasswordColor = ta.getColor(R.styleable.PasswordEditText_passwordColor, mDivisionLineColor);
         mPasswordNumber = ta.getInt(R.styleable.PasswordEditText_passwordNumber, mPasswordNumber);
@@ -86,11 +95,11 @@ public class PasswordEditText extends AppCompatEditText {
     @Override
     protected void onDraw(Canvas canvas) {
         //一个密码的宽度
-        mPasswordItemWidth = (getWidth() - 2 * mBgSize - (mPasswordNumber - 1) * mDivisionLineSize) / mPasswordNumber;
+        mPasswordItemWidth = (getWidth() - 2 * mBgSize - (mPasswordNumber - 1) * rectSpace) / mPasswordNumber;
         //画背景
         drawBackground(canvas);
         // 画分割线
-        drawDivisionLine(canvas);
+        // drawDivisionLine(canvas);
         //画密码
         drawPassWord(canvas);
     }
@@ -105,10 +114,20 @@ public class PasswordEditText extends AppCompatEditText {
         if (text == null) return;
         String password = text.toString().trim();
         int len = password.length();
+        Rect textBounds = new Rect();
         for (int i = 0; i < len; i++) {
             int cy = getHeight() / 2;
-            int cx = mBgSize + i * mPasswordItemWidth + i * mDivisionLineSize + mPasswordItemWidth / 2;
-            canvas.drawCircle(cx, cy, mPasswordRadius, mPaint);
+            int cx = mBgSize + i * (mPasswordItemWidth + rectSpace) + mPasswordItemWidth / 2;
+            if (isPasswordVisible) {
+                String charStr = String.valueOf(password.charAt(i));
+                mPaint.setTextSize(mPasswordItemWidth/2.0f);
+                mPaint.getTextBounds(charStr, 0, 1, textBounds);
+                float textWidth = mPaint.measureText(charStr);
+                float textHeight = textBounds.height();
+                canvas.drawText(charStr, cx - textWidth / 2, cy + textHeight / 2, mPaint);
+            } else {
+                canvas.drawCircle(cx, cy, mPasswordRadius, mPaint);
+            }
         }
     }
 
@@ -125,16 +144,35 @@ public class PasswordEditText extends AppCompatEditText {
     }
 
     //画背景
+    // 画背景
     private void drawBackground(Canvas canvas) {
-        RectF rectF = new RectF(mBgSize, mBgSize, getWidth() - mBgSize, getHeight() - mBgSize);
-        mPaint.setStrokeWidth(mBgSize);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(mBgColor);
-        if (mBgCorner == 0) {
-            //矩形
-            canvas.drawRect(rectF, mPaint);
-        } else {
-            canvas.drawRoundRect(rectF, mBgCorner, mBgCorner, mPaint);
+        for (int i = 0; i < mPasswordNumber; i++) {
+            int left = mBgSize + i * (mPasswordItemWidth + rectSpace);
+            int right = left + mPasswordItemWidth;
+            RectF rectF = new RectF(left, mBgSize, right, getHeight() - mBgSize);
+
+            // 绘制填充颜色
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setColor(mBgFillColor);
+            if (mBgCorner == 0) {
+                // 矩形
+                canvas.drawRect(rectF, mPaint);
+            } else {
+                // 圆角矩形
+                canvas.drawRoundRect(rectF, mBgCorner, mBgCorner, mPaint);
+            }
+
+            // 绘制边框
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setColor(mBgColor);
+            mPaint.setStrokeWidth(mBgSize);
+            if (mBgCorner == 0) {
+                // 矩形
+                canvas.drawRect(rectF, mPaint);
+            } else {
+                // 圆角矩形
+                canvas.drawRoundRect(rectF, mBgCorner, mBgCorner, mPaint);
+            }
         }
     }
 
@@ -163,7 +201,7 @@ public class PasswordEditText extends AppCompatEditText {
         Editable text = getText();
         if (text == null) return;
         String passWord = text.toString().trim();
-        if (passWord.length() <= 0) {
+        if (passWord.isEmpty()) {
             return;
         }
         passWord = passWord.substring(0, passWord.length() - 1);
@@ -171,9 +209,20 @@ public class PasswordEditText extends AppCompatEditText {
     }
 
 
-
     public void setPasswordCompleteListener(PasswordCompleteListener listener) {
         mListener = listener;
+    }
+    public void setError(boolean isError) {
+
+        if (isError) {
+           setHint("密码输入有误");
+           setHintTextColor(getResources().getColor(R.color.ui_color_e2263d));
+        } else {
+            setHint("请输入密码");
+            setHintTextColor(getResources().getColor(R.color.ui_color_a6a6a6));
+        }
+
+
     }
 
     /**
@@ -181,5 +230,14 @@ public class PasswordEditText extends AppCompatEditText {
      */
     public interface PasswordCompleteListener {
         void passwordComplete(String password);
+    }
+
+    public boolean isPasswordVisible() {
+        return isPasswordVisible;
+    }
+
+    public void setPasswordVisible(boolean isPasswordVisible) {
+        this.isPasswordVisible = isPasswordVisible;
+        invalidate();
     }
 }

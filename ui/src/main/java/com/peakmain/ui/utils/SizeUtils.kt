@@ -46,6 +46,7 @@ object SizeUtils {
      * @param spValue sp值
      * @return px值
      */
+    @JvmStatic
     fun sp2px(spValue: Float): Int {
         val fontScale = BasicUIUtils.application?.resources?.displayMetrics!!.scaledDensity
         return (spValue * fontScale + 0.5f).toInt()

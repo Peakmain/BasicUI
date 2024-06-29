@@ -1,5 +1,7 @@
 package com.peakmain.basicui.activity.home.keyboard
 
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.ui.utils.ToastUtils
@@ -27,7 +29,8 @@ class CustomPasswordKeyboardActivity : BaseActivity() {
     }
 
     override fun initData() {
-        mCustomerKeyboard!!.setOnCustomerKeyboardClickListener(object : SimpleCustomKeyboardListener() {
+        mCustomerKeyboard!!.setOnCustomerKeyboardClickListener(object :
+            SimpleCustomKeyboardListener() {
             override fun click(number: String?) {
                 mEditText!!.addPasswordNumber(number)
             }
@@ -37,5 +40,33 @@ class CustomPasswordKeyboardActivity : BaseActivity() {
             }
         })
         mEditText!!.setPasswordCompleteListener { text: String -> ToastUtils.showShort(text) }
+        val tvShowPassword = findViewById<TextView>(R.id.tv_show_password)
+        tvShowPassword?.setOnClickListener {
+            if (mEditText?.isPasswordVisible == true) {
+                mEditText?.isPasswordVisible = false
+                tvShowPassword.apply {
+                    setCompoundDrawablesWithIntrinsicBounds(
+                        ContextCompat.getDrawable(
+                            this@CustomPasswordKeyboardActivity,
+                            R.drawable.ic_password_hide
+                        ), null, null, null
+                    )
+                    text="隐藏密码"
+                }
+            } else {
+                mEditText?.isPasswordVisible = true
+                tvShowPassword.apply {
+                    setCompoundDrawablesWithIntrinsicBounds(
+                        ContextCompat.getDrawable(
+                            this@CustomPasswordKeyboardActivity,
+                            R.drawable.ic_password_show
+                        ), null, null, null
+                    )
+                    text="显示密码"
+
+                }
+
+            }
+        }
     }
 }

@@ -145,6 +145,7 @@
         <attr name="bgSize" format="dimension" />
         <!-- 背景边框的圆角大小 -->
         <attr name="bgCorner" format="dimension" />
+        <attr name="bgFillColor" format="color" />
     </declare-styleable>
     <!--九宫格解锁-->
     <declare-styleable name="LockScreenView">
@@ -184,6 +185,7 @@
     <declare-styleable name="customKeyboardView">
         <attr name="ckExtraKey" format="string" />
         <attr name="ckDecimalPlaces" format="integer" />
+        <attr name="ckShowKeyBroad" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="CrumbView">

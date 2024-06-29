@@ -33,6 +33,7 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
     private int mDecimalPointCount;
     // 设置点击回掉监听
     private SimpleCustomKeyboardListener mListener;
+    private boolean isShowKeyBroad = false;
 
     public CustomerKeyboard(Context context) {
         this(context, null);
@@ -51,12 +52,14 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
         TextView tvCustomKeyboard = findViewById(R.id.tv_custom_keyboard_x);
         tvCustomKeyboard.setVisibility(!TextUtils.isEmpty(isExtraKey) ? VISIBLE : GONE);
         tvCustomKeyboard.setText(isExtraKey);
-        findViewById(R.id.iv_keyboard_hide).setVisibility(!TextUtils.isEmpty(isExtraKey) ? GONE : VISIBLE);
+        findViewById(R.id.iv_keyboard_hide).setVisibility(!isShowKeyBroad ? INVISIBLE : VISIBLE);
+
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.customKeyboardView);
         isExtraKey = ta.getString(R.styleable.customKeyboardView_ckExtraKey);
+        isShowKeyBroad = ta.getBoolean(R.styleable.customKeyboardView_ckShowKeyBroad, false);
         decimalPlaces = ta.getInt(R.styleable.customKeyboardView_ckDecimalPlaces, decimalPlaces);
         ta.recycle();
     }

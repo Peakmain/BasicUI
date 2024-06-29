@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * mail:2726449200@qq.com
  * describe：
  */
-internal class FrameMonitor : Choreographer.FrameCallback {
+class FrameMonitor : Choreographer.FrameCallback {
     private val mChoreographer = Choreographer.getInstance()
     private var mFrameStartTime: Long = 0
 

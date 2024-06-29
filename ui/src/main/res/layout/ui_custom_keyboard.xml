@@ -68,7 +68,7 @@
         <ImageView
             android:id="@+id/iv_keyboard_hide"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/dimen_1"
             android:layout_weight="1"
@@ -87,11 +87,11 @@
         <ImageView
             android:id="@+id/iv_keyboard_delete"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:gravity="center"
+            android:scaleType="centerInside"
             android:padding="@dimen/dimen_18"
             android:src="@drawable/ic_customer_keyboard_delete" />
     </LinearLayout>
