@@ -1,8 +1,13 @@
 package com.peakmain.ui.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.content.res.TypedArray
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
+import android.os.Build
 import android.util.AttributeSet
+import android.view.Gravity
 import android.widget.LinearLayout
 import com.peakmain.ui.R
 
@@ -17,16 +22,19 @@ class ShapeLinearLayout @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
+    //圆角的角度
     private var mRadius = 0f
 
-    //线条的颜色、宽度
+    //stroke 线条 线条宽度
     private var mNormalStrokeWidth = 0
+
+    //线条颜色
     private var mNormalStrokeColor = 0
 
     //背景颜色
     private var mNormalBackgroundColor = 0
 
-    //渐变的资源
+    //默认shape样式
     private lateinit var mGradientDrawable: GradientDrawable
 
     //渐变开始颜色
@@ -36,29 +44,66 @@ class ShapeLinearLayout @JvmOverloads constructor(
     private var mEndColor = 0
 
     /**
-     * 初始化属性
+     * 0，GradientDrawable.Orientation.LEFT_RIGHT
+     * 1是GradientDrawable.Orientation.TOP_BOTTOM
      */
-    private fun init(context: Context, attrs: AttributeSet?) {
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.ShapeLinearLayout)
-        mNormalBackgroundColor =
-            ta.getColor(R.styleable.ShapeLinearLayout_shapeLlBackgroundColor, 0)
+    private var mOrientation = 0
+
+    /**
+     * RECTANGLE=0, OVAL=1, LINE=2, RING=3
+     */
+    private var mShape = 0
+
+    /**
+     * 是否开启点击后水波纹动画效果
+     */
+    private var isActiveMotion = false
+
+    /**
+     * 按下去的颜色
+     */
+    private var mPressedColor = 0
+    private var mColorStateList: ColorStateList? = null
+    private fun parseAttrs(attrs: AttributeSet?) {
         mGradientDrawable = GradientDrawable()
-        mRadius = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlRadius, 0).toFloat()
-        mNormalStrokeColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStrokeColor, 0)
-        mNormalStrokeWidth =
-            ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlStrokeWidth, 0)
-        mStartColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlStartColor, 0)
-        mEndColor = ta.getColor(R.styleable.ShapeLinearLayout_shapeLlEndColor, 0)
-        val topLeftRadius: Int = ta.getDimensionPixelSize(
+        val a: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShapeLinearLayout)
+
+        //获取背景色
+        mNormalBackgroundColor =
+            a.getColor(R.styleable.ShapeLinearLayout_shapeLlBackgroundColor, mNormalBackgroundColor)
+        //获取线条宽度
+        mNormalStrokeWidth = a.getDimensionPixelSize(
+            R.styleable.ShapeLinearLayout_shapeLlStrokeWidth,
+            mNormalStrokeWidth
+        )
+        //获取线条颜色
+        mNormalStrokeColor =
+            a.getColor(R.styleable.ShapeLinearLayout_shapeLlStrokeColor, mNormalStrokeColor)
+        //获取弧度
+        mRadius = a.getDimensionPixelSize(R.styleable.ShapeLinearLayout_shapeLlRadius, 0).toFloat()
+        //开始颜色
+        mStartColor = a.getColor(R.styleable.ShapeLinearLayout_shapeLlStartColor, mStartColor)
+        //结束颜色
+        mEndColor = a.getColor(R.styleable.ShapeLinearLayout_shapeLlEndColor, mEndColor)
+        //设置渐变方向
+        mOrientation = a.getInt(R.styleable.ShapeLinearLayout_shapeLlOrientation, mOrientation)
+        //形状，默认是矩形
+        mShape = a.getInt(R.styleable.ShapeLinearLayout_shapeLlShape, mShape)
+        //是否开启点击后水波纹效果
+        isActiveMotion = a.getBoolean(R.styleable.ShapeLinearLayout_shapeLlActiveMotion, isActiveMotion)
+        //按下去的颜色
+        mPressedColor = a.getColor(R.styleable.ShapeLinearLayout_shapeLlPressedColor, mPressedColor)
+
+        val topLeftRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeLinearLayout_shapeLlTopLeftRadius, mRadius.toInt()
         )
-        val topRightRadius: Int = ta.getDimensionPixelSize(
+        val topRightRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeLinearLayout_shapeLlTopRightRadius, mRadius.toInt()
         )
-        val bottomLeftRadius: Int = ta.getDimensionPixelSize(
+        val bottomLeftRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeLinearLayout_shapeLlBottomLeftRadius, mRadius.toInt()
         )
-        val bottomRightRadius: Int = ta.getDimensionPixelSize(
+        val bottomRightRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeLinearLayout_shapeLlBottomRightRadius, mRadius.toInt()
         )
         if (topLeftRadius != mRadius.toInt() || topRightRadius != mRadius.toInt() || bottomLeftRadius != mRadius.toInt() || bottomRightRadius != mRadius.toInt()) {
@@ -72,69 +117,145 @@ class ShapeLinearLayout @JvmOverloads constructor(
                 )
             )
         }
-        ta.recycle()
-        background = mGradientDrawable
-
-
-        setStroke()
+        gravity = Gravity.CENTER
+        a.recycle()
     }
 
     /**
-     * 设置边角背景及边线
+     * 设置背景色 以及线条宽度和颜色
      */
     private fun setStroke() {
-        //设置背景色
-        mGradientDrawable.setColor(mNormalBackgroundColor)
-        //设置弧度
-        if (mRadius != 0f) {
-            mGradientDrawable.cornerRadius = mRadius
+        initGradientDrawable().setColor(mNormalBackgroundColor)//设置背景颜色
+        isClickable = true
+        // 是否开启点击动效
+        if (isActiveMotion) {
+            if (background == null) {
+                //水波纹 5.0以上
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (mPressedColor == 0)
+                        mPressedColor = -0x99999a
+                    background = RippleDrawable(
+                        ColorStateList.valueOf(mPressedColor),
+                        mGradientDrawable,
+                        null
+                    )
+                }
+            }
+
+        } else if (background == null) {
+            if (mPressedColor == 0) {
+                if (mColorStateList == null) {
+                    background = mGradientDrawable
+                    return
+                }
+            }
+            if (mPressedColor == 0) return
+            mColorStateList = ColorStateList(
+                arrayOf(
+                    intArrayOf(android.R.attr.state_pressed),
+                    intArrayOf()
+                ),
+                intArrayOf(
+                    mPressedColor,
+                    mNormalBackgroundColor
+                )
+            )
+            initGradientDrawable().apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    color = mColorStateList
+                }
+            }
+            background = mGradientDrawable
         }
-        //设置边线
-        if (mNormalStrokeWidth != 0 && mNormalStrokeColor != 0)
-            mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
-        if (mStartColor != 0 && mEndColor != 0) {
-            mGradientDrawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
-            mGradientDrawable.colors = intArrayOf(mStartColor, mEndColor)
+
+    }
+
+    fun setPressedColor(pressedColor: Int) {
+        mPressedColor = pressedColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_pressed),
+                intArrayOf()
+            ),
+            intArrayOf(
+                mPressedColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
         }
     }
 
-    /**
-     * 设置圆弧
-     * @param radius 圆弧的角度
-     */
-    fun setRadius(radius: Float) {
-        mRadius = radius
-        mGradientDrawable.cornerRadius = mRadius
-        setStroke()
-    }
+    private fun initGradientDrawable(): GradientDrawable {
+        return mGradientDrawable.apply {
+            //设置边线
+            setStroke(mNormalStrokeWidth, mNormalStrokeColor)
 
-    /**
-     * 设置线宽度
-     * @param strokeWidth 线条的宽度
-     */
-    fun setNormalStrokeWidth(strokeWidth: Int) {
-        mNormalStrokeWidth = strokeWidth
-        mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
-        setStroke()
-    }
+            //设置弧度
+            if (mRadius != 0f) {
+                cornerRadius = mRadius
+            }
+            if (mStartColor != 0 && mEndColor != 0) {
+                orientation =
+                    if (mOrientation == 0) GradientDrawable.Orientation.LEFT_RIGHT else GradientDrawable.Orientation.TOP_BOTTOM
+                colors = intArrayOf(mStartColor, mEndColor)
+            }
+            when (mShape) {
+                0 -> {
+                    shape = GradientDrawable.RECTANGLE
+                }
 
-    /**
-     * 设置线的颜色
-     * @param strokeColor 线条的颜色
-     */
-    fun setNormalStrokeColor(strokeColor: Int) {
-        mNormalStrokeColor = strokeColor
-        mGradientDrawable.setStroke(mNormalStrokeWidth, mNormalStrokeColor)
-        setStroke()
+                1 -> {
+                    shape = GradientDrawable.OVAL
+                }
+
+                2 -> {
+                    shape = GradientDrawable.LINE
+                }
+
+                3 -> {
+                    shape = GradientDrawable.RING
+                }
+            }
+        }
     }
 
     /**
      * 设置背景色
-     * @param backgroundColor 背景颜色
+     *
+     * @param normalBackgroundColor 背景颜色
      */
-    fun setNormalBackgroundColor(backgroundColor: Int) {
-        mNormalBackgroundColor = backgroundColor
-        mGradientDrawable.setColor(mNormalBackgroundColor)
+    fun setNormalBackgroundColor(normalBackgroundColor: Int) {
+        mNormalBackgroundColor = normalBackgroundColor
+        background = null
+        setStroke()
+    }
+
+    /**
+     * 设置线条宽度
+     *
+     * @param normalStrokeWidth 线条的宽度
+     */
+    fun setNormalStrokeWidth(normalStrokeWidth: Int) {
+        mNormalStrokeWidth = normalStrokeWidth
+        setStroke()
+    }
+
+    /**
+     * 设置线条颜色
+     *
+     * @param normalStrokeColor 线条的颜色
+     */
+    fun setNormalStrokeColor(normalStrokeColor: Int) {
+        mNormalStrokeColor = normalStrokeColor
+        setStroke()
+    }
+
+    fun setRadius(radius: Float) {
+        mRadius = radius
         setStroke()
     }
 
@@ -145,7 +266,11 @@ class ShapeLinearLayout @JvmOverloads constructor(
         mGradientDrawable.cornerRadii = radius
     }
 
+
+    //按压后的shape样式
     init {
-        init(context, attrs)
+        parseAttrs(attrs)
     }
+
+
 }

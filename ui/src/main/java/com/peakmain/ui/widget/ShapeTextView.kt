@@ -23,7 +23,7 @@ import com.peakmain.ui.R
 class ShapeTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.textViewStyle
+    defStyleAttr: Int = android.R.attr.textViewStyle,
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
     //圆角的角度
     private var mRadius = 0f
@@ -199,6 +199,25 @@ class ShapeTextView @JvmOverloads constructor(
 
     }
 
+    fun setPressedColor(pressedColor: Int) {
+        mPressedColor = pressedColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_pressed),
+                intArrayOf()
+            ),
+            intArrayOf(
+                mPressedColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
     private fun initGradientDrawable(): GradientDrawable {
         return mGradientDrawable.apply {
             //设置边线
@@ -217,12 +236,15 @@ class ShapeTextView @JvmOverloads constructor(
                 0 -> {
                     shape = GradientDrawable.RECTANGLE
                 }
+
                 1 -> {
                     shape = GradientDrawable.OVAL
                 }
+
                 2 -> {
                     shape = GradientDrawable.LINE
                 }
+
                 3 -> {
                     shape = GradientDrawable.RING
                 }

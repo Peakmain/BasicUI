@@ -57,6 +57,22 @@
         <attr name="shapeLlRadius" format="dimension|reference" />
         <attr name="shapeLlStartColor" format="color|reference" />
         <attr name="shapeLlEndColor" format="color|reference" />
+        <!--设置渐变方向-->
+        <attr name="shapeLlOrientation" format="integer">
+            <enum name="LEFT_RIGHT" value="0" />
+            <enum name="TOP_BOTTOM" value="1" />
+        </attr>
+        <!--RECTANGLE=0, OVAL=1, LINE=2, RING=3 默认是0-->
+        <attr name="shapeLlShape" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="line" value="2" />
+            <enum name="ring" value="3" />
+        </attr>
+        <!--是否开启点击后动画效果 默认false-->
+        <attr name="shapeLlActiveMotion" format="boolean" />
+        <!--按下去后背景颜色-->
+        <attr name="shapeLlPressedColor" format="color|reference" />
         <!--四周的圆角-->
         <attr name="shapeLlTopLeftRadius" format="dimension|reference" />
         <attr name="shapeLlTopRightRadius" format="dimension|reference" />
@@ -74,6 +90,22 @@
         <attr name="shapeClRadius" format="dimension|reference" />
         <attr name="shapeClStartColor" format="color|reference" />
         <attr name="shapeClEndColor" format="color|reference" />
+        <!--设置渐变方向-->
+        <attr name="shapeClOrientation" format="integer">
+            <enum name="LEFT_RIGHT" value="0" />
+            <enum name="TOP_BOTTOM" value="1" />
+        </attr>
+        <!--RECTANGLE=0, OVAL=1, LINE=2, RING=3 默认是0-->
+        <attr name="shapeClShape" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="line" value="2" />
+            <enum name="ring" value="3" />
+        </attr>
+        <!--是否开启点击后动画效果 默认false-->
+        <attr name="shapeClActiveMotion" format="boolean" />
+        <!--按下去后背景颜色-->
+        <attr name="shapeClPressedColor" format="color|reference" />
         <!--四周的圆角-->
         <attr name="shapeClTopLeftRadius" format="dimension|reference" />
         <attr name="shapeClTopRightRadius" format="dimension|reference" />

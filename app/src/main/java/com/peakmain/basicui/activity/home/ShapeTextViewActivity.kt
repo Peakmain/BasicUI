@@ -1,7 +1,9 @@
 package com.peakmain.basicui.activity.home
 
+import android.graphics.Color
 import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
+import com.peakmain.ui.widget.ShapeTextView
 
 /**
  * author ：Peakmain
@@ -16,6 +18,8 @@ class ShapeTextViewActivity : BaseActivity() {
 
     override fun initView() {
         mNavigationBuilder!!.setTitleText("ShapeTextView的使用").create()
+        findViewById<ShapeTextView>(R.id.stv_pressed_color)
+            .setPressedColor(Color.GRAY)
     }
 
     override fun initData() {}
