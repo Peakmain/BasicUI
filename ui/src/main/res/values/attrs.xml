@@ -30,6 +30,9 @@
         <attr name="shapeTvActiveMotion" format="boolean" />
         <!--按下去后背景颜色-->
         <attr name="shapeTvPressedColor" format="color|reference" />
+        <!--设置不可用的背景颜色-->
+        <attr name="shapeTvUnEnabledColor" format="color|reference" />
+
         <!--四周的圆角-->
         <attr name="shapeTvTopLeftRadius" format="dimension|reference" />
         <attr name="shapeTvTopRightRadius" format="dimension|reference" />
@@ -73,6 +76,8 @@
         <attr name="shapeLlActiveMotion" format="boolean" />
         <!--按下去后背景颜色-->
         <attr name="shapeLlPressedColor" format="color|reference" />
+        <!--设置不可用的背景颜色-->
+        <attr name="shapeLlUnEnabledColor" format="color|reference" />
         <!--四周的圆角-->
         <attr name="shapeLlTopLeftRadius" format="dimension|reference" />
         <attr name="shapeLlTopRightRadius" format="dimension|reference" />
@@ -106,6 +111,8 @@
         <attr name="shapeClActiveMotion" format="boolean" />
         <!--按下去后背景颜色-->
         <attr name="shapeClPressedColor" format="color|reference" />
+        <!--设置不可用的背景颜色-->
+        <attr name="shapeClUnEnabledColor" format="color|reference" />
         <!--四周的圆角-->
         <attr name="shapeClTopLeftRadius" format="dimension|reference" />
         <attr name="shapeClTopRightRadius" format="dimension|reference" />

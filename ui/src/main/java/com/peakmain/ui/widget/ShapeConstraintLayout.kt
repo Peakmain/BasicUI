@@ -19,7 +19,7 @@ import com.peakmain.ui.R
 class ShapeConstraintLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     //圆角的角度
     private var mRadius = 0f
@@ -62,6 +62,11 @@ class ShapeConstraintLayout @JvmOverloads constructor(
      * 按下去的颜色
      */
     private var mPressedColor = 0
+
+    /**
+     * 不可用的颜色
+     */
+    private var mUnEnableColor = 0
     private var mColorStateList: ColorStateList? = null
     private fun parseAttrs(attrs: AttributeSet?) {
         mGradientDrawable = GradientDrawable()
@@ -69,7 +74,10 @@ class ShapeConstraintLayout @JvmOverloads constructor(
 
         //获取背景色
         mNormalBackgroundColor =
-            a.getColor(R.styleable.ShapeConstraintLayout_shapeClBackgroundColor, mNormalBackgroundColor)
+            a.getColor(
+                R.styleable.ShapeConstraintLayout_shapeClBackgroundColor,
+                mNormalBackgroundColor
+            )
         //获取线条宽度
         mNormalStrokeWidth = a.getDimensionPixelSize(
             R.styleable.ShapeConstraintLayout_shapeClStrokeWidth,
@@ -79,7 +87,8 @@ class ShapeConstraintLayout @JvmOverloads constructor(
         mNormalStrokeColor =
             a.getColor(R.styleable.ShapeConstraintLayout_shapeClStrokeColor, mNormalStrokeColor)
         //获取弧度
-        mRadius = a.getDimensionPixelSize(R.styleable.ShapeConstraintLayout_shapeClRadius, 0).toFloat()
+        mRadius =
+            a.getDimensionPixelSize(R.styleable.ShapeConstraintLayout_shapeClRadius, 0).toFloat()
         //开始颜色
         mStartColor = a.getColor(R.styleable.ShapeConstraintLayout_shapeClStartColor, mStartColor)
         //结束颜色
@@ -89,10 +98,13 @@ class ShapeConstraintLayout @JvmOverloads constructor(
         //形状，默认是矩形
         mShape = a.getInt(R.styleable.ShapeConstraintLayout_shapeClShape, mShape)
         //是否开启点击后水波纹效果
-        isActiveMotion = a.getBoolean(R.styleable.ShapeConstraintLayout_shapeClActiveMotion, isActiveMotion)
+        isActiveMotion =
+            a.getBoolean(R.styleable.ShapeConstraintLayout_shapeClActiveMotion, isActiveMotion)
         //按下去的颜色
-        mPressedColor = a.getColor(R.styleable.ShapeConstraintLayout_shapeClPressedColor, mPressedColor)
-
+        mPressedColor =
+            a.getColor(R.styleable.ShapeConstraintLayout_shapeClPressedColor, mPressedColor)
+        mUnEnableColor =
+            a.getColor(R.styleable.ShapeConstraintLayout_shapeClUnEnabledColor, mUnEnableColor)
         val topLeftRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeConstraintLayout_shapeClTopLeftRadius, mRadius.toInt()
         )
@@ -149,21 +161,7 @@ class ShapeConstraintLayout @JvmOverloads constructor(
                 }
             }
             if (mPressedColor == 0) return
-            mColorStateList = ColorStateList(
-                arrayOf(
-                    intArrayOf(android.R.attr.state_pressed),
-                    intArrayOf()
-                ),
-                intArrayOf(
-                    mPressedColor,
-                    mNormalBackgroundColor
-                )
-            )
-            initGradientDrawable().apply {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    color = mColorStateList
-                }
-            }
+            setPressedUnEnabledColor(mPressedColor,mUnEnableColor)
             background = mGradientDrawable
         }
 
@@ -178,6 +176,47 @@ class ShapeConstraintLayout @JvmOverloads constructor(
             ),
             intArrayOf(
                 mPressedColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
+    fun setUnEnabledColor(unEnabledColor: Int) {
+        mUnEnableColor = unEnabledColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf()
+            ),
+            intArrayOf(
+                unEnabledColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
+    fun setPressedUnEnabledColor(pressedColor: Int, unEnabledColor: Int) {
+        mPressedColor = pressedColor
+        mUnEnableColor = unEnabledColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_pressed),
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf()
+            ),
+            intArrayOf(
+                mPressedColor,
+                unEnabledColor,
                 mNormalBackgroundColor
             )
         )

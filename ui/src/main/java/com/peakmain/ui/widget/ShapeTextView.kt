@@ -66,6 +66,11 @@ class ShapeTextView @JvmOverloads constructor(
      * 按下去的颜色
      */
     private var mPressedColor = 0
+
+    /**
+     * 不可用的颜色
+     */
+    private var mUnEnableColor = 0
     private var mColorStateList: ColorStateList? = null
     private fun parseAttrs(attrs: AttributeSet?) {
         mGradientDrawable = GradientDrawable()
@@ -96,6 +101,7 @@ class ShapeTextView @JvmOverloads constructor(
         isActiveMotion = a.getBoolean(R.styleable.ShapeTextView_shapeTvActiveMotion, isActiveMotion)
         //按下去的颜色
         mPressedColor = a.getColor(R.styleable.ShapeTextView_shapeTvPressedColor, mPressedColor)
+        mUnEnableColor = a.getColor(R.styleable.ShapeTextView_shapeTvPressedColor, mUnEnableColor)
 
         val topLeftRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeTextView_shapeTvTopLeftRadius, mRadius.toInt()
@@ -179,21 +185,7 @@ class ShapeTextView @JvmOverloads constructor(
                 }
             }
             if (mPressedColor == 0) return
-            mColorStateList = ColorStateList(
-                arrayOf(
-                    intArrayOf(android.R.attr.state_pressed),
-                    intArrayOf()
-                ),
-                intArrayOf(
-                    mPressedColor,
-                    mNormalBackgroundColor
-                )
-            )
-            initGradientDrawable().apply {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    color = mColorStateList
-                }
-            }
+            setPressedUnEnabledColor(mPressedColor,mUnEnableColor)
             background = mGradientDrawable
         }
 
@@ -208,6 +200,47 @@ class ShapeTextView @JvmOverloads constructor(
             ),
             intArrayOf(
                 mPressedColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
+    fun setUnEnabledColor(unEnabledColor: Int) {
+        mUnEnableColor=unEnabledColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf()
+            ),
+            intArrayOf(
+                unEnabledColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
+    fun setPressedUnEnabledColor(pressedColor: Int, unEnabledColor: Int) {
+        mPressedColor = pressedColor
+        mUnEnableColor=unEnabledColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_pressed),
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf()
+            ),
+            intArrayOf(
+                mPressedColor,
+                unEnabledColor,
                 mNormalBackgroundColor
             )
         )

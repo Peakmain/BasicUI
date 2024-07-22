@@ -20,6 +20,9 @@ class ShapeTextViewActivity : BaseActivity() {
         mNavigationBuilder!!.setTitleText("ShapeTextView的使用").create()
         findViewById<ShapeTextView>(R.id.stv_pressed_color)
             .setPressedColor(Color.GRAY)
+
+        findViewById<ShapeTextView>(R.id.stv_enable_color)
+            .setUnEnabledColor(Color.BLUE)
     }
 
     override fun initData() {}

@@ -121,4 +121,19 @@
         android:text="动态设置按下颜色"
         android:textColor="@color/ui_color_F5F5F5"
         app:shapeTvStrokeWidth="2dp" />
+    <com.peakmain.ui.widget.ShapeTextView
+        android:id="@+id/stv_enable_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginRight="@dimen/space_20"
+        android:paddingTop="@dimen/space_6"
+        android:paddingBottom="@dimen/space_6"
+        app:shapeTvBackgroundColor="@color/basic_defalut_inspect_color1"
+        android:text="动态设置不可用颜色"
+        android:enabled="false"
+        android:textColor="@color/ui_color_F5F5F5"
+        app:shapeTvStrokeWidth="2dp" />
+
 </LinearLayout>

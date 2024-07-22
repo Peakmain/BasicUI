@@ -20,7 +20,7 @@ import com.peakmain.ui.R
 class ShapeLinearLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
     //圆角的角度
     private var mRadius = 0f
@@ -63,6 +63,10 @@ class ShapeLinearLayout @JvmOverloads constructor(
      * 按下去的颜色
      */
     private var mPressedColor = 0
+    /**
+     * 不可用的颜色
+     */
+    private var mUnEnableColor = 0
     private var mColorStateList: ColorStateList? = null
     private fun parseAttrs(attrs: AttributeSet?) {
         mGradientDrawable = GradientDrawable()
@@ -90,10 +94,11 @@ class ShapeLinearLayout @JvmOverloads constructor(
         //形状，默认是矩形
         mShape = a.getInt(R.styleable.ShapeLinearLayout_shapeLlShape, mShape)
         //是否开启点击后水波纹效果
-        isActiveMotion = a.getBoolean(R.styleable.ShapeLinearLayout_shapeLlActiveMotion, isActiveMotion)
+        isActiveMotion =
+            a.getBoolean(R.styleable.ShapeLinearLayout_shapeLlActiveMotion, isActiveMotion)
         //按下去的颜色
         mPressedColor = a.getColor(R.styleable.ShapeLinearLayout_shapeLlPressedColor, mPressedColor)
-
+        mUnEnableColor = a.getColor(R.styleable.ShapeLinearLayout_shapeLlUnEnabledColor, mUnEnableColor)
         val topLeftRadius: Int = a.getDimensionPixelSize(
             R.styleable.ShapeLinearLayout_shapeLlTopLeftRadius, mRadius.toInt()
         )
@@ -150,21 +155,7 @@ class ShapeLinearLayout @JvmOverloads constructor(
                 }
             }
             if (mPressedColor == 0) return
-            mColorStateList = ColorStateList(
-                arrayOf(
-                    intArrayOf(android.R.attr.state_pressed),
-                    intArrayOf()
-                ),
-                intArrayOf(
-                    mPressedColor,
-                    mNormalBackgroundColor
-                )
-            )
-            initGradientDrawable().apply {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    color = mColorStateList
-                }
-            }
+            setPressedUnEnabledColor(mPressedColor,mUnEnableColor)
             background = mGradientDrawable
         }
 
@@ -179,6 +170,47 @@ class ShapeLinearLayout @JvmOverloads constructor(
             ),
             intArrayOf(
                 mPressedColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
+    fun setUnEnabledColor(unEnabledColor: Int) {
+        mUnEnableColor=unEnabledColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf()
+            ),
+            intArrayOf(
+                unEnabledColor,
+                mNormalBackgroundColor
+            )
+        )
+        mGradientDrawable.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                color = mColorStateList
+            }
+        }
+    }
+
+    fun setPressedUnEnabledColor(pressedColor: Int, unEnabledColor: Int) {
+        mPressedColor = pressedColor
+        mUnEnableColor=unEnabledColor
+        mColorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_pressed),
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf()
+            ),
+            intArrayOf(
+                mPressedColor,
+                unEnabledColor,
                 mNormalBackgroundColor
             )
         )
