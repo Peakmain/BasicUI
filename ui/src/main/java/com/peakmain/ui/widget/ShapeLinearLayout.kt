@@ -122,6 +122,7 @@ class ShapeLinearLayout @JvmOverloads constructor(
                 )
             )
         }
+        setStroke()
         gravity = Gravity.CENTER
         a.recycle()
     }
