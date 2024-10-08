@@ -7,6 +7,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -33,6 +34,11 @@ class ListMenuView @JvmOverloads constructor(
     // 1.1 创建头部用来存放 Tab
     private var mMenuTabView: LinearLayout? = null
 
+    //头部下的View
+    private var mSubMenuView: View? = null
+    private var mSubMenuViewId: Int = 0
+
+
     // 1.2 创建 FrameLayout 用来存放 = 内容区+阴影（View） + 菜单内容布局(FrameLayout)
     private var mMenuMiddleView: FrameLayout? = null
 
@@ -58,6 +64,11 @@ class ListMenuView @JvmOverloads constructor(
         val ta = context.obtainStyledAttributes(attrs, R.styleable.ListMenuView)
         mDurationTime = ta.getInt(R.styleable.ListMenuView_duration, mDurationTime)
         mShadowColor = ta.getColor(R.styleable.ListMenuView_shadowColor, mShadowColor)
+        mSubMenuViewId = ta.getResourceId(R.styleable.ListMenuView_subMenuViewId, mSubMenuViewId)
+        if (mSubMenuViewId != 0) {
+            mSubMenuView =
+                LayoutInflater.from(context).inflate(mSubMenuViewId, this, false)
+        }
         ta.recycle()
     }
 
@@ -74,6 +85,9 @@ class ListMenuView @JvmOverloads constructor(
             LayoutParams.WRAP_CONTENT
         )
         addView(mMenuTabView)
+        if (mSubMenuView != null) {
+            addView(mSubMenuView)
+        }
         // 1.2 创建 FrameLayout 用来存放 = 阴影（View） + 菜单内容布局(FrameLayout)
         mMenuMiddleView = FrameLayout(mContext)
         val params = LayoutParams(LayoutParams.MATCH_PARENT, 0)
@@ -88,7 +102,7 @@ class ListMenuView @JvmOverloads constructor(
         mShadowView!!.id = R.id.menu_shadow_view
         mMenuMiddleView!!.addView(mShadowView)
         mShadowView!!.setOnClickListener(this)
-
+        mSubMenuView?.visibility = View.VISIBLE
         //创建菜单用来存放菜单内容
         mMenuContainerView = FrameLayout(mContext).apply {
             setBackgroundColor(Color.WHITE)
@@ -242,6 +256,7 @@ class ListMenuView @JvmOverloads constructor(
         isMenuOpen = false
         //设置阴影不可见
         mShadowView!!.visibility = View.GONE
+        mSubMenuView?.visibility = View.VISIBLE
         // 获取当前位置显示当前菜单，菜单是加到了菜单容器
         val menuView = mMenuContainerView!!.getChildAt(mCurrentPosition)
         var height = menuView?.layoutParams?.height
@@ -316,6 +331,7 @@ class ListMenuView @JvmOverloads constructor(
             return
         }
         isMenuOpen = true
+        mSubMenuView?.visibility = View.GONE
         //设置阴影为可见
         mShadowView!!.visibility = View.VISIBLE
 
@@ -390,6 +406,10 @@ class ListMenuView @JvmOverloads constructor(
             if (mAdapter == null || !mAdapter!!.shadowClick())
                 closeMenu()
         }
+    }
+
+    fun getSubMenuView(): View? {
+        return mSubMenuView
     }
 
     init {

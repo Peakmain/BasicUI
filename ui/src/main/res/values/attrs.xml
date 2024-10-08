@@ -235,5 +235,6 @@
     <declare-styleable name="ListMenuView">
         <attr name="duration" format="integer" />
         <attr name="shadowColor" format="color" />
+        <attr name="subMenuViewId" format="reference"/>
     </declare-styleable>
 </resources>
