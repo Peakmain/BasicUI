@@ -143,11 +143,7 @@ class AlertDialog : Dialog {
             return this
         }
 
-        //设置最大高度
-        fun setMaxHeight(maxHeight: Double): Builder {
-            P.mMaxHeight = maxHeight
-            return this
-        }
+
 
         /**
          * Settings pop up from the bottom
