@@ -54,7 +54,7 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
         mStvSure.setOnClickListener(this)
         //添加NavigationBar
         mNavigationBuilder!!.setTitleText("dialog的使用")
-                .create()
+            .create()
     }
 
     override fun initData() {}
@@ -71,12 +71,19 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
         val radioSetDefaultAnimationChecked = mRadioSetDefaultAnimation!!.isChecked
         val radioSetFromBottomChecked = mRadioSetFromBottom!!.isChecked
         val radioSetCanCancelChecked = mRadioSetCanCancel!!.isChecked
-        Log.e(BuildConfig.TAG, radioSetWidthFullChecked.toString() + "," + radioSetDefaultAnimationChecked + ","
-                + radioSetFromBottomChecked + "," + radioSetCanCancelChecked)
+        Log.e(
+            BuildConfig.TAG,
+            radioSetWidthFullChecked.toString() + "," + radioSetDefaultAnimationChecked + ","
+                    + radioSetFromBottomChecked + "," + radioSetCanCancelChecked
+        )
         val builder = AlertDialog.Builder(this)
-                .setContentView(R.layout.dialog_show)
-                .setOnClickListener(R.id.tv_save_image, View.OnClickListener { ToastUtils.showShort("保存图片成功") })
-                .setOnClickListener(R.id.tv_forword, View.OnClickListener { ToastUtils.showShort("转发") })
+            .setContentView(R.layout.dialog_show)
+            .setOnClickListener(
+                R.id.tv_save_image
+            ) { ToastUtils.showShort("保存图片成功") }
+            .setOnClickListener(
+                R.id.tv_forword
+            ) { ToastUtils.showShort("转发") }
         builder.setCancelable(radioSetCanCancelChecked)
         if (radioSetWidthFullChecked) {
             builder.setFullWidth()

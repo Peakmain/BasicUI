@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.peakmain.ui.R
+import com.peakmain.ui.utils.SizeUtils
 
 /**
  * author peakmain
@@ -55,7 +56,7 @@ class AlertDialog : Dialog {
 
     class Builder @JvmOverloads constructor(
         context: Context?,
-        themeResId: Int = R.style.dialog
+        themeResId: Int = R.style.dialog,
     ) {
         private val P: AlertController.AlertParams
         private var mDialog: AlertDialog? = null
@@ -75,6 +76,9 @@ class AlertDialog : Dialog {
             dialog.setOnDismissListener(P.mOnDismissListener)
             if (P.mOnKeyListener != null) {
                 dialog.setOnKeyListener(P.mOnKeyListener)
+            }
+            if (P.mMaxHeight > 0) {
+                setDialogMaxHeight(dialog, P.mMaxHeight)
             }
             mDialog = dialog
             return dialog
@@ -101,7 +105,7 @@ class AlertDialog : Dialog {
          */
         fun setText(
             layoutId: Int,
-            text: CharSequence?
+            text: CharSequence?,
         ): Builder {
             P.mTextArray.put(layoutId, text)
             return this
@@ -112,7 +116,7 @@ class AlertDialog : Dialog {
          */
         fun setOnClickListener(
             layoutId: Int,
-            listener: View.OnClickListener?
+            listener: View.OnClickListener?,
         ): Builder {
             P.mClickArray.put(layoutId, listener)
             return this
@@ -123,7 +127,7 @@ class AlertDialog : Dialog {
          */
         fun addOnClickListener(
             layoutId: Int,
-            listener: (dialog: AlertDialog?) -> Unit
+            listener: (dialog: AlertDialog?) -> Unit,
         ): Builder {
             P.mClickArray.put(layoutId, View.OnClickListener { listener(mDialog) })
             return this
@@ -134,10 +138,16 @@ class AlertDialog : Dialog {
          */
         fun setWidthAndHeight(
             width: Int,
-            height: Int
+            height: Int,
         ): Builder {
             P.mWidth = width
-            P.mHeigth = height
+            P.mHeight = height
+            return this
+        }
+
+        //设置最大高度
+        fun setMaxHeight(maxHeight: Double): Builder {
+            P.mMaxHeight = maxHeight
             return this
         }
 
@@ -154,7 +164,7 @@ class AlertDialog : Dialog {
 
         fun setFullWidth(): Builder {
             P.mWidth = ViewGroup.LayoutParams.MATCH_PARENT
-            P.mHeigth = ViewGroup.LayoutParams.WRAP_CONTENT
+            P.mHeight = ViewGroup.LayoutParams.WRAP_CONTENT
             return this
         }
 
@@ -215,5 +225,27 @@ class AlertDialog : Dialog {
                 themeResId
             )
         }
+
+        fun setDialogMaxHeight(dialog: AlertDialog?, maxHeight: Double) {
+            val dialogView = dialog?.findViewById<ViewGroup>(android.R.id.content)
+
+            dialogView?.let {
+                // 测量内容高度
+                it.measure(
+                    View.MeasureSpec.makeMeasureSpec(it.width, View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                )
+                val contentHeight = it.measuredHeight
+
+                // 比较测量高度与最大高度
+                val newHeight = contentHeight.coerceAtMost(maxHeight.toInt())
+                // 设置新的高度
+                val layoutParams = it.layoutParams
+                layoutParams.height = newHeight
+                it.layoutParams = layoutParams
+            }
+        }
     }
+
+
 }

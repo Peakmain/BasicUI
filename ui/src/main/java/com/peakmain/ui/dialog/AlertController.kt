@@ -31,6 +31,7 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
 
     internal class AlertParams(var mContext: Context, var themeResId: Int) {
 
+
         //click blank to cancel
         @JvmField
         var mCancelable = true
@@ -73,7 +74,11 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
         var mAnimation = 0
 
         @JvmField
-        var mHeigth = ViewGroup.LayoutParams.WRAP_CONTENT
+        var mHeight = ViewGroup.LayoutParams.WRAP_CONTENT
+
+        @JvmField
+        var mMaxHeight: Double = 0.0
+
 
         /**
          * Bind and set parameters
@@ -112,7 +117,7 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
             }
             //set width and height
             val layoutParams = window.attributes
-            layoutParams.height = mHeigth
+            layoutParams.height = mHeight
             layoutParams.width = mWidth
             window.attributes = layoutParams
         }

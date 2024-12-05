@@ -71,5 +71,6 @@
         </Options>
       </option>
     </inspection_tool>
+    <inspection_tool class="ReadWriteStringCanBeUsed" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

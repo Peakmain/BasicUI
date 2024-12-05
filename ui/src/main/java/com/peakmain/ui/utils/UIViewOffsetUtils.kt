@@ -111,4 +111,5 @@ class UIViewOffsetUtils(var mView: View) {
     fun isVerticalOffsetEnabled(): Boolean {
         return mVerticalOffsetEnabled
     }
+
 }
