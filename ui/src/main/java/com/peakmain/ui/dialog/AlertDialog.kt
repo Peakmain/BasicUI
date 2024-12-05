@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.peakmain.ui.R
+import com.peakmain.ui.ext.addOnGlobalLayoutListener
 import com.peakmain.ui.utils.SizeUtils
 
 /**
@@ -76,9 +77,6 @@ class AlertDialog : Dialog {
             dialog.setOnDismissListener(P.mOnDismissListener)
             if (P.mOnKeyListener != null) {
                 dialog.setOnKeyListener(P.mOnKeyListener)
-            }
-            if (P.mMaxHeight > 0) {
-                setDialogMaxHeight(dialog, P.mMaxHeight)
             }
             mDialog = dialog
             return dialog
@@ -226,25 +224,6 @@ class AlertDialog : Dialog {
             )
         }
 
-        fun setDialogMaxHeight(dialog: AlertDialog?, maxHeight: Double) {
-            val dialogView = dialog?.findViewById<ViewGroup>(android.R.id.content)
-
-            dialogView?.let {
-                // 测量内容高度
-                it.measure(
-                    View.MeasureSpec.makeMeasureSpec(it.width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                )
-                val contentHeight = it.measuredHeight
-
-                // 比较测量高度与最大高度
-                val newHeight = contentHeight.coerceAtMost(maxHeight.toInt())
-                // 设置新的高度
-                val layoutParams = it.layoutParams
-                layoutParams.height = newHeight
-                it.layoutParams = layoutParams
-            }
-        }
     }
 
 

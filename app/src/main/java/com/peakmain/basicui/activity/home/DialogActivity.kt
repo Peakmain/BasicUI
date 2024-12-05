@@ -7,6 +7,7 @@ import com.peakmain.basicui.R
 import com.peakmain.basicui.base.BaseActivity
 import com.peakmain.basicui.view.RadioCancelButton
 import com.peakmain.ui.dialog.AlertDialog
+import com.peakmain.ui.utils.SizeUtils
 import com.peakmain.ui.utils.ToastUtils
 import com.peakmain.ui.widget.ShapeTextView
 
@@ -78,6 +79,9 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
         )
         val builder = AlertDialog.Builder(this)
             .setContentView(R.layout.dialog_show)
+            .setText(R.id.tv_text,
+                "中国中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客中国第七十降级的计算机视觉是是是几点到几点觉得二级额监控软件恶客")
+            .setMaxHeight(SizeUtils.screenHeight*0.8)
             .setOnClickListener(
                 R.id.tv_save_image
             ) { ToastUtils.showShort("保存图片成功") }
@@ -94,7 +98,8 @@ class DialogActivity : BaseActivity(), View.OnClickListener {
         if (radioSetFromBottomChecked) {
             builder.fromBottom(radioSetFromBottomChecked)
         }
-        val dialog = builder.show()
+        val dialog = builder.create()
+        dialog.show()
         dialog.setOnClickListener(R.id.tv_cancel, View.OnClickListener { dialog.dismiss() })
     }
 }

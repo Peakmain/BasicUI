@@ -2,11 +2,14 @@ package com.peakmain.ui.dialog
 
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Build.VERSION_CODES.P
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
+import com.peakmain.ui.utils.SizeUtils.screenHeight
 
 /**
  * author peakmain
@@ -117,7 +120,22 @@ class AlertController(val dialog: AlertDialog, val window: Window) {
             }
             //set width and height
             val layoutParams = window.attributes
-            layoutParams.height = mHeight
+            if(mMaxHeight>0){
+                when (layoutParams.height) {
+                    WindowManager.LayoutParams.MATCH_PARENT -> {
+                        layoutParams.height = screenHeight.coerceAtMost(mMaxHeight.toInt());  // 如果是MATCH_PARENT，设置为屏幕高度和最大高度的较小值
+                    }
+                    WindowManager.LayoutParams.WRAP_CONTENT -> {
+                        layoutParams.height = screenHeight.coerceAtMost(mMaxHeight.toInt()) // 可以加一个最大值限制
+                    }
+                    else -> {
+                        // 如果不是MATCH_PARENT或WRAP_CONTENT，直接设置最大高度
+                        layoutParams.height = layoutParams.height.coerceAtMost(mMaxHeight.toInt())
+                    }
+                }
+            }else{
+                layoutParams.height = mHeight
+            }
             layoutParams.width = mWidth
             window.attributes = layoutParams
         }
