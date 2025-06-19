@@ -224,7 +224,7 @@
     <declare-styleable name="customKeyboardView">
         <attr name="ckExtraKey" format="string" />
         <attr name="ckDecimalPlaces" format="integer" />
-        <attr name="ckShowKeyBroad" format="boolean"/>
+        <attr name="ckShowKeyBroad" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="CrumbView">
@@ -235,6 +235,7 @@
     <declare-styleable name="ListMenuView">
         <attr name="duration" format="integer" />
         <attr name="shadowColor" format="color" />
-        <attr name="subMenuViewId" format="reference"/>
+        <attr name="subMenuViewId" format="reference" />
+        <attr name="maxHeightPercent" format="integer"  />
     </declare-styleable>
 </resources>

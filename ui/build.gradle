@@ -46,6 +46,7 @@ android {
         pickFirst 'lib/armeabi-v7a/libjpeg.so'
         pickFirst 'lib/x86/libjpeg.so'
     }
+    ndkVersion '27.0.12077973'
 }
 
 dependencies {

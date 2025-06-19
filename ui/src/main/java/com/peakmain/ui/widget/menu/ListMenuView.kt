@@ -37,6 +37,7 @@ class ListMenuView @JvmOverloads constructor(
     //头部下的View
     private var mSubMenuView: View? = null
     private var mSubMenuViewId: Int = 0
+    private var mHeightPercent: Int = 75
 
 
     // 1.2 创建 FrameLayout 用来存放 = 内容区+阴影（View） + 菜单内容布局(FrameLayout)
@@ -65,6 +66,12 @@ class ListMenuView @JvmOverloads constructor(
         mDurationTime = ta.getInt(R.styleable.ListMenuView_duration, mDurationTime)
         mShadowColor = ta.getColor(R.styleable.ListMenuView_shadowColor, mShadowColor)
         mSubMenuViewId = ta.getResourceId(R.styleable.ListMenuView_subMenuViewId, mSubMenuViewId)
+        mHeightPercent = ta.getInt(R.styleable.ListMenuView_maxHeightPercent, mHeightPercent)
+        if (mHeightPercent > 100) {
+            mHeightPercent = 100
+        } else if (mHeightPercent < 0) {
+            mHeightPercent = 75
+        }
         if (mSubMenuViewId != 0) {
             mSubMenuView =
                 LayoutInflater.from(context).inflate(mSubMenuViewId, this, false)
@@ -108,7 +115,7 @@ class ListMenuView @JvmOverloads constructor(
             setBackgroundColor(Color.WHITE)
             mMenuMiddleView!!.addView(this)
             val mMenuParams = layoutParams
-            mMenuContainerHeight = (SizeUtils.screenHeight * 75f / 100).toInt()
+            mMenuContainerHeight = (SizeUtils.screenHeight * mHeightPercent / 100f).toInt()
             mMenuParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             layoutParams = mMenuParams
             translationY = -mMenuParams.height.toFloat()
