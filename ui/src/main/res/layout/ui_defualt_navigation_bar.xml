@@ -23,6 +23,7 @@
             android:textColor="@android:color/white"
             android:gravity="center"
             android:text="@string/app_name"
+            android:fontFamily="sans-serif-medium"
             android:layout_gravity="center" />
         <ImageView
             android:id="@+id/iv_right"

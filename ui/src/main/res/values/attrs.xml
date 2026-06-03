@@ -238,16 +238,4 @@
         <attr name="subMenuViewId" format="reference" />
         <attr name="maxHeightPercent" format="integer"  />
     </declare-styleable>
-
-    <declare-styleable name="Cookie">
-        <attr name="cookieTitleColor" format="color" />
-        <attr name="cookieMessageColor" format="color" />
-        <attr name="cookieActionColor" format="color" />
-        <attr name="cookieBackgroundColor" format="color" />
-
-        <attr name="cookieTitleSize" format="dimension" />
-        <attr name="cookieMessageSize" format="dimension" />
-        <attr name="cookieActionSize" format="dimension" />
-        <attr name="cookiePadding" format="dimension" />
-    </declare-styleable>
 </resources>

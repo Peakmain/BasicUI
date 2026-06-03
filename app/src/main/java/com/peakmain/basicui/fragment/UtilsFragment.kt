@@ -14,6 +14,7 @@ import com.peakmain.basicui.utils.ActivityUtil
 import com.peakmain.ui.dialog.AlertDialog
 import com.peakmain.ui.navigationbar.DefaultNavigationBar
 import com.peakmain.ui.recyclerview.listener.OnItemClickListener
+import com.peakmain.basicui.activity.utils.TopToastActivity
 import com.peakmain.ui.utils.BitmapUtils
 
 /**
@@ -46,6 +47,7 @@ open class UtilsFragment : BaseFragmnet() {
         mUtilsBean.add("文本高亮工具类的封装")
         mUtilsBean.add("View创建Bitmap")
         mUtilsBean.add("Java异常测试")
+        mUtilsBean.add("顶部Toast提示")
         mAdapter = BaseRecyclerStringAdapter(context, mUtilsBean)
         mRecyclerView!!.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         mRecyclerView!!.adapter = mAdapter
@@ -64,6 +66,10 @@ open class UtilsFragment : BaseFragmnet() {
                         val bitmap = BitmapUtils.createBitmapFromView(getRootView())
                         imageView?.setImageBitmap(bitmap)
                     }
+                    4 -> {
+                        // Java异常测试，暂不处理
+                    }
+                    5 -> ActivityUtil.gotoActivity(context, TopToastActivity::class.java)
                     else -> {
                     }
                 }

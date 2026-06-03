@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.peakmain.ui.widget.ShapeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cookie"
+    android:id="@+id/toast_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_toast_tips"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/dimen_24"
-    android:paddingTop="@dimen/dimen_72"
-    android:paddingBottom="@dimen/dimen_16">
+    android:paddingTop="@dimen/dimen_16"
+    android:paddingBottom="@dimen/dimen_16"
+    tools:background="@color/ui_color_1F401B"
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
-
-    <TextView
-        android:id="@+id/btn_action"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
-
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
+    app:shapeLlBottomLeftRadius="@dimen/dimen_8"
+    app:shapeLlBottomRightRadius="@dimen/dimen_8">
 
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFFFF"
+        android:layout_gravity="left"
         android:textSize="@dimen/font_size_14"
-        tools:text="提示：所有距离信息均为直线距离所有距离信息均为直线距离所有距离信息均为直线距离所有距离信息均为直线距离所有距离信息均为直线距离所有距离信息均为直线距离所有距离信息均为直线距离" />
-</RelativeLayout>
+        tools:text="提示：所有距离信息均为直线距离" />
+
+</com.peakmain.ui.widget.ShapeLinearLayout>

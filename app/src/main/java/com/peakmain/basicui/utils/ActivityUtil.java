@@ -109,7 +109,7 @@ public class ActivityUtil {
      * @param bundle  携带参数
      * @param code    回调code
      */
-    public static void gotoActivityReSult(Context context, Class<?> cls, Bundle bundle, int code) {
+    public static void gotoActivityResult(Context context, Class<?> cls, Bundle bundle, int code) {
         if (context != null) {
             Intent intent = new Intent();
             intent.setClass(context, cls);
